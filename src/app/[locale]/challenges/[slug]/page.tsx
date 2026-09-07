@@ -6,6 +6,7 @@ import { BalloonString } from "@/app/_components/balloon-string";
 import { ChallengeActions } from "@/app/_components/challenge-actions";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { WorkflowNodeTile } from "@/app/_components/workflow-node-tile";
 import {
   challengePageCopy,
   challenges,
@@ -105,18 +106,6 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
           </ul>
         </article>
 
-        <article className="challenge-support-card challenge-nodes-card">
-          <p className="section-kicker">{labels.nodes}</p>
-          <ul className="challenge-node-list">
-            {content.nodes.map((node) => (
-              <li key={node}>
-                <span aria-hidden="true" />
-                <strong>{node}</strong>
-              </li>
-            ))}
-          </ul>
-        </article>
-
         <article className="challenge-support-card challenge-preparation-card">
           <p className="section-kicker">{labels.preparation}</p>
           <ol className="challenge-preparation-list">
@@ -127,6 +116,15 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
               </li>
             ))}
           </ol>
+        </article>
+
+        <article className="challenge-support-card challenge-nodes-card">
+          <p className="section-kicker">{labels.nodes}</p>
+          <ul className="challenge-node-list">
+            {content.nodes.map((node) => (
+              <WorkflowNodeTile key={node} name={node} />
+            ))}
+          </ul>
         </article>
 
         <article className="challenge-requirements-card">

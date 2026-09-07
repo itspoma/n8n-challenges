@@ -164,6 +164,10 @@ Design and implementation notes for these capabilities are preserved in [DEFERRE
 - `npm run lint`, `npm run typecheck`, and `npm run build` pass.
 - The production output contains no API route and requires no environment variables.
 
-## 10. Deferred product archive
+## 10. Future interface TODOs
+
+- [ ] Make every n8n-style node tile on a challenge page clickable and open an accessible details modal. The modal should explain what the node does, why the challenge uses it, any important setup or credentials, and link to the official node documentation. Keep the node information in version-controlled content so contributors can update it through pull requests.
+
+## 11. Deferred product archive
 
 The earlier full-platform plan—including the removed dynamic events implementation, leaderboard, team access, real submission handling, Resend/n8n integration, database model, projector, AI verification, and Ably chat—is intentionally retained in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md). It is reference material, not committed roadmap scope.

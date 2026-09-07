@@ -1660,56 +1660,126 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .challenge-node-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 24px 18px;
 }
 
-.challenge-node-list li {
+.challenge-node-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 13px;
-  min-height: 52px;
-  padding: 10px 16px 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.035);
+  gap: 11px;
+  min-width: 0;
+  text-align: center;
 }
 
-.challenge-node-list li > span {
+.n8n-node {
   position: relative;
-  display: block;
-  width: 29px;
-  height: 29px;
-  border: 1px solid rgba(234, 75, 113, 0.55);
-  border-radius: 8px;
-  background: rgba(234, 75, 113, 0.12);
+  display: grid;
+  width: 92px;
+  height: 82px;
+  place-items: center;
+  border: 3px solid #43a36b;
+  border-radius: 16px;
+  background: #29252d;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18), 0 0 0 6px rgba(218, 223, 231, 0.16);
 }
 
-.challenge-node-list li > span::before,
-.challenge-node-list li > span::after {
+.n8n-node-port {
   position: absolute;
   top: 50%;
-  width: 6px;
-  height: 6px;
-  border: 2px solid var(--pink);
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  border: 0;
   border-radius: 50%;
-  background: var(--surface-soft);
-  content: "";
+  background: #7d828c;
+  box-shadow: 0 1px 2px rgba(4, 5, 6, 0.28);
   transform: translateY(-50%);
 }
 
-.challenge-node-list li > span::before {
-  left: -4px;
+.n8n-node-port-input {
+  left: -9px;
 }
 
-.challenge-node-list li > span::after {
-  right: -4px;
+.n8n-node-port-output {
+  right: -9px;
 }
 
-.challenge-node-list strong {
-  font-size: 1rem;
+.n8n-node-glyph {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: #f4f0f3;
+}
+
+.n8n-node-glyph svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.5;
+}
+
+.n8n-node-webhook .n8n-node-glyph {
+  color: var(--pink-deep);
+}
+
+.n8n-node-webhook .n8n-node-glyph circle {
+  fill: #f4f0f3;
+  stroke: #f4f0f3;
+}
+
+.n8n-node-trigger .n8n-node-glyph {
+  color: #f36f56;
+}
+
+.n8n-node-trigger .n8n-node-glyph svg,
+.n8n-node-ai .n8n-node-glyph svg,
+.n8n-node-integration .n8n-node-glyph svg {
+  fill: currentColor;
+  stroke-width: 2.6;
+}
+
+.n8n-node-ai .n8n-node-glyph {
+  color: #8c65c5;
+}
+
+.n8n-node-decision .n8n-node-glyph {
+  color: #627825;
+}
+
+.n8n-node-data .n8n-node-glyph {
+  color: #447eb7;
+}
+
+.n8n-node-integration .n8n-node-glyph {
+  color: #d8d3d8;
+}
+
+.n8n-node-check {
+  position: absolute;
+  right: 6px;
+  bottom: 5px;
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: #43a36b;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.challenge-node-item strong {
+  max-width: 130px;
+  font-size: 0.96rem;
   font-weight: 650;
+  line-height: 1.25;
 }
 
 .challenge-preparation-list {
@@ -1856,8 +1926,8 @@ html[data-theme="light"] .theme-icon-moon {
   height: 52px;
   margin-bottom: 25px;
   border-radius: 50%;
-  background: rgba(169, 217, 108, 0.16);
-  color: var(--green);
+  background: rgba(155, 131, 215, 0.16);
+  color: var(--purple);
   font-size: 1.25rem;
   font-weight: 700;
 }
@@ -3317,14 +3387,45 @@ html[data-theme="light"] .challenge-requirements-card li {
   background: #fff7fa;
 }
 
-html[data-theme="light"] .challenge-node-list li,
 html[data-theme="light"] .challenge-preparation-list li {
   background: #fff7fa;
 }
 
-html[data-theme="light"] .challenge-node-list li > span::before,
-html[data-theme="light"] .challenge-node-list li > span::after {
-  background: #fff7fa;
+html[data-theme="light"] .n8n-node {
+  background: #ffffff;
+}
+
+html[data-theme="light"] .n8n-node-glyph {
+  color: #26343a;
+}
+
+html[data-theme="light"] .n8n-node-webhook .n8n-node-glyph {
+  color: var(--pink-deep);
+}
+
+html[data-theme="light"] .n8n-node-webhook .n8n-node-glyph circle {
+  fill: #26343a;
+  stroke: #26343a;
+}
+
+html[data-theme="light"] .n8n-node-trigger .n8n-node-glyph {
+  color: #f36f56;
+}
+
+html[data-theme="light"] .n8n-node-ai .n8n-node-glyph {
+  color: #8c65c5;
+}
+
+html[data-theme="light"] .n8n-node-decision .n8n-node-glyph {
+  color: #627825;
+}
+
+html[data-theme="light"] .n8n-node-data .n8n-node-glyph {
+  color: #447eb7;
+}
+
+html[data-theme="light"] .n8n-node-integration .n8n-node-glyph {
+  color: #56616a;
 }
 
 html[data-theme="light"] .challenge-preparation-list li > span {
