@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 import { HomePage } from "@/app/_components/home-page";
-import { homeCopy, isLocale, locales } from "@/lib/home-copy";
+import { isLocale, locales } from "@/lib/home-copy";
+import { createLocalizedMetadata, getHomeMetadata } from "@/lib/site-metadata";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -12,25 +13,24 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: PageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { locale } = await params;
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   if (!isLocale(locale)) {
     return {};
   }
 
-  return {
-    title: { absolute: `${homeCopy[locale].metadataTitle} · n8n Balloon Challenges` },
-    description: homeCopy[locale].intro,
-    alternates: {
-      languages: {
-        en: `${basePath}/en`,
-        es: `${basePath}/es`,
-        uk: `${basePath}/uk`,
-      },
-    },
-  };
+  const copy = getHomeMetadata(locale);
+
+  return createLocalizedMetadata({
+    locale,
+    title: copy.title,
+    description: copy.description,
+    images: (await parent).openGraph?.images,
+  });
 }
 
 export default async function LocaleHomePage({ params }: PageProps) {

@@ -4,16 +4,17 @@ import type { ReactNode } from "react";
 
 import { geomanist } from "@/app/fonts";
 import { isLocale, locales } from "@/lib/home-copy";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
 
 import "../globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: SITE_URL,
   title: {
-    default: "n8n Balloon Challenges",
-    template: "%s · n8n Balloon Challenges",
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "Choose an n8n challenge, build a working automation, and collect a balloon with your team.",
+  description: SITE_DESCRIPTION,
 };
 
 export const viewport: Viewport = {

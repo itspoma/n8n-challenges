@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
 export default function Page() {
   const target = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/en`;
 

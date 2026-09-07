@@ -58,6 +58,7 @@ export function BrandLogo({
 
 export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeaderProps) {
   const copy = homeCopy[locale];
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
     <header className="site-header">
@@ -84,13 +85,13 @@ export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeader
             {locales.map((option, index) => (
               <span className="locale-switch-option" key={option}>
                 {index > 0 ? <span aria-hidden="true">/</span> : null}
-                <Link
+                <a
                   aria-current={locale === option ? "page" : undefined}
                   className={locale === option ? "active" : undefined}
-                  href={`/${option}${languagePath}`}
+                  href={`${basePath}/${option}${languagePath}`}
                 >
                   {localeLabels[option]}
-                </Link>
+                </a>
               </span>
             ))}
           </div>

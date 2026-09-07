@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -6,6 +6,7 @@ import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { events, eventsPageCopy, formatEventDate } from "@/lib/events";
 import { homeCopy, isLocale, locales } from "@/lib/home-copy";
+import { createLocalizedMetadata } from "@/lib/site-metadata";
 
 type EventsPageProps = {
   params: Promise<{ locale: string }>;
@@ -15,25 +16,23 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params }: EventsPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: EventsPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { locale } = await params;
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   if (!isLocale(locale)) return {};
 
   const copy = eventsPageCopy[locale];
 
-  return {
+  return createLocalizedMetadata({
+    locale,
+    suffix: "/events",
     title: copy.metadataTitle,
     description: copy.metadataDescription,
-    alternates: {
-      languages: {
-        en: `${basePath}/en/events`,
-        es: `${basePath}/es/events`,
-        uk: `${basePath}/uk/events`,
-      },
-    },
-  };
+    images: (await parent).openGraph?.images,
+  });
 }
 
 export default async function EventsPage({ params }: EventsPageProps) {

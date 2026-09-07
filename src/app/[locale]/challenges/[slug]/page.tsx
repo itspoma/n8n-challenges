@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
@@ -15,6 +15,7 @@ import {
   getChallenge,
 } from "@/lib/challenges";
 import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
+import { createLocalizedMetadata } from "@/lib/site-metadata";
 
 type ChallengePageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -85,10 +86,12 @@ export function generateStaticParams() {
   return locales.flatMap((locale) => challenges.map((challenge) => ({ locale, slug: challenge.slug })));
 }
 
-export async function generateMetadata({ params }: ChallengePageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: ChallengePageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { locale, slug } = await params;
   const challenge = getChallenge(slug);
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   if (!isLocale(locale) || !challenge) {
     return {};
@@ -96,17 +99,13 @@ export async function generateMetadata({ params }: ChallengePageProps): Promise<
 
   const content = challenge.copy[locale];
 
-  return {
+  return createLocalizedMetadata({
+    locale,
+    suffix: `/challenges/${slug}`,
     title: content.title,
     description: content.summary,
-    alternates: {
-      languages: {
-        en: `${basePath}/en/challenges/${slug}`,
-        es: `${basePath}/es/challenges/${slug}`,
-        uk: `${basePath}/uk/challenges/${slug}`,
-      },
-    },
-  };
+    images: (await parent).openGraph?.images,
+  });
 }
 
 export default async function ChallengePage({ params }: ChallengePageProps) {
