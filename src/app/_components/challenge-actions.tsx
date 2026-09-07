@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { useCallback, useRef, useSyncExternalStore } from "react";
 
 import type { ChallengePageLabels } from "@/lib/challenges";
@@ -15,6 +16,26 @@ type ChallengeActionsProps = {
 const TIP_PROGRESS_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-tips:v1:";
 const TIP_PROGRESS_EVENT = "n8n-balloon-challenges:tip-progress";
 const fallbackTipProgress = new Map<string, number>();
+const CONFETTI_COLORS = [
+  "var(--pink)",
+  "var(--yellow)",
+  "var(--blue)",
+  "var(--green)",
+  "var(--purple)",
+  "var(--white)",
+];
+const CONFETTI_PIECES = Array.from({ length: 56 }, (_, index) => ({
+  id: index,
+  style: {
+    "--confetti-color": CONFETTI_COLORS[index % CONFETTI_COLORS.length],
+    "--confetti-delay": `${(index % 10) * 24}ms`,
+    "--confetti-left": `${38 + ((index * 17) % 25)}%`,
+    "--confetti-x": `${-260 + ((index * 89) % 520)}px`,
+    "--confetti-y": `${150 + ((index * 47) % 250)}px`,
+    "--confetti-rotation": `${-540 + ((index * 71) % 1080)}deg`,
+    "--confetti-scale": `${0.7 + (index % 4) * 0.12}`,
+  } as CSSProperties,
+}));
 
 function clampTipCount(value: number, totalTips: number) {
   return Math.min(Math.max(value, 0), totalTips);
@@ -132,6 +153,11 @@ export function ChallengeActions({
 
       <dialog className="review-dialog" ref={dialogRef} aria-labelledby="review-dialog-title">
         <div className="review-dialog-inner">
+          <div className="review-dialog-confetti" aria-hidden="true">
+            {CONFETTI_PIECES.map(({ id, style }) => (
+              <span className="review-dialog-confetti-piece" key={id} style={style} />
+            ))}
+          </div>
           <form method="dialog">
             <button className="review-dialog-close" type="submit" aria-label={labels.modalDismiss}>
               ×

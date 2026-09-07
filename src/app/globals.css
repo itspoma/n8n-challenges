@@ -2525,7 +2525,66 @@ html[data-theme="light"] .theme-icon-moon {
 
 .review-dialog-inner {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 48px 44px 38px;
+}
+
+.review-dialog-confetti {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.review-dialog-confetti-piece {
+  position: absolute;
+  top: -20px;
+  left: var(--confetti-left);
+  width: 8px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--confetti-color);
+  opacity: 0;
+  transform-origin: center;
+}
+
+.review-dialog[open] .review-dialog-confetti-piece {
+  animation: review-confetti-burst 1.8s cubic-bezier(0.16, 0.74, 0.34, 1) both;
+  animation-delay: var(--confetti-delay);
+}
+
+.review-dialog-confetti-piece:nth-child(3n) {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.review-dialog-confetti-piece:nth-child(4n) {
+  width: 6px;
+  height: 18px;
+}
+
+@keyframes review-confetti-burst {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -18px, 0) rotate(0deg) scale(var(--confetti-scale));
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--confetti-x), var(--confetti-y), 0)
+      rotate(var(--confetti-rotation)) scale(var(--confetti-scale));
+  }
 }
 
 .review-dialog-close {
@@ -4916,6 +4975,10 @@ html[data-theme="light"] .collection-balloon-string {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .review-dialog-confetti {
+    display: none;
+  }
+
   *,
   *::before,
   *::after {
