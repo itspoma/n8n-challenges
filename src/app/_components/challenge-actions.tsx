@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { useCallback, useRef, useSyncExternalStore } from "react";
@@ -16,6 +17,9 @@ type ChallengeActionsProps = {
 const TIP_PROGRESS_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-tips:v1:";
 const TIP_PROGRESS_EVENT = "n8n-balloon-challenges:tip-progress";
 const fallbackTipProgress = new Map<string, number>();
+const SOLUTION_REVEAL_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-solution:v1:";
+const SOLUTION_REVEAL_EVENT = "n8n-balloon-challenges:solution-reveal";
+const fallbackSolutionReveal = new Set<string>();
 const CONFETTI_COLORS = [
   "var(--pink)",
   "var(--yellow)",
@@ -71,13 +75,39 @@ function getServerTipProgress() {
   return 0;
 }
 
+function readSolutionReveal(storageKey: string) {
+  try {
+    if (window.localStorage.getItem(storageKey) === "true") {
+      return true;
+    }
+  } catch {}
+
+  return fallbackSolutionReveal.has(storageKey);
+}
+
+function writeSolutionReveal(storageKey: string) {
+  fallbackSolutionReveal.add(storageKey);
+
+  try {
+    window.localStorage.setItem(storageKey, "true");
+  } catch {}
+
+  window.dispatchEvent(new Event(SOLUTION_REVEAL_EVENT));
+}
+
+function getServerSolutionReveal() {
+  return false;
+}
+
 export function ChallengeActions({
   challengeSlug,
   labels,
   tips,
   nextChallengeHref,
 }: ChallengeActionsProps) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const storageKey = `${TIP_PROGRESS_STORAGE_PREFIX}${challengeSlug}`;
+  const solutionStorageKey = `${SOLUTION_REVEAL_STORAGE_PREFIX}${challengeSlug}`;
   const subscribeToTipProgress = useCallback(
     (onStoreChange: () => void) => {
       function handleStorage(event: StorageEvent) {
@@ -105,41 +135,119 @@ export function ChallengeActions({
     getTipProgress,
     getServerTipProgress,
   );
+  const subscribeToSolutionReveal = useCallback(
+    (onStoreChange: () => void) => {
+      function handleStorage(event: StorageEvent) {
+        if (event.key === solutionStorageKey) {
+          onStoreChange();
+        }
+      }
+
+      window.addEventListener("storage", handleStorage);
+      window.addEventListener(SOLUTION_REVEAL_EVENT, onStoreChange);
+
+      return () => {
+        window.removeEventListener("storage", handleStorage);
+        window.removeEventListener(SOLUTION_REVEAL_EVENT, onStoreChange);
+      };
+    },
+    [solutionStorageKey],
+  );
+  const getSolutionReveal = useCallback(
+    () => readSolutionReveal(solutionStorageKey),
+    [solutionStorageKey],
+  );
+  const isSolutionExpanded = useSyncExternalStore(
+    subscribeToSolutionReveal,
+    getSolutionReveal,
+    getServerSolutionReveal,
+  );
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const solutionDialogRef = useRef<HTMLDialogElement>(null);
   const allTipsVisible = visibleTips >= tips.length;
+  const hasSolution = challengeSlug === "webhook-welcome";
+  const solutionPanelId = `challenge-solution-${challengeSlug}`;
 
   function revealTip() {
     writeTipProgress(storageKey, Math.min(visibleTips + 1, tips.length));
   }
 
+  function requestSolutionReveal() {
+    solutionDialogRef.current?.showModal();
+  }
+
+  function revealSolution() {
+    writeSolutionReveal(solutionStorageKey);
+    solutionDialogRef.current?.close();
+  }
+
   return (
     <section id="challenge-actions" className="challenge-actions" aria-label={labels.hintsTitle}>
-      <article className="challenge-hints-card">
-        <div className="challenge-action-heading">
-          <div>
-            <p className="section-kicker">{labels.tip}</p>
-            <h2>{labels.hintsTitle}</h2>
+      <div className="challenge-actions-left">
+        <article className="challenge-hints-card">
+          <div className="challenge-action-heading">
+            <div>
+              <p className="section-kicker">{labels.tip}</p>
+              <h2>{labels.hintsTitle}</h2>
+            </div>
+            <span>{visibleTips}/{tips.length}</span>
           </div>
-          <span>{visibleTips}/{tips.length}</span>
-        </div>
-        <p>{labels.hintsBody}</p>
+          <p>{labels.hintsBody}</p>
 
-        {visibleTips > 0 ? (
-          <ol className="challenge-tips" aria-live="polite">
-            {tips.slice(0, visibleTips).map((tip, index) => (
-              <li key={tip}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <p>{tip}</p>
-              </li>
-            ))}
-          </ol>
+          {visibleTips > 0 ? (
+            <ol className="challenge-tips" aria-live="polite">
+              {tips.slice(0, visibleTips).map((tip, index) => (
+                <li key={tip}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{tip}</p>
+                </li>
+              ))}
+            </ol>
+          ) : null}
+
+          <button className="hint-button" type="button" onClick={revealTip} disabled={allTipsVisible}>
+            {allTipsVisible ? labels.allTips : visibleTips === 0 ? labels.firstTip : labels.nextTip}
+            <span aria-hidden="true">{allTipsVisible ? "✓" : "+"}</span>
+          </button>
+        </article>
+
+        {hasSolution ? (
+          <article className={`challenge-solution-card${isSolutionExpanded ? " is-expanded" : ""}`}>
+            <div className="challenge-solution-summary">
+              <div>
+                <p className="section-kicker">{labels.solution}</p>
+                <h2>{labels.solutionTitle}</h2>
+                <p>{labels.solutionBody}</p>
+              </div>
+              {!isSolutionExpanded ? (
+                <button
+                  className="challenge-solution-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={solutionPanelId}
+                  onClick={requestSolutionReveal}
+                >
+                  {labels.solutionExpand}
+                  <span aria-hidden="true">+</span>
+                </button>
+              ) : null}
+            </div>
+
+            {isSolutionExpanded ? (
+              <div className="challenge-solution-content" id={solutionPanelId}>
+                <Image
+                  src={`${basePath}/solutions/challenge-1-valencia-greeting-webhook.png`}
+                  width={2472}
+                  height={1389}
+                  sizes="(max-width: 1280px) 100vw, 700px"
+                  alt={labels.solutionImageAlt}
+                  unoptimized
+                />
+              </div>
+            ) : null}
+          </article>
         ) : null}
-
-        <button className="hint-button" type="button" onClick={revealTip} disabled={allTipsVisible}>
-          {allTipsVisible ? labels.allTips : visibleTips === 0 ? labels.firstTip : labels.nextTip}
-          <span aria-hidden="true">{allTipsVisible ? "✓" : "+"}</span>
-        </button>
-      </article>
+      </div>
 
       <article className="challenge-submit-card">
         <p className="section-kicker">{labels.submit}</p>
@@ -150,6 +258,42 @@ export function ChallengeActions({
           <span aria-hidden="true">→</span>
         </button>
       </article>
+
+      {hasSolution ? (
+        <dialog
+          className="solution-confirm-dialog"
+          ref={solutionDialogRef}
+          aria-labelledby="solution-confirm-title"
+          aria-describedby="solution-confirm-description"
+        >
+          <div className="solution-confirm-dialog-inner">
+            <form method="dialog">
+              <button
+                className="solution-confirm-dialog-close"
+                type="submit"
+                aria-label={labels.solutionDialogDismiss}
+              >
+                ×
+              </button>
+            </form>
+            <span className="solution-confirm-dialog-status" aria-hidden="true">?</span>
+            <p className="section-kicker">{labels.solution}</p>
+            <h2 id="solution-confirm-title">{labels.solutionConfirmTitle}</h2>
+            <p id="solution-confirm-description">{labels.solutionConfirmBody}</p>
+            <div className="solution-confirm-dialog-actions">
+              <form method="dialog">
+                <button className="solution-confirm-dialog-secondary" type="submit">
+                  {labels.solutionConfirmCancel}
+                </button>
+              </form>
+              <button type="button" onClick={revealSolution}>
+                {labels.solutionConfirmReveal}
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </dialog>
+      ) : null}
 
       <dialog className="review-dialog" ref={dialogRef} aria-labelledby="review-dialog-title">
         <div className="review-dialog-inner">

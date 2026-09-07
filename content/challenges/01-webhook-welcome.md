@@ -8,6 +8,220 @@ color: #fffdf6
 ink: #1b2427
 ---
 
+# Solution Data
+
+Internal reference for future solution features. This section is not displayed on the challenge page.
+
+## Core Workflow JSON (without bonus)
+
+```json
+{
+  "name": "Challenge 1 — Valencia Greeting Webhook (Core)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "welcome",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "3fe21232-2c51-4a44-bbdb-01168f8aa727",
+      "name": "GET /welcome",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "b8badcee-9896-43a6-9cff-e0bc7925ec91",
+      "notesInFlow": true,
+      "notes": "Receives a browser request at the welcome path."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "20bd7ee6-ecf4-44eb-9461-2aa4c489fc6a",
+              "name": "greeting",
+              "value": "Hello world from Valencia!",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5d24079-d404-470d-85bb-a47812b330eb",
+      "name": "Build greeting",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Sets the exact greeting required by the core task."
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.greeting }}",
+        "options": {}
+      },
+      "id": "13edabac-2027-4c93-9122-2e60aab43657",
+      "name": "Return greeting",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        560,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Sends the greeting back to the browser as readable text."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GET /welcome": {
+      "main": [
+        [
+          {
+            "node": "Build greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build greeting": {
+      "main": [
+        [
+          {
+            "node": "Return greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dc991dfd-6ee0-4530-823a-923005654d14",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
+```
+
+## Bonus Workflow JSON
+
+```json
+{
+  "name": "Challenge 1 — Valencia Greeting Webhook (Bonus)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "welcome",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "2ef53189-a521-47ce-8d5d-a8f8996be794",
+      "name": "GET /welcome",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "bde464a1-f313-486a-aac9-d76029cf119b",
+      "notesInFlow": true,
+      "notes": "Receives a browser request. Try the URL with no query parameter, or add ?name=Ana for the bonus task."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6be3d94b-0dc6-43aa-8d31-567d655953aa",
+              "name": "greeting",
+              "value": "={{ 'Hello ' + ($json.query.name || 'world') + ' from Valencia!' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "105ae1c6-2f1f-4f84-9701-a08f3ac57937",
+      "name": "Build greeting",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        280,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Uses the optional name query parameter and falls back to world."
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.greeting }}",
+        "options": {}
+      },
+      "id": "99349166-fe5b-4d37-8bfd-a7a33f82f858",
+      "name": "Return greeting",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        560,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Sends the greeting back to the browser as readable text."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GET /welcome": {
+      "main": [
+        [
+          {
+            "node": "Build greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build greeting": {
+      "main": [
+        [
+          {
+            "node": "Return greeting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3da18f8d-93d6-45dc-a34c-5f1302ed5192",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
+```
+
 # English
 
 ## Title

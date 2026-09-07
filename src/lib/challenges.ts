@@ -76,6 +76,16 @@ export type ChallengePageLabels = {
   reviewTitle: string;
   reviewBody: string;
   submit: string;
+  solution: string;
+  solutionTitle: string;
+  solutionBody: string;
+  solutionExpand: string;
+  solutionConfirmTitle: string;
+  solutionConfirmBody: string;
+  solutionConfirmCancel: string;
+  solutionConfirmReveal: string;
+  solutionDialogDismiss: string;
+  solutionImageAlt: string;
   modalEyebrow: string;
   modalTitle: string;
   modalBody: string;
@@ -110,6 +120,18 @@ export const challengePageCopy = {
     reviewTitle: "Ready to submit?",
     reviewBody: "Submit when your team has a working workflow to demonstrate.",
     submit: "Submit as solved",
+    solution: "Solution",
+    solutionTitle: "See the workflow challenge answer",
+    solutionBody: "Reveal the completed workflow only when you are ready to compare it with your own.",
+    solutionExpand: "Expand solution",
+    solutionConfirmTitle: "Reveal the workflow solution?",
+    solutionConfirmBody:
+      "This will show the completed workflow for this challenge. Are you sure you want to continue?",
+    solutionConfirmCancel: "Not yet",
+    solutionConfirmReveal: "Yes, show solution",
+    solutionDialogDismiss: "Close confirmation",
+    solutionImageAlt:
+      "Challenge 1 solution workflow: GET welcome webhook, build greeting, then return greeting",
     modalEyebrow: "Mentor review",
     modalTitle: "Find a mentor and ask them to review.",
     modalBody: "Show them your working workflow. Once they approve it, collect the balloon for this challenge.",
@@ -142,6 +164,18 @@ export const challengePageCopy = {
     reviewTitle: "¿Listo para enviar?",
     reviewBody: "Envía el reto cuando el equipo tenga un workflow funcional que mostrar.",
     submit: "Enviar como resuelto",
+    solution: "Solución",
+    solutionTitle: "Ver la respuesta del reto de workflow",
+    solutionBody: "Muestra el workflow completo solo cuando quieras compararlo con el tuyo.",
+    solutionExpand: "Mostrar solución",
+    solutionConfirmTitle: "¿Mostrar la solución del workflow?",
+    solutionConfirmBody:
+      "Esto mostrará el workflow completo de este reto. ¿Seguro que quieres continuar?",
+    solutionConfirmCancel: "Todavía no",
+    solutionConfirmReveal: "Sí, mostrar solución",
+    solutionDialogDismiss: "Cerrar confirmación",
+    solutionImageAlt:
+      "Workflow de solución del reto 1: webhook GET welcome, creación del saludo y devolución del saludo",
     modalEyebrow: "Revisión del mentor",
     modalTitle: "Busca a un mentor y pídele que revise tu workflow.",
     modalBody: "Muéstrale el workflow funcionando. Cuando lo apruebe, recoge el globo de este reto.",
@@ -174,6 +208,18 @@ export const challengePageCopy = {
     reviewTitle: "Готові показати результат?",
     reviewBody: "Надсилайте завдання, коли ваша команда матиме робочий воркфлоу для демонстрації.",
     submit: "Позначити як виконане",
+    solution: "Рішення",
+    solutionTitle: "Переглянути відповідь до завдання з воркфлоу",
+    solutionBody: "Відкривайте готовий воркфлоу лише тоді, коли захочете порівняти його зі своїм.",
+    solutionExpand: "Показати рішення",
+    solutionConfirmTitle: "Показати рішення воркфлоу?",
+    solutionConfirmBody:
+      "Це покаже готовий воркфлоу для цього завдання. Ви впевнені, що хочете продовжити?",
+    solutionConfirmCancel: "Ще ні",
+    solutionConfirmReveal: "Так, показати рішення",
+    solutionDialogDismiss: "Закрити підтвердження",
+    solutionImageAlt:
+      "Рішення для завдання 1: GET-вебхук welcome, створення привітання та повернення відповіді",
     modalEyebrow: "Перевірка ментором",
     modalTitle: "Знайдіть ментора й попросіть перевірити ваш воркфлоу.",
     modalBody: "Покажіть робочий воркфлоу. Після схвалення заберіть кульку за це завдання.",

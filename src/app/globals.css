@@ -2455,6 +2455,13 @@ html[data-theme="light"] .theme-icon-moon {
   grid-column: 1 / -1;
   grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
   gap: 18px;
+  align-items: start;
+}
+
+.challenge-actions-left {
+  display: grid;
+  min-width: 0;
+  gap: 18px;
 }
 
 .challenge-hints-card {
@@ -2470,6 +2477,7 @@ html[data-theme="light"] .theme-icon-moon {
 .challenge-submit-card {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   padding: 42px;
   border: 1px solid rgba(155, 131, 215, 0.36);
   border-radius: 24px;
@@ -2514,6 +2522,189 @@ html[data-theme="light"] .theme-icon-moon {
 .challenge-submit-card > button:hover {
   background: var(--pink-deep);
   transform: translateY(-2px);
+}
+
+.challenge-solution-card {
+  overflow: hidden;
+  padding: 42px;
+  border: 1px solid rgba(141, 206, 240, 0.28);
+  border-radius: 24px;
+  background: var(--surface-soft);
+}
+
+.challenge-solution-summary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.challenge-solution-summary h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.challenge-solution-summary > div > p:not(.section-kicker) {
+  max-width: 650px;
+  margin: 17px 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.challenge-solution-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1px solid rgba(234, 75, 113, 0.42);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pink-soft);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.challenge-solution-toggle:hover {
+  border-color: var(--pink);
+  background: transparent;
+  transform: translateY(-2px);
+}
+
+.challenge-solution-toggle > span {
+  font-size: 1.08rem;
+  line-height: 1;
+}
+
+.challenge-solution-content {
+  overflow: hidden;
+  margin-top: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+  background: #040506;
+  animation: challenge-solution-reveal 260ms ease-out both;
+}
+
+.challenge-solution-content img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@keyframes challenge-solution-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.solution-confirm-dialog {
+  width: min(540px, calc(100% - 28px));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface-raised);
+  color: var(--ink);
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.62);
+}
+
+.solution-confirm-dialog::backdrop {
+  background: rgba(4, 5, 6, 0.78);
+  backdrop-filter: blur(7px);
+}
+
+.solution-confirm-dialog-inner {
+  position: relative;
+  padding: 44px 42px 38px;
+}
+
+.solution-confirm-dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.solution-confirm-dialog-status {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  background: rgba(234, 75, 113, 0.14);
+  color: var(--pink-soft);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.solution-confirm-dialog h2 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.solution-confirm-dialog-inner > p:not(.section-kicker) {
+  margin: 19px 0 0;
+  color: var(--ink-soft);
+  font-size: 1.04rem;
+  line-height: 1.62;
+}
+
+.solution-confirm-dialog-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.solution-confirm-dialog-actions form {
+  display: contents;
+}
+
+.solution-confirm-dialog-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 20px;
+  border: 1px solid var(--pink);
+  border-radius: 999px;
+  background: var(--pink);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.solution-confirm-dialog-actions .solution-confirm-dialog-secondary {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink);
 }
 
 .review-dialog {
@@ -4191,6 +4382,11 @@ html[data-theme="light"] .challenge-submit-card {
     #f6effb;
 }
 
+html[data-theme="light"] .challenge-solution-toggle,
+html[data-theme="light"] .solution-confirm-dialog-status {
+  color: var(--pink-deep);
+}
+
 html[data-theme="light"] .join-card {
   border-color: rgba(216, 59, 97, 0.38);
   background: var(--pink);
@@ -4742,9 +4938,37 @@ html[data-theme="light"] .collection-balloon-string {
   .challenge-support-card,
   .challenge-requirements-card,
   .challenge-hints-card,
-  .challenge-submit-card {
+  .challenge-submit-card,
+  .challenge-solution-card {
     padding: 28px 22px;
     border-radius: 20px;
+  }
+
+  .challenge-solution-summary {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .challenge-solution-toggle {
+    width: 100%;
+  }
+
+  .challenge-solution-content {
+    margin-top: 26px;
+    border-radius: 14px;
+  }
+
+  .solution-confirm-dialog-inner {
+    padding: 38px 24px 26px;
+  }
+
+  .solution-confirm-dialog-actions {
+    flex-direction: column-reverse;
+  }
+
+  .solution-confirm-dialog-actions button {
+    width: 100%;
   }
 
   .challenge-glossary-card {
