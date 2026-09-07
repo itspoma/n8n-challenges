@@ -85,7 +85,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "View challenges",
     stats: [
       { value: "10", label: "hands-on challenges" },
-      { value: "3", label: "experience levels" },
+      { value: "30", label: "n8n nodes you'll learn" },
       { value: "7", label: "technical terms made simple" },
       { value: "2", label: "available languages" },
     ],
@@ -175,7 +175,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "Ver los retos",
     stats: [
       { value: "10", label: "retos prácticos" },
-      { value: "3", label: "niveles de experiencia" },
+      { value: "30", label: "nodos de n8n que aprenderás" },
       { value: "7", label: "términos técnicos explicados" },
       { value: "2", label: "idiomas disponibles" },
     ],
