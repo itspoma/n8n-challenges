@@ -1,14 +1,14 @@
 import type { NextConfig } from "next";
 
-const githubPagesBasePath = process.env.GITHUB_PAGES === "true" ? "/n8n-challenges" : "";
+const siteBasePath = process.env.SITE_BASE_PATH ?? "";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: githubPagesBasePath,
-  assetPrefix: githubPagesBasePath,
+  basePath: siteBasePath,
+  assetPrefix: siteBasePath,
   env: {
-    NEXT_PUBLIC_BASE_PATH: githubPagesBasePath,
+    NEXT_PUBLIC_BASE_PATH: siteBasePath,
   },
   images: {
     unoptimized: true,
