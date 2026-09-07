@@ -1,6 +1,6 @@
 # Event content
 
-This folder powers the static Events directory at `/en/events` and `/es/events`.
+This folder powers the static Events directory at `/en/events`, `/es/events`, and `/uk/events`.
 
 One merged Markdown file represents one public event. Event content is read and validated during `next build`, so the public directory does not need authentication, a database, email delivery, or webhooks.
 

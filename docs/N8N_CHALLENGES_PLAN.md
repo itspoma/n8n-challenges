@@ -2,13 +2,13 @@
 
 Status: active implementation plan
 
-Primary UI languages: English and Spanish
+Primary UI languages: English, Spanish, and Ukrainian
 
 Deployment target: static hosting, including GitHub Pages
 
 ## 1. Product summary
 
-n8n Balloon Challenges is a small bilingual learning website for a practical community workshop. Participants choose from 10 challenges, build workflows in their own n8n environment, reveal progressive tips when needed, and show completed work directly to an in-person mentor. The mentor awards the matching physical balloon.
+n8n Balloon Challenges is a small trilingual learning website for a practical community workshop. Participants choose from 10 challenges, build workflows in their own n8n environment, reveal progressive tips when needed, and show completed work directly to an in-person mentor. The mentor awards the matching physical balloon.
 
 The website is intentionally content-only. It does not identify participants, record progress, transmit submissions, notify mentors, or depend on a backend service. A challenge page may show a UI-only review confirmation to support the in-room mentor flow, but it does not send or store anything.
 
@@ -27,7 +27,7 @@ The website is intentionally content-only. It does not identify participants, re
 
 ## 3. Current pages and functionality
 
-All public routes use `/en` or `/es`. The language switch always displays `EN / ES` in that order.
+All public routes use `/en`, `/es`, or `/uk`. The language switch always displays `EN / ES / UK` in that order.
 
 ### Landing page — `/[locale]`
 
@@ -37,7 +37,7 @@ Functionality:
 
 - n8n Balloon Challenges branding.
 - Dark and light themes, with the chosen theme stored locally in the browser.
-- English and Spanish navigation.
+- English, Spanish, and Ukrainian navigation.
 - Short introduction and event summary.
 - Compact **How it works** sequence:
   1. Sign up for n8n Cloud.
@@ -56,7 +56,7 @@ Purpose: list public community events without introducing a backend or organizer
 
 Functionality:
 
-- English and Spanish page chrome.
+- English, Spanish, and Ukrainian page chrome.
 - One card per event loaded from `content/events/*.md` during the static build.
 - Event title, description, date, location, language, organizer, and public event link.
 - A contribution panel linking to the GitHub pull-request instructions.
@@ -92,7 +92,7 @@ Functionality:
 | Silver | Idealista Morning Apartment Brief | Advanced | Persistent state and deduplication |
 | Black | Mercadona MCP Shopping Assistant | Intermediate | MCP clients, agents, and grounded tools |
 
-The current top 10 is the selected challenge set for the static MVP. Alternative ideas and the source ideas promoted into this set are preserved in [CHALLENGE_IDEA_BACKLOG.md](CHALLENGE_IDEA_BACKLOG.md). Historical detailed definitions from the earlier platform plan remain in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md#6-challenge-candidate-pool-and-working-set). The implemented bilingual copy lives in `content/challenges/*.md` and is validated by `src/lib/challenges.ts`.
+The current top 10 is the selected challenge set for the static MVP. Alternative ideas and the source ideas promoted into this set are preserved in [CHALLENGE_IDEA_BACKLOG.md](CHALLENGE_IDEA_BACKLOG.md). Historical detailed definitions from the earlier platform plan remain in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md#6-challenge-candidate-pool-and-working-set). The implemented trilingual copy lives in `content/challenges/*.md` and is validated by `src/lib/challenges.ts`.
 
 ## 5. Content requirements
 
@@ -101,9 +101,9 @@ Every active challenge must contain:
 - Stable number and slug.
 - Difficulty and complexity.
 - Balloon color and readable text color.
-- English and Spanish title, summary, multiple example use cases, core task, bonus task, required nodes, preparation checklist, and requirements.
+- English, Spanish, and Ukrainian title, summary, multiple example use cases, core task, bonus task, required nodes, preparation checklist, and requirements.
 - A preparation checklist that identifies any account, installation, credential, fixture, or organizer-provided resource needed before building.
-- Exactly five progressive tips in both languages.
+- Exactly five progressive tips in all three languages.
 - Content parity between translations.
 
 The build should fail when required challenge content or a translation is missing.
@@ -153,10 +153,10 @@ Design and implementation notes for these capabilities are preserved in [DEFERRE
 
 ## 9. Acceptance criteria
 
-- `/en` and `/es` render successfully as static pages.
-- `/en/events` and `/es/events` render all validated event Markdown files.
+- `/en`, `/es`, and `/uk` render successfully as static pages.
+- `/en/events`, `/es/events`, and `/uk/events` render all validated event Markdown files.
 - All 10 challenge cards are visible and clickable.
-- All 20 localized challenge routes are generated at build time.
+- All 30 localized challenge routes are generated at build time.
 - Every challenge has exactly five sequential tips.
 - Language switching preserves the current challenge route.
 - Theme switching works on landing and challenge pages.

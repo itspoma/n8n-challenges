@@ -21,12 +21,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: locale === "en" ? "Welcome" : "Bienvenidos",
+    title: { absolute: `${homeCopy[locale].metadataTitle} · n8n Balloon Challenges` },
     description: homeCopy[locale].intro,
     alternates: {
       languages: {
         en: `${basePath}/en`,
         es: `${basePath}/es`,
+        uk: `${basePath}/uk`,
       },
     },
   };

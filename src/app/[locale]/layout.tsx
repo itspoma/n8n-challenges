@@ -1,20 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
-import "./globals.css";
+import { geomanist } from "@/app/fonts";
+import { isLocale, locales } from "@/lib/home-copy";
 
-const geomanist = localFont({
-  src: [
-    { path: "./fonts/geomanist-light.woff2", weight: "300", style: "normal" },
-    { path: "./fonts/geomanist-regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/geomanist-medium.woff2", weight: "500", style: "normal" },
-    { path: "./fonts/geomanist-bold.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-geomanist",
-  display: "swap",
-  fallback: ["Arial", "sans-serif"],
-});
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -31,10 +22,26 @@ export const viewport: Viewport = {
   themeColor: "#EA4B71",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: Readonly<{
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}>) {
+  const { locale } = await params;
+
+  if (!isLocale(locale)) {
+    notFound();
+  }
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={geomanist.variable}
       data-theme="dark"
       data-scroll-behavior="smooth"

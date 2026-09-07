@@ -20,7 +20,7 @@ ink: #ffffff
 ---
 ```
 
-The document body must contain both `# English` and `# Spanish`. Each language must have these second-level sections in this exact order:
+The document body must contain `# English`, `# Spanish`, and `# Ukrainian`. Each language must have these second-level sections in this exact order:
 
 ```markdown
 # English
@@ -65,6 +65,6 @@ One optional extension that builds on the completed core task.
 - Fifth, most specific tip.
 ```
 
-Repeat the same structure below `# Spanish`. Every challenge must include one `Bonus Task` in each language. `Scenario` must contain at least two example use cases. `Nodes` lists the n8n nodes participants should use. `Preparation` lists anything they need to sign up for, install, obtain, or prepare before building and supports inline links written as `[label](https://example.com)`. Never put API keys or other credentials in these files. Every challenge must have exactly five tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
+Repeat the same structure below `# Spanish` and `# Ukrainian`. Every challenge must include one `Bonus Task` in each language. `Scenario` must contain at least two example use cases. `Nodes` lists the n8n nodes participants should use. `Preparation` lists anything they need to sign up for, install, obtain, or prepare before building and supports inline links written as `[label](https://example.com)`. Never put API keys or other credentials in these files. Every challenge must have exactly five tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md#edit-a-challenge) for the pull-request workflow.

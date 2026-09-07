@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: EventsPageProps): Promise<Met
       languages: {
         en: `${basePath}/en/events`,
         es: `${basePath}/es/events`,
+        uk: `${basePath}/uk/events`,
       },
     },
   };

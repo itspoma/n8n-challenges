@@ -26,6 +26,7 @@ const webhookPattern = /\bwebhook\b/i;
 const webhookDefinitions: Record<Locale, string> = {
   en: "A webhook is a URL that starts a workflow when another app or browser sends data to it.",
   es: "Un webhook es una URL que inicia un workflow cuando otra aplicación o navegador le envía datos.",
+  uk: "Webhook — це URL, який запускає воркфлоу, коли інший застосунок або браузер надсилає на нього дані.",
 };
 
 function TaskWithGlossary({ text, locale }: { text: string; locale: Locale }) {
@@ -102,6 +103,7 @@ export async function generateMetadata({ params }: ChallengePageProps): Promise<
       languages: {
         en: `${basePath}/en/challenges/${slug}`,
         es: `${basePath}/es/challenges/${slug}`,
+        uk: `${basePath}/uk/challenges/${slug}`,
       },
     },
   };

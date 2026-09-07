@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ThemeToggle } from "@/app/_components/theme-toggle";
-import { homeCopy, type Locale } from "@/lib/home-copy";
+import { homeCopy, localeLabels, locales, type Locale } from "@/lib/home-copy";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -62,7 +62,7 @@ export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeader
   return (
     <header className="site-header">
       <div className="header-inner shell">
-        <Link className="brand" href={`/${locale}`} aria-label="n8n Balloon Challenges home">
+        <Link className="brand" href={`/${locale}`} aria-label={copy.accessibility.home}>
           <BrandLogo tone="white" priority themeAware />
           <span className="brand-divider" aria-hidden="true" />
           <strong className="event-name">balloon challenges</strong>
@@ -71,7 +71,7 @@ export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeader
         <nav className="desktop-nav" aria-label={copy.accessibility.primaryNavigation}>
           <Link className="nav-with-count" href={`/${locale}#challenge-map`}>
             {copy.nav.challenges}
-            <span className="nav-count" aria-label="10 challenges">10</span>
+            <span className="nav-count" aria-label={copy.accessibility.challengeCount}>10</span>
           </Link>
           <Link className={activePage === "events" ? "active" : undefined} href={`/${locale}/events`}>
             {copy.nav.events}
@@ -80,22 +80,19 @@ export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeader
         </nav>
 
         <div className="header-actions">
-          <div className="locale-switch" aria-label="Language selector">
-            <Link
-              aria-current={locale === "en" ? "page" : undefined}
-              className={locale === "en" ? "active" : undefined}
-              href={`/en${languagePath}`}
-            >
-              EN
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link
-              aria-current={locale === "es" ? "page" : undefined}
-              className={locale === "es" ? "active" : undefined}
-              href={`/es${languagePath}`}
-            >
-              ES
-            </Link>
+          <div className="locale-switch" aria-label={copy.accessibility.languageSelector}>
+            {locales.map((option, index) => (
+              <span className="locale-switch-option" key={option}>
+                {index > 0 ? <span aria-hidden="true">/</span> : null}
+                <Link
+                  aria-current={locale === option ? "page" : undefined}
+                  className={locale === option ? "active" : undefined}
+                  href={`/${option}${languagePath}`}
+                >
+                  {localeLabels[option]}
+                </Link>
+              </span>
+            ))}
           </div>
           <ThemeToggle locale={locale} />
         </div>

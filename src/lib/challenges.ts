@@ -44,6 +44,11 @@ export const difficultyLabels: Record<Locale, Record<ChallengeDifficulty, string
     intermediate: "Intermedio",
     advanced: "Avanzado",
   },
+  uk: {
+    beginner: "Початковий",
+    intermediate: "Середній",
+    advanced: "Просунутий",
+  },
 };
 
 export type ChallengePageLabels = {
@@ -144,6 +149,38 @@ export const challengePageCopy = {
     modalClose: "Seguir trabajando",
     modalNext: "Empezar el siguiente reto",
   },
+  uk: {
+    back: "Усі завдання",
+    edit: "Редагувати це завдання",
+    challenge: "Завдання",
+    complexity: "Складність",
+    time: "Час",
+    scenario: "Приклади використання",
+    task: "Ваше завдання",
+    bonusTask: "Додаткове завдання",
+    glossary: "Глосарій",
+    glossaryBody: "Технічні терміни простими словами",
+    nodes: "Необхідні ноди",
+    preparation: "Перед початком",
+    requirements: "Що має робити воркфлоу",
+    previous: "Попереднє завдання",
+    next: "Наступне завдання",
+    hintsTitle: "Потрібна підказка?",
+    hintsBody: "Відкривайте до п’яти підказок по одній.",
+    firstTip: "Показати першу підказку",
+    nextTip: "Показати наступну підказку",
+    allTips: "Усі підказки відкрито",
+    tip: "Підказка",
+    reviewTitle: "Готові показати результат?",
+    reviewBody: "Надсилайте завдання, коли ваша команда матиме робочий воркфлоу для демонстрації.",
+    submit: "Позначити як виконане",
+    modalEyebrow: "Перевірка ментором",
+    modalTitle: "Знайдіть ментора й попросіть перевірити ваш воркфлоу.",
+    modalBody: "Покажіть робочий воркфлоу. Після схвалення заберіть кульку за це завдання.",
+    modalDismiss: "Закрити діалог",
+    modalClose: "Продовжити роботу",
+    modalNext: "Почати наступне завдання",
+  },
 } satisfies Record<Locale, ChallengePageLabels>;
 
 const challengeDirectory = join(process.cwd(), "content", "challenges");
@@ -188,19 +225,19 @@ function parseMetadata(source: string, fileName: string) {
 }
 
 function splitLanguageSections(body: string, fileName: string) {
-  const parts = body.split(/^# (English|Spanish)\s*$/m);
-  const languages: Partial<Record<"English" | "Spanish", string>> = {};
+  const parts = body.split(/^# (English|Spanish|Ukrainian)\s*$/m);
+  const languages: Partial<Record<"English" | "Spanish" | "Ukrainian", string>> = {};
 
   for (let index = 1; index < parts.length; index += 2) {
-    const language = parts[index] as "English" | "Spanish";
+    const language = parts[index] as "English" | "Spanish" | "Ukrainian";
     languages[language] = parts[index + 1]?.trim() ?? "";
   }
 
-  if (!languages.English || !languages.Spanish) {
-    fail(fileName, "both # English and # Spanish sections are required");
+  if (!languages.English || !languages.Spanish || !languages.Ukrainian) {
+    fail(fileName, "# English, # Spanish, and # Ukrainian sections are required");
   }
 
-  return languages as Record<"English" | "Spanish", string>;
+  return languages as Record<"English" | "Spanish" | "Ukrainian", string>;
 }
 
 function parseSections(source: string, fileName: string, language: string) {
@@ -336,6 +373,7 @@ function parseChallenge(fileName: string): Challenge {
     copy: {
       en: parseTranslation(languages.English, fileName, "English"),
       es: parseTranslation(languages.Spanish, fileName, "Spanish"),
+      uk: parseTranslation(languages.Ukrainian, fileName, "Ukrainian"),
     },
   };
 }

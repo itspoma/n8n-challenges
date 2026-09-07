@@ -15,6 +15,10 @@ const labels = {
     dark: "Cambiar al tema oscuro",
     light: "Cambiar al tema claro",
   },
+  uk: {
+    dark: "Увімкнути темну тему",
+    light: "Увімкнути світлу тему",
+  },
 } satisfies Record<Locale, Record<Theme, string>>;
 
 function currentTheme(): Theme {

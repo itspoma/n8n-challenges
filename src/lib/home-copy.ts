@@ -1,17 +1,27 @@
-export const locales = ["en", "es"] as const;
+export const locales = ["en", "es", "uk"] as const;
 
 export type Locale = (typeof locales)[number];
+
+export const localeLabels = {
+  en: "EN",
+  es: "ES",
+  uk: "UK",
+} satisfies Record<Locale, string>;
 
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
 
 export type HomeCopy = {
+  metadataTitle: string;
   accessibility: {
     primaryNavigation: string;
     formatSummary: string;
     balloonCollection: string;
     backToTop: string;
+    home: string;
+    languageSelector: string;
+    challengeCount: string;
   };
   nav: {
     format: string;
@@ -66,11 +76,15 @@ export type HomeCopy = {
 
 export const homeCopy: Record<Locale, HomeCopy> = {
   en: {
+    metadataTitle: "Welcome",
     accessibility: {
       primaryNavigation: "Primary navigation",
       formatSummary: "Challenge format at a glance",
       balloonCollection: "The ten challenge balloons",
       backToTop: "Back to top",
+      home: "n8n Balloon Challenges home",
+      languageSelector: "Language selector",
+      challengeCount: "10 challenges",
     },
     nav: {
       format: "How it works",
@@ -87,7 +101,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       { value: "10", label: "hands-on challenges" },
       { value: "30", label: "n8n nodes you'll learn" },
       { value: "7", label: "technical terms made simple" },
-      { value: "2", label: "available languages" },
+      { value: "3", label: "available languages" },
     ],
     gallery: {
       kicker: "Moments from previous events",
@@ -156,11 +170,15 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     footerContact: "Contact",
   },
   es: {
+    metadataTitle: "Bienvenidos",
     accessibility: {
       primaryNavigation: "Navegación principal",
       formatSummary: "El formato de los retos de un vistazo",
       balloonCollection: "Los diez globos de los retos",
       backToTop: "Volver arriba",
+      home: "Inicio de n8n Balloon Challenges",
+      languageSelector: "Selector de idioma",
+      challengeCount: "10 retos",
     },
     nav: {
       format: "Cómo funciona",
@@ -177,7 +195,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       { value: "10", label: "retos prácticos" },
       { value: "30", label: "nodos de n8n que aprenderás" },
       { value: "7", label: "términos técnicos explicados" },
-      { value: "2", label: "idiomas disponibles" },
+      { value: "3", label: "idiomas disponibles" },
     ],
     gallery: {
       kicker: "Momentos de eventos anteriores",
@@ -244,5 +262,99 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     footer: "Creado para personas curiosas que aprenden haciendo que las cosas funcionen.",
     footerContact: "Contacto",
+  },
+  uk: {
+    metadataTitle: "Ласкаво просимо",
+    accessibility: {
+      primaryNavigation: "Основна навігація",
+      formatSummary: "Коротко про формат завдань",
+      balloonCollection: "Десять кульок завдань",
+      backToTop: "Повернутися нагору",
+      home: "Головна сторінка n8n Balloon Challenges",
+      languageSelector: "Вибір мови",
+      challengeCount: "10 завдань",
+    },
+    nav: {
+      format: "Як це працює",
+      challenges: "Завдання",
+      events: "Події",
+    },
+    eyebrow: "Формат події від амбасадора n8n",
+    titleTop: "Ласкаво просимо до",
+    titleBottom: "n8n Balloon Challenges",
+    intro:
+      "Справжнє навчання починається з практики, а знання закріплюються, коли ви ділитеся ними з іншими.",
+    primaryCta: "Переглянути завдання",
+    stats: [
+      { value: "10", label: "практичних завдань" },
+      { value: "30", label: "нод n8n, які ви опануєте" },
+      { value: "7", label: "технічних термінів простими словами" },
+      { value: "3", label: "доступні мови" },
+    ],
+    gallery: {
+      kicker: "Моменти з попередніх подій",
+      ariaLabel: "Фотографії з попередніх подій спільноти n8n",
+      photoAlts: [
+        "Аудиторія слухає виступ під час попередньої події спільноти n8n",
+        "Двоє учасників тримають наліпки n8n і показують великі пальці",
+        "Учасниця події n8n пояснює ідею",
+        "Учасники обговорюють воркфлоу біля ноутбука",
+        "Аудиторія під час презентації спільноти n8n",
+      ],
+    },
+    format: {
+      kicker: "Формат",
+      title: "Як це працює",
+      body:
+        "Оберіть будь-яке завдання, що підходить вашій команді. Не обов’язково виконувати їх по черзі чи завершувати всі десять.",
+      steps: [
+        { number: "01", title: "Зареєструйтеся в n8n Cloud", href: "https://app.n8n.cloud/register" },
+        { number: "02", title: "Оберіть завдання" },
+        { number: "03", title: "Створіть воркфлоу" },
+        { number: "04", title: "Покажіть його ментору" },
+        { number: "05", title: "Отримайте кульку" },
+      ],
+    },
+    challengeMap: {
+      kicker: "10 завдань",
+      title: "Завдання для кожного рівня досвіду",
+      body:
+        "Кожне завдання навчає однієї практичної ідеї n8n. Колір кульки позначає місію, а не вашу оцінку.",
+      levels: [
+        {
+          name: "Початковий",
+          count: "4 завдання",
+          body: "Тригери, API, розгалуження та акуратне зіставлення даних.",
+        },
+        {
+          name: "Середній",
+          count: "3 завдання",
+          body: "Обробка списків, форми, зберігання та структуровані результати ШІ.",
+        },
+        {
+          name: "Просунутий",
+          count: "3 завдання",
+          body: "Агенти з інструментами, людське схвалення та надійні автоматизації.",
+        },
+      ],
+    },
+    collection: {
+      eyebrow: "Оберіть завдання",
+      title: "Оберіть наступне завдання.",
+      body: "Оберіть кульку, створіть воркфлоу та отримайте її після схвалення ментора.",
+      openLabel: "Відкрити завдання",
+      complexityLabel: "Складність",
+    },
+    contribute: {
+      kicker: "Для організаторів подій n8n",
+      title: "Проведіть Balloon Challenges у своїй спільноті.",
+      body:
+        "Додайте свою подію через GitHub. У посібнику для учасників описано кожен крок, а перед публікацією зміни перевірить мейнтейнер.",
+      button: "Додати подію",
+      currentEventsKicker: "Поточні події",
+      allEvents: "Усі події",
+    },
+    footer: "Створено для допитливих людей, які навчаються, змушуючи речі працювати.",
+    footerContact: "Зв’язатися",
   },
 };
