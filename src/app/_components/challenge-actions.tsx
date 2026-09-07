@@ -169,6 +169,7 @@ export function ChallengeActions({
   );
   const dialogRef = useRef<HTMLDialogElement>(null);
   const solutionDialogRef = useRef<HTMLDialogElement>(null);
+  const solutionCardRef = useRef<HTMLElement>(null);
   const [selectedSolution, setSelectedSolution] = useState<"core" | "bonus">("core");
   const allTipsVisible = visibleTips >= tips.length;
   const hasSolution = solutions !== null;
@@ -184,6 +185,14 @@ export function ChallengeActions({
 
   function requestSolutionReveal() {
     solutionDialogRef.current?.showModal();
+  }
+
+  function showWorkflowAnswer() {
+    solutionCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    if (!isSolutionExpanded) {
+      requestSolutionReveal();
+    }
   }
 
   function revealSolution() {
@@ -215,14 +224,29 @@ export function ChallengeActions({
             </ol>
           ) : null}
 
-          <button className="hint-button" type="button" onClick={revealTip} disabled={allTipsVisible}>
-            {allTipsVisible ? labels.allTips : visibleTips === 0 ? labels.firstTip : labels.nextTip}
-            <span aria-hidden="true">{allTipsVisible ? "✓" : "+"}</span>
-          </button>
+          <div className="challenge-hint-actions">
+            <button className="hint-button" type="button" onClick={revealTip} disabled={allTipsVisible}>
+              {allTipsVisible ? labels.allTips : visibleTips === 0 ? labels.firstTip : labels.nextTip}
+              <span aria-hidden="true">{allTipsVisible ? "✓" : "+"}</span>
+            </button>
+            {allTipsVisible && hasSolution ? (
+              <button
+                className="challenge-solution-toggle challenge-answer-shortcut"
+                type="button"
+                onClick={showWorkflowAnswer}
+              >
+                {labels.showWorkflowAnswer}
+                <span aria-hidden="true">↓</span>
+              </button>
+            ) : null}
+          </div>
         </article>
 
         {hasSolution ? (
-          <article className={`challenge-solution-card${isSolutionExpanded ? " is-expanded" : ""}`}>
+          <article
+            ref={solutionCardRef}
+            className={`challenge-solution-card${isSolutionExpanded ? " is-expanded" : ""}`}
+          >
             <div className="challenge-solution-summary">
               <div>
                 <p className="section-kicker">{labels.solution}</p>

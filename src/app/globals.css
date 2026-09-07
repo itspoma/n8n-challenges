@@ -3020,6 +3020,14 @@ html[data-theme="light"] .theme-icon-moon {
   line-height: 1.55;
 }
 
+.challenge-hint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 26px;
+}
+
 .hint-button {
   display: inline-flex;
   align-items: center;
@@ -3035,10 +3043,13 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .hint-button {
-  margin-top: 26px;
   border: 1px solid rgba(234, 75, 113, 0.45);
   background: rgba(234, 75, 113, 0.1);
   color: var(--pink-soft);
+}
+
+.challenge-answer-shortcut {
+  min-height: 50px;
 }
 
 .hint-button:hover:not(:disabled) {

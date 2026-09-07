@@ -24,9 +24,9 @@ type ChallengePageProps = {
 const inlineLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
 const inlineGlossaryTerms: Partial<Record<string, Record<Locale, string[]>>> = {
   "webhook-welcome": {
-    en: ["Webhook"],
-    es: ["Webhook"],
-    uk: ["Webhook"],
+    en: ["Webhook", "QR code"],
+    es: ["Webhook", "Código QR"],
+    uk: ["Webhook", "QR-код"],
   },
   "valencia-telegram-bot": {
     en: ["Valencia Open Data", "Telegram"],
@@ -424,8 +424,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
               <span>{difficultyLabels[locale][challenge.difficulty]}</span>
               <span
                 className="challenge-complexity"
-                aria-label={`${labels.complexity}: ${challenge.complexity}/5`}
-                title={`${labels.complexity}: ${challenge.complexity}/5`}
+                aria-label={`${labels.complexity}: ${challenge.complexity} ${labels.complexityScale}`}
               >
                 <span>{labels.complexity}:</span>
                 <span className="challenge-complexity-stars" aria-hidden="true">
@@ -456,7 +455,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
       </section>
 
       <section className="challenge-detail-content shell">
-        {content.glossary.length > 0 ? (
+        {challenge.slug !== "webhook-welcome" && content.glossary.length > 0 ? (
           <details className="challenge-glossary-card">
             <summary>
               <span className="challenge-glossary-heading">

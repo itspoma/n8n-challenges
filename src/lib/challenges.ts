@@ -68,6 +68,7 @@ export type ChallengePageLabels = {
   edit: string;
   challenge: string;
   complexity: string;
+  complexityScale: string;
   time: string;
   scenario: string;
   task: string;
@@ -84,6 +85,7 @@ export type ChallengePageLabels = {
   firstTip: string;
   nextTip: string;
   allTips: string;
+  showWorkflowAnswer: string;
   tip: string;
   reviewTitle: string;
   reviewBody: string;
@@ -115,6 +117,7 @@ export const challengePageCopy = {
     edit: "Edit this challenge",
     challenge: "Challenge",
     complexity: "Complexity",
+    complexityScale: "out of 5 stars",
     time: "Time",
     scenario: "Example use cases",
     task: "Your task",
@@ -131,6 +134,7 @@ export const challengePageCopy = {
     firstTip: "Show first tip",
     nextTip: "Show next tip",
     allTips: "All tips revealed",
+    showWorkflowAnswer: "Show workflow answer",
     tip: "Tip",
     reviewTitle: "Ready to submit?",
     reviewBody: "Submit when your team has a working workflow to demonstrate.",
@@ -161,6 +165,7 @@ export const challengePageCopy = {
     edit: "Editar este reto",
     challenge: "Reto",
     complexity: "Complejidad",
+    complexityScale: "de 5 estrellas",
     time: "Tiempo",
     scenario: "Ejemplos de uso",
     task: "Tu tarea",
@@ -177,6 +182,7 @@ export const challengePageCopy = {
     firstTip: "Mostrar la primera pista",
     nextTip: "Mostrar la siguiente pista",
     allTips: "Todas las pistas mostradas",
+    showWorkflowAnswer: "Mostrar respuesta del workflow",
     tip: "Pista",
     reviewTitle: "¿Listo para enviar?",
     reviewBody: "Envía el reto cuando el equipo tenga un workflow funcional que mostrar.",
@@ -207,6 +213,7 @@ export const challengePageCopy = {
     edit: "Редагувати це завдання",
     challenge: "Завдання",
     complexity: "Складність",
+    complexityScale: "із 5 зірок",
     time: "Час",
     scenario: "Приклади використання",
     task: "Ваше завдання",
@@ -223,6 +230,7 @@ export const challengePageCopy = {
     firstTip: "Показати першу підказку",
     nextTip: "Показати наступну підказку",
     allTips: "Усі підказки відкрито",
+    showWorkflowAnswer: "Показати відповідь воркфлоу",
     tip: "Підказка",
     reviewTitle: "Готові показати результат?",
     reviewBody: "Надсилайте завдання, коли ваша команда матиме робочий воркфлоу для демонстрації.",
