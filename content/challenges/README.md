@@ -12,6 +12,7 @@ These rules apply to every challenge and every supported language.
 - Give every technical word or unfamiliar term an inline tooltip or hint where the learner encounters it.
 - Common candidates include `webhook`, `route`, `RAG`, `ingestion path`, `vector store`, `API`, `token`, `credential`, `trigger`, `query parameter`, `expression`, and similar workflow-specific language. This list is not exhaustive: explain any term a beginner may not understand.
 - Write each explanation in simple, beginner-friendly language. Explain what the term means in this workflow, not only its dictionary definition.
+- Keep the challenge title (`## Title` in Markdown) clean and uninterrupted: never add tooltips or hints to individual words in the title. Explain unfamiliar title terms at their first suitable occurrence in the summary, task, scenario, requirements, or tips instead.
 
 ### Write “Your task” as a business request
 
@@ -20,9 +21,16 @@ These rules apply to every challenge and every supported language.
 - Keep node names, configuration fields, expressions, credentials, and implementation steps out of `Your task` unless a technical term is essential to understanding the outcome. Put implementation guidance in `Nodes you'll use`, `Before you start`, or `Need a tip?` instead.
 - If an essential technical term appears, give it an inline plain-language tooltip or hint.
 
+### Use spaced en dashes
+
+- For a sentence break or explanatory aside, use an en dash with one space on each side: `Choose GET – the option a browser uses...`.
+- Do not use an em dash (`—`) or attach a dash directly to the surrounding words.
+- Keep en dashes in numeric and time ranges compact, such as `10–15 min`.
+
 ### Show difficulty with stars
 
-- In the challenge header, show the star rating used by challenges 1 and 2 instead of a visible `Complexity` label or number.
+- In the challenge header, `Complexity` may appear as a visible label followed by the star rating used by challenges 1 and 2.
+- Do not display a numeric fraction such as `Complexity: 1/5`. The visible rating must use stars.
 - Keep an accessible label that states the rating out of five for screen readers and other assistive technology.
 
 ### Make preparation complete

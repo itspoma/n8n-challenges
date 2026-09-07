@@ -16,7 +16,7 @@ Internal reference for future solution features. This section is not displayed o
 
 ```json
 {
-  "name": "Challenge 1 — Valencia Greeting Webhook (Core)",
+  "name": "Challenge 1 – Valencia Greeting Webhook (Core)",
   "nodes": [
     {
       "parameters": {
@@ -85,7 +85,7 @@ Internal reference for future solution features. This section is not displayed o
 
 ```json
 {
-  "name": "Challenge 1 — Valencia Greeting Webhook (Bonus)",
+  "name": "Challenge 1 – Valencia Greeting Webhook (Bonus)",
   "nodes": [
     {
       "parameters": {
@@ -192,7 +192,7 @@ Internal reference for future solution features. This section is not displayed o
 Valencia Greeting Webhook
 
 ## Summary
-Create a URL that greets its visitor from Valencia.
+Create a web address that greets its visitor from Valencia.
 
 ## Concept
 Webhook triggers, query parameters, and browser responses
@@ -207,16 +207,16 @@ Webhook triggers, query parameters, and browser responses
 - QR code: A QR code is a square image that stores information, often a URL. A phone camera can scan it and open that URL.
 
 ## Scenario
-- An event landing page loads its event list from a URL, so newly published events appear automatically without editing the page.
-- A workshop uses an attendee URL as its live source, so every new signup appears automatically as soon as the person registers.
-- A venue QR code opens a URL that shows the current Wi-Fi password, so organizers can change the password without reprinting the QR code.
+- An event landing page loads its event list from a web address, so newly published events appear automatically without editing the page.
+- A workshop uses an attendee web address as its live source, so every new signup appears automatically as soon as the person registers.
+- A venue QR code opens a web address that shows the current Wi-Fi password, so organizers can change the password without reprinting the QR code.
 - A status page displays live workshop capacity or available seats.
 
 ## Task
-Create a GET webhook at a path such as welcome. Opening it in your browser (e.g. Chrome) without parameters must show "Hello world from Valencia!"
+The Valencia event team needs a web address that displays "Hello world from Valencia!" whenever someone opens it.
 
 ## Bonus Task
-Opening it with "?name=Ana" must show "Hello Ana from Valencia!"
+Make the same address greet a visitor by name when their name is added to it – for example, "Hello Ana from Valencia!"
 
 ## Nodes
 - Webhook
@@ -224,22 +224,21 @@ Opening it with "?name=Ana" must show "Hello Ana from Valencia!"
 - Respond to Webhook
 
 ## Preparation
-- Open your [n8n workspace](https://app.n8n.cloud/) and create a new workflow.
-- Have access to any modern web browser (e.g. [Google Chrome](https://www.google.com/chrome/) or [Edge](https://explore.microsoft.com/)) on a computer or mobile phone (e.g. [Safari](https://www.apple.com/safari/)).
-- No third-party account or API key is required.
+- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- Use a modern web browser on a computer or phone to build and test the result.
+- You do not need another service or any secret access code for this challenge.
 
 ## Requirements
-- Configure the Webhook node to accept GET requests.
-- Return the exact default greeting "Hello world from Valencia!"
-- For the bonus task, read the optional name query parameter and return the exact greeting "Hello Ana from Valencia!" when the URL contains "?name=Ana".
-- Return readable text or HTML that opens correctly in a browser.
+- The same web address works every time it is opened in a browser.
+- Without a name, the browser displays exactly "Hello world from Valencia!"
+- When the address ends with "?name=Ana", the browser displays exactly "Hello Ana from Valencia!"
 
 ## Tips
-- Begin with a Webhook node, choose the GET method, and select any option in "Response Data".
-- Use the test URL while listening for a test event; use the production URL after publishing the workflow. Do not forget to publish the workflow—the production URL will not work until you do.
-- Look for the name value in the webhook query parameters.
-- Use "Edit Fields (Set)" to build the greeting with an expression and a fallback value of world.
-- Use "Respond to Webhook" to return text or HTML instead of JSON.
+- Start with the Webhook node, which creates the web address that starts the workflow. Choose GET – the option a browser uses to ask an address for information – and set Path, the final part of the address, to welcome.
+- Add Edit Fields (Set), which creates the greeting text that the workflow will pass to the final step.
+- In the Webhook node, set Respond to "Using Respond to Webhook Node" so the final node can control what the browser receives.
+- In Edit Fields (Set), create a field named greeting. For the bonus, use an expression – a small formula – to read name from the query parameters, the extra values after ? in the address, and use world when no name was given.
+- Finish with Respond to Webhook, which sends the result back to the browser. Choose Text and return the greeting field. The Test URL works while n8n is listening; after publishing, use the Production URL.
 
 # Spanish
 
@@ -247,7 +246,7 @@ Opening it with "?name=Ana" must show "Hello Ana from Valencia!"
 Webhook de saludo desde Valencia
 
 ## Summary
-Crea una URL que salude a quien la visite desde Valencia.
+Crea una dirección web que salude a quien la visite desde Valencia.
 
 ## Concept
 Triggers Webhook, parámetros de consulta y respuestas para el navegador
@@ -262,16 +261,16 @@ Triggers Webhook, parámetros de consulta y respuestas para el navegador
 - Código QR: Un código QR es una imagen cuadrada que guarda información, a menudo una URL. La cámara de un teléfono puede escanearlo y abrir esa URL.
 
 ## Scenario
-- La página de un evento carga su lista de eventos desde una URL, para que los eventos recién publicados aparezcan automáticamente sin editar la página.
-- Un workshop usa una URL de asistentes como fuente en vivo, para que cada nueva inscripción aparezca automáticamente en cuanto la persona se registre.
-- Un código QR del espacio abre una URL que muestra la contraseña Wi-Fi actual, para que la organización pueda cambiarla sin volver a imprimir el código QR.
+- La página de un evento carga su lista de eventos desde una dirección web, para que los eventos recién publicados aparezcan automáticamente sin editar la página.
+- Un workshop usa una dirección web de asistentes como fuente en vivo, para que cada nueva inscripción aparezca automáticamente en cuanto la persona se registre.
+- Un código QR del espacio abre una dirección web que muestra la contraseña Wi-Fi actual, para que la organización pueda cambiarla sin volver a imprimir el código QR.
 - Una página de estado muestra en directo el aforo del workshop o las plazas disponibles.
 
 ## Task
-Crea un webhook GET en una ruta como welcome. Al abrirlo en tu navegador (por ejemplo, Chrome) sin parámetros, debe mostrar "Hello world from Valencia!"
+El equipo de eventos de Valencia necesita una dirección web que muestre "Hello world from Valencia!" cada vez que alguien la abra.
 
 ## Bonus Task
-Al abrirlo con "?name=Ana", debe mostrar "Hello Ana from Valencia!"
+Haz que esa misma dirección salude a cada visitante por su nombre cuando se añada el nombre; por ejemplo, "Hello Ana from Valencia!"
 
 ## Nodes
 - Webhook
@@ -279,22 +278,21 @@ Al abrirlo con "?name=Ana", debe mostrar "Hello Ana from Valencia!"
 - Respond to Webhook
 
 ## Preparation
-- Abre tu [espacio de trabajo de n8n](https://app.n8n.cloud/) y crea un workflow nuevo.
-- Ten acceso a cualquier navegador web moderno (por ejemplo, [Google Chrome](https://www.google.com/chrome/) o [Edge](https://explore.microsoft.com/)) desde un ordenador o teléfono móvil (por ejemplo, [Safari](https://www.apple.com/safari/)).
-- No necesitas una cuenta de terceros ni una clave de API.
+- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
+- Usa un navegador web moderno en un ordenador o teléfono para construir y probar el resultado.
+- No necesitas otro servicio ni ningún código de acceso secreto para este reto.
 
 ## Requirements
-- Configura el nodo Webhook para aceptar peticiones GET.
-- Devuelve exactamente el saludo por defecto "Hello world from Valencia!"
-- Para la tarea extra, lee el parámetro de consulta opcional name y devuelve exactamente "Hello Ana from Valencia!" cuando la URL contenga "?name=Ana".
-- Devuelve texto o HTML legible que se abra correctamente en un navegador.
+- La misma dirección web funciona cada vez que se abre en un navegador.
+- Sin un nombre, el navegador muestra exactamente "Hello world from Valencia!"
+- Cuando la dirección termina en "?name=Ana", el navegador muestra exactamente "Hello Ana from Valencia!"
 
 ## Tips
-- Empieza con un nodo Webhook, elige el método GET y selecciona cualquier opción en "Response Data".
-- Usa la URL de prueba mientras esperas un evento de prueba y la URL de producción después de publicar el workflow. No olvides publicar el workflow: la URL de producción no funcionará hasta que lo hagas.
-- Busca el valor name en los parámetros de consulta del webhook.
-- Usa "Edit Fields (Set)" para construir el saludo con una expresión y usa world como valor alternativo.
-- Usa "Respond to Webhook" para devolver texto o HTML en lugar de JSON.
+- Empieza con el nodo Webhook, que crea la dirección web que inicia el workflow. Elige GET – la opción que usa el navegador para pedir información a una dirección – y establece Path, la parte final de la dirección, en welcome.
+- Añade Edit Fields (Set), que crea el texto del saludo que el workflow pasará al último paso.
+- En el nodo Webhook, configura Respond como "Using Respond to Webhook Node" para que el nodo final controle lo que recibe el navegador.
+- En Edit Fields (Set), crea un campo llamado greeting. Para la tarea extra, usa una expresión – una pequeña fórmula – para leer name de los parámetros de consulta, los valores adicionales que aparecen después de ? en la dirección, y usa world cuando no se proporcione ningún nombre.
+- Termina con Respond to Webhook, que envía el resultado al navegador. Elige Text y devuelve el campo greeting. Test URL funciona mientras n8n está escuchando; después de publicar, usa Production URL.
 
 # Ukrainian
 
@@ -302,31 +300,31 @@ Al abrirlo con "?name=Ana", debe mostrar "Hello Ana from Valencia!"
 Webhook-привітання з Валенсії
 
 ## Summary
-Створіть URL, який вітає відвідувача з Валенсії.
+Створіть вебадресу, яка вітає відвідувача з Валенсії.
 
 ## Concept
 Webhook-тригери, параметри запиту та відповіді браузеру
 
 ## Glossary
-- n8n: n8n — це інструмент для автоматизації роботи. Ви з’єднуєте кроки, які називаються нодами, щоб передавати дані та забезпечувати спільну роботу застосунків.
-- Webhook: Webhook — це спеціальний URL, який може запустити воркфлоу n8n, коли людина чи інший застосунок відкриває його або надсилає на нього запит.
+- n8n: n8n – це інструмент для автоматизації роботи. Ви з’єднуєте кроки, які називаються нодами, щоб передавати дані та забезпечувати спільну роботу застосунків.
+- Webhook: Webhook – це спеціальний URL, який може запустити воркфлоу n8n, коли людина чи інший застосунок відкриває його або надсилає на нього запит.
 - Метод GET: GET просить URL повернути інформацію. Відкриття звичайної вебсторінки у браузері зазвичай надсилає GET-запит.
-- Параметри GET: Параметри — це додаткові значення наприкінці URL після ?. Вони передають воркфлоу більше деталей, наприклад ?name=Ana.
-- Інші методи HTTP: POST надсилає дані на URL, зазвичай щоб щось створити або подати. GET переважно запитує дані, а POST — надсилає їх. PUT і PATCH оновлюють дані, а DELETE видаляє їх.
-- JSON, текст і HTML: Текст — це звичайні слова. HTML додає структуру сторінки та форматування для браузера. JSON упорядковує дані за назвами й значеннями, щоб застосунки могли їх читати.
-- QR-код: QR-код — це квадратне зображення, у якому зберігається інформація, часто URL. Камера телефона може відсканувати його й відкрити цей URL.
+- Параметри GET: Параметри – це додаткові значення наприкінці URL після ?. Вони передають воркфлоу більше деталей, наприклад ?name=Ana.
+- Інші методи HTTP: POST надсилає дані на URL, зазвичай щоб щось створити або подати. GET переважно запитує дані, а POST – надсилає їх. PUT і PATCH оновлюють дані, а DELETE видаляє їх.
+- JSON, текст і HTML: Текст – це звичайні слова. HTML додає структуру сторінки та форматування для браузера. JSON упорядковує дані за назвами й значеннями, щоб застосунки могли їх читати.
+- QR-код: QR-код – це квадратне зображення, у якому зберігається інформація, часто URL. Камера телефона може відсканувати його й відкрити цей URL.
 
 ## Scenario
-- Сторінка події завантажує список подій з URL, тому щойно опубліковані події з’являються автоматично без редагування сторінки.
-- Воркшоп використовує URL зі списком учасників як актуальне джерело, тому кожна нова реєстрація з’являється одразу.
-- QR-код у приміщенні відкриває URL з актуальним паролем Wi-Fi, тож організатори можуть змінити пароль без повторного друку QR-коду.
+- Сторінка події завантажує список подій з вебадреси, тому щойно опубліковані події з’являються автоматично без редагування сторінки.
+- Воркшоп використовує вебадресу зі списком учасників як актуальне джерело, тому кожна нова реєстрація з’являється одразу.
+- QR-код у приміщенні відкриває вебадресу з актуальним паролем Wi-Fi, тож організатори можуть змінити пароль без повторного друку QR-коду.
 - Сторінка стану показує поточну заповненість воркшопу або кількість вільних місць.
 
 ## Task
-Створіть GET webhook за шляхом на кшталт welcome. Якщо відкрити його у браузері (наприклад, Chrome) без параметрів, він має показати "Hello world from Valencia!"
+Команді подій у Валенсії потрібна вебадреса, яка показує "Hello world from Valencia!" щоразу, коли хтось її відкриває.
 
 ## Bonus Task
-Якщо відкрити його з "?name=Ana", він має показати "Hello Ana from Valencia!"
+Зробіть так, щоб ця сама адреса вітала відвідувача на ім’я, коли до неї додано ім’я, наприклад "Hello Ana from Valencia!"
 
 ## Nodes
 - Webhook
@@ -334,19 +332,18 @@ Webhook-тригери, параметри запиту та відповіді 
 - Respond to Webhook
 
 ## Preparation
-- Відкрийте свій [воркспейс n8n](https://app.n8n.cloud/) і створіть новий воркфлоу.
-- Підготуйте будь-який сучасний браузер (наприклад, [Google Chrome](https://www.google.com/chrome/) або [Edge](https://explore.microsoft.com/)) на комп’ютері чи телефоні (наприклад, [Safari](https://www.apple.com/safari/)).
-- Сторонній обліковий запис або API-ключ не потрібні.
+- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
+- Використовуйте сучасний веббраузер на комп’ютері чи телефоні, щоб створити й перевірити результат.
+- Для цього завдання не потрібні інші сервіси чи секретні коди доступу.
 
 ## Requirements
-- Налаштуйте ноду Webhook для приймання GET-запитів.
-- Повертайте точне стандартне привітання "Hello world from Valencia!"
-- Для додаткового завдання прочитайте необов’язковий параметр запиту name і повертайте точне привітання "Hello Ana from Valencia!", коли URL містить "?name=Ana".
-- Повертайте зрозумілий текст або HTML, який коректно відкривається у браузері.
+- Та сама вебадреса працює щоразу, коли її відкривають у браузері.
+- Без імені браузер показує точно "Hello world from Valencia!"
+- Коли адреса закінчується на "?name=Ana", браузер показує точно "Hello Ana from Valencia!"
 
 ## Tips
-- Почніть з ноди Webhook, оберіть метод GET і будь-який варіант у полі "Response Data".
-- Використовуйте тестовий URL, поки очікуєте на тестову подію, а після публікації воркфлоу — робочий URL. Не забудьте опублікувати воркфлоу: до цього робочий URL не запрацює.
-- Знайдіть значення name у параметрах запиту webhook.
-- Використайте "Edit Fields (Set)", щоб зібрати привітання за допомогою виразу та значення world за замовчуванням.
-- Використайте "Respond to Webhook", щоб повернути текст або HTML замість JSON.
+- Почніть із ноди Webhook, яка створює вебадресу для запуску воркфлоу. Виберіть GET – цей варіант браузер використовує, щоб попросити адресу повернути інформацію – і вкажіть welcome у полі Path, тобто в останній частині адреси.
+- Додайте Edit Fields (Set), яка створює текст привітання, що воркфлоу передасть до останнього кроку.
+- У ноді Webhook встановіть для Respond значення "Using Respond to Webhook Node", щоб остання нода керувала тим, що отримає браузер.
+- У Edit Fields (Set) створіть поле greeting. Для додаткового завдання використайте вираз – коротку формулу – щоб прочитати name з параметрів запиту, тобто додаткових значень після ? в адресі, і використовуйте world, якщо ім’я не вказано.
+- Завершіть нодою Respond to Webhook, яка надсилає результат назад у браузер. Виберіть Text і поверніть поле greeting. Test URL працює, поки n8n очікує на запит; після публікації використовуйте Production URL.
