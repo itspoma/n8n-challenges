@@ -82,15 +82,16 @@ export function SiteHeader({ locale, languagePath = "", activePage }: SiteHeader
 
         <div className="header-actions">
           <div className="locale-switch" aria-label={copy.accessibility.languageSelector}>
-            {locales.map((option, index) => (
-              <span className="locale-switch-option" key={option}>
+            {locales.map((targetLocale, index) => (
+              <span className="locale-switch-option" key={targetLocale}>
                 {index > 0 ? <span aria-hidden="true">/</span> : null}
                 <a
-                  aria-current={locale === option ? "page" : undefined}
-                  className={locale === option ? "active" : undefined}
-                  href={`${basePath}/${option}${languagePath}`}
+                  aria-current={locale === targetLocale ? "page" : undefined}
+                  className={locale === targetLocale ? "active" : undefined}
+                  href={`${basePath}/${targetLocale}${languagePath}`}
+                  hrefLang={targetLocale}
                 >
-                  {localeLabels[option]}
+                  {localeLabels[targetLocale]}
                 </a>
               </span>
             ))}

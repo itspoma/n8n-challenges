@@ -40,7 +40,7 @@ body {
 }
 
 html[lang="uk"] body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 main {
@@ -1246,8 +1246,11 @@ html[data-theme="light"] .theme-icon-moon {
   padding: 0 max(24px, calc((100vw - 1240px) / 2)) 18px;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
-  scrollbar-color: var(--pink) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+}
+
+.event-photo-rail::-webkit-scrollbar {
+  display: none;
 }
 
 .event-photo-rail:focus-visible {
@@ -1260,6 +1263,7 @@ html[data-theme="light"] .theme-icon-moon {
   display: flex;
   width: max-content;
   gap: 16px;
+  background: #fff;
 }
 
 .event-photo-card {
@@ -1270,7 +1274,7 @@ html[data-theme="light"] .theme-icon-moon {
   border: 1px solid var(--line);
   border-radius: 18px;
   background: var(--surface-soft);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 10px 12px #0003;
 }
 
 .event-photo-image {
@@ -1962,7 +1966,7 @@ html[data-theme="light"] .theme-icon-moon {
   margin-top: 34px;
 }
 
-.challenge-detail-meta span {
+.challenge-detail-meta > span {
   padding: 10px 14px;
   border: 1px solid rgba(234, 75, 113, 0.25);
   border-radius: 999px;
@@ -1970,6 +1974,28 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--pink-soft);
   font-size: 0.84rem;
   font-weight: 650;
+}
+
+.challenge-complexity {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.challenge-complexity-stars {
+  display: inline-flex;
+  gap: 1px;
+  font-size: 1rem;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.challenge-complexity-stars > span {
+  opacity: 0.4;
+}
+
+.challenge-complexity-stars > .is-filled {
+  opacity: 1;
 }
 
 .challenge-detail-balloon-wrap {
@@ -2350,6 +2376,17 @@ html[data-theme="light"] .theme-icon-moon {
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3.5;
+}
+
+.n8n-node-image {
+  grid-area: 1 / 1;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.n8n-node-image-on-light {
+  display: none;
 }
 
 .n8n-node-webhook .n8n-node-glyph {
@@ -4330,10 +4367,18 @@ html[data-theme="light"] .challenge-detail-hero .challenge-back-link:hover {
   color: var(--pink-deep);
 }
 
-html[data-theme="light"] .challenge-detail-hero .challenge-detail-meta span {
+html[data-theme="light"] .challenge-detail-hero .challenge-detail-meta > span {
   border-color: rgba(216, 59, 97, 0.22);
   background: rgba(255, 255, 255, 0.62);
   color: var(--pink-deep);
+}
+
+html[data-theme="light"] .n8n-node-image-on-dark {
+  display: none;
+}
+
+html[data-theme="light"] .n8n-node-image-on-light {
+  display: block;
 }
 
 html[data-theme="light"] .challenge-detail-balloon {

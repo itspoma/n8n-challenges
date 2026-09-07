@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type WorkflowNodeTileProps = {
   name: string;
 };
@@ -9,10 +11,50 @@ const NODE_DOCUMENTATION_URLS = {
   editFields: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.set",
   respondToWebhook:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook",
+  telegramTrigger:
+    "https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.telegramtrigger",
+  httpRequest:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest",
+  telegram: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram",
+  formTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.formtrigger",
+  if: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.if",
+  dataTable:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.datatable",
+  resend:
+    "https://github.com/resend/n8n-nodes-resend/blob/main/nodes/Resend/resend-icon-black.svg",
 } as const;
 
 function getNodeDocumentationUrl(name: string): string | undefined {
   const normalizedName = name.toLowerCase();
+
+  if (normalizedName.includes("telegram trigger")) {
+    return NODE_DOCUMENTATION_URLS.telegramTrigger;
+  }
+
+  if (normalizedName.includes("http request")) {
+    return NODE_DOCUMENTATION_URLS.httpRequest;
+  }
+
+  if (normalizedName === "telegram") {
+    return NODE_DOCUMENTATION_URLS.telegram;
+  }
+
+  if (normalizedName.includes("form trigger")) {
+    return NODE_DOCUMENTATION_URLS.formTrigger;
+  }
+
+  if (normalizedName === "if") {
+    return NODE_DOCUMENTATION_URLS.if;
+  }
+
+  if (normalizedName.includes("data table")) {
+    return NODE_DOCUMENTATION_URLS.dataTable;
+  }
+
+  if (normalizedName.includes("resend")) {
+    return NODE_DOCUMENTATION_URLS.resend;
+  }
 
   if (
     normalizedName.includes("respond to webhook") ||
@@ -70,6 +112,41 @@ function getNodeKind(name: string): NodeKind {
   }
 
   return "integration";
+}
+
+function getNodeIcon(name: string) {
+  const normalizedName = name.toLowerCase();
+
+  if (normalizedName.includes("telegram")) {
+    return { light: "/nodes/telegram.svg" };
+  }
+
+  if (normalizedName.includes("http request")) {
+    return {
+      light: "/nodes/http-request.svg",
+      dark: "/nodes/http-request-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("form trigger")) {
+    return { light: "/nodes/form-trigger.svg" };
+  }
+
+  if (normalizedName.includes("data table")) {
+    return {
+      light: "/nodes/data-table.svg",
+      dark: "/nodes/data-table-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("resend")) {
+    return {
+      light: "/nodes/resend-black.svg",
+      dark: "/nodes/resend-white.svg",
+    };
+  }
+
+  return undefined;
 }
 
 function NodeGlyph({ kind }: { kind: NodeKind }) {
@@ -134,14 +211,39 @@ function NodeGlyph({ kind }: { kind: NodeKind }) {
 
 export function WorkflowNodeTile({ name }: WorkflowNodeTileProps) {
   const kind = getNodeKind(name);
+  const nodeIcon = getNodeIcon(name);
   const documentationUrl = getNodeDocumentationUrl(name);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   const nodeContent = (
     <>
       <span className={`n8n-node n8n-node-${kind}`} aria-hidden="true">
         <span className="n8n-node-port n8n-node-port-input" />
         <span className="n8n-node-glyph">
-          <NodeGlyph kind={kind} />
+          {nodeIcon ? (
+            <>
+              <Image
+                className={nodeIcon.dark ? "n8n-node-image n8n-node-image-on-light" : "n8n-node-image"}
+                src={`${basePath}${nodeIcon.light}`}
+                width={48}
+                height={48}
+                alt=""
+                unoptimized
+              />
+              {nodeIcon.dark ? (
+                <Image
+                  className="n8n-node-image n8n-node-image-on-dark"
+                  src={`${basePath}${nodeIcon.dark}`}
+                  width={48}
+                  height={48}
+                  alt=""
+                  unoptimized
+                />
+              ) : null}
+            </>
+          ) : (
+            <NodeGlyph kind={kind} />
+          )}
         </span>
         <span className="n8n-node-port n8n-node-port-output" />
         <svg className="n8n-node-check" viewBox="0 0 24 24">

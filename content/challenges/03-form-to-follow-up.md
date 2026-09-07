@@ -21,38 +21,40 @@ n8n Forms, validation, and Data Tables
 
 ## Scenario
 - An event team needs a reliable contact form that keeps invalid submissions out of its follow-up list.
-- A meetup organizer wants to collect speaker proposals with normalized contact details.
+- A meetup organizer wants to collect speaker proposals with consistent contact details.
 - A volunteer group needs to save valid help requests while giving incomplete submissions clear feedback.
 
 ## Task
 Create a public n8n form with name, email, and message fields. Validate and normalize the submission, save valid entries in an event_leads Data Table, and show a clear result for both valid and invalid input.
 
 ## Bonus Task
-Detect an existing event_leads row with the same normalized email and update it instead of creating a duplicate.
+After saving a valid submission, send the organizers a thank-you email with Resend.
 
 ## Nodes
 - Form Trigger
-- Edit Fields
+- Edit Fields (Set)
 - IF
 - Data Table
+- Resend
 
 ## Preparation
-- Create an n8n Data Table named event_leads.
-- No third-party account is required for the core challenge; Resend is only used for the optional bonus.
+- Create an [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) named event_leads with name, email, message, and status columns. n8n adds createdAt automatically.
+- No third-party account is required for the core challenge.
+- Bonus: [sign up for Resend](https://resend.com/) and connect your Resend account in n8n.
 
 ## Requirements
 - Make name, email, and message required form fields.
 - Trim the text fields, lowercase the email address, and validate its format in the workflow.
-- Store only valid submissions with name, email, message, createdAt, and status set to new.
+- Store only valid submissions with name, email, message, and status set to new; use the Data Table's automatic createdAt timestamp.
 - Show a meaningful success result and a clear invalid-email result.
-- Bonus: send a confirmation with Resend to an event-approved test recipient.
+- Bonus: after saving the submission, send a thank-you email with Resend to an organizer-approved address.
 
 ## Tips
-- Use Form Trigger to create the public form and select the email field type for email.
-- Normalize the submitted values in Edit Fields before validating or storing them.
-- Use an IF condition with an email-format expression to split valid and invalid submissions.
-- Insert a new row into event_leads only from the valid branch.
-- Configure the form completion response last, then add Resend only if the core flow is working.
+- Start with Form Trigger: create the public form, add the three required fields, and select the email field type for email.
+- Add Edit Fields (Set) next: trim name and message, lowercase email, and set status to new.
+- Add IF third: use an email-format expression to send valid submissions to the true output and invalid submissions to the false output.
+- Connect Data Table to the IF node's true output and insert a row into event_leads; use the false output for the invalid-email result.
+- For the bonus, connect Resend after Data Table and send a short thank-you email to the organizers.
 
 # Spanish
 
@@ -67,38 +69,40 @@ Formularios de n8n, validación y Data Tables
 
 ## Scenario
 - El equipo de un evento necesita un formulario fiable que mantenga los envíos inválidos fuera de su lista de seguimiento.
-- La organización de un meetup quiere recopilar propuestas de ponentes con datos de contacto normalizados.
+- La organización de un meetup quiere recopilar propuestas de ponentes con datos de contacto consistentes.
 - Un grupo de voluntariado necesita guardar solicitudes válidas y explicar claramente qué falta en las incompletas.
 
 ## Task
 Crea un formulario público de n8n con los campos nombre, email y mensaje. Valida y normaliza el envío, guarda las entradas válidas en una Data Table llamada event_leads y muestra un resultado claro tanto para datos válidos como inválidos.
 
 ## Bonus Task
-Detecta una fila existente en event_leads con el mismo email normalizado y actualízala en lugar de crear un duplicado.
+Después de guardar un envío válido, manda al equipo organizador un email de agradecimiento con Resend.
 
 ## Nodes
 - Form Trigger
-- Edit Fields
+- Edit Fields (Set)
 - IF
 - Data Table
+- Resend
 
 ## Preparation
-- Crea una Data Table de n8n llamada event_leads.
-- No necesitas una cuenta de terceros para el reto principal; Resend se usa solo para el bonus opcional.
+- Crea una [Data Table de n8n](https://docs.n8n.io/build/work-with-data/data-tables) llamada event_leads con las columnas name, email, message y status. n8n añade createdAt automáticamente.
+- No necesitas una cuenta de terceros para el reto principal.
+- Bonus: [regístrate en Resend](https://resend.com/) y conecta tu cuenta de Resend en n8n.
 
 ## Requirements
 - Haz obligatorios los campos nombre, email y mensaje.
 - Elimina espacios sobrantes de los textos, convierte el email a minúsculas y valida su formato en el workflow.
-- Guarda solo los envíos válidos con name, email, message, createdAt y status con el valor new.
+- Guarda solo los envíos válidos con name, email, message y status con el valor new; usa el timestamp createdAt automático de la Data Table.
 - Muestra un resultado de éxito útil y un resultado claro para un email inválido.
-- Bonus: envía una confirmación con Resend a un destinatario de prueba aprobado por el evento.
+- Bonus: después de guardar el envío, manda un email de agradecimiento con Resend a una dirección aprobada por el equipo organizador.
 
 ## Tips
-- Usa Form Trigger para crear el formulario público y selecciona el tipo email para ese campo.
-- Normaliza los valores enviados en Edit Fields antes de validarlos o guardarlos.
-- Usa una condición IF con una expresión de formato de email para separar los envíos válidos de los inválidos.
-- Inserta una fila nueva en event_leads solo desde la rama válida.
-- Configura al final la respuesta de finalización del formulario y añade Resend solo cuando funcione el flujo principal.
+- Empieza con Form Trigger: crea el formulario público, añade los tres campos obligatorios y selecciona el tipo email para el correo.
+- Añade después Edit Fields (Set): elimina espacios de name y message, convierte email a minúsculas y asigna new a status.
+- Añade IF en tercer lugar: usa una expresión de formato de email para enviar los datos válidos por la salida true y los inválidos por la salida false.
+- Conecta Data Table a la salida true del nodo IF e inserta una fila en event_leads; usa la salida false para el resultado de email inválido.
+- Para el bonus, conecta Resend después de Data Table y envía un breve email de agradecimiento al equipo organizador.
 
 # Ukrainian
 
@@ -113,35 +117,37 @@ Detecta una fila existente en event_leads con el mismo email normalizado y actua
 
 ## Scenario
 - Команді події потрібна надійна контактна форма, яка не додає некоректні заявки до списку для подальшої комунікації.
-- Організатор зустрічі хоче збирати пропозиції доповідачів із нормалізованими контактними даними.
+- Організатор зустрічі хоче збирати пропозиції доповідачів з узгодженими контактними даними.
 - Волонтерській групі потрібно зберігати коректні запити про допомогу та надавати зрозумілий відгук для неповних заявок.
 
 ## Task
 Створіть публічну форму n8n з полями імені, електронної пошти та повідомлення. Перевірте й нормалізуйте заявку, збережіть коректні записи в Data Table event_leads і покажіть зрозумілий результат як для коректних, так і для некоректних даних.
 
 ## Bonus Task
-Знайдіть наявний рядок event_leads із такою самою нормалізованою електронною адресою та оновіть його замість створення дубліката.
+Після збереження коректної заявки надішліть організаторам лист-подяку через Resend.
 
 ## Nodes
 - Form Trigger
-- Edit Fields
+- Edit Fields (Set)
 - IF
 - Data Table
+- Resend
 
 ## Preparation
-- Створіть n8n Data Table з назвою event_leads.
-- Для основного завдання сторонній обліковий запис не потрібен; Resend використовується лише для необов’язкового додаткового завдання.
+- Створіть [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) з назвою event_leads і стовпцями name, email, message та status. n8n додає createdAt автоматично.
+- Для основного завдання сторонній обліковий запис не потрібен.
+- Додатково: [зареєструйтеся в Resend](https://resend.com/) і підключіть свій обліковий запис Resend у n8n.
 
 ## Requirements
 - Зробіть ім’я, електронну адресу та повідомлення обов’язковими полями форми.
 - Видаліть зайві пробіли з текстових полів, переведіть електронну адресу в нижній регістр і перевірте її формат у воркфлоу.
-- Зберігайте лише коректні заявки з полями name, email, message, createdAt і status зі значенням new.
-- Показуйте змістовний результат успіху та зрозумілий результат для некоректної електронної адреси.
-- Додатково: надішліть через Resend підтвердження тестовому отримувачу, схваленому організаторами події.
+- Зберігайте лише коректні заявки з полями name, email, message і status зі значенням new; використовуйте автоматичну часову мітку createdAt у Data Table.
+- Показуйте змістовне повідомлення про успіх і зрозуміле повідомлення про некоректну електронну адресу.
+- Додатково: після збереження заявки надішліть через Resend лист-подяку на адресу, схвалену організаторами.
 
 ## Tips
-- Використайте Form Trigger, щоб створити публічну форму, і виберіть тип email для поля електронної пошти.
-- Нормалізуйте надіслані значення в Edit Fields перед перевіркою або збереженням.
-- Використайте умову IF з виразом для формату email, щоб розділити коректні й некоректні заявки.
-- Додавайте новий рядок до event_leads лише з гілки коректних даних.
-- Налаштуйте відповідь після завершення форми наприкінці, а Resend додавайте лише після того, як основний воркфлоу запрацює.
+- Почніть із Form Trigger: створіть публічну форму, додайте три обов’язкові поля й оберіть тип email для електронної адреси.
+- Далі додайте Edit Fields (Set): приберіть зайві пробіли з name і message, переведіть email у нижній регістр і задайте для status значення new.
+- Третім додайте IF: використайте вираз для перевірки формату email, щоб спрямувати коректні дані на вихід true, а некоректні — на вихід false.
+- Під’єднайте Data Table до виходу true ноди IF і додайте рядок до event_leads; використайте вихід false для повідомлення про некоректний email.
+- Для додаткового завдання під’єднайте Resend після Data Table і надішліть організаторам короткий лист-подяку.
