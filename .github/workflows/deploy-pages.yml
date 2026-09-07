@@ -3,6 +3,8 @@ name: Deploy static site to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "15 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -35,8 +37,6 @@ jobs:
 
       - name: Build static site
         run: npm run build
-        env:
-          GITHUB_PAGES: "true"
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4

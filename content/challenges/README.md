@@ -35,10 +35,20 @@ One short sentence.
 The primary n8n concept
 
 ## Scenario
-Why this workflow is useful.
+- First realistic use case for this workflow.
+- Second realistic use case for this workflow.
+- Third realistic use case for this workflow.
 
 ## Task
 The exact result participants must build.
+
+## Nodes
+- First required n8n node.
+- Second required n8n node.
+
+## Preparation
+- Account, installation, API key, event fixture, or other setup needed before building.
+- Another concrete preparation step.
 
 ## Requirements
 - Requirement one.
@@ -52,6 +62,6 @@ The exact result participants must build.
 - Fifth, most specific tip.
 ```
 
-Repeat the same structure below `# Spanish`. Every challenge must have exactly five tips in each language. The build rejects missing fields, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
+Repeat the same structure below `# Spanish`. `Scenario` must contain at least two example use cases. `Nodes` lists the n8n nodes participants should use. `Preparation` lists anything they need to sign up for, install, obtain, or prepare before building. Never put API keys or other credentials in these files. Every challenge must have exactly five tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md#edit-a-challenge) for the pull-request workflow.

@@ -178,6 +178,31 @@ function loadEvents() {
 
 export const events = loadEvents();
 
+const millisecondsPerDay = 24 * 60 * 60 * 1000;
+
+export function getEventsNearDate(referenceDate = new Date(), dayRange = 7, limit = 3) {
+  const referenceDay = Date.UTC(
+    referenceDate.getUTCFullYear(),
+    referenceDate.getUTCMonth(),
+    referenceDate.getUTCDate(),
+  );
+  const range = dayRange * millisecondsPerDay;
+
+  return events
+    .map((event) => ({
+      event,
+      timestamp: Date.parse(`${event.date}T00:00:00Z`),
+    }))
+    .filter(({ timestamp }) => Math.abs(timestamp - referenceDay) <= range)
+    .sort(
+      (left, right) =>
+        Math.abs(left.timestamp - referenceDay) - Math.abs(right.timestamp - referenceDay) ||
+        left.timestamp - right.timestamp,
+    )
+    .slice(0, limit)
+    .map(({ event }) => event);
+}
+
 export function formatEventDate(date: string, locale: Locale) {
   return new Intl.DateTimeFormat(locale, {
     day: "numeric",

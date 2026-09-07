@@ -1,0 +1,101 @@
+---
+number: 9
+slug: idealista-morning-brief
+difficulty: advanced
+time: 45–60 min
+complexity: 4
+color: #c6c9c7
+ink: #1b2427
+---
+
+# English
+
+## Title
+Idealista Morning Apartment Brief
+
+## Summary
+Detect newly listed matching apartments from event data and deliver a deduplicated morning brief.
+
+## Concept
+Scheduled ingestion, persistent state, filtering, and deduplication
+
+## Scenario
+- An apartment seeker wants only genuinely new Valencia listings matching a fixed budget and preferred areas.
+- A relocation volunteer group wants to send curated daily matches without repeating yesterday's listings.
+- A student household needs a short morning digest instead of manually checking a large property feed.
+
+## Task
+At 08:00 Europe/Madrid, read the event-provided Idealista-style listing snapshot, keep apartments at or below €1,200 with at least two bedrooms in Russafa, El Carme, or Benimaclet, exclude listing IDs already stored in a Data Table, and send up to five new matches to Telegram.
+
+## Nodes
+- Schedule Trigger
+- HTTP Request
+- Filter
+- Sort
+- Limit
+- Data Table
+- Telegram
+
+## Preparation
+- Ask a mentor for the event-owned yesterday and today listing snapshots; do not scrape or call the live Idealista website.
+- Create a seen_listings Data Table and connect a Telegram bot with a test chat.
+
+## Requirements
+- Configure the final schedule for 08:00 in the Europe/Madrid timezone.
+- Read the supplied snapshot dynamically and filter by price, bedrooms, and allowed neighborhood.
+- Treat listingId as the stable identity and exclude every ID already present in seen_listings.
+- Sort new matches by lowest monthly price and send at most five with title, neighborhood, price, bedrooms, and URL.
+- Store delivered IDs, then prove that running the same snapshot again sends no duplicate listings.
+
+## Tips
+- Develop with the two supplied snapshots and add Schedule Trigger only after manual tests pass.
+- Seed seen_listings with the matching IDs from yesterday before processing today's snapshot.
+- Apply the preference filters before checking each remaining listing ID against the Data Table.
+- Sort and limit only the unseen matches, then format them into one Telegram digest.
+- Write delivered IDs after a successful send so a failed delivery does not hide listings permanently.
+
+# Spanish
+
+## Title
+Resumen matinal de apartamentos de Idealista
+
+## Summary
+Detecta apartamentos nuevos que coincidan en los datos del evento y entrega un resumen matinal sin duplicados.
+
+## Concept
+Ingesta programada, estado persistente, filtrado y deduplicación
+
+## Scenario
+- Una persona que busca piso solo quiere anuncios nuevos en Valencia que encajen con su presupuesto y zonas preferidas.
+- Un grupo de apoyo a la reubicación quiere enviar coincidencias diarias sin repetir los anuncios de ayer.
+- Un grupo de estudiantes necesita un resumen matinal breve en lugar de revisar manualmente un gran feed inmobiliario.
+
+## Task
+A las 08:00 Europe/Madrid, lee el snapshot de anuncios tipo Idealista proporcionado por el evento, conserva pisos de hasta 1.200 € con al menos dos habitaciones en Russafa, El Carme o Benimaclet, excluye los listingId ya guardados en una Data Table y envía hasta cinco coincidencias nuevas a Telegram.
+
+## Nodes
+- Schedule Trigger
+- HTTP Request
+- Filter
+- Sort
+- Limit
+- Data Table
+- Telegram
+
+## Preparation
+- Pide a un mentor los snapshots de ayer y hoy, propiedad del evento; no extraigas datos ni llames al sitio web de Idealista en directo.
+- Crea una Data Table llamada seen_listings y conecta un bot de Telegram con un chat de prueba.
+
+## Requirements
+- Configura el horario final para las 08:00 en la zona Europe/Madrid.
+- Lee dinámicamente el snapshot suministrado y filtra por precio, habitaciones y barrio permitido.
+- Usa listingId como identidad estable y excluye cada ID que ya exista en seen_listings.
+- Ordena las coincidencias nuevas por el alquiler mensual más bajo y envía como máximo cinco con título, barrio, precio, habitaciones y URL.
+- Guarda los ID enviados y demuestra que ejecutar de nuevo el mismo snapshot no envía anuncios duplicados.
+
+## Tips
+- Desarrolla con los dos snapshots suministrados y añade Schedule Trigger solo cuando pasen las pruebas manuales.
+- Rellena inicialmente seen_listings con los ID coincidentes de ayer antes de procesar el snapshot de hoy.
+- Aplica los filtros de preferencias antes de comprobar cada listingId restante en la Data Table.
+- Ordena y limita solo las coincidencias no vistas y después dales formato en un único resumen de Telegram.
+- Escribe los ID entregados después de un envío correcto para que un fallo de entrega no oculte anuncios permanentemente.

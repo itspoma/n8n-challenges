@@ -52,6 +52,8 @@ export type HomeCopy = {
     title: string;
     body: string;
     button: string;
+    currentEventsKicker: string;
+    allEvents: string;
   };
   footer: string;
   footerContact: string;
@@ -131,6 +133,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       body:
         "Add your event through GitHub. The contribution guide walks you through every step, and a maintainer reviews the change before it is published.",
       button: "Add your event",
+      currentEventsKicker: "Current events",
+      allEvents: "All events",
     },
     footer: "Built for curious people who learn by making things work.",
     footerContact: "Contact",
@@ -208,6 +212,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       body:
         "Añade tu evento a través de GitHub. La guía explica cada paso y una persona responsable revisará el cambio antes de publicarlo.",
       button: "Añade tu evento",
+      currentEventsKicker: "Eventos actuales",
+      allEvents: "Todos los eventos",
     },
     footer: "Creado para personas curiosas que aprenden haciendo que las cosas funcionen.",
     footerContact: "Contacto",

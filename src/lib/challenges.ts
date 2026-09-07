@@ -9,8 +9,10 @@ type ChallengeTranslation = {
   title: string;
   summary: string;
   concept: string;
-  scenario: string;
+  scenario: string[];
   task: string;
+  nodes: string[];
+  preparation: string[];
   requirements: string[];
   tips: string[];
 };
@@ -46,6 +48,8 @@ export type ChallengePageLabels = {
   complexity: string;
   scenario: string;
   task: string;
+  nodes: string;
+  preparation: string;
   requirements: string;
   next: string;
   hintsTitle: string;
@@ -54,6 +58,15 @@ export type ChallengePageLabels = {
   nextTip: string;
   allTips: string;
   tip: string;
+  reviewTitle: string;
+  reviewBody: string;
+  submit: string;
+  modalEyebrow: string;
+  modalTitle: string;
+  modalBody: string;
+  modalDismiss: string;
+  modalClose: string;
+  modalNext: string;
 };
 
 export const challengePageCopy = {
@@ -62,8 +75,10 @@ export const challengePageCopy = {
     edit: "Edit this challenge",
     challenge: "Challenge",
     complexity: "Complexity",
-    scenario: "Example scenario",
+    scenario: "Example use cases",
     task: "Your task",
+    nodes: "Nodes you'll use",
+    preparation: "Before you start",
     requirements: "What the workflow must do",
     next: "Next challenge",
     hintsTitle: "Need a tip?",
@@ -72,14 +87,25 @@ export const challengePageCopy = {
     nextTip: "Show next tip",
     allTips: "All tips revealed",
     tip: "Tip",
+    reviewTitle: "Ready to submit?",
+    reviewBody: "Submit when your team has a working workflow to demonstrate.",
+    submit: "Submit as solved",
+    modalEyebrow: "Mentor review",
+    modalTitle: "Find a mentor and ask them to review.",
+    modalBody: "Show them your working workflow. Once they approve it, collect the balloon for this challenge.",
+    modalDismiss: "Close dialog",
+    modalClose: "Keep working",
+    modalNext: "Start next challenge",
   },
   es: {
     back: "Todos los retos",
     edit: "Editar este reto",
     challenge: "Reto",
     complexity: "Complejidad",
-    scenario: "Escenario de ejemplo",
+    scenario: "Ejemplos de uso",
     task: "Tu tarea",
+    nodes: "Nodos que usarás",
+    preparation: "Antes de empezar",
     requirements: "Qué debe hacer el workflow",
     next: "Siguiente reto",
     hintsTitle: "¿Necesitas una pista?",
@@ -88,6 +114,15 @@ export const challengePageCopy = {
     nextTip: "Mostrar la siguiente pista",
     allTips: "Todas las pistas mostradas",
     tip: "Pista",
+    reviewTitle: "¿Listo para enviar?",
+    reviewBody: "Envía el reto cuando el equipo tenga un workflow funcional que mostrar.",
+    submit: "Enviar como resuelto",
+    modalEyebrow: "Revisión del mentor",
+    modalTitle: "Busca a un mentor y pídele que revise tu workflow.",
+    modalBody: "Muéstrale el workflow funcionando. Cuando lo apruebe, recoge el globo de este reto.",
+    modalDismiss: "Cerrar diálogo",
+    modalClose: "Seguir trabajando",
+    modalNext: "Empezar el siguiente reto",
   },
 } satisfies Record<Locale, ChallengePageLabels>;
 
@@ -97,7 +132,7 @@ const difficultyValues = new Set<ChallengeDifficulty>([
   "intermediate",
   "advanced",
 ]);
-const requiredTextSections = ["Title", "Summary", "Concept", "Scenario", "Task"] as const;
+const requiredTextSections = ["Title", "Summary", "Concept", "Task"] as const;
 
 function fail(fileName: string, message: string): never {
   throw new Error(`Invalid challenge content in ${fileName}: ${message}`);
@@ -166,7 +201,7 @@ function parseSections(source: string, fileName: string, language: string) {
 
 function readList(
   sections: Record<string, string>,
-  section: "Requirements" | "Tips",
+  section: "Scenario" | "Nodes" | "Preparation" | "Requirements" | "Tips",
   fileName: string,
   language: string,
 ) {
@@ -186,8 +221,12 @@ function readList(
     fail(fileName, `${language} must contain exactly five tips`);
   }
 
-  if (section === "Requirements" && items.length === 0) {
-    fail(fileName, `${language} must contain at least one requirement`);
+  if (section === "Scenario" && items.length < 2) {
+    fail(fileName, `${language} ## Scenario must contain at least two example use cases`);
+  }
+
+  if (section !== "Tips" && items.length === 0) {
+    fail(fileName, `${language} ## ${section} must contain at least one item`);
   }
 
   return items;
@@ -204,8 +243,10 @@ function parseTranslation(source: string, fileName: string, language: string) {
     title: sections.Title,
     summary: sections.Summary,
     concept: sections.Concept,
-    scenario: sections.Scenario,
+    scenario: readList(sections, "Scenario", fileName, language),
     task: sections.Task,
+    nodes: readList(sections, "Nodes", fileName, language),
+    preparation: readList(sections, "Preparation", fileName, language),
     requirements: readList(sections, "Requirements", fileName, language),
     tips: readList(sections, "Tips", fileName, language),
   } satisfies ChallengeTranslation;

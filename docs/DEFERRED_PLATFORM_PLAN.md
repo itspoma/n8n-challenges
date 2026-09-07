@@ -47,6 +47,7 @@ The dynamic implementation described below remains archived. A simpler static Ev
 
 ### Challenge submission
 
+- The UI-only card and confirmation dialog have since been restored to support the in-room mentor flow; real submission delivery remains deferred.
 - A challenge-page card titled **Ready to submit?**
 - **Submit as solved** opened a localized confirmation dialog.
 - The dialog stated that a mentor had received the request and encouraged the team to start the next challenge.
@@ -60,7 +61,7 @@ The dynamic implementation described below remains archived. A simpler static Ev
 
 ### Restoration boundary
 
-Restoring any of these features requires an explicit product decision. Team access, submissions, leaderboards, email, n8n webhooks, JWT signing, server caching, database records, and Ably must remain outside the static deployment until then. The detailed product, data, security, and operational proposals below are retained as reference.
+Restoring any of these features requires an explicit product decision. Team access, real submission delivery, leaderboards, email, n8n webhooks, JWT signing, server caching, database records, and Ably must remain outside the static deployment until then. The detailed product, data, security, and operational proposals below are retained as reference.
 
 Primary UI languages: English and Spanish
 

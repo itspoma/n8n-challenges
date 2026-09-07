@@ -11,7 +11,8 @@ A bilingual static learning website with 10 practical n8n automation challenges 
 - Five tips revealed one at a time on every challenge
 - Dark and light themes
 - Manual, in-person mentor verification
-- No database, authentication, teams, submissions, leaderboard, email, webhooks, or live chat
+- No database, authentication, teams, transmitted submissions, leaderboard, email, webhooks, or live chat
+- UI-only mentor review confirmation; no request is sent or stored
 - Challenge copy loaded from version-controlled Markdown
 - Event listings loaded from version-controlled Markdown
 

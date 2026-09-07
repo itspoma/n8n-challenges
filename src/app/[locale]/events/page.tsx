@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { events, eventsPageCopy, formatEventDate } from "@/lib/events";
 import { homeCopy, isLocale, locales } from "@/lib/home-copy";
@@ -152,6 +153,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
             ↑ Top
           </a>
         </div>
+        <FooterMeta />
       </footer>
     </main>
   );

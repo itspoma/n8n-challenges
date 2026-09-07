@@ -1,8 +1,8 @@
 # n8n Challenge Idea Backlog
 
-Status: preserved alternatives, not included in the current top 10
+Status: idea history and preserved alternatives
 
-The static MVP uses the selected challenge set in [N8N_CHALLENGES_PLAN.md](N8N_CHALLENGES_PLAN.md#4-active-challenge-set). The workflow ideas below are deliberately excluded from that set for now, but are retained for future events, substitutions, or later challenge packs.
+The static MVP uses the selected challenge set in [N8N_CHALLENGES_PLAN.md](N8N_CHALLENGES_PLAN.md#4-active-challenge-set). This file preserves the ideas considered during selection. C03, C07, C10, C11, C13, C14, C16, and C20 now contribute to the active set; the remaining ideas are available for future events, substitutions, or later challenge packs.
 
 Backlog IDs are stable discussion references, not final challenge numbers or balloon assignments.
 

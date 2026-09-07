@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BalloonString } from "@/app/_components/balloon-string";
-import { ChallengeTips } from "@/app/_components/challenge-tips";
+import { ChallengeActions } from "@/app/_components/challenge-actions";
+import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import {
   challengePageCopy,
@@ -97,7 +98,35 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
 
         <article className="challenge-story-card">
           <p className="section-kicker">{labels.scenario}</p>
-          <p>{content.scenario}</p>
+          <ul className="challenge-example-list">
+            {content.scenario.map((example) => (
+              <li key={example}>{example}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="challenge-support-card challenge-nodes-card">
+          <p className="section-kicker">{labels.nodes}</p>
+          <ul className="challenge-node-list">
+            {content.nodes.map((node) => (
+              <li key={node}>
+                <span aria-hidden="true" />
+                <strong>{node}</strong>
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="challenge-support-card challenge-preparation-card">
+          <p className="section-kicker">{labels.preparation}</p>
+          <ol className="challenge-preparation-list">
+            {content.preparation.map((item, index) => (
+              <li key={item}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <p>{item}</p>
+              </li>
+            ))}
+          </ol>
         </article>
 
         <article className="challenge-requirements-card">
@@ -112,7 +141,11 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
           </ol>
         </article>
 
-        <ChallengeTips labels={labels} tips={content.tips} />
+        <ChallengeActions
+          labels={labels}
+          tips={content.tips}
+          nextChallengeHref={`/${locale}/challenges/${nextChallenge.slug}`}
+        />
 
         {nextChallenge ? (
           <Link className="next-challenge-link" href={`/${locale}/challenges/${nextChallenge.slug}`}>
@@ -153,6 +186,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
             {homeCopy[locale].footerContact} ↗
           </a>
         </div>
+        <FooterMeta />
       </footer>
     </main>
   );

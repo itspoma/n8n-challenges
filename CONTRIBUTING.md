@@ -34,6 +34,8 @@ The public Events directory is generated from the Markdown files in `content/eve
 - The content is public and contains no personal or secret information.
 - English and Spanish challenge sections remain aligned.
 - Challenge metadata uses a unique number and slug.
+- Each challenge lists its required n8n nodes and preparation steps in both languages.
+- Challenge content never includes API keys, access tokens, or other credentials.
 - Each challenge still contains exactly five tips per language.
 - Links use HTTPS.
 - `npm run lint`, `npm run typecheck`, and `npm run build` pass.

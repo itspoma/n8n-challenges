@@ -1,8 +1,10 @@
 import Link from "next/link";
 
 import { BalloonString } from "@/app/_components/balloon-string";
+import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { challenges, difficultyLabels } from "@/lib/challenges";
+import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
 import { homeCopy, type Locale } from "@/lib/home-copy";
 
 function ArrowIcon() {
@@ -15,6 +17,8 @@ function ArrowIcon() {
 
 export function HomePage({ locale }: { locale: Locale }) {
   const copy = homeCopy[locale];
+  const eventCopy = eventsPageCopy[locale];
+  const currentEvents = getEventsNearDate();
 
   return (
     <main lang={locale}>
@@ -201,6 +205,41 @@ export function HomePage({ locale }: { locale: Locale }) {
               <ArrowIcon />
             </a>
           </div>
+
+          {currentEvents.length > 0 ? (
+            <div className="current-events-panel">
+              <div className="current-events-heading">
+                <div>
+                  <p className="section-kicker section-kicker-light">
+                    {copy.contribute.currentEventsKicker}
+                  </p>
+                </div>
+                <Link className="current-events-all" href={`/${locale}/events`}>
+                  {copy.contribute.allEvents} <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+
+              <div className="current-events-grid">
+                {currentEvents.map((event) => (
+                  <a
+                    className="current-event-card"
+                    href={event.eventUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${eventCopy.openEventLabel}: ${event.title}`}
+                    key={event.slug}
+                  >
+                    <span className="current-event-card-top">
+                      <time dateTime={event.date}>{formatEventDate(event.date, locale)}</time>
+                      <i aria-hidden="true">↗</i>
+                    </span>
+                    <strong>{event.title}</strong>
+                    <span>{event.location}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -230,6 +269,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             ↑ Top
           </a>
         </div>
+        <FooterMeta />
       </footer>
     </main>
   );
