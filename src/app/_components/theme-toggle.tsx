@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 import type { Locale } from "@/lib/home-copy";
 
 type Theme = "dark" | "light";
+
+const themeStorageKey = "n8n-challenges-theme";
 
 const labels = {
   en: {
@@ -25,6 +27,17 @@ function currentTheme(): Theme {
   return document.documentElement.dataset.theme === "light" ? "light" : "dark";
 }
 
+function savedTheme(): Theme {
+  try {
+    const theme = localStorage.getItem(themeStorageKey);
+    if (theme === "light" || theme === "dark") {
+      return theme;
+    }
+  } catch {}
+
+  return currentTheme();
+}
+
 function syncButton(button: HTMLButtonElement | null, locale: Locale, theme: Theme) {
   if (!button) {
     return;
@@ -39,8 +52,11 @@ function syncButton(button: HTMLButtonElement | null, locale: Locale, theme: The
 export function ThemeToggle({ locale }: { locale: Locale }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    syncButton(buttonRef.current, locale, currentTheme());
+  useLayoutEffect(() => {
+    const theme = savedTheme();
+
+    document.documentElement.dataset.theme = theme;
+    syncButton(buttonRef.current, locale, theme);
   }, [locale]);
 
   function toggleTheme() {
@@ -48,7 +64,7 @@ export function ThemeToggle({ locale }: { locale: Locale }) {
 
     document.documentElement.dataset.theme = nextTheme;
     try {
-      localStorage.setItem("n8n-challenges-theme", nextTheme);
+      localStorage.setItem(themeStorageKey, nextTheme);
     } catch {}
     syncButton(buttonRef.current, locale, nextTheme);
   }
