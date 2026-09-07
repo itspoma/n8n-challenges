@@ -2,7 +2,7 @@
 number: 1
 slug: webhook-welcome
 difficulty: beginner
-time: 5–10 min
+time: 10–15 min
 complexity: 1
 color: #fffdf6
 ink: #1b2427

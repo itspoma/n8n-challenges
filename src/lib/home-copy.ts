@@ -24,6 +24,11 @@ export type HomeCopy = {
   intro: string;
   primaryCta: string;
   stats: Array<{ value: string; label: string }>;
+  gallery: {
+    kicker: string;
+    ariaLabel: string;
+    photoAlts: string[];
+  };
   format: {
     kicker: string;
     title: string;
@@ -84,6 +89,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       { value: "7", label: "technical terms made simple" },
       { value: "2", label: "available languages" },
     ],
+    gallery: {
+      kicker: "Moments from previous events",
+      ariaLabel: "Photos from previous n8n community events",
+      photoAlts: [
+        "Audience listening during a previous n8n community event",
+        "Two attendees holding n8n stickers and giving thumbs up",
+        "An n8n event attendee explaining an idea",
+        "Attendees discussing a workflow around a laptop",
+        "Audience seated during an n8n community presentation",
+      ],
+    },
     format: {
       kicker: "The format",
       title: "How it works",
@@ -163,6 +179,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       { value: "7", label: "términos técnicos explicados" },
       { value: "2", label: "idiomas disponibles" },
     ],
+    gallery: {
+      kicker: "Momentos de eventos anteriores",
+      ariaLabel: "Fotos de eventos anteriores de la comunidad n8n",
+      photoAlts: [
+        "Público escuchando durante un evento anterior de la comunidad n8n",
+        "Dos asistentes con pegatinas de n8n levantando los pulgares",
+        "Una asistente de un evento n8n explicando una idea",
+        "Asistentes hablando sobre un workflow alrededor de un portátil",
+        "Público sentado durante una presentación de la comunidad n8n",
+      ],
+    },
     format: {
       kicker: "El formato",
       title: "Cómo funciona",

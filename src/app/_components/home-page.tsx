@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { BalloonString } from "@/app/_components/balloon-string";
 import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
+import { EventPhotoStrip } from "@/app/_components/event-photo-strip";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { challenges, difficultyLabels } from "@/lib/challenges";
@@ -78,6 +79,12 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
+
+      <EventPhotoStrip
+        ariaLabel={copy.gallery.ariaLabel}
+        kicker={copy.gallery.kicker}
+        photoAlts={copy.gallery.photoAlts}
+      />
 
       <section className="format-section shell" id="how-it-works" aria-labelledby="format-title">
         <div className="section-heading format-heading">

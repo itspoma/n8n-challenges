@@ -138,6 +138,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
             <div className="challenge-detail-meta">
               <span>{difficultyLabels[locale][challenge.difficulty]}</span>
               <span>{labels.complexity}: {challenge.complexity}/5</span>
+              <span>{labels.time}: {challenge.time}</span>
             </div>
           </div>
 

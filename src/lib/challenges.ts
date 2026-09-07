@@ -51,6 +51,7 @@ export type ChallengePageLabels = {
   edit: string;
   challenge: string;
   complexity: string;
+  time: string;
   scenario: string;
   task: string;
   bonusTask: string;
@@ -84,6 +85,7 @@ export const challengePageCopy = {
     edit: "Edit this challenge",
     challenge: "Challenge",
     complexity: "Complexity",
+    time: "Time",
     scenario: "Example use cases",
     task: "Your task",
     bonusTask: "Your bonus task",
@@ -115,6 +117,7 @@ export const challengePageCopy = {
     edit: "Editar este reto",
     challenge: "Reto",
     complexity: "Complejidad",
+    time: "Tiempo",
     scenario: "Ejemplos de uso",
     task: "Tu tarea",
     bonusTask: "Tu tarea extra",

@@ -1224,6 +1224,55 @@ html[data-theme="light"] .theme-icon-moon {
   padding-block: 80px 88px;
 }
 
+.previous-events {
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+.previous-events .section-kicker {
+  margin-bottom: 26px;
+}
+
+.event-photo-rail {
+  width: 100%;
+  padding: 0 max(24px, calc((100vw - 1240px) / 2)) 18px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--pink) transparent;
+  scrollbar-width: thin;
+}
+
+.event-photo-rail:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: -5px;
+}
+
+.event-photo-track,
+.event-photo-group {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+}
+
+.event-photo-card {
+  flex: 0 0 auto;
+  height: 250px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface-soft);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.event-photo-image {
+  display: block;
+  width: auto;
+  height: 250px;
+  object-fit: cover;
+  user-select: none;
+}
+
 .section-heading {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.65fr);
@@ -1875,6 +1924,11 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--pink-soft);
 }
 
+.challenge-detail-hero .section-kicker {
+  color: var(--pink);
+  opacity: 1;
+}
+
 .challenge-detail-copy h1 {
   max-width: 810px;
   margin: 0;
@@ -2103,9 +2157,13 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .challenge-task-card {
-  border-color: rgba(155, 131, 215, 0.36);
-  background: var(--surface-purple);
+  border-color: var(--pink);
+  background: var(--pink);
   color: var(--white);
+}
+
+.challenge-task-card .section-kicker {
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .challenge-bonus-card {
@@ -3806,6 +3864,11 @@ html[data-theme="light"] .join-card .section-kicker {
   color: var(--pink-soft);
 }
 
+html[data-theme="light"] .challenge-detail-hero .section-kicker {
+  color: var(--pink-deep);
+  opacity: 1;
+}
+
 html[data-theme="light"] .hero {
   background: radial-gradient(circle at 22% 35%, rgba(234, 75, 113, 0.16), transparent 40%),
     radial-gradient(circle at 72% 115%, rgba(234, 75, 113, 0.1), transparent 46%),
@@ -3982,10 +4045,10 @@ html[data-theme="light"] .challenge-detail-balloon-string {
 }
 
 html[data-theme="light"] .challenge-task-card {
-  border-color: rgba(234, 75, 113, 0.22);
-  background: #fff1f5;
+  border-color: var(--pink);
+  background: var(--pink);
   box-shadow: 0 18px 45px rgba(69, 21, 36, 0.08);
-  color: var(--ink);
+  color: var(--white);
 }
 
 html[data-theme="light"] .challenge-bonus-card {
@@ -3995,7 +4058,7 @@ html[data-theme="light"] .challenge-bonus-card {
 }
 
 html[data-theme="light"] .challenge-task-card .section-kicker {
-  color: var(--pink-deep);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 html[data-theme="light"] .challenge-requirements-card li {
