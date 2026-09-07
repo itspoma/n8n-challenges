@@ -27,6 +27,9 @@ Scheduled ingestion, persistent state, filtering, and deduplication
 ## Task
 At 08:00 Europe/Madrid, read the event-provided Idealista-style listing snapshot, keep apartments at or below €1,200 with at least two bedrooms in Russafa, El Carme, or Benimaclet, exclude listing IDs already stored in a Data Table, and send up to five new matches to Telegram.
 
+## Bonus Task
+When there are no new matches, send a Telegram update saying so and do not write anything to the Data Table.
+
 ## Nodes
 - Schedule Trigger
 - HTTP Request
@@ -72,6 +75,9 @@ Ingesta programada, estado persistente, filtrado y deduplicación
 
 ## Task
 A las 08:00 Europe/Madrid, lee el snapshot de anuncios tipo Idealista proporcionado por el evento, conserva pisos de hasta 1.200 € con al menos dos habitaciones en Russafa, El Carme o Benimaclet, excluye los listingId ya guardados en una Data Table y envía hasta cinco coincidencias nuevas a Telegram.
+
+## Bonus Task
+Cuando no haya coincidencias nuevas, envía un aviso por Telegram y no escribas nada en la Data Table.
 
 ## Nodes
 - Schedule Trigger

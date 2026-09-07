@@ -414,7 +414,7 @@ html[data-theme="light"] .theme-icon-moon {
   padding: 0 23px;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
@@ -809,13 +809,323 @@ html[data-theme="light"] .theme-icon-moon {
 
 .hero-copy {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   min-height: 390px;
   padding-block: 66px;
   color: var(--white);
   text-align: center;
+}
+
+.hero-balloon-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-balloon-flight {
+  position: absolute;
+  display: block;
+  width: 58px;
+  height: 108px;
+  will-change: transform;
+}
+
+.hero-floating-balloon {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 13px rgba(0, 0, 0, 0.2));
+  transform-origin: 50% 22%;
+  animation: hero-helium-sway 3.6s ease-in-out infinite;
+}
+
+.hero-floating-balloon-body {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  width: 48px;
+  height: 59px;
+  border: 1px solid rgba(4, 5, 6, 0.62);
+  border-radius: 50% 50% 47% 47% / 46% 46% 54% 54%;
+  background: var(--floating-balloon);
+  box-shadow: inset -7px -8px 0 rgba(4, 5, 6, 0.08);
+}
+
+.hero-floating-balloon-body::before {
+  position: absolute;
+  top: 11px;
+  left: 12px;
+  width: 6px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  content: "";
+  transform: rotate(25deg);
+}
+
+.hero-floating-balloon-body::after {
+  position: absolute;
+  bottom: -8px;
+  left: 19px;
+  width: 0;
+  height: 0;
+  border-top: 9px solid var(--floating-balloon);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: "";
+  filter: drop-shadow(0 1px 0 rgba(4, 5, 6, 0.58));
+}
+
+.balloon-string.hero-floating-balloon-string {
+  position: absolute;
+  top: 65px;
+  left: 17px;
+  width: 30px;
+  height: 48px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.52);
+  stroke-width: 1.4;
+}
+
+.hero-node-flight {
+  position: absolute;
+  display: block;
+  width: 92px;
+  height: 92px;
+  will-change: transform;
+}
+
+.hero-floating-node {
+  position: relative;
+  display: grid;
+  width: 92px;
+  height: 92px;
+  border: 2px solid #a9adb5;
+  border-radius: 16px;
+  background: #29252d;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18), 0 0 0 6px rgba(218, 223, 231, 0.16);
+  place-items: center;
+  transform-origin: 50% 50%;
+  animation: hero-node-sway 4.2s ease-in-out infinite;
+}
+
+.hero-floating-node-port {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  border: 0;
+  border-radius: 50%;
+  background: #7d828c;
+  box-shadow: 0 1px 2px rgba(4, 5, 6, 0.28);
+  transform: translateY(-50%);
+}
+
+.hero-floating-node-port-input {
+  left: -9px;
+}
+
+.hero-floating-node-port-output {
+  right: -9px;
+}
+
+.hero-node-balloon {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 50px;
+}
+
+.hero-node-balloon-body {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  width: 24px;
+  height: 29px;
+  border: 1px solid rgba(4, 5, 6, 0.55);
+  border-radius: 50% 50% 46% 46% / 46% 46% 54% 54%;
+  background: var(--node-balloon);
+  box-shadow: inset -4px -4px 0 rgba(4, 5, 6, 0.09);
+}
+
+.hero-node-balloon-body::before {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  width: 3px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
+  content: "";
+  transform: rotate(25deg);
+}
+
+.hero-node-balloon-body::after {
+  position: absolute;
+  bottom: -5px;
+  left: 8px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid var(--node-balloon);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+}
+
+.balloon-string.hero-node-balloon-string {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  width: 15px;
+  height: 18px;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.58);
+  stroke-width: 2;
+}
+
+.hero-balloon-flight-one {
+  top: 9%;
+  left: 0;
+  --floating-balloon: var(--pink);
+  animation: hero-wind-east 18s linear -4s infinite;
+}
+
+.hero-balloon-flight-two {
+  right: 0;
+  bottom: 5%;
+  --floating-balloon: var(--purple);
+  animation: hero-wind-west 23s linear -15s infinite;
+}
+
+.hero-balloon-flight-two .hero-floating-balloon {
+  scale: 0.82;
+  animation-delay: -1.3s;
+}
+
+.hero-balloon-flight-three {
+  bottom: 2%;
+  left: 0;
+  --floating-balloon: var(--yellow);
+  animation: hero-wind-rising 20s linear -11s infinite;
+}
+
+.hero-balloon-flight-three .hero-floating-balloon {
+  scale: 0.68;
+  animation-delay: -2.4s;
+}
+
+.hero-node-flight-one {
+  top: 48%;
+  left: 0;
+  --node-balloon: var(--green);
+  animation: hero-wind-east 27s linear -18s infinite;
+}
+
+.hero-node-flight-two {
+  top: 25%;
+  right: 0;
+  --node-balloon: var(--blue);
+  animation: hero-wind-west 31s linear -6s infinite;
+}
+
+.hero-node-flight-two .hero-floating-node {
+  scale: 0.88;
+  animation-delay: -1.6s;
+}
+
+.hero-node-flight-three {
+  bottom: 12%;
+  left: 0;
+  --node-balloon: var(--pink-soft);
+  animation: hero-wind-rising 29s linear -23s infinite;
+}
+
+.hero-node-flight-three .hero-floating-node {
+  scale: 0.78;
+  animation-delay: -2.8s;
+}
+
+@keyframes hero-wind-east {
+  0% {
+    transform: translate3d(-90px, 20px, 0);
+  }
+  22% {
+    transform: translate3d(22vw, -12px, 0);
+  }
+  47% {
+    transform: translate3d(49vw, 25px, 0);
+  }
+  72% {
+    transform: translate3d(76vw, -7px, 0);
+  }
+  100% {
+    transform: translate3d(calc(100vw + 90px), 14px, 0);
+  }
+}
+
+@keyframes hero-wind-west {
+  0% {
+    transform: translate3d(90px, -18px, 0);
+  }
+  24% {
+    transform: translate3d(-24vw, 13px, 0);
+  }
+  51% {
+    transform: translate3d(-52vw, -24px, 0);
+  }
+  76% {
+    transform: translate3d(-78vw, 8px, 0);
+  }
+  100% {
+    transform: translate3d(calc(-100vw - 90px), -15px, 0);
+  }
+}
+
+@keyframes hero-wind-rising {
+  0% {
+    transform: translate3d(-80px, 46px, 0);
+  }
+  26% {
+    transform: translate3d(27vw, 12px, 0);
+  }
+  52% {
+    transform: translate3d(54vw, -33px, 0);
+  }
+  77% {
+    transform: translate3d(80vw, -12px, 0);
+  }
+  100% {
+    transform: translate3d(calc(100vw + 80px), -62px, 0);
+  }
+}
+
+@keyframes hero-helium-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-9px);
+  }
+}
+
+@keyframes hero-node-sway {
+  0%,
+  100% {
+    transform: rotate(3deg) translateY(0);
+  }
+  45% {
+    transform: rotate(-4deg) translateY(-6px);
+  }
+  72% {
+    transform: rotate(1deg) translateY(3px);
+  }
 }
 
 .hero .eyebrow {
@@ -904,7 +1214,7 @@ html[data-theme="light"] .theme-icon-moon {
 .stat span {
   max-width: 110px;
   color: var(--ink-soft);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 700;
   line-height: 1.4;
   text-transform: uppercase;
@@ -1607,12 +1917,18 @@ html[data-theme="light"] .theme-icon-moon {
 
 .challenge-story-card,
 .challenge-task-card,
+.challenge-bonus-card,
 .challenge-support-card,
 .challenge-requirements-card {
   padding: 42px;
   border: 1px solid var(--line);
   border-radius: 24px;
   background: var(--surface-soft);
+}
+
+.challenge-task-stack {
+  display: grid;
+  gap: 18px;
 }
 
 .challenge-example-list {
@@ -1638,14 +1954,77 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--white);
 }
 
-.challenge-task-card h2 {
+.challenge-bonus-card {
+  border-color: rgba(234, 75, 113, 0.26);
+  background: radial-gradient(circle at 100% 0%, rgba(155, 131, 215, 0.16), transparent 42%),
+    var(--surface-raised);
+}
+
+.challenge-task-card h2,
+.challenge-bonus-card h2 {
   max-width: 780px;
   margin: 0;
-  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-size: clamp(1.55rem, 2.2vw, 2.2rem);
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.12;
   text-wrap: balance;
+}
+
+.glossary-term {
+  position: relative;
+  border-bottom: 2px dashed currentColor;
+  cursor: help;
+}
+
+.glossary-term:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--pink);
+  outline-offset: 4px;
+}
+
+.glossary-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  z-index: 20;
+  width: max-content;
+  max-width: min(300px, calc(100vw - 48px));
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: #1b1820;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.34);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.45;
+  text-align: left;
+  text-wrap: wrap;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 6px);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+}
+
+.glossary-tooltip::after {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: #1b1820;
+  content: "";
+  transform: translate(-50%, -5px) rotate(45deg);
+}
+
+.glossary-term:hover .glossary-tooltip,
+.glossary-term:focus-visible .glossary-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .challenge-requirements-card {
@@ -1674,13 +2053,40 @@ html[data-theme="light"] .theme-icon-moon {
   text-align: center;
 }
 
+.challenge-node-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.challenge-node-link .n8n-node {
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.challenge-node-link:hover .n8n-node,
+.challenge-node-link:focus-visible .n8n-node {
+  border-color: #c7cad0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22), 0 0 0 6px rgba(218, 223, 231, 0.24);
+  transform: translateY(-2px);
+}
+
+.challenge-node-link:focus-visible {
+  border-radius: 18px;
+  outline: 2px solid var(--pink);
+  outline-offset: 7px;
+}
+
 .n8n-node {
   position: relative;
   display: grid;
   width: 92px;
-  height: 82px;
+  height: 92px;
   place-items: center;
-  border: 3px solid #43a36b;
+  border: 2px solid #a9adb5;
   border-radius: 16px;
   background: #29252d;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18), 0 0 0 6px rgba(218, 223, 231, 0.16);
@@ -1730,11 +2136,6 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--pink-deep);
 }
 
-.n8n-node-webhook .n8n-node-glyph circle {
-  fill: #f4f0f3;
-  stroke: #f4f0f3;
-}
-
 .n8n-node-trigger .n8n-node-glyph {
   color: #f36f56;
 }
@@ -1778,7 +2179,7 @@ html[data-theme="light"] .theme-icon-moon {
 .challenge-node-item strong {
   max-width: 130px;
   font-size: 0.96rem;
-  font-weight: 650;
+  font-weight: 500;
   line-height: 1.25;
 }
 
@@ -1815,6 +2216,18 @@ html[data-theme="light"] .theme-icon-moon {
   color: var(--ink-soft);
   font-size: 1rem;
   line-height: 1.5;
+}
+
+.challenge-preparation-list a {
+  color: var(--pink-soft);
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.challenge-preparation-list a:hover {
+  color: var(--pink);
 }
 
 .challenge-actions {
@@ -1872,7 +2285,7 @@ html[data-theme="light"] .theme-icon-moon {
   border-radius: 999px;
   background: var(--pink);
   color: var(--white);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 180ms ease, transform 180ms ease;
@@ -1966,7 +2379,7 @@ html[data-theme="light"] .theme-icon-moon {
   min-height: 50px;
   padding: 0 20px;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -2065,7 +2478,7 @@ html[data-theme="light"] .theme-icon-moon {
   min-height: 50px;
   padding: 0 19px;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
@@ -2226,7 +2639,7 @@ html[data-theme="light"] .theme-icon-moon {
   box-shadow: 0 16px 38px rgba(180, 39, 75, 0.22);
   color: var(--white);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 750;
   transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
@@ -2615,7 +3028,7 @@ html[data-theme="light"] .theme-icon-moon {
   border-radius: 999px;
   color: var(--ink);
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   font-weight: 700;
   transition: background 180ms ease, transform 180ms ease;
 }
@@ -3211,6 +3624,14 @@ html[data-theme="light"] .hero {
     linear-gradient(105deg, #fff1f5 0%, #fff9fb 52%, #ffffff 100%);
 }
 
+html[data-theme="light"] .hero-floating-node {
+  background: #ffffff;
+}
+
+html[data-theme="light"] .hero-node-balloon-string {
+  stroke: rgba(4, 5, 6, 0.58);
+}
+
 html[data-theme="light"] .hero::before {
   background-image: linear-gradient(rgba(4, 5, 6, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(4, 5, 6, 0.03) 1px, transparent 1px);
@@ -3379,6 +3800,12 @@ html[data-theme="light"] .challenge-task-card {
   color: var(--ink);
 }
 
+html[data-theme="light"] .challenge-bonus-card {
+  border-color: rgba(155, 131, 215, 0.25);
+  background: radial-gradient(circle at 100% 0%, rgba(155, 131, 215, 0.12), transparent 42%),
+    #fff7fa;
+}
+
 html[data-theme="light"] .challenge-task-card .section-kicker {
   color: var(--pink-deep);
 }
@@ -3391,6 +3818,10 @@ html[data-theme="light"] .challenge-preparation-list li {
   background: #fff7fa;
 }
 
+html[data-theme="light"] .challenge-preparation-list a {
+  color: var(--pink-deep);
+}
+
 html[data-theme="light"] .n8n-node {
   background: #ffffff;
 }
@@ -3401,11 +3832,6 @@ html[data-theme="light"] .n8n-node-glyph {
 
 html[data-theme="light"] .n8n-node-webhook .n8n-node-glyph {
   color: var(--pink-deep);
-}
-
-html[data-theme="light"] .n8n-node-webhook .n8n-node-glyph circle {
-  fill: #26343a;
-  stroke: #26343a;
 }
 
 html[data-theme="light"] .n8n-node-trigger .n8n-node-glyph {
@@ -3744,7 +4170,9 @@ html[data-theme="light"] .collection-balloon-string {
   }
 
   .challenge-story-card,
+  .challenge-task-stack,
   .challenge-task-card,
+  .challenge-bonus-card,
   .challenge-support-card,
   .challenge-requirements-card,
   .next-challenge-link {
@@ -3817,6 +4245,10 @@ html[data-theme="light"] .collection-balloon-string {
   .hero {
     display: block;
     padding: 0;
+  }
+
+  .hero-node-flight {
+    opacity: 0.64;
   }
 
   .hero-copy {
@@ -3989,6 +4421,7 @@ html[data-theme="light"] .collection-balloon-string {
 
   .challenge-story-card,
   .challenge-task-card,
+  .challenge-bonus-card,
   .challenge-support-card,
   .challenge-requirements-card,
   .challenge-hints-card,

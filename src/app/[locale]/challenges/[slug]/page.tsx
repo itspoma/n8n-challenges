@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
 
 import { BalloonString } from "@/app/_components/balloon-string";
 import { ChallengeActions } from "@/app/_components/challenge-actions";
@@ -13,11 +14,71 @@ import {
   difficultyLabels,
   getChallenge,
 } from "@/lib/challenges";
-import { homeCopy, isLocale, locales } from "@/lib/home-copy";
+import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
 
 type ChallengePageProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
+
+const inlineLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+const webhookPattern = /\bwebhook\b/i;
+
+const webhookDefinitions: Record<Locale, string> = {
+  en: "A webhook is a URL that starts a workflow when another app or browser sends data to it.",
+  es: "Un webhook es una URL que inicia un workflow cuando otra aplicación o navegador le envía datos.",
+};
+
+function TaskWithGlossary({ text, locale }: { text: string; locale: Locale }) {
+  const match = webhookPattern.exec(text);
+
+  if (!match || match.index === undefined) {
+    return text;
+  }
+
+  const term = match[0];
+  const termEnd = match.index + term.length;
+  const tooltipId = `webhook-definition-${locale}`;
+
+  return (
+    <>
+      {text.slice(0, match.index)}
+      <span className="glossary-term" tabIndex={0} aria-describedby={tooltipId}>
+        {term}
+        <span className="glossary-tooltip" id={tooltipId} role="tooltip">
+          {webhookDefinitions[locale]}
+        </span>
+      </span>
+      {text.slice(termEnd)}
+    </>
+  );
+}
+
+function InlineLinks({ text }: { text: string }) {
+  const content: ReactNode[] = [];
+  let previousIndex = 0;
+
+  for (const match of text.matchAll(inlineLinkPattern)) {
+    const matchIndex = match.index ?? 0;
+    const [markdown, label, href] = match;
+
+    if (matchIndex > previousIndex) {
+      content.push(text.slice(previousIndex, matchIndex));
+    }
+
+    content.push(
+      <a key={`${href}-${matchIndex}`} href={href} target="_blank" rel="noopener noreferrer">
+        {label}
+      </a>,
+    );
+    previousIndex = matchIndex + markdown.length;
+  }
+
+  if (previousIndex < text.length) {
+    content.push(text.slice(previousIndex));
+  }
+
+  return <>{content}</>;
+}
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => challenges.map((challenge) => ({ locale, slug: challenge.slug })));
@@ -92,10 +153,17 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
       </section>
 
       <section className="challenge-detail-content shell">
-        <article className="challenge-task-card">
-          <p className="section-kicker">{labels.task}</p>
-          <h2>{content.task}</h2>
-        </article>
+        <div className="challenge-task-stack">
+          <article className="challenge-task-card">
+            <p className="section-kicker">{labels.task}</p>
+            <h2><TaskWithGlossary text={content.task} locale={locale} /></h2>
+          </article>
+
+          <article className="challenge-bonus-card">
+            <p className="section-kicker">{labels.bonusTask}</p>
+            <h2>{content.bonusTask}</h2>
+          </article>
+        </div>
 
         <article className="challenge-story-card">
           <p className="section-kicker">{labels.scenario}</p>
@@ -112,7 +180,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
             {content.preparation.map((item, index) => (
               <li key={item}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <p>{item}</p>
+                <p><InlineLinks text={item} /></p>
               </li>
             ))}
           </ol>

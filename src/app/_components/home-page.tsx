@@ -25,6 +25,28 @@ export function HomePage({ locale }: { locale: Locale }) {
       <SiteHeader locale={locale} />
 
       <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-balloon-sky" aria-hidden="true">
+          {(["one", "two", "three"] as const).map((balloon) => (
+            <span className={`hero-balloon-flight hero-balloon-flight-${balloon}`} key={balloon}>
+              <span className="hero-floating-balloon">
+                <span className="hero-floating-balloon-body" />
+                <BalloonString className="hero-floating-balloon-string" />
+              </span>
+            </span>
+          ))}
+          {(["one", "two", "three"] as const).map((node) => (
+            <span className={`hero-node-flight hero-node-flight-${node}`} key={node}>
+              <span className="hero-floating-node">
+                <span className="hero-floating-node-port hero-floating-node-port-input" />
+                <span className="hero-node-balloon">
+                  <span className="hero-node-balloon-body" />
+                  <BalloonString className="hero-node-balloon-string" />
+                </span>
+                <span className="hero-floating-node-port hero-floating-node-port-output" />
+              </span>
+            </span>
+          ))}
+        </div>
         <div className="hero-copy shell">
           <p className="eyebrow">
             <span />

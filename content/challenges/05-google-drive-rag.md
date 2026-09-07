@@ -27,6 +27,9 @@ Document ingestion, embeddings, vector retrieval, and grounded answers
 ## Task
 Build an ingestion path that loads the event documents from Google Drive into a vector store and a question-answering path that retrieves relevant passages, answers the question, and names the source document.
 
+## Bonus Task
+When retrieval finds no relevant passage, return a clear not-enough-information response instead of generating an unsupported answer.
+
 ## Nodes
 - Google Drive
 - Default Data Loader
@@ -71,6 +74,9 @@ Ingesta de documentos, embeddings, recuperación vectorial y respuestas fundamen
 
 ## Task
 Crea una ruta de ingesta que cargue los documentos del evento desde Google Drive en un almacén vectorial y una ruta de preguntas que recupere fragmentos relevantes, responda y nombre el documento fuente.
+
+## Bonus Task
+Cuando la búsqueda no encuentre ningún fragmento relevante, devuelve una respuesta clara indicando que no hay información suficiente en lugar de inventar una respuesta.
 
 ## Nodes
 - Google Drive

@@ -27,6 +27,9 @@ MCP servers, workflow tools, search, and strict tool contracts
 ## Task
 Build an MCP server with a find_valencia_contacts tool. Given a natural-language question and language, it must search the event spreadsheet and return up to three relevant contacts with service, name, phone, URL, and sourceId.
 
+## Bonus Task
+When no relevant contact is found, return a helpful no-results response in the requested language instead of an empty list.
+
 ## Nodes
 - MCP Server Trigger
 - Call n8n Workflow Tool
@@ -71,6 +74,9 @@ Servidores MCP, herramientas de workflow, búsqueda y contratos estrictos
 
 ## Task
 Crea un servidor MCP con una herramienta find_valencia_contacts. A partir de una pregunta en lenguaje natural y un idioma, debe buscar en la hoja del evento y devolver hasta tres contactos relevantes con service, name, phone, url y sourceId.
+
+## Bonus Task
+Cuando no se encuentre ningún contacto relevante, devuelve una respuesta útil sin resultados en el idioma solicitado en lugar de una lista vacía.
 
 ## Nodes
 - MCP Server Trigger

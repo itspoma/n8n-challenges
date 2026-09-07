@@ -11,6 +11,7 @@ type ChallengeTranslation = {
   concept: string;
   scenario: string[];
   task: string;
+  bonusTask: string;
   nodes: string[];
   preparation: string[];
   requirements: string[];
@@ -48,6 +49,7 @@ export type ChallengePageLabels = {
   complexity: string;
   scenario: string;
   task: string;
+  bonusTask: string;
   nodes: string;
   preparation: string;
   requirements: string;
@@ -77,6 +79,7 @@ export const challengePageCopy = {
     complexity: "Complexity",
     scenario: "Example use cases",
     task: "Your task",
+    bonusTask: "Your bonus task",
     nodes: "Nodes you'll use",
     preparation: "Before you start",
     requirements: "What the workflow must do",
@@ -104,6 +107,7 @@ export const challengePageCopy = {
     complexity: "Complejidad",
     scenario: "Ejemplos de uso",
     task: "Tu tarea",
+    bonusTask: "Tu tarea extra",
     nodes: "Nodos que usarás",
     preparation: "Antes de empezar",
     requirements: "Qué debe hacer el workflow",
@@ -132,7 +136,7 @@ const difficultyValues = new Set<ChallengeDifficulty>([
   "intermediate",
   "advanced",
 ]);
-const requiredTextSections = ["Title", "Summary", "Concept", "Task"] as const;
+const requiredTextSections = ["Title", "Summary", "Concept", "Task", "Bonus Task"] as const;
 
 function fail(fileName: string, message: string): never {
   throw new Error(`Invalid challenge content in ${fileName}: ${message}`);
@@ -245,6 +249,7 @@ function parseTranslation(source: string, fileName: string, language: string) {
     concept: sections.Concept,
     scenario: readList(sections, "Scenario", fileName, language),
     task: sections.Task,
+    bonusTask: sections["Bonus Task"],
     nodes: readList(sections, "Nodes", fileName, language),
     preparation: readList(sections, "Preparation", fileName, language),
     requirements: readList(sections, "Requirements", fileName, language),

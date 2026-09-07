@@ -27,6 +27,9 @@ n8n Forms, validation, and Data Tables
 ## Task
 Create a public n8n form with name, email, and message fields. Validate and normalize the submission, save valid entries in an event_leads Data Table, and show a clear result for both valid and invalid input.
 
+## Bonus Task
+Detect an existing event_leads row with the same normalized email and update it instead of creating a duplicate.
+
 ## Nodes
 - Form Trigger
 - Edit Fields
@@ -69,6 +72,9 @@ Formularios de n8n, validación y Data Tables
 
 ## Task
 Crea un formulario público de n8n con los campos nombre, email y mensaje. Valida y normaliza el envío, guarda las entradas válidas en una Data Table llamada event_leads y muestra un resultado claro tanto para datos válidos como inválidos.
+
+## Bonus Task
+Detecta una fila existente en event_leads con el mismo email normalizado y actualízala en lugar de crear un duplicado.
 
 ## Nodes
 - Form Trigger

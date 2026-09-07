@@ -27,6 +27,9 @@ Chat triggers, HTTP requests, and data mapping
 ## Task
 Build a Telegram bot that reacts to any text message, requests the latest event-provided Valencia Open Data record for the Puerto Rico 21 noise sensor, and replies with the location, observation date, and LAeq value in dBA.
 
+## Bonus Task
+When LAeq is above 65 dBA, start the reply with ⚠️ and label the reading High; otherwise label it Normal.
+
 ## Nodes
 - Telegram Trigger
 - HTTP Request
@@ -68,6 +71,9 @@ Triggers de chat, peticiones HTTP y mapeo de datos
 
 ## Task
 Crea un bot de Telegram que reaccione a cualquier mensaje de texto, solicite el último registro del sensor de ruido de Puerto Rico 21 mediante el endpoint de Valencia Open Data proporcionado por el evento y responda con la ubicación, la fecha de observación y el valor LAeq en dBA.
+
+## Bonus Task
+Cuando LAeq supere los 65 dBA, empieza la respuesta con ⚠️ y marca la medición como Alta; en caso contrario, márcala como Normal.
 
 ## Nodes
 - Telegram Trigger

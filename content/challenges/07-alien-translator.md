@@ -27,6 +27,9 @@ Prompt design and structured AI output
 ## Task
 Create a chat workflow that translates messages according to the event-provided alien dictionary and grammar sheet. Return the translation, a confidence value, and any unknown words rather than inventing meanings.
 
+## Bonus Task
+Add a second AI check that back-translates the result and lowers the confidence value when the meaning changes.
+
 ## Nodes
 - Chat Trigger
 - Basic LLM Chain
@@ -68,6 +71,9 @@ Diseño de prompts y salida estructurada de IA
 
 ## Task
 Crea un workflow de chat que traduzca mensajes según el diccionario alienígena y la hoja de gramática proporcionados por el evento. Devuelve la traducción, un valor de confianza y las palabras desconocidas en lugar de inventar significados.
+
+## Bonus Task
+Añade una segunda comprobación con IA que vuelva a traducir el resultado y reduzca el valor de confianza cuando cambie el significado.
 
 ## Nodes
 - Chat Trigger

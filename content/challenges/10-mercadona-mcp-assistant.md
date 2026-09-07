@@ -27,6 +27,9 @@ MCP clients, AI agents, tool selection, and grounded calculations
 ## Task
 Connect an AI Agent to the event-provided Mercadona catalog MCP server. For the test request Plan a vegetarian breakfast for two under €10, use the catalog tools to return suitable products, product IDs, individual prices, and a verified total.
 
+## Bonus Task
+If the initial selection exceeds €10, replace the most expensive product and recalculate until the verified total fits the budget.
+
 ## Nodes
 - Chat Trigger
 - AI Agent
@@ -69,6 +72,9 @@ Clientes MCP, agentes de IA, selección de herramientas y cálculos fundamentado
 
 ## Task
 Conecta un AI Agent al servidor MCP del catálogo de Mercadona proporcionado por el evento. Para la petición de prueba Plan a vegetarian breakfast for two under €10, usa las herramientas del catálogo y devuelve productos adecuados, sus ID, precios individuales y un total verificado.
+
+## Bonus Task
+Si la selección inicial supera los 10 €, sustituye el producto más caro y vuelve a calcular hasta que el total verificado se ajuste al presupuesto.
 
 ## Nodes
 - Chat Trigger

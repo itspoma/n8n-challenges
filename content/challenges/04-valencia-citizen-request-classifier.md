@@ -27,6 +27,9 @@ Structured AI output, branching, and email delivery
 ## Task
 Create a form for a person's name, email, and request. Use AI to return category, priority, and summary, route the request to the matching support destination, and send a separate thank-you email to the person.
 
+## Bonus Task
+Add a short suggested reply in the requester's language to the structured AI output and include it in the thank-you email.
+
 ## Nodes
 - Form Trigger
 - Basic LLM Chain
@@ -70,6 +73,9 @@ Salida estructurada de IA, ramificación y envío de emails
 
 ## Task
 Crea un formulario para el nombre, el email y la solicitud de una persona. Usa IA para devolver category, priority y summary, dirige la solicitud al destino de soporte correspondiente y envía un email de agradecimiento separado a la persona.
+
+## Bonus Task
+Añade una respuesta breve sugerida en el idioma de la persona a la salida estructurada de la IA e inclúyela en el email de agradecimiento.
 
 ## Nodes
 - Form Trigger

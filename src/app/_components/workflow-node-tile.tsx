@@ -4,6 +4,39 @@ type WorkflowNodeTileProps = {
 
 type NodeKind = "ai" | "data" | "decision" | "integration" | "trigger" | "webhook";
 
+const NODE_DOCUMENTATION_URLS = {
+  webhook: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook",
+  editFields: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.set",
+  respondToWebhook:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook",
+} as const;
+
+function getNodeDocumentationUrl(name: string): string | undefined {
+  const normalizedName = name.toLowerCase();
+
+  if (
+    normalizedName.includes("respond to webhook") ||
+    normalizedName.includes("responder a webhook") ||
+    normalizedName.includes("responder al webhook")
+  ) {
+    return NODE_DOCUMENTATION_URLS.respondToWebhook;
+  }
+
+  if (
+    normalizedName.includes("edit fields") ||
+    normalizedName.includes("editar campos") ||
+    normalizedName === "set"
+  ) {
+    return NODE_DOCUMENTATION_URLS.editFields;
+  }
+
+  if (normalizedName.includes("webhook")) {
+    return NODE_DOCUMENTATION_URLS.webhook;
+  }
+
+  return undefined;
+}
+
 function getNodeKind(name: string): NodeKind {
   const normalizedName = name.toLowerCase();
 
@@ -43,9 +76,12 @@ function NodeGlyph({ kind }: { kind: NodeKind }) {
   if (kind === "webhook") {
     return (
       <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M18 30a8 8 0 1 1 0-12l8-8a8 8 0 1 1 8 12l-3 3" />
-        <path d="M30 18a8 8 0 1 1 0 12H18" />
-        <circle cx="18" cy="24" r="2.5" />
+        <path fill="#37474f" stroke="none" d="M35 37c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4" />
+        <path fill="#37474f" stroke="none" d="M35 43c-3 0-5.9-1.4-7.8-3.7l3.1-2.5c1.1 1.4 2.9 2.3 4.7 2.3 3.3 0 6-2.7 6-6s-2.7-6-6-6c-1 0-2 .3-2.9.7l-1.7 1L23.3 16l3.5-1.9 5.3 9.4c1-.3 2-.5 3-.5 5.5 0 10 4.5 10 10S40.5 43 35 43" />
+        <path fill="#37474f" stroke="none" d="M14 43C8.5 43 4 38.5 4 33c0-4.6 3.1-8.5 7.5-9.7l1 3.9C9.9 27.9 8 30.3 8 33c0 3.3 2.7 6 6 6s6-2.7 6-6v-2h15v4H23.8c-.9 4.6-5 8-9.8 8" />
+        <path fill="#e91e63" stroke="none" d="M14 37c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4" />
+        <path fill="#37474f" stroke="none" d="M25 19c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4" />
+        <path fill="#e91e63" stroke="none" d="m15.7 34-3.4-2 5.9-9.7c-2-1.9-3.2-4.5-3.2-7.3 0-5.5 4.5-10 10-10s10 4.5 10 10c0 .9-.1 1.7-.3 2.5l-3.9-1c.1-.5.2-1 .2-1.5 0-3.3-2.7-6-6-6s-6 2.7-6 6c0 2.1 1.1 4 2.9 5.1l1.7 1z" />
       </svg>
     );
   }
@@ -98,9 +134,10 @@ function NodeGlyph({ kind }: { kind: NodeKind }) {
 
 export function WorkflowNodeTile({ name }: WorkflowNodeTileProps) {
   const kind = getNodeKind(name);
+  const documentationUrl = getNodeDocumentationUrl(name);
 
-  return (
-    <li className="challenge-node-item">
+  const nodeContent = (
+    <>
       <span className={`n8n-node n8n-node-${kind}`} aria-hidden="true">
         <span className="n8n-node-port n8n-node-port-input" />
         <span className="n8n-node-glyph">
@@ -112,6 +149,24 @@ export function WorkflowNodeTile({ name }: WorkflowNodeTileProps) {
         </svg>
       </span>
       <strong>{name}</strong>
+    </>
+  );
+
+  return (
+    <li className="challenge-node-item">
+      {documentationUrl ? (
+        <a
+          className="challenge-node-link"
+          href={documentationUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${name} documentation`}
+        >
+          {nodeContent}
+        </a>
+      ) : (
+        nodeContent
+      )}
     </li>
   );
 }

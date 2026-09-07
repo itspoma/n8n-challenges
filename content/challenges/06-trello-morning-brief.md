@@ -27,6 +27,9 @@ Schedules, deterministic ranking, list processing, and messaging
 ## Task
 At 09:00 Europe/Madrid each weekday, fetch the open cards from the event Trello board, rank red-labelled cards first and then by earliest due date, keep the top three, and send one Telegram digest.
 
+## Bonus Task
+When there are no red-labelled or overdue cards, add "No urgent cards today" to the digest while still listing the next three cards.
+
 ## Nodes
 - Schedule Trigger
 - Trello
@@ -70,6 +73,9 @@ Horarios, clasificación determinista, procesamiento de listas y mensajería
 
 ## Task
 A las 09:00 Europe/Madrid de cada día laborable, obtén las tarjetas abiertas del tablero de Trello del evento, coloca primero las que tengan etiqueta roja y después ordénalas por la fecha de vencimiento más próxima, conserva las tres primeras y envía un único resumen a Telegram.
+
+## Bonus Task
+Cuando no haya tarjetas con etiqueta roja ni vencidas, añade "No hay tarjetas urgentes hoy" al resumen y sigue mostrando las tres tarjetas siguientes.
 
 ## Nodes
 - Schedule Trigger

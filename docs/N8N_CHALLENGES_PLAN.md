@@ -101,7 +101,7 @@ Every active challenge must contain:
 - Stable number and slug.
 - Difficulty and complexity.
 - Balloon color and readable text color.
-- English and Spanish title, summary, multiple example use cases, task, required nodes, preparation checklist, and requirements.
+- English and Spanish title, summary, multiple example use cases, core task, bonus task, required nodes, preparation checklist, and requirements.
 - A preparation checklist that identifies any account, installation, credential, fixture, or organizer-provided resource needed before building.
 - Exactly five progressive tips in both languages.
 - Content parity between translations.
