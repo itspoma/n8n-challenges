@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import type { Locale } from "@/lib/home-copy";
@@ -30,7 +30,19 @@ export type Challenge = {
   complexity: 1 | 2 | 3 | 4 | 5;
   color: string;
   ink: string;
+  solutions: ChallengeSolutions | null;
   copy: Record<Locale, ChallengeTranslation>;
+};
+
+export type ChallengeSolutions = {
+  core: {
+    dark: string;
+    light: string;
+  };
+  bonus: {
+    dark: string;
+    light: string;
+  };
 };
 
 export const difficultyLabels: Record<Locale, Record<ChallengeDifficulty, string>> = {
@@ -85,7 +97,10 @@ export type ChallengePageLabels = {
   solutionConfirmCancel: string;
   solutionConfirmReveal: string;
   solutionDialogDismiss: string;
-  solutionImageAlt: string;
+  solutionCore: string;
+  solutionBonus: string;
+  solutionCoreImageAlt: string;
+  solutionBonusImageAlt: string;
   modalEyebrow: string;
   modalTitle: string;
   modalBody: string;
@@ -130,8 +145,10 @@ export const challengePageCopy = {
     solutionConfirmCancel: "Not yet",
     solutionConfirmReveal: "Yes, show solution",
     solutionDialogDismiss: "Close confirmation",
-    solutionImageAlt:
-      "Challenge 1 solution workflow: GET welcome webhook, build greeting, then return greeting",
+    solutionCore: "Core workflow",
+    solutionBonus: "With bonus",
+    solutionCoreImageAlt: "Core workflow without the bonus task",
+    solutionBonusImageAlt: "Completed workflow including the bonus task",
     modalEyebrow: "Mentor review",
     modalTitle: "Find a mentor and ask them to review.",
     modalBody: "Show them your working workflow. Once they approve it, collect the balloon for this challenge.",
@@ -174,8 +191,10 @@ export const challengePageCopy = {
     solutionConfirmCancel: "Todavía no",
     solutionConfirmReveal: "Sí, mostrar solución",
     solutionDialogDismiss: "Cerrar confirmación",
-    solutionImageAlt:
-      "Workflow de solución del reto 1: webhook GET welcome, creación del saludo y devolución del saludo",
+    solutionCore: "Workflow principal",
+    solutionBonus: "Con tarea extra",
+    solutionCoreImageAlt: "Workflow principal sin la tarea extra",
+    solutionBonusImageAlt: "Workflow completo con la tarea extra incluida",
     modalEyebrow: "Revisión del mentor",
     modalTitle: "Busca a un mentor y pídele que revise tu workflow.",
     modalBody: "Muéstrale el workflow funcionando. Cuando lo apruebe, recoge el globo de este reto.",
@@ -218,8 +237,10 @@ export const challengePageCopy = {
     solutionConfirmCancel: "Ще ні",
     solutionConfirmReveal: "Так, показати рішення",
     solutionDialogDismiss: "Закрити підтвердження",
-    solutionImageAlt:
-      "Рішення для завдання 1: GET-вебхук welcome, створення привітання та повернення відповіді",
+    solutionCore: "Основний воркфлоу",
+    solutionBonus: "З додатковим завданням",
+    solutionCoreImageAlt: "Основний воркфлоу без додаткового завдання",
+    solutionBonusImageAlt: "Завершений воркфлоу з додатковим завданням",
     modalEyebrow: "Перевірка ментором",
     modalTitle: "Знайдіть ментора й попросіть перевірити ваш воркфлоу.",
     modalBody: "Покажіть робочий воркфлоу. Після схвалення заберіть кульку за це завдання.",
@@ -230,15 +251,96 @@ export const challengePageCopy = {
 } satisfies Record<Locale, ChallengePageLabels>;
 
 const challengeDirectory = join(process.cwd(), "content", "challenges");
+const workflowDirectory = join(process.cwd(), "workflows");
 const difficultyValues = new Set<ChallengeDifficulty>([
   "beginner",
   "intermediate",
   "advanced",
 ]);
 const requiredTextSections = ["Title", "Summary", "Concept", "Task", "Bonus Task"] as const;
+const solutionHeadings = {
+  core: ["Core Workflow JSON (without bonus)", "Core solution JSON"],
+  bonus: ["Bonus Workflow JSON", "Bonus solution JSON"],
+};
 
 function fail(fileName: string, message: string): never {
   throw new Error(`Invalid challenge content in ${fileName}: ${message}`);
+}
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function readSolutionJsonBlock(source: string, headings: string[]) {
+  for (const heading of headings) {
+    const pattern = new RegExp(
+      "^##\\s+" + escapeRegExp(heading) +
+        "\\s*\\r?\\n+[\\s\\S]*?^```json\\s*\\r?\\n([\\s\\S]*?)^```\\s*$",
+      "im",
+    );
+    const match = source.match(pattern);
+
+    if (match) return match[1].trim();
+  }
+
+  return null;
+}
+
+function containsCompleteSolutionPair(source: string, fileName: string) {
+  const core = readSolutionJsonBlock(source, solutionHeadings.core);
+  const bonus = readSolutionJsonBlock(source, solutionHeadings.bonus);
+
+  if (!core && !bonus) return false;
+  if (!core || !bonus) {
+    fail(fileName, "solution data must contain both core and bonus workflow JSON");
+  }
+
+  for (const [variant, json] of [["core", core], ["bonus", bonus]] as const) {
+    try {
+      const workflow = JSON.parse(json) as { nodes?: unknown; connections?: unknown };
+
+      if (!Array.isArray(workflow.nodes) || workflow.nodes.length === 0) {
+        fail(fileName, `${variant} solution workflow must contain at least one node`);
+      }
+      if (!workflow.connections || typeof workflow.connections !== "object") {
+        fail(fileName, `${variant} solution workflow must contain connections`);
+      }
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        fail(fileName, `${variant} solution workflow contains invalid JSON`);
+      }
+      throw error;
+    }
+  }
+
+  return true;
+}
+
+function hasSolutionWorkflows(fileName: string, challengeSource: string) {
+  if (containsCompleteSolutionPair(challengeSource, fileName)) return true;
+
+  const legacyFileName = `challenge-${fileName}`;
+  const legacyPath = join(workflowDirectory, legacyFileName);
+
+  if (!existsSync(legacyPath)) return false;
+
+  return containsCompleteSolutionPair(
+    readFileSync(legacyPath, "utf8"),
+    legacyFileName,
+  );
+}
+
+function solutionImages(slug: string): ChallengeSolutions {
+  return {
+    core: {
+      dark: `/solutions/${slug}-core-dark.png`,
+      light: `/solutions/${slug}-core-light.png`,
+    },
+    bonus: {
+      dark: `/solutions/${slug}-bonus-dark.png`,
+      light: `/solutions/${slug}-bonus-light.png`,
+    },
+  };
 }
 
 function splitDocument(source: string, fileName: string) {
@@ -416,6 +518,9 @@ function parseChallenge(fileName: string): Challenge {
     complexity: complexity as Challenge["complexity"],
     color: metadata.color,
     ink: metadata.ink,
+    solutions: hasSolutionWorkflows(fileName, source)
+      ? solutionImages(metadata.slug)
+      : null,
     copy: {
       en: parseTranslation(languages.English, fileName, "English"),
       es: parseTranslation(languages.Spanish, fileName, "Spanish"),

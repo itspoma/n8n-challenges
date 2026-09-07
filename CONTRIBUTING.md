@@ -36,6 +36,7 @@ The public Events directory is generated from the Markdown files in `content/eve
 - Challenge metadata uses a unique number and slug.
 - Each challenge lists its required n8n nodes and preparation steps in all three languages.
 - Challenge content never includes API keys, access tokens, or other credentials.
+- A challenge solution contains both core and bonus workflow JSON, or neither.
 - Each challenge still contains exactly five tips per language.
 - Links use HTTPS.
-- `npm run lint`, `npm run typecheck`, and `npm run build` pass.
+- `npm run lint`, `npm run typecheck`, `npm run solutions:check`, and `npm run build` pass.

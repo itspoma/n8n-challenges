@@ -39,33 +39,8 @@ Internal reference for future solution features. This section is not displayed o
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "20bd7ee6-ecf4-44eb-9461-2aa4c489fc6a",
-              "name": "greeting",
-              "value": "Hello world from Valencia!",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "c5d24079-d404-470d-85bb-a47812b330eb",
-      "name": "Build greeting",
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        280,
-        0
-      ],
-      "notesInFlow": true,
-      "notes": "Sets the exact greeting required by the core task."
-    },
-    {
-      "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ $json.greeting }}",
+        "responseBody": "Hello world from Valencia!",
         "options": {}
       },
       "id": "13edabac-2027-4c93-9122-2e60aab43657",
@@ -73,27 +48,16 @@ Internal reference for future solution features. This section is not displayed o
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        560,
+        300,
         0
       ],
       "notesInFlow": true,
-      "notes": "Sends the greeting back to the browser as readable text."
+      "notes": "Returns the fixed core greeting directly to the browser."
     }
   ],
   "pinData": {},
   "connections": {
     "GET /welcome": {
-      "main": [
-        [
-          {
-            "node": "Build greeting",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Build greeting": {
       "main": [
         [
           {

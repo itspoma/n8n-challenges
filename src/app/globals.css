@@ -2589,14 +2589,57 @@ html[data-theme="light"] .theme-icon-moon {
   margin-top: 32px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 18px;
-  background: #040506;
+  background: var(--surface-raised);
   animation: challenge-solution-reveal 260ms ease-out both;
+}
+
+.challenge-solution-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.challenge-solution-tabs button {
+  min-height: 42px;
+  padding: 0 17px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.challenge-solution-tabs button:hover {
+  color: var(--ink);
+}
+
+.challenge-solution-tabs button[aria-pressed="true"] {
+  border-color: rgba(234, 75, 113, 0.45);
+  background: rgba(234, 75, 113, 0.14);
+  color: var(--pink-soft);
+}
+
+.challenge-solution-tabs button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.challenge-solution-figure {
+  background: #0c0c0c;
 }
 
 .challenge-solution-content img {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.challenge-solution-content .challenge-solution-image-light {
+  display: none;
 }
 
 @keyframes challenge-solution-reveal {
@@ -4387,6 +4430,27 @@ html[data-theme="light"] .solution-confirm-dialog-status {
   color: var(--pink-deep);
 }
 
+html[data-theme="light"] .challenge-solution-content,
+html[data-theme="light"] .challenge-solution-tabs {
+  border-color: rgba(27, 36, 39, 0.13);
+}
+
+html[data-theme="light"] .challenge-solution-tabs button[aria-pressed="true"] {
+  color: var(--pink-deep);
+}
+
+html[data-theme="light"] .challenge-solution-figure {
+  background: #ffffff;
+}
+
+html[data-theme="light"] .challenge-solution-content .challenge-solution-image-dark {
+  display: none;
+}
+
+html[data-theme="light"] .challenge-solution-content .challenge-solution-image-light {
+  display: block;
+}
+
 html[data-theme="light"] .join-card {
   border-color: rgba(216, 59, 97, 0.38);
   background: var(--pink);
@@ -4957,6 +5021,16 @@ html[data-theme="light"] .collection-balloon-string {
   .challenge-solution-content {
     margin-top: 26px;
     border-radius: 14px;
+  }
+
+  .challenge-solution-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .challenge-solution-tabs button {
+    width: 100%;
+    padding-inline: 10px;
   }
 
   .solution-confirm-dialog-inner {

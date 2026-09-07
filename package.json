@@ -11,7 +11,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "solutions:check": "node scripts/render-solutions.mjs --check",
+    "solutions:render": "node scripts/render-solutions.mjs"
   },
   "dependencies": {
     "next": "latest",

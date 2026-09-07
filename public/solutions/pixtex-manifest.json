@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "assets": {
+    "webhook-welcome-core-dark.png": {
+      "hash": "5f0d3b853893378883a5992572add423f919c383a3181d7b09bd3a9b6cf23835",
+      "source": "content/challenges/01-webhook-welcome.md"
+    },
+    "webhook-welcome-core-light.png": {
+      "hash": "36f411c56b82441b79539d2dc6143ebc211433c0f068a50670080463feabb147",
+      "source": "content/challenges/01-webhook-welcome.md"
+    },
+    "webhook-welcome-bonus-dark.png": {
+      "hash": "6d5ce5aba949d818da6ad241407cc3354b95cba3308bac89068a02fd16de7df8",
+      "source": "content/challenges/01-webhook-welcome.md"
+    },
+    "webhook-welcome-bonus-light.png": {
+      "hash": "db1f8066a5442fbf22aebb35c764632483c5032ded52627a8ffd4ed89c554964",
+      "source": "content/challenges/01-webhook-welcome.md"
+    },
+    "valencia-telegram-bot-core-dark.png": {
+      "hash": "e18f2572cef732d31ab9e3929f2214af2d1249855268d6fdb5c2297c3d161269",
+      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+    },
+    "valencia-telegram-bot-core-light.png": {
+      "hash": "0e5381485b2f81728515b1a4d06b942e0400ef4203b1fe92c1bf99fffe74d61d",
+      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+    },
+    "valencia-telegram-bot-bonus-dark.png": {
+      "hash": "af3520d90f1d0eb462e90d21184ab13e1ad763a47af24368b91e64cf27d90f39",
+      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+    },
+    "valencia-telegram-bot-bonus-light.png": {
+      "hash": "222e3bc5567176bdc891dcaf4bd0492c928e49c2ea0463787c2b715e993b8913",
+      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+    }
+  }
+}

@@ -42,6 +42,16 @@ npm run dev
 
 Then open [http://localhost:3000/en](http://localhost:3000/en).
 
+### Workflow solution images
+
+Challenges may include a complete core and bonus workflow pair in Markdown. Generate their light- and dark-theme Pixtex images before previewing a changed solution:
+
+```bash
+PIXTEX_API_KEY=your_key npm run solutions:render
+```
+
+The renderer skips challenges without a complete pair and reuses images whose workflow and render settings have not changed. GitHub Pages runs the same command with the `PIXTEX_API_KEY` repository secret and caches the generated files between deployments. Workflow credentials and pinned execution data are removed before rendering.
+
 ## Commands
 
 ```bash
@@ -49,6 +59,8 @@ npm run dev        # Start the local development server
 npm run build      # Generate the static site in out/
 npm run lint       # Run ESLint
 npm run typecheck  # Run TypeScript checks
+npm run solutions:check   # Validate Markdown workflow solution pairs
+npm run solutions:render  # Generate changed Pixtex light/dark solution images
 ```
 
 ## Project structure

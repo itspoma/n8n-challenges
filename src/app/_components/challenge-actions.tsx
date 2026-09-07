@@ -3,13 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { useCallback, useRef, useSyncExternalStore } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
-import type { ChallengePageLabels } from "@/lib/challenges";
+import type { ChallengePageLabels, ChallengeSolutions } from "@/lib/challenges";
 
 type ChallengeActionsProps = {
   challengeSlug: string;
+  challengeTitle: string;
   labels: ChallengePageLabels;
+  solutions: ChallengeSolutions | null;
   tips: string[];
   nextChallengeHref: string;
 };
@@ -20,6 +22,7 @@ const fallbackTipProgress = new Map<string, number>();
 const SOLUTION_REVEAL_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-solution:v1:";
 const SOLUTION_REVEAL_EVENT = "n8n-balloon-challenges:solution-reveal";
 const fallbackSolutionReveal = new Set<string>();
+const SOLUTION_VARIANTS = ["core", "bonus"] as const;
 const CONFETTI_COLORS = [
   "var(--pink)",
   "var(--yellow)",
@@ -101,7 +104,9 @@ function getServerSolutionReveal() {
 
 export function ChallengeActions({
   challengeSlug,
+  challengeTitle,
   labels,
+  solutions,
   tips,
   nextChallengeHref,
 }: ChallengeActionsProps) {
@@ -164,8 +169,13 @@ export function ChallengeActions({
   );
   const dialogRef = useRef<HTMLDialogElement>(null);
   const solutionDialogRef = useRef<HTMLDialogElement>(null);
+  const [selectedSolution, setSelectedSolution] = useState<"core" | "bonus">("core");
   const allTipsVisible = visibleTips >= tips.length;
-  const hasSolution = challengeSlug === "webhook-welcome";
+  const hasSolution = solutions !== null;
+  const activeSolution = solutions?.[selectedSolution] ?? null;
+  const activeSolutionAlt = selectedSolution === "core"
+    ? labels.solutionCoreImageAlt
+    : labels.solutionBonusImageAlt;
   const solutionPanelId = `challenge-solution-${challengeSlug}`;
 
   function revealTip() {
@@ -233,16 +243,48 @@ export function ChallengeActions({
               ) : null}
             </div>
 
-            {isSolutionExpanded ? (
-              <div className="challenge-solution-content" id={solutionPanelId}>
-                <Image
-                  src={`${basePath}/solutions/challenge-1-valencia-greeting-webhook.png`}
-                  width={2472}
-                  height={1389}
-                  sizes="(max-width: 1280px) 100vw, 700px"
-                  alt={labels.solutionImageAlt}
-                  unoptimized
-                />
+            {isSolutionExpanded && activeSolution ? (
+              <div className="challenge-solution-content">
+                <div
+                  className="challenge-solution-tabs"
+                  role="group"
+                  aria-label={labels.solutionTitle}
+                >
+                  {SOLUTION_VARIANTS.map((variant) => (
+                    <button
+                      key={variant}
+                      type="button"
+                      aria-controls={solutionPanelId}
+                      aria-pressed={selectedSolution === variant}
+                      onClick={() => setSelectedSolution(variant)}
+                    >
+                      {variant === "core" ? labels.solutionCore : labels.solutionBonus}
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className="challenge-solution-figure"
+                  id={solutionPanelId}
+                >
+                  <Image
+                    className="challenge-solution-image challenge-solution-image-dark"
+                    src={`${basePath}${activeSolution.dark}`}
+                    width={2400}
+                    height={1350}
+                    sizes="(max-width: 1280px) 100vw, 700px"
+                    alt={`${challengeTitle}: ${activeSolutionAlt}`}
+                    unoptimized
+                  />
+                  <Image
+                    className="challenge-solution-image challenge-solution-image-light"
+                    src={`${basePath}${activeSolution.light}`}
+                    width={2400}
+                    height={1350}
+                    sizes="(max-width: 1280px) 100vw, 700px"
+                    alt={`${challengeTitle}: ${activeSolutionAlt}`}
+                    unoptimized
+                  />
+                </div>
               </div>
             ) : null}
           </article>
