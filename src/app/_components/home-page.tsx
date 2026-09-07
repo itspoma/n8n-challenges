@@ -1,0 +1,236 @@
+import Link from "next/link";
+
+import { BalloonString } from "@/app/_components/balloon-string";
+import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { challenges, difficultyLabels } from "@/lib/challenges";
+import { homeCopy, type Locale } from "@/lib/home-copy";
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M4 10h11m-4-4 4 4-4 4" />
+    </svg>
+  );
+}
+
+export function HomePage({ locale }: { locale: Locale }) {
+  const copy = homeCopy[locale];
+
+  return (
+    <main lang={locale}>
+      <SiteHeader locale={locale} />
+
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-copy shell">
+          <p className="eyebrow">
+            <span />
+            {copy.eyebrow}
+          </p>
+          <h1 id="hero-title">
+            <span>{copy.titleTop}</span>
+            {" "}
+            <em>{copy.titleBottom}</em>
+          </h1>
+          <p className="hero-intro">{copy.intro}</p>
+          <div className="hero-actions">
+            <a className="button button-dark" href="#challenge-map">
+              {copy.primaryCta}
+              <ArrowIcon />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="stats-band" aria-label={copy.accessibility.formatSummary}>
+        <div className="shell stats-grid">
+          {copy.stats.map((stat) => (
+            <div className="stat" key={stat.label}>
+              <strong>{stat.value}</strong>
+              <span>{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="format-section shell" id="how-it-works" aria-labelledby="format-title">
+        <div className="section-heading format-heading">
+          <div>
+            <p className="section-kicker">{copy.format.kicker}</p>
+            <h2 id="format-title">{copy.format.title}</h2>
+          </div>
+          <p>{copy.format.body}</p>
+        </div>
+
+        <ol className="steps-grid">
+          {copy.format.steps.map((step, index) => (
+            <li className="step-card" key={step.number}>
+              <div className="step-topline">
+                <span>{step.number}</span>
+                <i aria-hidden="true" />
+              </div>
+              <h3>
+                {step.href ? (
+                  <a
+                    className="step-action-link"
+                    href={step.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {step.title}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ) : step.title}
+              </h3>
+              <span className={`mini-balloon mini-balloon-${index + 1}`} aria-hidden="true" />
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section
+        className="collection-section shell"
+        id="challenge-map"
+        aria-labelledby="collection-title"
+      >
+        <div className="collection-copy">
+          <div>
+            <p className="section-kicker">{copy.collection.eyebrow}</p>
+            <h2 id="collection-title">{copy.collection.title}</h2>
+          </div>
+          <p>{copy.collection.body}</p>
+        </div>
+
+        <ol className="balloon-collection" aria-label={copy.accessibility.balloonCollection}>
+          {challenges.map((challenge) => (
+            <li id={`challenge-${challenge.slug}`} key={challenge.slug}>
+              <Link
+                className="balloon-challenge-card"
+                href={`/${locale}/challenges/${challenge.slug}`}
+                aria-label={`${copy.collection.openLabel}: ${challenge.copy[locale].title}`}
+              >
+                <span
+                  className="collection-balloon"
+                  style={{ "--balloon": challenge.color, "--ink": challenge.ink } as React.CSSProperties}
+                  aria-hidden="true"
+                >
+                  <strong>{String(challenge.number).padStart(2, "0")}</strong>
+                  <BalloonString className="collection-balloon-string" />
+                </span>
+                <span className="balloon-card-copy">
+                  <span className="balloon-card-meta">
+                    <span>{difficultyLabels[locale][challenge.difficulty]}</span>
+                  </span>
+                  <strong>{challenge.copy[locale].title}</strong>
+                </span>
+                <span className="balloon-card-arrow" aria-hidden="true">↗</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="challenge-section" id="experience-levels" aria-labelledby="challenge-title">
+        <div className="shell">
+          <div className="section-heading challenge-heading">
+            <div>
+              <p className="section-kicker">{copy.challengeMap.kicker}</p>
+              <h2 id="challenge-title">{copy.challengeMap.title}</h2>
+            </div>
+            <p>{copy.challengeMap.body}</p>
+          </div>
+
+          <div className="level-grid">
+            {copy.challengeMap.levels.map((level, index) => (
+              <article className={`level-card level-${index + 1}`} key={level.name}>
+                <div className="level-card-top">
+                  <span className="level-number">0{index + 1}</span>
+                </div>
+                <h3>{level.name}</h3>
+                <p>{level.body}</p>
+                <div className="level-meta">
+                  <strong>{level.count}</strong>
+                </div>
+                <div className="level-balloons">
+                  {challenges
+                    .slice(index === 0 ? 0 : index === 1 ? 4 : 7, index === 0 ? 4 : index === 1 ? 7 : 10)
+                    .map((challenge) => (
+                      <a
+                        className="level-balloon-link"
+                        href={`#challenge-${challenge.slug}`}
+                        key={challenge.slug}
+                        aria-label={`${copy.collection.openLabel}: ${challenge.copy[locale].title}`}
+                        title={challenge.copy[locale].title}
+                      >
+                        <span
+                          className="level-balloon"
+                          style={
+                            {
+                              "--balloon": challenge.color,
+                              "--ink": challenge.ink,
+                            } as React.CSSProperties
+                          }
+                          aria-hidden="true"
+                        >
+                          <strong>{String(challenge.number).padStart(2, "0")}</strong>
+                          <BalloonString className="level-balloon-string" />
+                        </span>
+                      </a>
+                    ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="contribute-section shell" aria-labelledby="contribute-title">
+        <div className="contribute-card">
+          <div>
+            <p className="section-kicker section-kicker-light">{copy.contribute.kicker}</p>
+            <h2 id="contribute-title">{copy.contribute.title}</h2>
+          </div>
+          <div className="contribute-copy">
+            <p>{copy.contribute.body}</p>
+            <a
+              className="contribute-button"
+              href="https://github.com/itspoma/n8n-challenges/blob/main/CONTRIBUTING.md#add-an-event"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.contribute.button}
+              <ArrowIcon />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer className="site-footer shell">
+        <Link className="brand brand-footer" href={`/${locale}`}>
+          <BrandLogo themeAware />
+          <span className="brand-divider" aria-hidden="true" />
+          <strong className="event-name">Balloon Challenges</strong>
+        </Link>
+        <p>{copy.footer}</p>
+        <div className="footer-links">
+          <a
+            href="https://github.com/itspoma/n8n-challenges"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="https://github.com/itspoma"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {copy.footerContact} ↗
+          </a>
+          <a href="#hero-title" aria-label={copy.accessibility.backToTop}>
+            ↑ Top
+          </a>
+        </div>
+      </footer>
+    </main>
+  );
+}
