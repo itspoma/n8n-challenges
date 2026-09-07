@@ -1,23 +1,94 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 
 import type { ChallengePageLabels } from "@/lib/challenges";
 
 type ChallengeActionsProps = {
+  challengeSlug: string;
   labels: ChallengePageLabels;
   tips: string[];
   nextChallengeHref: string;
 };
 
-export function ChallengeActions({ labels, tips, nextChallengeHref }: ChallengeActionsProps) {
-  const [visibleTips, setVisibleTips] = useState(0);
+const TIP_PROGRESS_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-tips:v1:";
+const TIP_PROGRESS_EVENT = "n8n-balloon-challenges:tip-progress";
+const fallbackTipProgress = new Map<string, number>();
+
+function clampTipCount(value: number, totalTips: number) {
+  return Math.min(Math.max(value, 0), totalTips);
+}
+
+function readTipProgress(storageKey: string, totalTips: number) {
+  try {
+    const storedValue = window.localStorage.getItem(storageKey);
+
+    if (storedValue !== null) {
+      const parsedValue = Number(storedValue);
+
+      if (Number.isInteger(parsedValue)) {
+        return clampTipCount(parsedValue, totalTips);
+      }
+    }
+  } catch {}
+
+  return clampTipCount(fallbackTipProgress.get(storageKey) ?? 0, totalTips);
+}
+
+function writeTipProgress(storageKey: string, visibleTips: number) {
+  fallbackTipProgress.set(storageKey, visibleTips);
+
+  try {
+    window.localStorage.setItem(storageKey, String(visibleTips));
+  } catch {}
+
+  window.dispatchEvent(new Event(TIP_PROGRESS_EVENT));
+}
+
+function getServerTipProgress() {
+  return 0;
+}
+
+export function ChallengeActions({
+  challengeSlug,
+  labels,
+  tips,
+  nextChallengeHref,
+}: ChallengeActionsProps) {
+  const storageKey = `${TIP_PROGRESS_STORAGE_PREFIX}${challengeSlug}`;
+  const subscribeToTipProgress = useCallback(
+    (onStoreChange: () => void) => {
+      function handleStorage(event: StorageEvent) {
+        if (event.key === storageKey) {
+          onStoreChange();
+        }
+      }
+
+      window.addEventListener("storage", handleStorage);
+      window.addEventListener(TIP_PROGRESS_EVENT, onStoreChange);
+
+      return () => {
+        window.removeEventListener("storage", handleStorage);
+        window.removeEventListener(TIP_PROGRESS_EVENT, onStoreChange);
+      };
+    },
+    [storageKey],
+  );
+  const getTipProgress = useCallback(
+    () => readTipProgress(storageKey, tips.length),
+    [storageKey, tips.length],
+  );
+  const visibleTips = useSyncExternalStore(
+    subscribeToTipProgress,
+    getTipProgress,
+    getServerTipProgress,
+  );
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const allTipsVisible = visibleTips === tips.length;
+  const allTipsVisible = visibleTips >= tips.length;
 
   function revealTip() {
-    setVisibleTips((current) => Math.min(current + 1, tips.length));
+    writeTipProgress(storageKey, Math.min(visibleTips + 1, tips.length));
   }
 
   return (

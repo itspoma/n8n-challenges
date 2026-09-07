@@ -208,6 +208,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
         </article>
 
         <ChallengeActions
+          challengeSlug={challenge.slug}
           labels={labels}
           tips={content.tips}
           nextChallengeHref={`/${locale}/challenges/${nextChallenge.slug}`}
