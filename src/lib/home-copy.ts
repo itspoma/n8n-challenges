@@ -99,10 +99,10 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "View challenges",
     stats: [
       { value: "10", label: "hands-on challenges" },
-      { value: "30", label: "n8n nodes are covered across all challenges" },
+      { value: "30", label: "n8n nodes covered" },
       {
         value: "7",
-        label: "technical terms are explained on simple words across all challenges",
+        label: "technical terms explained simply",
       },
       { value: "3", label: "available languages" },
     ],
