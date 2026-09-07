@@ -81,7 +81,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     stats: [
       { value: "10", label: "hands-on challenges" },
       { value: "3", label: "experience levels" },
-      { value: "5", label: "hints per challenge" },
+      { value: "7", label: "technical terms made simple" },
       { value: "2", label: "available languages" },
     ],
     format: {
@@ -160,7 +160,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     stats: [
       { value: "10", label: "retos prácticos" },
       { value: "3", label: "niveles de experiencia" },
-      { value: "5", label: "pistas progresivas por reto" },
+      { value: "7", label: "términos técnicos explicados" },
       { value: "2", label: "idiomas disponibles" },
     ],
     format: {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { BalloonString } from "@/app/_components/balloon-string";
+import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { challenges, difficultyLabels } from "@/lib/challenges";
@@ -128,7 +129,11 @@ export function HomePage({ locale }: { locale: Locale }) {
 
         <ol className="balloon-collection" aria-label={copy.accessibility.balloonCollection}>
           {challenges.map((challenge) => (
-            <li id={`challenge-${challenge.slug}`} key={challenge.slug}>
+            <li
+              id={`challenge-${challenge.slug}`}
+              key={challenge.slug}
+              data-difficulty={challenge.difficulty}
+            >
               <Link
                 className="balloon-challenge-card"
                 href={`/${locale}/challenges/${challenge.slug}`}
@@ -165,47 +170,26 @@ export function HomePage({ locale }: { locale: Locale }) {
             <p>{copy.challengeMap.body}</p>
           </div>
 
-          <div className="level-grid">
-            {copy.challengeMap.levels.map((level, index) => (
-              <article className={`level-card level-${index + 1}`} key={level.name}>
-                <div className="level-card-top">
-                  <span className="level-number">0{index + 1}</span>
-                </div>
-                <h3>{level.name}</h3>
-                <p>{level.body}</p>
-                <div className="level-meta">
-                  <strong>{level.count}</strong>
-                </div>
-                <div className="level-balloons">
-                  {challenges
-                    .slice(index === 0 ? 0 : index === 1 ? 4 : 7, index === 0 ? 4 : index === 1 ? 7 : 10)
-                    .map((challenge) => (
-                      <a
-                        className="level-balloon-link"
-                        href={`#challenge-${challenge.slug}`}
-                        key={challenge.slug}
-                        aria-label={`${copy.collection.openLabel}: ${challenge.copy[locale].title}`}
-                        title={challenge.copy[locale].title}
-                      >
-                        <span
-                          className="level-balloon"
-                          style={
-                            {
-                              "--balloon": challenge.color,
-                              "--ink": challenge.ink,
-                            } as React.CSSProperties
-                          }
-                          aria-hidden="true"
-                        >
-                          <strong>{String(challenge.number).padStart(2, "0")}</strong>
-                          <BalloonString className="level-balloon-string" />
-                        </span>
-                      </a>
-                    ))}
-                </div>
-              </article>
-            ))}
-          </div>
+          <ChallengeLevelGrid
+            levels={copy.challengeMap.levels.map((level, index) => {
+              const difficulty = (["beginner", "intermediate", "advanced"] as const)[index];
+
+              return {
+                ...level,
+                difficulty,
+                challenges: challenges
+                  .filter((challenge) => challenge.difficulty === difficulty)
+                  .map((challenge) => ({
+                    color: challenge.color,
+                    ink: challenge.ink,
+                    number: challenge.number,
+                    slug: challenge.slug,
+                    title: challenge.copy[locale].title,
+                  })),
+              };
+            })}
+            openLabel={copy.collection.openLabel}
+          />
         </div>
       </section>
 

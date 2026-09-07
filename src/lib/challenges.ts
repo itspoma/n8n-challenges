@@ -9,6 +9,10 @@ type ChallengeTranslation = {
   title: string;
   summary: string;
   concept: string;
+  glossary: Array<{
+    term: string;
+    definition: string;
+  }>;
   scenario: string[];
   task: string;
   bonusTask: string;
@@ -50,9 +54,12 @@ export type ChallengePageLabels = {
   scenario: string;
   task: string;
   bonusTask: string;
+  glossary: string;
+  glossaryBody: string;
   nodes: string;
   preparation: string;
   requirements: string;
+  previous: string;
   next: string;
   hintsTitle: string;
   hintsBody: string;
@@ -80,9 +87,12 @@ export const challengePageCopy = {
     scenario: "Example use cases",
     task: "Your task",
     bonusTask: "Your bonus task",
+    glossary: "Glossary",
+    glossaryBody: "Technical terms, explained simply",
     nodes: "Nodes you'll use",
     preparation: "Before you start",
     requirements: "What the workflow must do",
+    previous: "Previous challenge",
     next: "Next challenge",
     hintsTitle: "Need a tip?",
     hintsBody: "Reveal up to five tips, one at a time.",
@@ -108,9 +118,12 @@ export const challengePageCopy = {
     scenario: "Ejemplos de uso",
     task: "Tu tarea",
     bonusTask: "Tu tarea extra",
+    glossary: "Glosario",
+    glossaryBody: "Términos técnicos explicados de forma sencilla",
     nodes: "Nodos que usarás",
     preparation: "Antes de empezar",
     requirements: "Qué debe hacer el workflow",
+    previous: "Reto anterior",
     next: "Siguiente reto",
     hintsTitle: "¿Necesitas una pista?",
     hintsBody: "Descubre hasta cinco pistas, una cada vez.",
@@ -236,6 +249,30 @@ function readList(
   return items;
 }
 
+function readGlossary(
+  sections: Record<string, string>,
+  fileName: string,
+  language: string,
+) {
+  const content = sections.Glossary;
+  if (!content) return [];
+
+  return content
+    .split(/\r?\n/)
+    .filter((line) => line.trim())
+    .map((line) => {
+      const match = line.match(/^\s*-\s+([^:]+):\s+(.+)$/);
+      if (!match) {
+        fail(fileName, `${language} ## Glossary must use "- Term: Simple explanation" items`);
+      }
+
+      return {
+        term: match[1].trim(),
+        definition: match[2].trim(),
+      };
+    });
+}
+
 function parseTranslation(source: string, fileName: string, language: string) {
   const sections = parseSections(source, fileName, language);
 
@@ -247,6 +284,7 @@ function parseTranslation(source: string, fileName: string, language: string) {
     title: sections.Title,
     summary: sections.Summary,
     concept: sections.Concept,
+    glossary: readGlossary(sections, fileName, language),
     scenario: readList(sections, "Scenario", fileName, language),
     task: sections.Task,
     bonusTask: sections["Bonus Task"],

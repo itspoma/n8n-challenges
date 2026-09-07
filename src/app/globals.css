@@ -248,7 +248,7 @@ input {
   justify-content: space-between;
   width: 44px;
   height: 24px;
-  padding-inline: 4px;
+  padding-inline: 5.5px;
 }
 
 .theme-icon {
@@ -1426,6 +1426,38 @@ html[data-theme="light"] .theme-icon-moon {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+.level-card-select {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.level-card > :not(.level-card-select) {
+  z-index: 2;
+  pointer-events: none;
+}
+
+.level-card .level-balloon-link {
+  pointer-events: auto;
+}
+
+.level-card-select:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: -5px;
+}
+
+.level-card.is-selected {
+  box-shadow: 0 0 0 3px rgba(234, 75, 113, 0.42), 0 18px 50px rgba(234, 75, 113, 0.22);
+  transform: translateY(-5px);
+}
+
 .level-card::after {
   position: absolute;
   right: -58px;
@@ -1596,6 +1628,7 @@ html[data-theme="light"] .theme-icon-moon {
 
 .collection-section {
   margin-block: 110px;
+  scroll-margin-top: 24px;
   padding: 76px clamp(34px, 5vw, 72px) 72px;
   border: 1px solid var(--line);
   border-radius: 30px;
@@ -1627,6 +1660,22 @@ html[data-theme="light"] .theme-icon-moon {
 .balloon-collection li {
   min-width: 0;
   scroll-margin-top: min(68vh, 520px);
+}
+
+.collection-section[data-highlight-level="beginner"] .balloon-collection li[data-difficulty="beginner"] .balloon-challenge-card,
+.collection-section[data-highlight-level="intermediate"] .balloon-collection li[data-difficulty="intermediate"] .balloon-challenge-card,
+.collection-section[data-highlight-level="advanced"] .balloon-collection li[data-difficulty="advanced"] .balloon-challenge-card {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(234, 75, 113, 0.24), 0 18px 38px rgba(0, 0, 0, 0.34);
+  transform: translateY(-5px);
+}
+
+.collection-section[data-highlight-level="beginner"] .balloon-collection li[data-difficulty="beginner"] .collection-balloon,
+.collection-section[data-highlight-level="intermediate"] .balloon-collection li[data-difficulty="intermediate"] .collection-balloon,
+.collection-section[data-highlight-level="advanced"] .balloon-collection li[data-difficulty="advanced"] .collection-balloon {
+  box-shadow: inset -8px -7px 0 rgba(4, 5, 6, 0.08), 0 0 0 5px rgba(234, 75, 113, 0.42),
+    0 14px 28px rgba(0, 0, 0, 0.34);
+  transform: scale(1.08);
 }
 
 .balloon-collection li:target .balloon-challenge-card {
@@ -1929,6 +1978,111 @@ html[data-theme="light"] .theme-icon-moon {
 .challenge-task-stack {
   display: grid;
   gap: 18px;
+}
+
+.challenge-glossary-card {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  border: 1px solid rgba(155, 131, 215, 0.32);
+  border-radius: 24px;
+  background: transparent;
+}
+
+.challenge-glossary-card summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 32px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.challenge-glossary-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.challenge-glossary-card summary:focus-visible {
+  border-radius: inherit;
+  outline: 3px solid var(--pink-soft);
+  outline-offset: -5px;
+}
+
+.challenge-glossary-heading {
+  display: grid;
+  gap: 7px;
+}
+
+.challenge-glossary-heading .section-kicker {
+  margin: 0;
+}
+
+.challenge-glossary-description {
+  color: var(--ink-soft);
+  font-size: 1.18rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.challenge-glossary-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(234, 75, 113, 0.3);
+  border-radius: 50%;
+  color: var(--pink);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.challenge-glossary-card summary:hover .challenge-glossary-icon {
+  background: var(--pink);
+  color: var(--white);
+}
+
+.challenge-glossary-card[open] summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.challenge-glossary-card[open] .challenge-glossary-icon {
+  background: var(--pink);
+  color: var(--white);
+  transform: rotate(45deg);
+}
+
+.challenge-glossary-list {
+  display: grid;
+  margin: 0;
+  padding: 8px 32px 24px;
+}
+
+.challenge-glossary-list > div {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.36fr) minmax(0, 1fr);
+  gap: 22px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.challenge-glossary-list > div:last-child {
+  border-bottom: 0;
+}
+
+.challenge-glossary-list dt {
+  color: var(--ink);
+  font-size: 0.93rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.challenge-glossary-list dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.93rem;
+  line-height: 1.58;
 }
 
 .challenge-example-list {
@@ -2549,41 +2703,75 @@ html[data-theme="light"] .theme-icon-moon {
   line-height: 1.58;
 }
 
-.next-challenge-link {
+.challenge-navigation {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.challenge-navigation-link {
   position: relative;
   display: flex;
-  grid-column: 1 / -1;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   min-height: 105px;
   padding: 25px 30px;
   border-radius: 20px;
-  background: var(--pink);
-  color: var(--white);
-  transition: background 180ms ease, transform 180ms ease;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
-.next-challenge-link:hover {
-  background: var(--pink-deep);
+.challenge-navigation-previous {
+  border: 1px solid rgba(234, 75, 113, 0.46);
+  background: transparent;
+  color: var(--ink);
+}
+
+.challenge-navigation-next {
+  border: 1px solid var(--pink);
+  background: var(--pink);
+  color: var(--white);
+}
+
+.challenge-navigation-previous:hover {
+  border-color: var(--pink);
+  background: rgba(234, 75, 113, 0.09);
   transform: translateY(-3px);
 }
 
-.next-challenge-link > span {
+.challenge-navigation-next:hover {
+  background: var(--pink-deep);
+  border-color: var(--pink-deep);
+  transform: translateY(-3px);
+}
+
+.challenge-navigation-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.challenge-navigation-copy > span {
   font-size: 0.67rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.next-challenge-link > strong {
+.challenge-navigation-copy > strong {
   font-size: 1.25rem;
   font-weight: 500;
+  line-height: 1.2;
 }
 
-.next-challenge-link > i {
-  margin-left: auto;
+.challenge-navigation-link > i {
+  flex: 0 0 auto;
   font-size: 1.5rem;
   font-style: normal;
+}
+
+.challenge-navigation-next > i {
+  margin-left: auto;
 }
 
 .section-kicker-light {
@@ -3971,7 +4159,7 @@ html[data-theme="light"] .current-event-card-top {
 }
 
 html[data-theme="light"] .current-event-card > span:last-child {
-  color: var(--white);
+  color: var(--ink);
 }
 
 html[data-theme="light"] .host-event-card {
@@ -4174,8 +4362,7 @@ html[data-theme="light"] .collection-balloon-string {
   .challenge-task-card,
   .challenge-bonus-card,
   .challenge-support-card,
-  .challenge-requirements-card,
-  .next-challenge-link {
+  .challenge-requirements-card {
     grid-column: 1;
   }
 
@@ -4430,6 +4617,24 @@ html[data-theme="light"] .collection-balloon-string {
     border-radius: 20px;
   }
 
+  .challenge-glossary-card {
+    border-radius: 20px;
+  }
+
+  .challenge-glossary-card summary {
+    padding: 24px 22px;
+  }
+
+  .challenge-glossary-list {
+    padding: 6px 22px 18px;
+  }
+
+  .challenge-glossary-list > div {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    padding: 15px 0;
+  }
+
   .review-dialog-inner {
     padding: 38px 24px 26px;
   }
@@ -4451,17 +4656,12 @@ html[data-theme="light"] .collection-balloon-string {
     padding: 17px;
   }
 
-  .next-challenge-link {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-    padding: 24px;
+  .challenge-navigation {
+    grid-template-columns: 1fr;
   }
 
-  .next-challenge-link > i {
-    position: absolute;
-    top: 24px;
-    right: 24px;
+  .challenge-navigation-link {
+    padding: 24px;
   }
 
   .join-section {

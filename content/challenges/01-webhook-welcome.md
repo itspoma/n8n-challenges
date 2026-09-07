@@ -19,6 +19,15 @@ Create a URL that greets its visitor from Valencia.
 ## Concept
 Webhook triggers, query parameters, and browser responses
 
+## Glossary
+- n8n: n8n is a tool for automating work. You connect steps called nodes so data can move and apps can work together.
+- Webhook: A webhook is a special URL that can start an n8n workflow when a person or another app opens it or sends a request to it.
+- GET method: GET asks a URL to send information back. Opening a normal web page in a browser usually sends a GET request.
+- GET parameters: Parameters are extra values added to the end of a URL after ?. They give the workflow more detail, such as ?name=Ana.
+- Other HTTP methods: POST sends data to a URL, usually to create or submit something. GET mainly asks for data; POST mainly sends data. PUT and PATCH update data, while DELETE removes it.
+- JSON, text, and HTML: Text is plain words. HTML adds page structure and formatting for a browser. JSON organizes data with names and values so apps can read it.
+- QR code: A QR code is a square image that stores information, often a URL. A phone camera can scan it and open that URL.
+
 ## Scenario
 - An event landing page loads its event list from a URL, so newly published events appear automatically without editing the page.
 - A workshop uses an attendee URL as its live source, so every new signup appears automatically as soon as the person registers.
@@ -64,6 +73,15 @@ Crea una URL que salude a quien la visite desde Valencia.
 
 ## Concept
 Triggers Webhook, parámetros de consulta y respuestas para el navegador
+
+## Glossary
+- n8n: n8n es una herramienta para automatizar tareas. Conectas pasos llamados nodos para mover datos y hacer que las aplicaciones trabajen juntas.
+- Webhook: Un webhook es una URL especial que puede iniciar un workflow de n8n cuando una persona u otra aplicación la abre o le envía una petición.
+- Método GET: GET pide a una URL que devuelva información. Al abrir una página normal en el navegador, normalmente se envía una petición GET.
+- Parámetros de GET: Los parámetros son valores extra que se añaden al final de una URL después de ?. Dan más detalles al workflow; por ejemplo, ?name=Ana.
+- Otros métodos HTTP: POST envía datos a una URL, normalmente para crear o enviar algo. GET pide datos; POST envía datos. PUT y PATCH actualizan datos, y DELETE los elimina.
+- JSON, texto y HTML: El texto son palabras sin estructura especial. HTML añade estructura y formato para que el navegador muestre una página. JSON organiza datos con nombres y valores para que las aplicaciones puedan leerlos.
+- Código QR: Un código QR es una imagen cuadrada que guarda información, a menudo una URL. La cámara de un teléfono puede escanearlo y abrir esa URL.
 
 ## Scenario
 - La página de un evento carga su lista de eventos desde una URL, para que los eventos recién publicados aparezcan automáticamente sin editar la página.

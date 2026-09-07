@@ -117,6 +117,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
 
   const content = challenge.copy[locale];
   const labels = challengePageCopy[locale];
+  const previousChallenge = challenges[(challenge.number - 2 + challenges.length) % challenges.length];
   const nextChallenge = challenges[challenge.number % challenges.length];
 
   return (
@@ -153,6 +154,26 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
       </section>
 
       <section className="challenge-detail-content shell">
+        {content.glossary.length > 0 ? (
+          <details className="challenge-glossary-card">
+            <summary>
+              <span className="challenge-glossary-heading">
+                <span className="section-kicker">{labels.glossary}</span>
+                <span className="challenge-glossary-description">{labels.glossaryBody}</span>
+              </span>
+              <span className="challenge-glossary-icon" aria-hidden="true">+</span>
+            </summary>
+            <dl className="challenge-glossary-list">
+              {content.glossary.map((entry) => (
+                <div key={entry.term}>
+                  <dt>{entry.term}</dt>
+                  <dd>{entry.definition}</dd>
+                </div>
+              ))}
+            </dl>
+          </details>
+        ) : null}
+
         <div className="challenge-task-stack">
           <article className="challenge-task-card">
             <p className="section-kicker">{labels.task}</p>
@@ -214,13 +235,29 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
           nextChallengeHref={`/${locale}/challenges/${nextChallenge.slug}`}
         />
 
-        {nextChallenge ? (
-          <Link className="next-challenge-link" href={`/${locale}/challenges/${nextChallenge.slug}`}>
-            <span>{labels.next}</span>
-            <strong>{nextChallenge.copy[locale].title}</strong>
+        <nav className="challenge-navigation" aria-label={`${labels.previous} / ${labels.next}`}>
+          <Link
+            className="challenge-navigation-link challenge-navigation-previous"
+            href={`/${locale}/challenges/${previousChallenge.slug}`}
+          >
+            <i aria-hidden="true">←</i>
+            <span className="challenge-navigation-copy">
+              <span>{labels.previous}</span>
+              <strong>{previousChallenge.copy[locale].title}</strong>
+            </span>
+          </Link>
+
+          <Link
+            className="challenge-navigation-link challenge-navigation-next"
+            href={`/${locale}/challenges/${nextChallenge.slug}`}
+          >
+            <span className="challenge-navigation-copy">
+              <span>{labels.next}</span>
+              <strong>{nextChallenge.copy[locale].title}</strong>
+            </span>
             <i aria-hidden="true">→</i>
           </Link>
-        ) : null}
+        </nav>
       </section>
 
       <footer className="site-footer challenge-footer shell">
