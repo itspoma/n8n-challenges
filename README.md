@@ -50,7 +50,7 @@ Challenges may include a complete core and bonus workflow pair in Markdown. Gene
 PIXTEX_API_KEY=your_key npm run solutions:render
 ```
 
-The renderer skips challenges without a complete pair and reuses images whose workflow and render settings have not changed. GitHub Pages runs the same command with the `PIXTEX_API_KEY` repository secret and caches the generated files between deployments. Workflow credentials and pinned execution data are removed before rendering.
+The renderer skips challenges without a complete pair and reuses images whose workflow and render settings have not changed. Commit the generated images and manifest in `public/solutions/` with the corresponding challenge change. GitHub Pages validates those committed files during deployment and never calls Pixtex. Workflow credentials and pinned execution data are removed before rendering.
 
 ## Commands
 
