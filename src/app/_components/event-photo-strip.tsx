@@ -40,6 +40,7 @@ export function EventPhotoStrip({ ariaLabel, kicker, photoAlts }: EventPhotoStri
 
     let animationFrame = 0;
     let lastTimestamp: number | null = null;
+    let scrollPosition = rail.scrollLeft;
     let rewindFrom: number | null = null;
     let rewindElapsed = 0;
 
@@ -48,22 +49,32 @@ export function EventPhotoStrip({ ariaLabel, kicker, photoAlts }: EventPhotoStri
       lastTimestamp = timestamp;
       const paused = rail.matches(":hover") || rail.matches(":focus-within");
 
-      if (!paused && rewindFrom !== null) {
+      if (paused) {
+        scrollPosition = rail.scrollLeft;
+
+        if (rewindFrom !== null) {
+          rewindFrom = scrollPosition;
+          rewindElapsed = 0;
+        }
+      } else if (rewindFrom !== null) {
         rewindElapsed += elapsed;
 
         const progress = Math.min(rewindElapsed / rewindDuration, 1);
-        rail.scrollLeft = rewindFrom * (1 - easeInOutCubic(progress));
+        scrollPosition = rewindFrom * (1 - easeInOutCubic(progress));
+        rail.scrollLeft = scrollPosition;
 
         if (progress === 1) {
+          scrollPosition = 0;
           rail.scrollLeft = 0;
           rewindFrom = null;
           rewindElapsed = 0;
         }
-      } else if (!paused) {
-        rail.scrollLeft += (autoScrollSpeed * elapsed) / 1000;
+      } else {
+        scrollPosition += (autoScrollSpeed * elapsed) / 1000;
+        rail.scrollLeft = scrollPosition;
 
-        if (rail.scrollLeft >= duplicateGroup.offsetLeft) {
-          rewindFrom = rail.scrollLeft;
+        if (scrollPosition >= duplicateGroup.offsetLeft) {
+          rewindFrom = scrollPosition;
           rewindElapsed = 0;
         }
       }

@@ -1263,7 +1263,7 @@ html[data-theme="light"] .theme-icon-moon {
   display: flex;
   width: max-content;
   gap: 16px;
-  background: #fff;
+  background: transparent;
 }
 
 .event-photo-card {
@@ -4550,6 +4550,18 @@ html[data-theme="light"] .challenge-solution-tabs button[aria-pressed="true"] {
 
 html[data-theme="light"] .challenge-solution-figure {
   background: #ffffff;
+}
+
+html[data-theme="light"] .challenge-solution-zoom {
+  border-color: rgba(4, 5, 6, 0.18);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(69, 21, 36, 0.14);
+  color: var(--dark);
+}
+
+html[data-theme="light"] .challenge-solution-image-link:hover .challenge-solution-zoom,
+html[data-theme="light"] .challenge-solution-image-link:focus-visible .challenge-solution-zoom {
+  color: #ffffff;
 }
 
 html[data-theme="light"] .challenge-solution-image-link:hover img,
