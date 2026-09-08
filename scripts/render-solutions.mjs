@@ -7,11 +7,10 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { constants } from "node:fs";
-import { basename, join } from "node:path";
+import { join } from "node:path";
 
 const projectDirectory = process.cwd();
 const challengeDirectory = join(projectDirectory, "content", "challenges");
-const workflowDirectory = join(projectDirectory, "workflows");
 const outputDirectory = join(projectDirectory, "public", "solutions");
 const manifestPath = join(outputDirectory, "pixtex-manifest.json");
 const apiUrl = "https://api.pixtex.dev/v1/render";
@@ -181,23 +180,10 @@ function assetHash(workflow, options) {
 async function findSolutions(challengeFileName) {
   const challengePath = join(challengeDirectory, challengeFileName);
   const challengeSource = await readFile(challengePath, "utf8");
-  const embedded = parseSolutionPair(challengeSource, challengeFileName);
+  const pair = parseSolutionPair(challengeSource, challengeFileName);
 
-  if (embedded) {
-    return { pair: embedded, source: `content/challenges/${challengeFileName}` };
-  }
-
-  const legacyPath = join(workflowDirectory, `challenge-${challengeFileName}`);
-
-  if (!(await fileExists(legacyPath))) {
-    return null;
-  }
-
-  const legacySource = await readFile(legacyPath, "utf8");
-  const legacy = parseSolutionPair(legacySource, basename(legacyPath));
-
-  return legacy
-    ? { pair: legacy, source: `workflows/${basename(legacyPath)}` }
+  return pair
+    ? { pair, source: `content/challenges/${challengeFileName}` }
     : null;
 }
 
@@ -259,15 +245,6 @@ function expectedAssetsFor(discovered) {
 }
 
 async function main() {
-  const standaloneWorkflowFiles = (await readdir(workflowDirectory))
-    .filter((fileName) => /^challenge-\d{2}-.*\.json$/.test(fileName));
-
-  if (standaloneWorkflowFiles.length > 0) {
-    throw new Error(
-      `Move standalone challenge workflow JSON into its challenge Markdown: ${standaloneWorkflowFiles.join(", ")}`,
-    );
-  }
-
   const challengeFiles = (await readdir(challengeDirectory))
     .filter((fileName) => /^\d{2}-[a-z0-9-]+\.md$/.test(fileName))
     .filter(

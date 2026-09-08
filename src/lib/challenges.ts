@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import type { Locale } from "@/lib/home-copy";
@@ -263,7 +263,6 @@ export const challengePageCopy = {
 } satisfies Record<Locale, ChallengePageLabels>;
 
 const challengeDirectory = join(process.cwd(), "content", "challenges");
-const workflowDirectory = join(process.cwd(), "workflows");
 const difficultyValues = new Set<ChallengeDifficulty>([
   "beginner",
   "intermediate",
@@ -329,17 +328,7 @@ function containsCompleteSolutionPair(source: string, fileName: string) {
 }
 
 function hasSolutionWorkflows(fileName: string, challengeSource: string) {
-  if (containsCompleteSolutionPair(challengeSource, fileName)) return true;
-
-  const legacyFileName = `challenge-${fileName}`;
-  const legacyPath = join(workflowDirectory, legacyFileName);
-
-  if (!existsSync(legacyPath)) return false;
-
-  return containsCompleteSolutionPair(
-    readFileSync(legacyPath, "utf8"),
-    legacyFileName,
-  );
+  return containsCompleteSolutionPair(challengeSource, fileName);
 }
 
 const solutionImageEntries = [
