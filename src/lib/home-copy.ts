@@ -115,6 +115,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         "An n8n event attendee explaining an idea",
         "Attendees discussing a workflow around a laptop",
         "Audience seated during an n8n community presentation",
+        "An n8n community speaker presenting to an audience",
+        "Four n8n community organizers posing together after an event",
       ],
     },
     format: {
@@ -209,6 +211,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         "Una asistente de un evento n8n explicando una idea",
         "Asistentes hablando sobre un workflow alrededor de un portátil",
         "Público sentado durante una presentación de la comunidad n8n",
+        "Un ponente de la comunidad n8n haciendo una presentación ante el público",
+        "Cuatro organizadores de la comunidad n8n posando juntos después de un evento",
       ],
     },
     format: {
@@ -303,6 +307,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         "Учасниця події n8n пояснює ідею",
         "Учасники обговорюють воркфлоу біля ноутбука",
         "Аудиторія під час презентації спільноти n8n",
+        "Спікер спільноти n8n виступає перед аудиторією",
+        "Четверо організаторів спільноти n8n позують разом після події",
       ],
     },
     format: {

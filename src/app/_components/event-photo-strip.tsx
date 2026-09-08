@@ -9,7 +9,18 @@ const photos = [
   { src: "/events/previous-event-3.jpg", width: 333, height: 500 },
   { src: "/events/previous-event-4.jpg", width: 750, height: 500 },
   { src: "/events/previous-event-5.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-6.jpg", width: 333, height: 500 },
+  { src: "/events/previous-event-7.jpg", width: 662, height: 500 },
 ] as const;
+
+const autoScrollSpeed = 20;
+const rewindDuration = 800;
+
+function easeInOutCubic(progress: number) {
+  return progress < 0.5
+    ? 4 * progress * progress * progress
+    : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+}
 
 type EventPhotoStripProps = {
   ariaLabel: string;
@@ -27,19 +38,42 @@ export function EventPhotoStrip({ ariaLabel, kicker, photoAlts }: EventPhotoStri
 
     if (!rail || !duplicateGroup || reducedMotion.matches) return;
 
-    const interval = window.setInterval(() => {
+    let animationFrame = 0;
+    let lastTimestamp: number | null = null;
+    let rewindFrom: number | null = null;
+    let rewindElapsed = 0;
+
+    const animate = (timestamp: number) => {
+      const elapsed = lastTimestamp === null ? 0 : Math.min(timestamp - lastTimestamp, 100);
+      lastTimestamp = timestamp;
       const paused = rail.matches(":hover") || rail.matches(":focus-within");
 
-      if (paused) return;
+      if (!paused && rewindFrom !== null) {
+        rewindElapsed += elapsed;
 
-      rail.scrollLeft += 0.6;
+        const progress = Math.min(rewindElapsed / rewindDuration, 1);
+        rail.scrollLeft = rewindFrom * (1 - easeInOutCubic(progress));
 
-      if (rail.scrollLeft >= duplicateGroup.offsetLeft) {
-        rail.scrollLeft -= duplicateGroup.offsetLeft;
+        if (progress === 1) {
+          rail.scrollLeft = 0;
+          rewindFrom = null;
+          rewindElapsed = 0;
+        }
+      } else if (!paused) {
+        rail.scrollLeft += (autoScrollSpeed * elapsed) / 1000;
+
+        if (rail.scrollLeft >= duplicateGroup.offsetLeft) {
+          rewindFrom = rail.scrollLeft;
+          rewindElapsed = 0;
+        }
       }
-    }, 30);
 
-    return () => window.clearInterval(interval);
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    animationFrame = window.requestAnimationFrame(animate);
+
+    return () => window.cancelAnimationFrame(animationFrame);
   }, []);
 
   return (
