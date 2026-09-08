@@ -99,9 +99,9 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "View challenges",
     stats: [
       { value: "10", label: "hands-on challenges" },
-      { value: "30", label: "n8n nodes covered" },
+      { value: "41", label: "n8n nodes covered" },
       {
-        value: "7",
+        value: "38+",
         label: "technical terms explained simply",
       },
       { value: "3", label: "available languages" },
@@ -198,8 +198,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "Ver los retos",
     stats: [
       { value: "10", label: "retos prácticos" },
-      { value: "30", label: "nodos de n8n que aprenderás" },
-      { value: "7", label: "términos técnicos explicados" },
+      { value: "41", label: "nodos de n8n que aprenderás" },
+      { value: "38+", label: "términos técnicos explicados" },
       { value: "3", label: "idiomas disponibles" },
     ],
     gallery: {
@@ -294,8 +294,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     primaryCta: "Переглянути завдання",
     stats: [
       { value: "10", label: "практичних завдань" },
-      { value: "30", label: "нод n8n, які ви опануєте" },
-      { value: "7", label: "технічних термінів простими словами" },
+      { value: "41", label: "нод n8n, які ви опануєте" },
+      { value: "38+", label: "технічних термінів простими словами" },
       { value: "3", label: "доступні мови" },
     ],
     gallery: {
