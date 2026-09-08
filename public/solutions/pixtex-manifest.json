@@ -32,6 +32,22 @@
     "valencia-telegram-bot-bonus-light.png": {
       "hash": "222e3bc5567176bdc891dcaf4bd0492c928e49c2ea0463787c2b715e993b8913",
       "source": "workflows/challenge-02-valencia-telegram-bot.md"
+    },
+    "idealista-morning-brief-core-dark.png": {
+      "hash": "18d7a33526f5a488c7e554c054c43dbfadbdca331e002331664dc2b05605c228",
+      "source": "content/challenges/09-idealista-morning-brief.md"
+    },
+    "idealista-morning-brief-core-light.png": {
+      "hash": "591e0c31eab8eb54fcea45c0ab7ec654b3ba71dcc5289510f89d6a55a8aea307",
+      "source": "content/challenges/09-idealista-morning-brief.md"
+    },
+    "idealista-morning-brief-bonus-dark.png": {
+      "hash": "adeae1fb9ce7eb7f1655adb8d0823e8601a359a23df498640a911398408b666b",
+      "source": "content/challenges/09-idealista-morning-brief.md"
+    },
+    "idealista-morning-brief-bonus-light.png": {
+      "hash": "319021441b7c86222ecc5104c694ee1c8db6b320ee72209c16505668d3c686b9",
+      "source": "content/challenges/09-idealista-morning-brief.md"
     }
   }
 }

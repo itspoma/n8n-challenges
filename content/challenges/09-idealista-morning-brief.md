@@ -1,156 +1,674 @@
 ---
 number: 9
 slug: idealista-morning-brief
-difficulty: advanced
+difficulty: intermediate
 time: 45–60 min
 complexity: 4
 color: #c6c9c7
 ink: #1b2427
 ---
 
+# Solution Data
+
+## Core Workflow JSON (without bonus)
+
+```json
+{
+  "name": "C9 – Valencia Apartment Brief – Core",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [0, 300],
+      "id": "09000000-0000-4000-8000-000000000001",
+      "name": "Every day at 08:00"
+    },
+    {
+      "parameters": {
+        "resource": "Scraping",
+        "operation": "scrape",
+        "url": "https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html",
+        "parsers": [],
+        "scrapeOptions": {
+          "options": {
+            "formats": {
+              "format": [
+                {
+                  "type": "json",
+                  "prompt": "Extract every apartment card from the page. Return listingId and title as strings, neighborhood as the displayed neighborhood name, price and bedrooms as integers without symbols, and url as the full listing URL.",
+                  "schema": "{\"type\":\"object\",\"properties\":{\"listings\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"listingId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"neighborhood\":{\"type\":\"string\"},\"price\":{\"type\":\"integer\"},\"bedrooms\":{\"type\":\"integer\"},\"url\":{\"type\":\"string\"}},\"required\":[\"listingId\",\"title\",\"neighborhood\",\"price\",\"bedrooms\",\"url\"]}}},\"required\":[\"listings\"]}"
+                }
+              ]
+            },
+            "onlyMainContent": true,
+            "storeInCache": false
+          }
+        }
+      },
+      "type": "@mendable/n8n-nodes-firecrawl.firecrawl",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "09000000-0000-4000-8000-000000000002",
+      "name": "Scrape permitted feed"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data.json.listings",
+        "include": "noOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [480, 300],
+      "id": "09000000-0000-4000-8000-000000000003",
+      "name": "Split listings"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09000000-0000-4000-8000-000000000011",
+              "leftValue": "={{ $json.price }}",
+              "rightValue": 1200,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            },
+            {
+              "id": "09000000-0000-4000-8000-000000000012",
+              "leftValue": "={{ $json.bedrooms }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "09000000-0000-4000-8000-000000000013",
+              "leftValue": "={{ ['Russafa', 'El Carme', 'Benimaclet'].includes($json.neighborhood) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [720, 300],
+      "id": "09000000-0000-4000-8000-000000000004",
+      "name": "Keep wanted homes"
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "logic": "removeItemsWithAlreadySeenKeyValues",
+        "dedupeValue": "={{ $json.listingId }}",
+        "options": {
+          "scope": "node",
+          "historySize": 10000
+        }
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [960, 300],
+      "id": "09000000-0000-4000-8000-000000000005",
+      "name": "Only unseen listing IDs"
+    },
+    {
+      "parameters": {
+        "type": "simple",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "price",
+              "order": "ascending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [1200, 300],
+      "id": "09000000-0000-4000-8000-000000000006",
+      "name": "Sort by price"
+    },
+    {
+      "parameters": {
+        "maxItems": 5,
+        "keep": "firstItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [1440, 300],
+      "id": "09000000-0000-4000-8000-000000000007",
+      "name": "Keep first five"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "listings",
+        "include": "allFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [1680, 300],
+      "id": "09000000-0000-4000-8000-000000000008",
+      "name": "Build one brief"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "={{ '🏠 New Valencia apartments\\n\\n' + $json.listings.map((item, index) => `${index + 1}. ${item.title}\\n${item.neighborhood} · €${item.price}/month · ${item.bedrooms} bedrooms\\n${item.url}`).join('\\n\\n') }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1920, 300],
+      "id": "09000000-0000-4000-8000-000000000009",
+      "name": "Send apartment brief"
+    }
+  ],
+  "connections": {
+    "Every day at 08:00": {
+      "main": [[{"node": "Scrape permitted feed", "type": "main", "index": 0}]]
+    },
+    "Scrape permitted feed": {
+      "main": [[{"node": "Split listings", "type": "main", "index": 0}]]
+    },
+    "Split listings": {
+      "main": [[{"node": "Keep wanted homes", "type": "main", "index": 0}]]
+    },
+    "Keep wanted homes": {
+      "main": [[{"node": "Only unseen listing IDs", "type": "main", "index": 0}]]
+    },
+    "Only unseen listing IDs": {
+      "main": [[{"node": "Sort by price", "type": "main", "index": 0}], []]
+    },
+    "Sort by price": {
+      "main": [[{"node": "Keep first five", "type": "main", "index": 0}]]
+    },
+    "Keep first five": {
+      "main": [[{"node": "Build one brief", "type": "main", "index": 0}]]
+    },
+    "Build one brief": {
+      "main": [[{"node": "Send apartment brief", "type": "main", "index": 0}]]
+    }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Madrid"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
+```
+
+## Bonus Workflow JSON
+
+```json
+{
+  "name": "C9 – Valencia Apartment Brief – Bonus",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "daysInterval": 1,
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [0, 300],
+      "id": "09000000-0000-4000-9000-000000000001",
+      "name": "Every day at 08:00"
+    },
+    {
+      "parameters": {
+        "resource": "Scraping",
+        "operation": "scrape",
+        "url": "https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html",
+        "parsers": [],
+        "scrapeOptions": {
+          "options": {
+            "formats": {
+              "format": [
+                {
+                  "type": "json",
+                  "prompt": "Extract every apartment card from the page. Return listingId and title as strings, neighborhood as the displayed neighborhood name, price and bedrooms as integers without symbols, and url as the full listing URL.",
+                  "schema": "{\"type\":\"object\",\"properties\":{\"listings\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"listingId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"neighborhood\":{\"type\":\"string\"},\"price\":{\"type\":\"integer\"},\"bedrooms\":{\"type\":\"integer\"},\"url\":{\"type\":\"string\"}},\"required\":[\"listingId\",\"title\",\"neighborhood\",\"price\",\"bedrooms\",\"url\"]}}},\"required\":[\"listings\"]}"
+                }
+              ]
+            },
+            "onlyMainContent": true,
+            "storeInCache": false
+          }
+        }
+      },
+      "type": "@mendable/n8n-nodes-firecrawl.firecrawl",
+      "typeVersion": 1,
+      "position": [240, 300],
+      "id": "09000000-0000-4000-9000-000000000002",
+      "name": "Scrape permitted feed"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data.json.listings",
+        "include": "noOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [480, 300],
+      "id": "09000000-0000-4000-9000-000000000003",
+      "name": "Split listings"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09000000-0000-4000-9000-000000000011",
+              "leftValue": "={{ $json.price }}",
+              "rightValue": 1200,
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              }
+            },
+            {
+              "id": "09000000-0000-4000-9000-000000000012",
+              "leftValue": "={{ $json.bedrooms }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            },
+            {
+              "id": "09000000-0000-4000-9000-000000000013",
+              "leftValue": "={{ ['Russafa', 'El Carme', 'Benimaclet'].includes($json.neighborhood) }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [720, 300],
+      "id": "09000000-0000-4000-9000-000000000004",
+      "name": "Keep wanted homes",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "logic": "removeItemsWithAlreadySeenKeyValues",
+        "dedupeValue": "={{ $json.listingId }}",
+        "options": {
+          "scope": "node",
+          "historySize": 10000
+        }
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [960, 300],
+      "id": "09000000-0000-4000-9000-000000000005",
+      "name": "Only unseen listing IDs",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "09000000-0000-4000-9000-000000000014",
+              "leftValue": "={{ $json.listingId }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1200, 300],
+      "id": "09000000-0000-4000-9000-000000000006",
+      "name": "Any new listings?"
+    },
+    {
+      "parameters": {
+        "type": "simple",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "price",
+              "order": "ascending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [1440, 220],
+      "id": "09000000-0000-4000-9000-000000000007",
+      "name": "Sort by price"
+    },
+    {
+      "parameters": {
+        "maxItems": 5,
+        "keep": "firstItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [1680, 220],
+      "id": "09000000-0000-4000-9000-000000000008",
+      "name": "Keep first five"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "listings",
+        "include": "allFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [1920, 220],
+      "id": "09000000-0000-4000-9000-000000000009",
+      "name": "Build one brief"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "={{ '🏠 New Valencia apartments\\n\\n' + $json.listings.map((item, index) => `${index + 1}. ${item.title}\\n${item.neighborhood} · €${item.price}/month · ${item.bedrooms} bedrooms\\n${item.url}`).join('\\n\\n') }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [2160, 220],
+      "id": "09000000-0000-4000-9000-000000000010",
+      "name": "Send apartment brief"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "🏠 No new Valencia apartments matched your filters today.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1440, 460],
+      "id": "09000000-0000-4000-9000-000000000015",
+      "name": "Send no-new update"
+    }
+  ],
+  "connections": {
+    "Every day at 08:00": {
+      "main": [[{"node": "Scrape permitted feed", "type": "main", "index": 0}]]
+    },
+    "Scrape permitted feed": {
+      "main": [[{"node": "Split listings", "type": "main", "index": 0}]]
+    },
+    "Split listings": {
+      "main": [[{"node": "Keep wanted homes", "type": "main", "index": 0}]]
+    },
+    "Keep wanted homes": {
+      "main": [[{"node": "Only unseen listing IDs", "type": "main", "index": 0}]]
+    },
+    "Only unseen listing IDs": {
+      "main": [[{"node": "Any new listings?", "type": "main", "index": 0}], []]
+    },
+    "Any new listings?": {
+      "main": [
+        [{"node": "Sort by price", "type": "main", "index": 0}],
+        [{"node": "Send no-new update", "type": "main", "index": 0}]
+      ]
+    },
+    "Sort by price": {
+      "main": [[{"node": "Keep first five", "type": "main", "index": 0}]]
+    },
+    "Keep first five": {
+      "main": [[{"node": "Build one brief", "type": "main", "index": 0}]]
+    },
+    "Build one brief": {
+      "main": [[{"node": "Send apartment brief", "type": "main", "index": 0}]]
+    }
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Madrid"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
+```
+
 # English
 
 ## Title
-Idealista Morning Apartment Brief
+Valencia Apartment Morning Brief
 
 ## Summary
-Detect newly listed matching apartments from event data and deliver a deduplicated morning brief.
+Use Firecrawl for permitted web scraping and send only new matching apartments in a concise morning brief.
 
 ## Concept
-Scheduled ingestion, persistent state, filtering, and deduplication
+Scheduled structured web extraction, filtering, and cross-run deduplication
 
 ## Scenario
-- An apartment seeker wants only genuinely new Valencia listings matching a fixed budget and preferred areas.
-- A relocation volunteer group wants to send curated daily matches without repeating yesterday's listings.
-- A student household needs a short morning digest instead of manually checking a large property feed.
+- An apartment seeker wants only genuinely new Valencia listings that match a fixed budget and preferred neighborhoods.
+- A relocation volunteer group wants to send a curated daily brief without repeating yesterday’s apartments.
+- A student household needs a short morning update instead of manually checking a large property page.
 
 ## Task
-At 08:00 Europe/Madrid, read the event-provided Idealista-style listing snapshot, keep apartments at or below €1,200 with at least two bedrooms in Russafa, El Carme, or Benimaclet, exclude listing IDs already stored in a Data Table, and send up to five new matches to Telegram.
+Every morning at 08:00, send a Telegram brief with up to five newly discovered Valencia apartments from the organizers’ permitted rental page. Include only homes costing no more than €1,200, with at least two bedrooms, in Russafa, El Carme, or Benimaclet.
 
 ## Bonus Task
-When there are no new matches, send a Telegram update saying so and do not write anything to the Data Table.
+When no new apartments match, send a short Telegram update instead.
 
 ## Nodes
 - Schedule Trigger
-- HTTP Request
+- Firecrawl
+- Split Out
 - Filter
+- Remove Duplicates
+- If
 - Sort
 - Limit
-- Data Table
+- Aggregate
 - Telegram
 
 ## Preparation
-- Ask a mentor for the event-owned yesterday and today listing snapshots; do not scrape or call the live Idealista website.
-- Create a seen_listings Data Table and connect a Telegram bot with a test chat.
+- Create an [n8n Cloud account](https://app.n8n.cloud/register) or use a self-hosted n8n instance.
+- Create a [Firecrawl account](https://www.firecrawl.dev/app), use its free starter credits, and follow the [official n8n setup guide](https://docs.firecrawl.dev/integrations/n8n) to add the verified node and create a key – the secret value that lets n8n use your credits.
+- Create a bot with [Telegram’s BotFather instructions](https://core.telegram.org/bots/features#botfather), then follow the [n8n Telegram credential guide](https://docs.n8n.io/integrations/builtin/credentials/telegram/) and obtain the test chat ID.
+- Use only the event-owned [day 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) and [day 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html) pages. This exercise does not use an Idealista API – a machine-readable listing service from Idealista is not in scope – and [Idealista’s legal terms](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) do not permit automated scraping without express authorization.
 
 ## Requirements
-- Configure the final schedule for 08:00 in the Europe/Madrid timezone.
-- Read the supplied snapshot dynamically and filter by price, bedrooms, and allowed neighborhood.
-- Treat listingId as the stable identity and exclude every ID already present in seen_listings.
-- Sort new matches by lowest monthly price and send at most five with title, neighborhood, price, bedrooms, and URL.
-- Store delivered IDs, then prove that running the same snapshot again sends no duplicate listings.
+- At 08:00 Europe/Madrid, the permitted page becomes structured data containing listingId, title, neighborhood, price, bedrooms, and URL for every apartment card.
+- Each listing ID is checked with cross-run deduplication; only unseen homes matching all three preferences remain, sorted by lowest price and limited to five.
+- Telegram receives one readable brief with every selected home; the bonus workflow sends one clear no-new message when the same day 2 page is run again.
 
 ## Tips
-- Develop with the two supplied snapshots and add Schedule Trigger only after manual tests pass.
-- Seed seen_listings with the matching IDs from yesterday before processing today's snapshot.
-- Apply the preference filters before checking each remaining listing ID against the Data Table.
-- Sort and limit only the unseen matches, then format them into one Telegram digest.
-- Write delivered IDs after a successful send so a failed delivery does not hide listings permanently.
+- Start with Firecrawl while running the workflow manually; choose Scrape and JSON output so the page becomes the six predictable fields used later.
+- Continue with Split Out on data.json.listings so each apartment becomes one separate record for the following nodes.
+- Add Filter with three checks: price no more than 1200, bedrooms at least 2, and neighborhood equal to Russafa, El Carme, or Benimaclet.
+- Configure Remove Duplicates to remove items processed in previous executions, keep values that are new, and use listingId as the value to compare.
+- Finish with Sort, Limit, Aggregate, and Telegram, then add Schedule Trigger. For the bonus, enable Always Output Data on Filter and Remove Duplicates so an empty result still reaches If, check whether listingId exists, and test day 1, day 2, then day 2 again; clear the Remove Duplicates history before a fresh demo.
 
 # Spanish
 
 ## Title
-Resumen matinal de apartamentos de Idealista
+Resumen matinal de pisos en Valencia
 
 ## Summary
-Detecta apartamentos nuevos que coincidan en los datos del evento y entrega un resumen matinal sin duplicados.
+Usa Firecrawl para una extracción web permitida y envía solo pisos nuevos que coincidan en un resumen matinal breve.
 
 ## Concept
-Ingesta programada, estado persistente, filtrado y deduplicación
+Extracción web estructurada y programada, filtrado y eliminación de duplicados entre ejecuciones
 
 ## Scenario
-- Una persona que busca piso solo quiere anuncios nuevos en Valencia que encajen con su presupuesto y zonas preferidas.
-- Un grupo de apoyo a la reubicación quiere enviar coincidencias diarias sin repetir los anuncios de ayer.
-- Un grupo de estudiantes necesita un resumen matinal breve en lugar de revisar manualmente un gran feed inmobiliario.
+- Una persona que busca piso solo quiere anuncios realmente nuevos en Valencia que encajen con su presupuesto y barrios preferidos.
+- Un grupo de apoyo a la reubicación quiere enviar un resumen diario seleccionado sin repetir los pisos de ayer.
+- Un grupo de estudiantes necesita una actualización matinal breve en lugar de revisar manualmente una gran página inmobiliaria.
 
 ## Task
-A las 08:00 Europe/Madrid, lee el snapshot de anuncios tipo Idealista proporcionado por el evento, conserva pisos de hasta 1.200 € con al menos dos habitaciones en Russafa, El Carme o Benimaclet, excluye los listingId ya guardados en una Data Table y envía hasta cinco coincidencias nuevas a Telegram.
+Cada mañana a las 08:00, envía por Telegram un resumen con hasta cinco pisos recién descubiertos en la página de alquiler permitida de los organizadores. Incluye solo viviendas de hasta 1.200 €, con al menos dos habitaciones, en Russafa, El Carme o Benimaclet.
 
 ## Bonus Task
-Cuando no haya coincidencias nuevas, envía un aviso por Telegram y no escribas nada en la Data Table.
+Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por Telegram.
 
 ## Nodes
 - Schedule Trigger
-- HTTP Request
+- Firecrawl
+- Split Out
 - Filter
+- Remove Duplicates
+- If
 - Sort
 - Limit
-- Data Table
+- Aggregate
 - Telegram
 
 ## Preparation
-- Pide a un mentor los snapshots de ayer y hoy, propiedad del evento; no extraigas datos ni llames al sitio web de Idealista en directo.
-- Crea una Data Table llamada seen_listings y conecta un bot de Telegram con un chat de prueba.
+- Crea una [cuenta de n8n Cloud](https://app.n8n.cloud/register) o usa una instancia propia de n8n.
+- Crea una [cuenta de Firecrawl](https://www.firecrawl.dev/app), usa sus créditos iniciales gratuitos y sigue la [guía oficial para n8n](https://docs.firecrawl.dev/integrations/n8n) para añadir el nodo verificado y crear una clave – el valor secreto que permite a n8n usar tus créditos.
+- Crea un bot con las [instrucciones de BotFather de Telegram](https://core.telegram.org/bots/features#botfather), sigue la [guía de credenciales de Telegram en n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/) y obtén el ID del chat de prueba.
+- Usa solo las páginas del evento del [día 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) y [día 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Este ejercicio no utiliza una API de Idealista – no forma parte del reto ningún servicio de anuncios legible por máquinas de Idealista – y los [términos legales de Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=es) no permiten la extracción automatizada sin autorización expresa.
 
 ## Requirements
-- Configura el horario final para las 08:00 en la zona Europe/Madrid.
-- Lee dinámicamente el snapshot suministrado y filtra por precio, habitaciones y barrio permitido.
-- Usa listingId como identidad estable y excluye cada ID que ya exista en seen_listings.
-- Ordena las coincidencias nuevas por el alquiler mensual más bajo y envía como máximo cinco con título, barrio, precio, habitaciones y URL.
-- Guarda los ID enviados y demuestra que ejecutar de nuevo el mismo snapshot no envía anuncios duplicados.
+- A las 08:00 Europe/Madrid, la página permitida se convierte en datos estructurados con listingId, título, barrio, precio, habitaciones y URL para cada piso.
+- Cada ID de anuncio se comprueba mediante la eliminación de duplicados entre ejecuciones; solo quedan viviendas no vistas que cumplen las tres preferencias, ordenadas por menor precio y limitadas a cinco.
+- Telegram recibe un único resumen legible con cada vivienda seleccionada; el workflow extra envía un único aviso claro cuando se ejecuta de nuevo la página del día 2 y no hay novedades.
 
 ## Tips
-- Desarrolla con los dos snapshots suministrados y añade Schedule Trigger solo cuando pasen las pruebas manuales.
-- Rellena inicialmente seen_listings con los ID coincidentes de ayer antes de procesar el snapshot de hoy.
-- Aplica los filtros de preferencias antes de comprobar cada listingId restante en la Data Table.
-- Ordena y limita solo las coincidencias no vistas y después dales formato en un único resumen de Telegram.
-- Escribe los ID entregados después de un envío correcto para que un fallo de entrega no oculte anuncios permanentemente.
+- Empieza con Firecrawl mientras ejecutas el workflow manualmente; elige Scrape y salida JSON para convertir la página en los seis campos predecibles que usarás después.
+- Continúa con Split Out sobre data.json.listings para convertir cada piso en un registro separado para los siguientes nodos.
+- Añade Filter con tres comprobaciones: precio máximo de 1200, al menos 2 habitaciones y barrio igual a Russafa, El Carme o Benimaclet.
+- Configura Remove Duplicates para eliminar elementos procesados en ejecuciones anteriores, conservar los valores nuevos y usar listingId como valor de comparación.
+- Termina con Sort, Limit, Aggregate y Telegram, y después añade Schedule Trigger. Para la tarea extra, activa Always Output Data en Filter y Remove Duplicates para que un resultado vacío llegue a If, comprueba si existe listingId y prueba día 1, día 2 y de nuevo día 2; borra el historial de Remove Duplicates antes de una demostración nueva.
 
 # Ukrainian
 
 ## Title
-Ранковий огляд квартир Idealista
+Ранковий огляд квартир у Валенсії
 
 ## Summary
-Знаходьте нові відповідні квартири в даних події та надсилайте ранковий огляд без дублікатів.
+Використовуйте Firecrawl для дозволеного вебзбирання та надсилайте стислий ранковий огляд лише з новими відповідними квартирами.
 
 ## Concept
-Завантаження за розкладом, постійний стан, фільтрування та усунення дублікатів
+Заплановане структуроване вебзбирання, фільтрування й усунення дублікатів між запусками
 
 ## Scenario
-- Людина, яка шукає квартиру, хоче бачити лише справді нові оголошення у Валенсії, що відповідають фіксованому бюджету та бажаним районам.
-- Волонтерська група з релокації хоче щодня надсилати дібрані варіанти, не повторюючи вчорашні оголошення.
-- Студентській родині потрібен короткий ранковий огляд замість ручної перевірки великої стрічки нерухомості.
+- Людина, яка шукає квартиру, хоче бачити лише справді нові оголошення у Валенсії, що відповідають бюджету та бажаним районам.
+- Волонтерська група з релокації хоче щодня надсилати дібраний огляд, не повторюючи вчорашні квартири.
+- Студентському домогосподарству потрібне коротке ранкове оновлення замість ручної перевірки великої сторінки нерухомості.
 
 ## Task
-О 08:00 за часовим поясом Europe/Madrid прочитайте наданий організаторами знімок оголошень у стилі Idealista, залиште квартири ціною не більше €1 200, щонайменше з двома спальнями в Russafa, El Carme або Benimaclet, виключіть listing ID, які вже збережені в Data Table, і надішліть до п’яти нових варіантів у Telegram.
+Щоранку о 08:00 надсилайте в Telegram огляд із щонайбільше п’ятьма новими квартирами зі сторінки оренди, дозволеної організаторами. Додавайте лише житло ціною до €1 200, щонайменше з двома спальнями, у районах Russafa, El Carme або Benimaclet.
 
 ## Bonus Task
-Якщо нових варіантів немає, надішліть про це повідомлення в Telegram і нічого не записуйте до Data Table.
+Якщо нових відповідних квартир немає, натомість надішліть коротке повідомлення в Telegram.
 
 ## Nodes
 - Schedule Trigger
-- HTTP Request
+- Firecrawl
+- Split Out
 - Filter
+- Remove Duplicates
+- If
 - Sort
 - Limit
-- Data Table
+- Aggregate
 - Telegram
 
 ## Preparation
-- Попросіть у ментора вчорашній і сьогоднішній знімки оголошень, що належать організаторам події; не збирайте дані з реального сайту Idealista й не звертайтеся до нього напряму.
-- Створіть Data Table seen_listings і підключіть Telegram-бота з тестовим чатом.
+- Створіть [обліковий запис n8n Cloud](https://app.n8n.cloud/register) або скористайтеся власним сервером n8n.
+- Створіть [обліковий запис Firecrawl](https://www.firecrawl.dev/app), скористайтеся безкоштовними стартовими кредитами й виконайте [офіційну інструкцію для n8n](https://docs.firecrawl.dev/integrations/n8n), щоб додати перевірену ноду та створити ключ – секретне значення, яке дає n8n доступ до ваших кредитів.
+- Створіть бота за [інструкцією Telegram BotFather](https://core.telegram.org/bots/features#botfather), виконайте [інструкцію n8n щодо облікових даних Telegram](https://docs.n8n.io/integrations/builtin/credentials/telegram/) й отримайте ID тестового чату.
+- Використовуйте лише сторінки події для [дня 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) і [дня 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Ця вправа не використовує API Idealista – машинозчитуваний сервіс оголошень Idealista не входить до завдання – а [юридичні умови Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) не дозволяють автоматизоване збирання без прямого дозволу.
 
 ## Requirements
-- Налаштуйте фінальний розклад на 08:00 у часовому поясі Europe/Madrid.
-- Динамічно читайте наданий знімок і фільтруйте за ціною, кількістю спалень і дозволеним районом.
-- Використовуйте listingId як стабільний ідентифікатор і виключайте кожен ID, який уже є в seen_listings.
-- Сортуйте нові варіанти за найнижчою місячною ціною та надсилайте не більше п’яти, указуючи назву, район, ціну, кількість спалень і URL.
-- Зберігайте ID надісланих оголошень, а потім доведіть, що повторний запуск з тим самим знімком не надсилає дублікатів.
+- О 08:00 за часовим поясом Europe/Madrid дозволена сторінка перетворюється на структуровані дані з полями listingId, назва, район, ціна, кількість спалень і URL для кожної квартири.
+- Кожен ID оголошення перевіряється через усунення дублікатів між запусками; залишаються лише нові квартири, що відповідають усім трьом умовам, відсортовані за найнижчою ціною й обмежені п’ятьма.
+- Telegram отримує один читабельний огляд з усіма вибраними квартирами; додатковий воркфлоу надсилає одне чітке повідомлення без новинок після повторного запуску сторінки дня 2.
 
 ## Tips
-- Розробляйте з двома наданими знімками й додавайте Schedule Trigger лише після успішних ручних тестів.
-- Перед обробкою сьогоднішнього знімка початково заповніть seen_listings відповідними ID із вчорашнього.
-- Застосуйте фільтри вподобань перед перевіркою кожного listingId, що залишився, у Data Table.
-- Сортуйте й обмежуйте лише ще не переглянуті варіанти, а потім сформатуйте їх в один огляд Telegram.
-- Записуйте надіслані ID після успішного надсилання, щоб помилка доставки не приховала оголошення назавжди.
+- Почніть із Firecrawl і запускайте воркфлоу вручну; виберіть Scrape та результат JSON, щоб перетворити сторінку на шість передбачуваних полів для наступних кроків.
+- Продовжте зі Split Out для data.json.listings, щоб кожна квартира стала окремим записом для наступних нод.
+- Додайте Filter із трьома перевірками: ціна не більше 1200, щонайменше 2 спальні й район Russafa, El Carme або Benimaclet.
+- Налаштуйте Remove Duplicates на видалення елементів, оброблених у попередніх запусках, збереження нових значень і використання listingId як значення для порівняння.
+- Завершіть за допомогою Sort, Limit, Aggregate і Telegram, а потім додайте Schedule Trigger. Для додаткового завдання ввімкніть Always Output Data у Filter і Remove Duplicates, щоб порожній результат усе одно дійшов до If, перевірте наявність listingId і протестуйте день 1, день 2 та ще раз день 2; перед новою демонстрацією очистьте історію Remove Duplicates.

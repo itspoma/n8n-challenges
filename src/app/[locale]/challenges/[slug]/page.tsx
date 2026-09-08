@@ -255,6 +255,89 @@ const additionalInlineTerms: Partial<
       },
     ],
   },
+  "idealista-morning-brief": {
+    en: [
+      {
+        term: "Firecrawl",
+        definition:
+          "Firecrawl is a service that reads a permitted web page and returns its content in a format an n8n workflow can use.",
+      },
+      {
+        term: "web scraping",
+        definition:
+          "Web scraping means reading information from a web page automatically. Use it only where the site owner allows it.",
+      },
+      {
+        term: "structured data",
+        definition:
+          "Structured data uses predictable fields such as listingId, price, and bedrooms so later nodes can filter it reliably.",
+      },
+      {
+        term: "listing ID",
+        definition:
+          "A listing ID is the stable unique value used to recognize the same apartment across different workflow runs.",
+      },
+      {
+        term: "cross-run deduplication",
+        definition:
+          "Cross-run deduplication remembers values from earlier workflow executions so the same apartment is not sent again.",
+      },
+    ],
+    es: [
+      {
+        term: "Firecrawl",
+        definition:
+          "Firecrawl es un servicio que lee una página web permitida y devuelve su contenido en un formato que un workflow de n8n puede utilizar.",
+      },
+      {
+        term: "extracción web",
+        definition:
+          "La extracción web consiste en leer automáticamente la información de una página. Úsala solo cuando el propietario del sitio lo permita.",
+      },
+      {
+        term: "datos estructurados",
+        definition:
+          "Los datos estructurados usan campos predecibles como listingId, price y bedrooms para que los siguientes nodos puedan filtrarlos de forma fiable.",
+      },
+      {
+        term: "ID de anuncio",
+        definition:
+          "Un ID de anuncio es el valor único y estable que permite reconocer el mismo piso en distintas ejecuciones del workflow.",
+      },
+      {
+        term: "eliminación de duplicados entre ejecuciones",
+        definition:
+          "La eliminación de duplicados entre ejecuciones recuerda valores anteriores para que el mismo piso no se envíe otra vez.",
+      },
+    ],
+    uk: [
+      {
+        term: "Firecrawl",
+        definition:
+          "Firecrawl – це сервіс, який читає дозволену вебсторінку та повертає її вміст у форматі, придатному для воркфлоу n8n.",
+      },
+      {
+        term: "вебзбирання",
+        definition:
+          "Вебзбирання означає автоматичне читання інформації з вебсторінки. Використовуйте його лише з дозволу власника сайту.",
+      },
+      {
+        term: "структуровані дані",
+        definition:
+          "Структуровані дані мають передбачувані поля, як-от listingId, price і bedrooms, тому наступні ноди можуть надійно їх фільтрувати.",
+      },
+      {
+        term: "ID оголошення",
+        definition:
+          "ID оголошення – це стабільне унікальне значення, за яким те саме помешкання розпізнається в різних запусках воркфлоу.",
+      },
+      {
+        term: "усунення дублікатів між запусками",
+        definition:
+          "Усунення дублікатів між запусками запам’ятовує попередні значення, щоб не надсилати те саме помешкання повторно.",
+      },
+    ],
+  },
 };
 
 function escapeRegularExpression(value: string) {

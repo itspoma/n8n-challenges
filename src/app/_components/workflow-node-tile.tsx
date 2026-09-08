@@ -21,6 +21,19 @@ const NODE_DOCUMENTATION_URLS = {
   if: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.if",
   dataTable:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.datatable",
+  scheduleTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger",
+  splitOut:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitout",
+  filter:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.filter",
+  removeDuplicates:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.removeduplicates",
+  sort: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.sort",
+  limit: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.limit",
+  aggregate:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.aggregate",
+  firecrawl: "https://n8n.io/integrations/firecrawl/",
   resend:
     "https://github.com/resend/n8n-nodes-resend/blob/main/nodes/Resend/resend-icon-black.svg",
 } as const;
@@ -42,6 +55,38 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName.includes("form trigger")) {
     return NODE_DOCUMENTATION_URLS.formTrigger;
+  }
+
+  if (normalizedName.includes("schedule trigger")) {
+    return NODE_DOCUMENTATION_URLS.scheduleTrigger;
+  }
+
+  if (normalizedName === "split out") {
+    return NODE_DOCUMENTATION_URLS.splitOut;
+  }
+
+  if (normalizedName === "filter") {
+    return NODE_DOCUMENTATION_URLS.filter;
+  }
+
+  if (normalizedName.includes("remove duplicates")) {
+    return NODE_DOCUMENTATION_URLS.removeDuplicates;
+  }
+
+  if (normalizedName === "sort") {
+    return NODE_DOCUMENTATION_URLS.sort;
+  }
+
+  if (normalizedName === "limit") {
+    return NODE_DOCUMENTATION_URLS.limit;
+  }
+
+  if (normalizedName === "aggregate") {
+    return NODE_DOCUMENTATION_URLS.aggregate;
+  }
+
+  if (normalizedName.includes("firecrawl")) {
+    return NODE_DOCUMENTATION_URLS.firecrawl;
   }
 
   if (normalizedName === "if") {
@@ -130,6 +175,66 @@ function getNodeIcon(name: string) {
 
   if (normalizedName.includes("form trigger")) {
     return { light: "/nodes/form-trigger.svg" };
+  }
+
+  if (normalizedName.includes("schedule trigger")) {
+    return {
+      light: "/nodes/schedule-trigger.svg",
+      dark: "/nodes/schedule-trigger-dark.svg",
+    };
+  }
+
+  if (normalizedName === "split out") {
+    return {
+      light: "/nodes/split-out.svg",
+      dark: "/nodes/split-out-dark.svg",
+    };
+  }
+
+  if (normalizedName === "filter") {
+    return {
+      light: "/nodes/filter.svg",
+      dark: "/nodes/filter-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("remove duplicates")) {
+    return {
+      light: "/nodes/remove-duplicates.svg",
+      dark: "/nodes/remove-duplicates-dark.svg",
+    };
+  }
+
+  if (normalizedName === "sort") {
+    return {
+      light: "/nodes/sort.svg",
+      dark: "/nodes/sort-dark.svg",
+    };
+  }
+
+  if (normalizedName === "limit") {
+    return {
+      light: "/nodes/limit.svg",
+      dark: "/nodes/limit-dark.svg",
+    };
+  }
+
+  if (normalizedName === "aggregate") {
+    return {
+      light: "/nodes/aggregate.svg",
+      dark: "/nodes/aggregate-dark.svg",
+    };
+  }
+
+  if (normalizedName === "if") {
+    return {
+      light: "/nodes/if.svg",
+      dark: "/nodes/if-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("firecrawl")) {
+    return { light: "/nodes/firecrawl.svg" };
   }
 
   if (normalizedName.includes("data table")) {
