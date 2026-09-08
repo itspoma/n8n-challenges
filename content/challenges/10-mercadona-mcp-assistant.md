@@ -359,7 +359,7 @@ Connect the published catalog MCP server to an eligible ChatGPT or Claude accoun
 - HTTP Request Tool – three instances
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or use an updated n8n instance with a public HTTPS address; read the [MCP Server Trigger guide](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) and use its Production URL after publishing.
+- Sign up for [n8n Cloud](/n8n-sign-up) or use an updated n8n instance with a public HTTPS address; read the [MCP Server Trigger guide](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) and use its Production URL after publishing.
 - Create a Telegram account, make a bot with [BotFather](https://t.me/botfather), and add the token by following the [n8n Telegram credentials guide](https://docs.n8n.io/integrations/builtin/credentials/telegram/).
 - Create an [OpenRouter](https://openrouter.ai/) account, generate an [API key](https://openrouter.ai/keys), and store it in an n8n OpenRouter credential.
 - Keep the three read-only catalog endpoints ready: [all categories](https://tienda.mercadona.es/api/categories/), [one category example](https://tienda.mercadona.es/api/categories/115), and [one product example](https://tienda.mercadona.es/api/products/5598). These are live third-party endpoints and may change; ask the event mentor for the fallback catalog snapshot if they are unavailable.
@@ -410,7 +410,7 @@ Conecta el servidor MCP del catálogo publicado con una cuenta compatible de Cha
 - HTTP Request Tool – tres instancias
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o usa una instancia actualizada de n8n con una dirección HTTPS pública; consulta la [guía de MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) y utiliza su Production URL después de publicar.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o usa una instancia actualizada de n8n con una dirección HTTPS pública; consulta la [guía de MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) y utiliza su Production URL después de publicar.
 - Crea una cuenta de Telegram, configura un bot con [BotFather](https://t.me/botfather) y añade el token siguiendo la [guía de credenciales de Telegram para n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/).
 - Crea una cuenta de [OpenRouter](https://openrouter.ai/), genera una [API key](https://openrouter.ai/keys) y guárdala en una credencial de OpenRouter en n8n.
 - Ten preparados los tres endpoints de catálogo de solo lectura: [todas las categorías](https://tienda.mercadona.es/api/categories/), [ejemplo de una categoría](https://tienda.mercadona.es/api/categories/115) y [ejemplo de un producto](https://tienda.mercadona.es/api/products/5598). Son endpoints activos de un tercero y pueden cambiar; pide al mentor del evento el snapshot alternativo del catálogo si no están disponibles.
@@ -461,7 +461,7 @@ MCP-помічник для покупок у Mercadona
 - HTTP Request Tool – три екземпляри
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або використайте оновлений екземпляр n8n із публічною HTTPS-адресою; прочитайте [посібник MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) і після публікації використовуйте його Production URL.
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або використайте оновлений екземпляр n8n із публічною HTTPS-адресою; прочитайте [посібник MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) і після публікації використовуйте його Production URL.
 - Створіть обліковий запис Telegram, налаштуйте бота через [BotFather](https://t.me/botfather) і додайте токен за [інструкцією n8n для облікових даних Telegram](https://docs.n8n.io/integrations/builtin/credentials/telegram/).
 - Створіть обліковий запис [OpenRouter](https://openrouter.ai/), згенеруйте [API key](https://openrouter.ai/keys) і збережіть його в облікових даних OpenRouter у n8n.
 - Підготуйте три доступні лише для читання endpoints каталогу: [усі категорії](https://tienda.mercadona.es/api/categories/), [приклад однієї категорії](https://tienda.mercadona.es/api/categories/115) і [приклад одного товару](https://tienda.mercadona.es/api/products/5598). Це активні endpoints стороннього сервісу, тому вони можуть змінитися; якщо вони недоступні, попросіть у ментора резервний snapshot каталогу.

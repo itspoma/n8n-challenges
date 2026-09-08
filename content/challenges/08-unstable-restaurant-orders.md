@@ -1354,7 +1354,7 @@ Process valid orders in controlled batches – small groups handled one at a tim
 - Error Trigger
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- Sign up for [n8n Cloud](/n8n-sign-up) or open an existing n8n workspace, then create a new workflow.
 - Use the event’s [Unstable Restaurant Orders API](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5). This normal URL randomly returns a successful page, a 429 rate-limit response, or a retryable 500 server error; do not add a scenario parameter while building.
 - Create a Data Table named rescued_orders for valid orders, another named rejected_orders for rejected data together with its rejection reason, and – for the bonus – api_failure_diagnostics for exhausted-retry details.
 - No external account, API key, or other credential is required. During review, the mentor may use the provider’s deterministic test controls to reproduce success, rate-limit, and server-error responses.
@@ -1414,7 +1414,7 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 - Error Trigger
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
 - Usa la [API de pedidos inestable](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5) del evento. Esta URL normal devuelve al azar una página correcta, una respuesta 429 por límite de frecuencia o un error 500 de servidor que admite reintento; no añadas un parámetro scenario mientras construyes.
 - Crea una Data Table llamada rescued_orders para los pedidos válidos, otra llamada rejected_orders para los datos rechazados junto con el motivo del rechazo y – para la tarea extra – api_failure_diagnostics para los detalles de reintentos agotados.
 - No se necesita ninguna cuenta externa, clave API ni otra credencial. Durante la revisión, el mentor puede usar los controles de prueba deterministas del proveedor para reproducir respuestas correctas, límites de frecuencia y errores de servidor.
@@ -1474,7 +1474,7 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 - Error Trigger
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний робочий простір n8n і створіть новий воркфлоу.
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте наявний робочий простір n8n і створіть новий воркфлоу.
 - Використовуйте наданий для події [нестабільний API замовлень](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5). Ця звичайна URL-адреса випадково повертає успішну сторінку, відповідь 429 про обмеження частоти або серверну помилку 500, яку можна повторити; не додавайте параметр scenario під час побудови.
 - Створіть Data Table з назвою rescued_orders для коректних замовлень, ще одну з назвою rejected_orders для відхилених даних разом із причиною відхилення та – для додаткового завдання – api_failure_diagnostics для даних про вичерпані повторні спроби.
 - Зовнішній обліковий запис, API-ключ або інші облікові дані не потрібні. Під час перевірки ментор може скористатися детермінованими тестовими параметрами провайдера, щоб відтворити успішні відповіді, обмеження частоти й серверні помилки.

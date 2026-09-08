@@ -56,7 +56,7 @@ After accepting a valid submission, notify the organizers by email through Resen
 - Resend
 
 ## Preparation
-- [Sign up for n8n Cloud](https://app.n8n.cloud/register), or use an existing n8n workspace, and create a new workflow.
+- [Sign up for n8n Cloud](/n8n-sign-up), or use an existing n8n workspace, and create a new workflow.
 - Create an [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) named event_leads with name, email, message, and status columns. n8n adds createdAt automatically.
 - No third-party account is required for the core challenge.
 - Bonus: install the [n8n-verified Resend node](https://n8n.io/integrations/resend/) and [sign up for Resend](https://resend.com/signup).
@@ -122,7 +122,7 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Resend
 
 ## Preparation
-- [Regístrate en n8n Cloud](https://app.n8n.cloud/register), o usa un espacio de n8n existente, y crea un workflow nuevo.
+- [Regístrate en n8n Cloud](/n8n-sign-up), o usa un espacio de n8n existente, y crea un workflow nuevo.
 - Crea una [Data Table de n8n](https://docs.n8n.io/build/work-with-data/data-tables) llamada event_leads con las columnas name, email, message y status. n8n añade createdAt automáticamente.
 - No necesitas una cuenta de terceros para el reto principal.
 - Bonus: instala el [nodo Resend verificado por n8n](https://n8n.io/integrations/resend/) y [regístrate en Resend](https://resend.com/signup).
@@ -188,7 +188,7 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Resend
 
 ## Preparation
-- [Зареєструйтеся в n8n Cloud](https://app.n8n.cloud/register) або використайте наявний простір n8n і створіть новий воркфлоу.
+- [Зареєструйтеся в n8n Cloud](/n8n-sign-up) або використайте наявний простір n8n і створіть новий воркфлоу.
 - Створіть [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) з назвою event_leads і стовпцями name, email, message та status. n8n додає createdAt автоматично.
 - Для основного завдання сторонній обліковий запис не потрібен.
 - Додатково: установіть [перевірену n8n ноду Resend](https://n8n.io/integrations/resend/) і [зареєструйтеся в Resend](https://resend.com/signup).

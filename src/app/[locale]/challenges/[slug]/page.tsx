@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/site-path";
 import type { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,7 +22,7 @@ type ChallengePageProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
-const inlineLinkPattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+const inlineLinkPattern = /\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^)\s]+)\)/g;
 const inlineGlossaryTerms: Partial<Record<string, Record<Locale, string[]>>> = {
   "webhook-welcome": {
     en: ["Webhook", "QR code"],
@@ -743,7 +744,7 @@ function InlineLinks({ text }: { text: string }) {
     }
 
     content.push(
-      <a key={`${href}-${matchIndex}`} href={href} target="_blank" rel="noopener noreferrer">
+      <a key={`${href}-${matchIndex}`} href={withBasePath(href)} target="_blank" rel="noopener noreferrer">
         {label}
       </a>,
     );

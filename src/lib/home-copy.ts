@@ -125,7 +125,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       body:
         "Choose any challenge that fits your team. You do not need to complete them in order or finish all ten.",
       steps: [
-        { number: "01", title: "Sign up for n8n Cloud", href: "https://app.n8n.cloud/register" },
+        { number: "01", title: "Sign up for n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Choose challenge" },
         { number: "03", title: "Build a workflow" },
         { number: "04", title: "Show a mentor" },
@@ -221,7 +221,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       body:
         "Elige cualquier reto que encaje con tu equipo. No hace falta completarlos en orden ni terminar los diez.",
       steps: [
-        { number: "01", title: "Regístrate en n8n Cloud", href: "https://app.n8n.cloud/register" },
+        { number: "01", title: "Regístrate en n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Elige un reto" },
         { number: "03", title: "Crea un workflow" },
         { number: "04", title: "Muéstraselo a un mentor" },
@@ -317,7 +317,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       body:
         "Оберіть будь-яке завдання, що підходить вашій команді. Не обов’язково виконувати їх по черзі чи завершувати всі десять.",
       steps: [
-        { number: "01", title: "Зареєструйтеся в n8n Cloud", href: "https://app.n8n.cloud/register" },
+        { number: "01", title: "Зареєструйтеся в n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Оберіть завдання" },
         { number: "03", title: "Створіть воркфлоу" },
         { number: "04", title: "Покажіть його ментору" },

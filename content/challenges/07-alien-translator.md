@@ -407,7 +407,7 @@ Add an independent back-translation check. Translate the English result back int
 - Structured Output Parser
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an n8n workspace where the preview [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant) is enabled.
+- Sign up for [n8n Cloud](/n8n-sign-up) or open an n8n workspace where the preview [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant) is enabled.
 - Use only AI Assistant prompts to create, add, connect, configure, and revise every node. Do not make those changes manually. You may inspect and test the generated workflow and select credentials when the Assistant asks. Keep the Assistant conversation open for mentor review.
 - Use OpenAI Chat Model. On n8n Cloud, select Gateway credits if they are available; otherwise [sign up for OpenAI](https://platform.openai.com/signup) and follow the official [n8n OpenAI credential instructions](https://docs.n8n.io/integrations/builtin/credentials/openai/). Never paste a key or other secret into the Assistant chat.
 - Open the event's [alien language guide](https://github.com/itspoma/n8n-challenges/blob/main/public/fixtures/alien-language-guide.md), which contains the authoritative dictionary, grammar rules, confidence formula, and official test messages.
@@ -453,7 +453,7 @@ Añade una comprobación independiente de traducción inversa. Traduce el result
 - Structured Output Parser
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n donde esté habilitado [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant), que actualmente es una función en preview.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de trabajo de n8n donde esté habilitado [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant), que actualmente es una función en preview.
 - Usa únicamente prompts para AI Assistant al crear, añadir, conectar, configurar y modificar cada nodo. No hagas esos cambios manualmente. Puedes inspeccionar y probar el workflow generado y seleccionar credenciales cuando el Assistant las solicite. Mantén abierta la conversación para que pueda revisarla un mentor.
 - Usa OpenAI Chat Model. En n8n Cloud, selecciona los créditos de Gateway si están disponibles; de lo contrario, [regístrate en OpenAI](https://platform.openai.com/signup) y sigue las [instrucciones oficiales de n8n para las credenciales de OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Nunca pegues una clave ni otro secreto en el chat del Assistant.
 - Abre la [guía del idioma alienígena](https://github.com/itspoma/n8n-challenges/blob/main/public/fixtures/alien-language-guide.md) del evento, que contiene el diccionario oficial, las reglas gramaticales, la fórmula de confianza y los mensajes de prueba.
@@ -499,7 +499,7 @@ Añade una comprobación independiente de traducción inversa. Traduce el result
 - Structured Output Parser
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте воркспейс n8n, у якому ввімкнено preview-функцію [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant).
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте воркспейс n8n, у якому ввімкнено preview-функцію [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant).
 - Використовуйте лише промпти для AI Assistant, щоб створювати, додавати, з'єднувати, налаштовувати та змінювати кожну ноду. Не робіть ці зміни вручну. Ви можете переглядати й тестувати створений воркфлоу та вибирати облікові дані, коли Assistant запропонує це. Залиште розмову відкритою для перевірки ментором.
 - Використовуйте OpenAI Chat Model. У n8n Cloud виберіть кредити Gateway, якщо вони доступні; інакше [зареєструйтеся в OpenAI](https://platform.openai.com/signup) і виконайте офіційні [інструкції n8n для облікових даних OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Ніколи не вставляйте ключ або інший секрет у чат Assistant.
 - Відкрийте наданий для події [посібник з інопланетної мови](https://github.com/itspoma/n8n-challenges/blob/main/public/fixtures/alien-language-guide.md), який містить офіційний словник, граматичні правила, формулу впевненості й тестові повідомлення.

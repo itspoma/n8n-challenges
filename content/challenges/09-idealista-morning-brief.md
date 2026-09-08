@@ -552,7 +552,7 @@ When no new apartments match, send a short Telegram update instead.
 - Telegram
 
 ## Preparation
-- Create an [n8n Cloud account](https://app.n8n.cloud/register) or use a self-hosted n8n instance.
+- Create an [n8n Cloud account](/n8n-sign-up) or use a self-hosted n8n instance.
 - Create a [Firecrawl account](https://www.firecrawl.dev/app), use its free starter credits, and follow the [official n8n setup guide](https://docs.firecrawl.dev/integrations/n8n) to add the verified node and create a key – the secret value that lets n8n use your credits.
 - Create a bot with [Telegram’s BotFather instructions](https://core.telegram.org/bots/features#botfather), then follow the [n8n Telegram credential guide](https://docs.n8n.io/integrations/builtin/credentials/telegram/) and obtain the test chat ID.
 - Use only the event-owned [day 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) and [day 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html) pages. This exercise does not use an Idealista API – a machine-readable listing service from Idealista is not in scope – and [Idealista’s legal terms](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) do not permit automated scraping without express authorization.
@@ -604,7 +604,7 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Telegram
 
 ## Preparation
-- Crea una [cuenta de n8n Cloud](https://app.n8n.cloud/register) o usa una instancia propia de n8n.
+- Crea una [cuenta de n8n Cloud](/n8n-sign-up) o usa una instancia propia de n8n.
 - Crea una [cuenta de Firecrawl](https://www.firecrawl.dev/app), usa sus créditos iniciales gratuitos y sigue la [guía oficial para n8n](https://docs.firecrawl.dev/integrations/n8n) para añadir el nodo verificado y crear una clave – el valor secreto que permite a n8n usar tus créditos.
 - Crea un bot con las [instrucciones de BotFather de Telegram](https://core.telegram.org/bots/features#botfather), sigue la [guía de credenciales de Telegram en n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/) y obtén el ID del chat de prueba.
 - Usa solo las páginas del evento del [día 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) y [día 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Este ejercicio no utiliza una API de Idealista – no forma parte del reto ningún servicio de anuncios legible por máquinas de Idealista – y los [términos legales de Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=es) no permiten la extracción automatizada sin autorización expresa.
@@ -656,7 +656,7 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Telegram
 
 ## Preparation
-- Створіть [обліковий запис n8n Cloud](https://app.n8n.cloud/register) або скористайтеся власним сервером n8n.
+- Створіть [обліковий запис n8n Cloud](/n8n-sign-up) або скористайтеся власним сервером n8n.
 - Створіть [обліковий запис Firecrawl](https://www.firecrawl.dev/app), скористайтеся безкоштовними стартовими кредитами й виконайте [офіційну інструкцію для n8n](https://docs.firecrawl.dev/integrations/n8n), щоб додати перевірену ноду та створити ключ – секретне значення, яке дає n8n доступ до ваших кредитів.
 - Створіть бота за [інструкцією Telegram BotFather](https://core.telegram.org/bots/features#botfather), виконайте [інструкцію n8n щодо облікових даних Telegram](https://docs.n8n.io/integrations/builtin/credentials/telegram/) й отримайте ID тестового чату.
 - Використовуйте лише сторінки події для [дня 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) і [дня 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Ця вправа не використовує API Idealista – машинозчитуваний сервіс оголошень Idealista не входить до завдання – а [юридичні умови Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) не дозволяють автоматизоване збирання без прямого дозволу.

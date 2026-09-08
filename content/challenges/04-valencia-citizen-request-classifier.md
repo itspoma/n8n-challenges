@@ -1153,7 +1153,7 @@ Include a suggested reply, written in the same language as the request, in the c
 - Send Email
 
 ## Preparation
-- [Sign up for n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- [Sign up for n8n Cloud](/n8n-sign-up) or open an existing n8n workspace, then create a new workflow.
 - [Create an OpenAI account](https://platform.openai.com/signup), [create an API key](https://platform.openai.com/api-keys), and follow the [n8n OpenAI credential instructions](https://docs.n8n.io/integrations/builtin/credentials/openai/). Store the key only in an n8n credential.
 - [Sign up for Resend](https://resend.com/signup), then follow Resend's [SMTP instructions](https://resend.com/docs/send-with-smtp) and the [n8n Send Email credential instructions](https://docs.n8n.io/integrations/builtin/credentials/send-email/). Store the Resend API key as the SMTP password, never in the workflow.
 - Prepare five mentor-approved test inboxes or aliases and map them as waste → `replace+waste@example.com`, noise → `replace+noise@example.com`, roads → `replace+roads@example.com`, parks → `replace+parks@example.com`, and other → `replace+other@example.com`. Replace every placeholder before testing and use only approved addresses.
@@ -1202,7 +1202,7 @@ Incluye en el email de confirmación una respuesta sugerida escrita en el mismo 
 - Send Email
 
 ## Preparation
-- [Regístrate en n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de n8n existente y crea un workflow nuevo.
+- [Regístrate en n8n Cloud](/n8n-sign-up) o abre un espacio de n8n existente y crea un workflow nuevo.
 - [Crea una cuenta de OpenAI](https://platform.openai.com/signup), [crea una clave de API](https://platform.openai.com/api-keys) y sigue las [instrucciones de credenciales de OpenAI para n8n](https://docs.n8n.io/integrations/builtin/credentials/openai/). Guarda la clave únicamente en una credencial de n8n.
 - [Regístrate en Resend](https://resend.com/signup), sigue las [instrucciones SMTP de Resend](https://resend.com/docs/send-with-smtp) y las [instrucciones de credenciales de Send Email para n8n](https://docs.n8n.io/integrations/builtin/credentials/send-email/). Guarda la clave de API de Resend como contraseña SMTP, nunca en el workflow.
 - Prepara cinco buzones o alias de prueba aprobados por un mentor y asígnalos como waste → `replace+waste@example.com`, noise → `replace+noise@example.com`, roads → `replace+roads@example.com`, parks → `replace+parks@example.com` y other → `replace+other@example.com`. Sustituye todos los marcadores antes de probar y usa solo direcciones aprobadas.
@@ -1251,7 +1251,7 @@ Incluye en el email de confirmación una respuesta sugerida escrita en el mismo 
 - Send Email
 
 ## Preparation
-- [Зареєструйтеся в n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
+- [Зареєструйтеся в n8n Cloud](/n8n-sign-up) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
 - [Створіть обліковий запис OpenAI](https://platform.openai.com/signup), [створіть API-ключ](https://platform.openai.com/api-keys) і виконайте [інструкції n8n щодо облікових даних OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Зберігайте ключ лише в облікових даних n8n.
 - [Зареєструйтеся в Resend](https://resend.com/signup), виконайте [інструкції Resend для SMTP](https://resend.com/docs/send-with-smtp) та [інструкції n8n для облікових даних Send Email](https://docs.n8n.io/integrations/builtin/credentials/send-email/). Зберігайте API-ключ Resend як пароль SMTP, а не у воркфлоу.
 - Підготуйте п’ять тестових скриньок або псевдонімів, схвалених ментором, і зіставте їх так: waste → `replace+waste@example.com`, noise → `replace+noise@example.com`, roads → `replace+roads@example.com`, parks → `replace+parks@example.com`, other → `replace+other@example.com`. Перед тестуванням замініть усі заповнювачі й використовуйте лише схвалені адреси.

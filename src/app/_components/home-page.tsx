@@ -1,3 +1,4 @@
+import { withBasePath } from "@/lib/site-path";
 import Link from "next/link";
 
 import { BalloonString } from "@/app/_components/balloon-string";
@@ -106,7 +107,7 @@ export function HomePage({ locale }: { locale: Locale }) {
                 {step.href ? (
                   <a
                     className="step-action-link"
-                    href={step.href}
+                    href={withBasePath(step.href)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

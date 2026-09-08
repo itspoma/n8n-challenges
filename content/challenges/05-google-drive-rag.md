@@ -131,7 +131,7 @@ For the question "Does the event provide an airport shuttle?", reply exactly "I 
 - AI Agent
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an up-to-date n8n workspace, then create a new workflow.
+- Sign up for [n8n Cloud](/n8n-sign-up) or open an up-to-date n8n workspace, then create a new workflow.
 - Create or sign in to a [Google account](https://accounts.google.com/signup), then add a Google Drive connection by following the [n8n Google credential guide](https://docs.n8n.io/integrations/builtin/credentials/google/).
 - Create an [OpenAI account](https://platform.openai.com/signup), create an [API key](https://platform.openai.com/api-keys), and store it in n8n using the [OpenAI credential guide](https://docs.n8n.io/integrations/builtin/credentials/openai/). API usage may incur a small charge.
 - Download [the venue guide](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [the volunteer handbook](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt), and [the sponsor logistics file](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Upload only these three `.txt` files as direct children of a new Drive folder, then copy its folder ID.
@@ -184,7 +184,7 @@ Para la pregunta "¿El evento ofrece un traslado desde el aeropuerto?", responde
 - AI Agent
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de n8n actualizado y crea un workflow nuevo.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de n8n actualizado y crea un workflow nuevo.
 - Crea una [cuenta de Google](https://accounts.google.com/signup) o inicia sesión y añade una conexión de Google Drive siguiendo la [guía de credenciales de Google para n8n](https://docs.n8n.io/integrations/builtin/credentials/google/).
 - Crea una [cuenta de OpenAI](https://platform.openai.com/signup), genera una [API key](https://platform.openai.com/api-keys) y guárdala en n8n con la [guía de credenciales de OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). El uso de la API puede generar un pequeño coste.
 - Descarga [la guía del espacio](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [el manual de voluntariado](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt) y [el archivo de logística para patrocinadores](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Sube únicamente estos tres archivos `.txt` como hijos directos de una nueva carpeta de Drive y copia su ID.
@@ -237,7 +237,7 @@ RAG з Google Drive
 - AI Agent
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте актуальний воркспейс n8n, а потім створіть новий воркфлоу.
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте актуальний воркспейс n8n, а потім створіть новий воркфлоу.
 - Створіть [обліковий запис Google](https://accounts.google.com/signup) або ввійдіть у нього та додайте підключення Google Drive за [інструкцією n8n для облікових даних Google](https://docs.n8n.io/integrations/builtin/credentials/google/).
 - Створіть [обліковий запис OpenAI](https://platform.openai.com/signup), згенеруйте [API key](https://platform.openai.com/api-keys) і збережіть його в n8n за [інструкцією для облікових даних OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Використання API може мати невелику вартість.
 - Завантажте [посібник приміщення](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [довідник волонтера](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt) і [файл логістики спонсорів](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Додайте лише ці три файли `.txt` безпосередньо до нової папки Drive і скопіюйте її ID.

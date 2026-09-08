@@ -355,7 +355,7 @@ If open cards exist but none is red-labelled or overdue, add "No urgent cards to
 - Telegram
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- Sign up for [n8n Cloud](/n8n-sign-up) or open an existing n8n workspace, then create a new workflow.
 - Sign in to [Trello](https://trello.com/) and [create any new board](https://support.atlassian.com/trello/docs/creating-a-new-board/). Add at least two lists and five open test cards: include a red-labelled card, cards with different due dates, one overdue card, and one card without a due date. Open the board, append `.json` to its URL, and copy the `id` value for the Trello nodes.
 - [Create a new Trello app](https://trello.com/apps/admin/new), open its API Key tab, generate an API key, and then select Token and approve access to generate an API token – a private code that can access your Trello data. Add your n8n base URL as an allowed origin, store the key and token in an [n8n Trello credential](https://docs.n8n.io/integrations/builtin/credentials/trello/), and never share the token.
 - Install [Telegram](https://telegram.org/), create a bot with [BotFather](https://t.me/botfather), and add the bot token to an [n8n Telegram credential](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token). Send the bot a test message and note the chat ID that will receive the brief.
@@ -405,7 +405,7 @@ Si hay tarjetas abiertas, pero ninguna tiene etiqueta roja ni está vencida, añ
 - Telegram
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
 - Inicia sesión en [Trello](https://trello.com/) y [crea cualquier tablero nuevo](https://support.atlassian.com/trello/docs/creating-a-new-board/). Añade al menos dos listas y cinco tarjetas de prueba abiertas: incluye una tarjeta con etiqueta roja, tarjetas con distintas fechas de vencimiento, una tarjeta vencida y una tarjeta sin fecha de vencimiento. Abre el tablero, añade `.json` al final de su URL y copia el valor `id` para los nodos de Trello.
 - [Crea una nueva app de Trello](https://trello.com/apps/admin/new), abre la pestaña API Key, genera una clave de API y después selecciona Token y aprueba el acceso para generar un token de API – un código privado que permite acceder a tus datos de Trello. Añade la URL base de n8n como origen permitido, guarda la clave y el token en una [credencial de Trello de n8n](https://docs.n8n.io/integrations/builtin/credentials/trello/) y no compartas nunca el token.
 - Instala [Telegram](https://telegram.org/), crea un bot con [BotFather](https://t.me/botfather) y añade el token del bot a una [credencial de Telegram de n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token). Envía un mensaje de prueba al bot y anota el chat ID que recibirá el resumen.
@@ -455,7 +455,7 @@ Si hay tarjetas abiertas, pero ninguna tiene etiqueta roja ni está vencida, añ
 - Telegram
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
 - Увійдіть у [Trello](https://trello.com/) і [створіть будь-яку нову дошку](https://support.atlassian.com/trello/docs/creating-a-new-board/). Додайте щонайменше два списки та п’ять відкритих тестових карток: одну картку з червоною міткою, картки з різними датами виконання, одну прострочену картку й одну картку без дати виконання. Відкрийте дошку, додайте `.json` у кінці її URL-адреси та скопіюйте значення `id` для нод Trello.
 - [Створіть новий застосунок Trello](https://trello.com/apps/admin/new), відкрийте вкладку API Key, згенеруйте API-ключ, а потім виберіть Token і дозвольте доступ, щоб згенерувати API-токен – приватний код, який надає доступ до ваших даних Trello. Додайте базову URL-адресу n8n як дозволене джерело, збережіть ключ і токен в [облікових даних Trello у n8n](https://docs.n8n.io/integrations/builtin/credentials/trello/) і нікому не повідомляйте токен.
 - Установіть [Telegram](https://telegram.org/), створіть бота за допомогою [BotFather](https://t.me/botfather) і додайте токен бота до [облікових даних Telegram у n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token). Надішліть боту тестове повідомлення й запишіть chat ID, куди надходитиме огляд.

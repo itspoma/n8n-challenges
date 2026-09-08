@@ -310,7 +310,7 @@ Add ✅ when the calidad_ambiental status is Buena or Razonablemente Buena; othe
 - Telegram
 
 ## Preparation
-- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- Sign up for [n8n Cloud](/n8n-sign-up) or open an existing n8n workspace, then create a new workflow.
 - Install [Telegram](https://telegram.org/), then create or sign in to a Telegram account.
 - Create a Telegram bot with [BotFather](https://t.me/botfather), then [add its token as an n8n credential](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - The [Valencia City Council air-quality endpoint](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) provides real-time data. Keep it ready to use in your HTTP Request node.
@@ -357,7 +357,7 @@ Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; 
 - Telegram
 
 ## Preparation
-- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
+- Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
 - Instala [Telegram](https://telegram.org/) y después crea una cuenta de Telegram o inicia sesión en una existente.
 - Crea un bot de Telegram con [BotFather](https://t.me/botfather) y después [añade su token como credencial de n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - El [endpoint de calidad del aire del Ayuntamiento de Valencia](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) proporciona datos en tiempo real. Tenlo preparado para usarlo en tu nodo HTTP Request.
@@ -404,7 +404,7 @@ Telegram-бот для перевірки якості повітря у Вал�
 - Telegram
 
 ## Preparation
-- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
+- Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
 - Установіть [Telegram](https://telegram.org/), а потім створіть обліковий запис Telegram або увійдіть до наявного.
 - Створіть Telegram-бота за допомогою [BotFather](https://t.me/botfather), а потім [додайте його токен до облікових даних n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - [Ендпоінт міської ради Валенсії з даними про якість повітря](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) надає інформацію в реальному часі. Підготуйте його для використання в ноді HTTP Request.
