@@ -2,36 +2,116 @@
   "version": 1,
   "assets": {
     "webhook-welcome-core-dark.png": {
-      "hash": "5f0d3b853893378883a5992572add423f919c383a3181d7b09bd3a9b6cf23835",
+      "hash": "39a360e0c462ed1b7a7cca17ac8d6c789d849fc3ab657deb03de414671ffea9f",
       "source": "content/challenges/01-webhook-welcome.md"
     },
     "webhook-welcome-core-light.png": {
-      "hash": "36f411c56b82441b79539d2dc6143ebc211433c0f068a50670080463feabb147",
+      "hash": "53400dac06043c5f2a1bdf8e6ffa4112ac9bcea548be03baf21ad3a6edb16bb4",
       "source": "content/challenges/01-webhook-welcome.md"
     },
     "webhook-welcome-bonus-dark.png": {
-      "hash": "6d5ce5aba949d818da6ad241407cc3354b95cba3308bac89068a02fd16de7df8",
+      "hash": "ce82e8d248fe98e7cf8e13f09661e15b61f9dbc59997e50ff98663d239c410a1",
       "source": "content/challenges/01-webhook-welcome.md"
     },
     "webhook-welcome-bonus-light.png": {
-      "hash": "db1f8066a5442fbf22aebb35c764632483c5032ded52627a8ffd4ed89c554964",
+      "hash": "dcaea751eba1a938f6ec1ff1344a8d54a9efe6829820a4e36a98f56e9ce967eb",
       "source": "content/challenges/01-webhook-welcome.md"
     },
     "valencia-telegram-bot-core-dark.png": {
-      "hash": "e18f2572cef732d31ab9e3929f2214af2d1249855268d6fdb5c2297c3d161269",
-      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+      "hash": "30b674c0bf8804ea00d038a9ca6b8fb621612f4650915965598337aa4361b08d",
+      "source": "content/challenges/02-valencia-telegram-bot.md"
     },
     "valencia-telegram-bot-core-light.png": {
-      "hash": "0e5381485b2f81728515b1a4d06b942e0400ef4203b1fe92c1bf99fffe74d61d",
-      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+      "hash": "d911ba69066d34cd52f1d973f497f732ac143a5671e9eca016f0ca06ccad89c5",
+      "source": "content/challenges/02-valencia-telegram-bot.md"
     },
     "valencia-telegram-bot-bonus-dark.png": {
-      "hash": "af3520d90f1d0eb462e90d21184ab13e1ad763a47af24368b91e64cf27d90f39",
-      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+      "hash": "af0feea7058bb995dbf5293e11a02f12b406e64f7cecee5fc8796523527ea67e",
+      "source": "content/challenges/02-valencia-telegram-bot.md"
     },
     "valencia-telegram-bot-bonus-light.png": {
-      "hash": "222e3bc5567176bdc891dcaf4bd0492c928e49c2ea0463787c2b715e993b8913",
-      "source": "workflows/challenge-02-valencia-telegram-bot.md"
+      "hash": "c6a1706358e39b231a592fbc49bd32d999547211392376c42a22c87d2ec925bf",
+      "source": "content/challenges/02-valencia-telegram-bot.md"
+    },
+    "form-to-follow-up-core-dark.png": {
+      "hash": "9e7ea1a159422b6c16abca16e66f6e53166902451461e38ac429a4dd3ad99365",
+      "source": "content/challenges/03-form-to-follow-up.md"
+    },
+    "form-to-follow-up-core-light.png": {
+      "hash": "a2a60a4a85518e138a5be15b9492b74f601b2557e7f4c29c7aeafcbe9883d1d5",
+      "source": "content/challenges/03-form-to-follow-up.md"
+    },
+    "form-to-follow-up-bonus-dark.png": {
+      "hash": "4fe9e4275aac24fe8716b432c678ccd05fc6657785898c354ae4f18f6392e188",
+      "source": "content/challenges/03-form-to-follow-up.md"
+    },
+    "form-to-follow-up-bonus-light.png": {
+      "hash": "fa7c05fad92909de9d24432e2965e1325d68c765d4b2f16dcc4bd88576f8548b",
+      "source": "content/challenges/03-form-to-follow-up.md"
+    },
+    "valencia-citizen-request-classifier-core-dark.png": {
+      "hash": "896d04dc47f64d1ec243d321a1ec70d8a56210951bdaaef88aed340d8e5e02a8",
+      "source": "content/challenges/04-valencia-citizen-request-classifier.md"
+    },
+    "valencia-citizen-request-classifier-core-light.png": {
+      "hash": "fe1b3b4dc9f3ea941c5c40c87fa57398a8269949c24765b9fdea8f802485471f",
+      "source": "content/challenges/04-valencia-citizen-request-classifier.md"
+    },
+    "valencia-citizen-request-classifier-bonus-dark.png": {
+      "hash": "bce5d524dacba9e4ed0837b64f5d0b4e60ddb96c3039989fa3fcc51c9df63e77",
+      "source": "content/challenges/04-valencia-citizen-request-classifier.md"
+    },
+    "valencia-citizen-request-classifier-bonus-light.png": {
+      "hash": "af0935adc411f805251a92e4dd358519aab57df64c2813ccea58c7975d2ef3a3",
+      "source": "content/challenges/04-valencia-citizen-request-classifier.md"
+    },
+    "google-drive-rag-core-dark.png": {
+      "hash": "d25e1e6ea85ba745b2c62b8869633bcb3b67a927e01058c0ab9e8045d2b4d828",
+      "source": "content/challenges/05-google-drive-rag.md"
+    },
+    "google-drive-rag-core-light.png": {
+      "hash": "0f2ea0da10b1d797ef7dc202a74acdb50c70e4827866c3d6a3b8ef2f9d769c6b",
+      "source": "content/challenges/05-google-drive-rag.md"
+    },
+    "google-drive-rag-bonus-dark.png": {
+      "hash": "1de5343e1210b58b64158da03da99387b1e9d1771647321397b3dabafcd0b122",
+      "source": "content/challenges/05-google-drive-rag.md"
+    },
+    "google-drive-rag-bonus-light.png": {
+      "hash": "15b18579085e0e37370c3defd145b03361436aef21b23d1e1fb5dc572aa78d0d",
+      "source": "content/challenges/05-google-drive-rag.md"
+    },
+    "trello-morning-brief-core-dark.png": {
+      "hash": "7f78d6466e9fa97e3d4f9af31f7c7d237250d1c36035b568c2061a22b40457fb",
+      "source": "content/challenges/06-trello-morning-brief.md"
+    },
+    "trello-morning-brief-core-light.png": {
+      "hash": "aa08cc675dfe5bfca7d01d49cd53db5f49dff8537b505b65939ada77867ed34f",
+      "source": "content/challenges/06-trello-morning-brief.md"
+    },
+    "trello-morning-brief-bonus-dark.png": {
+      "hash": "b2ea998159eac32277db42a4bec4769e523db407bf4fc9df782da6fc293fb1d4",
+      "source": "content/challenges/06-trello-morning-brief.md"
+    },
+    "trello-morning-brief-bonus-light.png": {
+      "hash": "95d2705982e1c9e54751755387d70ab4ab1170990de6c59718f9c3c4267dbc27",
+      "source": "content/challenges/06-trello-morning-brief.md"
+    },
+    "alien-translator-core-dark.png": {
+      "hash": "d8b2f992b3ea22b4070541e06788c9c3722a88a8c340f597144f7c0ecbdf2290",
+      "source": "content/challenges/07-alien-translator.md"
+    },
+    "alien-translator-core-light.png": {
+      "hash": "201068c4afc12692b24867e625759fdc6f432926ba445a69ed3905fb70f430b2",
+      "source": "content/challenges/07-alien-translator.md"
+    },
+    "alien-translator-bonus-dark.png": {
+      "hash": "9f80cff1691dcdac880427677a21316a6801b3a603eb5ffe0b58f9de0c00546d",
+      "source": "content/challenges/07-alien-translator.md"
+    },
+    "alien-translator-bonus-light.png": {
+      "hash": "5e0f362918b96584a8beda717d4621cf8a98746efc0654dfaeba34cfd76afa09",
+      "source": "content/challenges/07-alien-translator.md"
     },
     "idealista-morning-brief-core-dark.png": {
       "hash": "18d7a33526f5a488c7e554c054c43dbfadbdca331e002331664dc2b05605c228",
@@ -48,6 +128,38 @@
     "idealista-morning-brief-bonus-light.png": {
       "hash": "319021441b7c86222ecc5104c694ee1c8db6b320ee72209c16505668d3c686b9",
       "source": "content/challenges/09-idealista-morning-brief.md"
+    },
+    "mercadona-mcp-assistant-core-dark.png": {
+      "hash": "c88fbae5d234987433460eb6ee38baf86aa814acb55a83e3b5f42c02161f6964",
+      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+    },
+    "mercadona-mcp-assistant-core-light.png": {
+      "hash": "fbba71ff45e24e7e3a9d4d00ebbbb656c4c67528a4f8a12bcd2595fa3fbf396a",
+      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+    },
+    "mercadona-mcp-assistant-bonus-dark.png": {
+      "hash": "4d7a8687a9f88e96d9d13313b93f49a2e738b6a0c07183eb06a1ac166eb62271",
+      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+    },
+    "mercadona-mcp-assistant-bonus-light.png": {
+      "hash": "9cff0e100fc381d824815a527fac5ad63c3df59de6dd047863c48ba721f1c71f",
+      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+    },
+    "unstable-restaurant-orders-core-dark.png": {
+      "hash": "c40650cbf2bf8d331addad8d5c1a0a8f40404bd2d6be326f0609afa3aa4e83cd",
+      "source": "content/challenges/08-unstable-restaurant-orders.md"
+    },
+    "unstable-restaurant-orders-core-light.png": {
+      "hash": "7f8ff751747e1dc29e9f6d803362e0c37110360cdda0b23bdc4827784f5f1f5e",
+      "source": "content/challenges/08-unstable-restaurant-orders.md"
+    },
+    "unstable-restaurant-orders-bonus-dark.png": {
+      "hash": "001d88295bc527f31259a19558db811f926668f9d0efd70eeca408d958f40f81",
+      "source": "content/challenges/08-unstable-restaurant-orders.md"
+    },
+    "unstable-restaurant-orders-bonus-light.png": {
+      "hash": "fc43c46a33da31c82dbb5ec309f0a6627650f5fc12ebe15d9a553b6f695863f3",
+      "source": "content/challenges/08-unstable-restaurant-orders.md"
     }
   }
 }

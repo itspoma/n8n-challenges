@@ -88,9 +88,9 @@ Functionality:
 | Orange | Google Drive RAG | Advanced | Document ingestion and vector retrieval |
 | Pink | Trello Morning Brief | Intermediate | Schedules, ranking, and messaging |
 | Purple | Alien Translator | Beginner | Prompt design and structured AI output |
-| Red | Valencia Helpful Contacts MCP Server | Advanced | MCP servers and workflow tools |
-| Silver | Idealista Morning Apartment Brief | Advanced | Persistent state and deduplication |
-| Black | Mercadona MCP Shopping Assistant | Intermediate | MCP clients, agents, and grounded tools |
+| Red | Unstable Restaurant Orders | Advanced | Pagination, retries, validation, and resilient error handling |
+| Silver | Idealista Morning Apartment Brief | Intermediate | Persistent state and deduplication |
+| Black | Mercadona MCP Shopping Assistant | Advanced | Custom MCP servers, agent tool orchestration, and live catalog grounding |
 
 The current top 10 is the selected challenge set for the static MVP. Alternative ideas and the source ideas promoted into this set are preserved in [CHALLENGE_IDEA_BACKLOG.md](CHALLENGE_IDEA_BACKLOG.md). Historical detailed definitions from the earlier platform plan remain in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md#6-challenge-candidate-pool-and-working-set). The implemented trilingual copy lives in `content/challenges/*.md` and is validated by `src/lib/challenges.ts`.
 
@@ -158,6 +158,7 @@ Design and implementation notes for these capabilities are preserved in [DEFERRE
 - All 10 challenge cards are visible and clickable.
 - All 30 localized challenge routes are generated at build time.
 - Every challenge has exactly five sequential tips.
+- Every challenge has exactly three observable workflow requirements.
 - Language switching preserves the current challenge route.
 - Theme switching works on landing and challenge pages.
 - The site is responsive and keyboard-accessible.

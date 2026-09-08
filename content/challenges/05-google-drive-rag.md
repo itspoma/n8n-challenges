@@ -8,53 +8,146 @@ color: #ff8a55
 ink: #1b2427
 ---
 
+# Solution Data
+
+Internal reference for solution rendering and workflow comparison. This section is not displayed on the challenge page.
+
+Replace `REPLACE_WITH_YOUR_FOLDER_ID` after importing either workflow. Credentials are intentionally omitted.
+
+## Core Workflow JSON (without bonus)
+
+```json
+{
+  "name": "Challenge 5 – Google Drive RAG",
+  "nodes": [
+    {"parameters": {}, "id": "0b0a8a46-2bdb-4f65-86c5-d04bde0f4e01", "name": "Run document ingestion", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [-1260, -300], "notesInFlow": true, "notes": "Run once after uploading the three fixture files, and again after an n8n restart."},
+    {"parameters": {"resource": "fileFolder", "operation": "search", "searchMethod": "name", "queryString": "", "returnAll": true, "filter": {"folderId": {"__rl": true, "value": "REPLACE_WITH_YOUR_FOLDER_ID", "mode": "id"}, "whatToSearch": "files", "fileTypes": ["text/plain"], "includeTrashed": false}, "options": {"fields": ["id", "name", "mimeType", "webViewLink"]}}, "id": "635e540b-bb13-4284-a3de-fb9d4fb963ba", "name": "Find event text files", "type": "n8n-nodes-base.googleDrive", "typeVersion": 3, "position": [-1040, -300], "notesInFlow": true, "notes": "Returns every direct-child plain-text file from the dedicated Drive folder."},
+    {"parameters": {"batchSize": 1, "options": {}}, "id": "843766a7-15d8-4d71-bf8d-c9119070a040", "name": "Loop Over Items", "type": "n8n-nodes-base.splitInBatches", "typeVersion": 3, "position": [-820, -300], "notesInFlow": true, "notes": "Processes one file at a time so loader expressions use the current file's metadata."},
+    {"parameters": {"resource": "file", "operation": "download", "fileId": {"__rl": true, "value": "={{ $json.id }}", "mode": "id"}, "options": {"binaryPropertyName": "data", "fileName": "={{ $json.name }}", "googleFileConversion": {"conversion": {"docsToFormat": "text/plain"}}}}, "id": "85e0eb87-fbbd-4cb6-bfac-96548053994c", "name": "Download current file", "type": "n8n-nodes-base.googleDrive", "typeVersion": 3, "position": [-600, -180], "notesInFlow": true, "notes": "Downloads the current file into the binary field named data."},
+    {"parameters": {"mode": "insert", "memoryKey": {"__rl": true, "mode": "id", "value": "challenge_5_event_docs"}, "clearStore": "={{ $runIndex === 0 }}"}, "id": "34df91c5-8078-499c-ae07-fad21c4df8cf", "name": "Insert event documents", "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory", "typeVersion": 1.2, "position": [-360, -180], "notesInFlow": true, "notes": "Clears the demo store on the first loop run, then inserts every file into the same memory key."},
+    {"parameters": {"model": "text-embedding-3-small", "options": {}}, "id": "65ad22cc-87f0-423e-882b-018827dcc5d1", "name": "Embeddings OpenAI", "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi", "typeVersion": 1.2, "position": [-360, 100]},
+    {"parameters": {"dataType": "binary", "binaryMode": "specificField", "binaryDataKey": "data", "loader": "auto", "textSplittingMode": "custom", "options": {"metadata": {"metadataValues": [{"name": "file_name", "value": "={{ $json.name }}"}, {"name": "file_id", "value": "={{ $json.id }}"}, {"name": "source_url", "value": "={{ $json.webViewLink }}"}]}}}, "id": "e2ef5e05-b0ed-4411-9e61-3c61b87d91c5", "name": "Default Data Loader", "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader", "typeVersion": 1.1, "position": [-120, 80], "notesInFlow": true, "notes": "Loads the downloaded binary and adds file_name, file_id, and source_url to every document chunk."},
+    {"parameters": {"chunkSize": 800, "chunkOverlap": 120, "options": {}}, "id": "4399a141-8da3-4107-b3eb-692e4e948b43", "name": "Recursive Character Text Splitter", "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter", "typeVersion": 1, "position": [-120, 260]},
+    {"parameters": {"options": {}}, "id": "f6631009-dc21-4593-8752-9b2f467f31d7", "name": "When chat message received", "type": "@n8n/n8n-nodes-langchain.chatTrigger", "typeVersion": 1.1, "position": [80, -300], "webhookId": "25d8bd49-525e-4c56-8987-bb264c95afdc"},
+    {"parameters": {"options": {"systemMessage": "You are the Valencia Event Knowledge Assistant. Reply in the same language as the user. For every question, always call the event_documents tool before answering. Use only facts supported by its returned pageContent. End every supported answer with a line formatted as Sources: <file_name[, file_name]>. Copy filenames only from returned metadata and list every file used. If a detail is not supported, say the event documents do not provide it. Never answer from general knowledge."}}, "id": "2a62e2dd-29ef-485d-9eb8-f79990f43f24", "name": "Answer with sources", "type": "@n8n/n8n-nodes-langchain.agent", "typeVersion": 2, "position": [340, -300], "notesInFlow": true, "notes": "The prompt requires retrieval before every answer and filenames copied from retrieved metadata."},
+    {"parameters": {"model": {"__rl": true, "mode": "list", "value": "gpt-4o-mini"}, "options": {}}, "id": "84d0175f-13bc-4bea-a737-6336c5cc0cc3", "name": "OpenAI Chat Model", "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi", "typeVersion": 1.2, "position": [260, -40]},
+    {"parameters": {"mode": "retrieve-as-tool", "toolName": "event_documents", "memoryKey": {"__rl": true, "mode": "id", "value": "challenge_5_event_docs"}, "toolDescription": "Search the indexed Valencia event documents. Returned chunks include file_name, file_id, and source_url metadata. Always use this tool before answering an event question.", "topK": 6, "includeDocumentMetadata": true}, "id": "ee591b7a-4642-4620-9e6e-c9fb883a76d1", "name": "Search event documents", "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory", "typeVersion": 1.2, "position": [520, -40], "notesInFlow": true, "notes": "Uses the same memory key and embedding model as ingestion and returns metadata with each result."}
+  ],
+  "connections": {
+    "Run document ingestion": {"main": [[{"node": "Find event text files", "type": "main", "index": 0}]]},
+    "Find event text files": {"main": [[{"node": "Loop Over Items", "type": "main", "index": 0}]]},
+    "Loop Over Items": {"main": [[], [{"node": "Download current file", "type": "main", "index": 0}]]},
+    "Download current file": {"main": [[{"node": "Insert event documents", "type": "main", "index": 0}]]},
+    "Insert event documents": {"main": [[{"node": "Loop Over Items", "type": "main", "index": 0}]]},
+    "Embeddings OpenAI": {"ai_embedding": [[{"node": "Insert event documents", "type": "ai_embedding", "index": 0}, {"node": "Search event documents", "type": "ai_embedding", "index": 0}]]},
+    "Default Data Loader": {"ai_document": [[{"node": "Insert event documents", "type": "ai_document", "index": 0}]]},
+    "Recursive Character Text Splitter": {"ai_textSplitter": [[{"node": "Default Data Loader", "type": "ai_textSplitter", "index": 0}]]},
+    "When chat message received": {"main": [[{"node": "Answer with sources", "type": "main", "index": 0}]]},
+    "OpenAI Chat Model": {"ai_languageModel": [[{"node": "Answer with sources", "type": "ai_languageModel", "index": 0}]]},
+    "Search event documents": {"ai_tool": [[{"node": "Answer with sources", "type": "ai_tool", "index": 0}]]}
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "d14ac4c3-6594-428f-acd2-08272b78cb79",
+  "meta": {"templateCredsSetupCompleted": false},
+  "tags": []
+}
+```
+
+## Bonus Workflow JSON
+
+```json
+{
+  "name": "Challenge 5 – Google Drive RAG (Bonus)",
+  "nodes": [
+    {"parameters": {}, "id": "0b0a8a46-2bdb-4f65-86c5-d04bde0f4e01", "name": "Run document ingestion", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [-1260, -300], "notesInFlow": true, "notes": "Run once after uploading the three fixture files, and again after an n8n restart."},
+    {"parameters": {"resource": "fileFolder", "operation": "search", "searchMethod": "name", "queryString": "", "returnAll": true, "filter": {"folderId": {"__rl": true, "value": "REPLACE_WITH_YOUR_FOLDER_ID", "mode": "id"}, "whatToSearch": "files", "fileTypes": ["text/plain"], "includeTrashed": false}, "options": {"fields": ["id", "name", "mimeType", "webViewLink"]}}, "id": "635e540b-bb13-4284-a3de-fb9d4fb963ba", "name": "Find event text files", "type": "n8n-nodes-base.googleDrive", "typeVersion": 3, "position": [-1040, -300], "notesInFlow": true, "notes": "Returns every direct-child plain-text file from the dedicated Drive folder."},
+    {"parameters": {"batchSize": 1, "options": {}}, "id": "843766a7-15d8-4d71-bf8d-c9119070a040", "name": "Loop Over Items", "type": "n8n-nodes-base.splitInBatches", "typeVersion": 3, "position": [-820, -300], "notesInFlow": true, "notes": "Processes one file at a time so loader expressions use the current file's metadata."},
+    {"parameters": {"resource": "file", "operation": "download", "fileId": {"__rl": true, "value": "={{ $json.id }}", "mode": "id"}, "options": {"binaryPropertyName": "data", "fileName": "={{ $json.name }}", "googleFileConversion": {"conversion": {"docsToFormat": "text/plain"}}}}, "id": "85e0eb87-fbbd-4cb6-bfac-96548053994c", "name": "Download current file", "type": "n8n-nodes-base.googleDrive", "typeVersion": 3, "position": [-600, -180], "notesInFlow": true, "notes": "Downloads the current file into the binary field named data."},
+    {"parameters": {"mode": "insert", "memoryKey": {"__rl": true, "mode": "id", "value": "challenge_5_event_docs"}, "clearStore": "={{ $runIndex === 0 }}"}, "id": "34df91c5-8078-499c-ae07-fad21c4df8cf", "name": "Insert event documents", "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory", "typeVersion": 1.2, "position": [-360, -180], "notesInFlow": true, "notes": "Clears the demo store on the first loop run, then inserts every file into the same memory key."},
+    {"parameters": {"model": "text-embedding-3-small", "options": {}}, "id": "65ad22cc-87f0-423e-882b-018827dcc5d1", "name": "Embeddings OpenAI", "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi", "typeVersion": 1.2, "position": [-360, 100]},
+    {"parameters": {"dataType": "binary", "binaryMode": "specificField", "binaryDataKey": "data", "loader": "auto", "textSplittingMode": "custom", "options": {"metadata": {"metadataValues": [{"name": "file_name", "value": "={{ $json.name }}"}, {"name": "file_id", "value": "={{ $json.id }}"}, {"name": "source_url", "value": "={{ $json.webViewLink }}"}]}}}, "id": "e2ef5e05-b0ed-4411-9e61-3c61b87d91c5", "name": "Default Data Loader", "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader", "typeVersion": 1.1, "position": [-120, 80], "notesInFlow": true, "notes": "Loads the downloaded binary and adds file_name, file_id, and source_url to every document chunk."},
+    {"parameters": {"chunkSize": 800, "chunkOverlap": 120, "options": {}}, "id": "4399a141-8da3-4107-b3eb-692e4e948b43", "name": "Recursive Character Text Splitter", "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter", "typeVersion": 1, "position": [-120, 260]},
+    {"parameters": {"options": {}}, "id": "f6631009-dc21-4593-8752-9b2f467f31d7", "name": "When chat message received", "type": "@n8n/n8n-nodes-langchain.chatTrigger", "typeVersion": 1.1, "position": [80, -300], "webhookId": "25d8bd49-525e-4c56-8987-bb264c95afdc"},
+    {"parameters": {"options": {"systemMessage": "You are the Valencia Event Knowledge Assistant. Reply in the same language as the user. For every question, always call the event_documents tool before answering. Use only facts supported by its returned pageContent. End every supported answer with a line formatted as Sources: <file_name[, file_name]>. Copy filenames only from returned metadata and list every file used. Never answer from general knowledge. If the retrieved documents do not contain the answer, return exactly one matching sentence and nothing else: English: I could not find this in the event documents. Spanish: No pude encontrarlo en los documentos del evento. Ukrainian: У документах події немає цієї інформації. For any other language, use the English sentence. Do not add a Sources line to this fallback."}}, "id": "2a62e2dd-29ef-485d-9eb8-f79990f43f24", "name": "Answer or exact fallback", "type": "@n8n/n8n-nodes-langchain.agent", "typeVersion": 2, "position": [340, -300], "notesInFlow": true, "notes": "The bonus prompt adds deterministic localized fallbacks when retrieval cannot support an answer."},
+    {"parameters": {"model": {"__rl": true, "mode": "list", "value": "gpt-4o-mini"}, "options": {}}, "id": "84d0175f-13bc-4bea-a737-6336c5cc0cc3", "name": "OpenAI Chat Model", "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi", "typeVersion": 1.2, "position": [260, -40]},
+    {"parameters": {"mode": "retrieve-as-tool", "toolName": "event_documents", "memoryKey": {"__rl": true, "mode": "id", "value": "challenge_5_event_docs"}, "toolDescription": "Search the indexed Valencia event documents. Returned chunks include file_name, file_id, and source_url metadata. Always use this tool before answering an event question.", "topK": 6, "includeDocumentMetadata": true}, "id": "ee591b7a-4642-4620-9e6e-c9fb883a76d1", "name": "Search event documents", "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory", "typeVersion": 1.2, "position": [520, -40], "notesInFlow": true, "notes": "Uses the same memory key and embedding model as ingestion and returns metadata with each result."}
+  ],
+  "connections": {
+    "Run document ingestion": {"main": [[{"node": "Find event text files", "type": "main", "index": 0}]]},
+    "Find event text files": {"main": [[{"node": "Loop Over Items", "type": "main", "index": 0}]]},
+    "Loop Over Items": {"main": [[], [{"node": "Download current file", "type": "main", "index": 0}]]},
+    "Download current file": {"main": [[{"node": "Insert event documents", "type": "main", "index": 0}]]},
+    "Insert event documents": {"main": [[{"node": "Loop Over Items", "type": "main", "index": 0}]]},
+    "Embeddings OpenAI": {"ai_embedding": [[{"node": "Insert event documents", "type": "ai_embedding", "index": 0}, {"node": "Search event documents", "type": "ai_embedding", "index": 0}]]},
+    "Default Data Loader": {"ai_document": [[{"node": "Insert event documents", "type": "ai_document", "index": 0}]]},
+    "Recursive Character Text Splitter": {"ai_textSplitter": [[{"node": "Default Data Loader", "type": "ai_textSplitter", "index": 0}]]},
+    "When chat message received": {"main": [[{"node": "Answer or exact fallback", "type": "main", "index": 0}]]},
+    "OpenAI Chat Model": {"ai_languageModel": [[{"node": "Answer or exact fallback", "type": "ai_languageModel", "index": 0}]]},
+    "Search event documents": {"ai_tool": [[{"node": "Answer or exact fallback", "type": "ai_tool", "index": 0}]]}
+  },
+  "pinData": {},
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "6d299514-9819-48b3-b4f5-1d0080a87b5b",
+  "meta": {"templateCredsSetupCompleted": false},
+  "tags": []
+}
+```
+
 # English
 
 ## Title
 Google Drive RAG
 
 ## Summary
-Answer questions from a Google Drive knowledge folder and show which document supports the answer.
+Build a RAG assistant that searches a Google Drive knowledge folder before answering and names the files that support each answer.
 
 ## Concept
-Document ingestion, embeddings, vector retrieval, and grounded answers
+Document ingestion, semantic retrieval, and answers grounded in source files
 
 ## Scenario
-- An event team has policies and guides in Drive and needs answers grounded in those documents.
-- New volunteers want setup answers that cite the correct handbook file.
-- Attendees need to search logistics and sponsor documents without reading every file.
+- An event team keeps venue, volunteer, and sponsor facts in Drive and wants one grounded chat assistant for all three.
+- New volunteers need reliable setup answers with the correct handbook filename.
+- Organizers want unsupported questions to produce an honest fallback instead of a plausible guess.
 
 ## Task
-Build an ingestion path that loads the event documents from Google Drive into a vector store and a question-answering path that retrieves relevant passages, answers the question, and names the source document.
+The Valencia event team needs a chat assistant that answers questions using every supplied document in its Google Drive folder and names the files that support each answer.
 
 ## Bonus Task
-When retrieval finds no relevant passage, return a clear not-enough-information response instead of generating an unsupported answer.
+For the question "Does the event provide an airport shuttle?", reply exactly "I could not find this in the event documents." and add nothing else.
 
 ## Nodes
-- Google Drive
+- Manual Trigger
+- Google Drive – two instances for Search files and folders and Download file
+- Loop Over Items
 - Default Data Loader
-- Embeddings
-- Vector Store
+- Recursive Character Text Splitter
+- Embeddings OpenAI
+- Simple Vector Store – two instances for inserting and searching
 - Chat Trigger
+- OpenAI Chat Model
 - AI Agent
 
 ## Preparation
-- Connect a Google account that can read the event-provided Drive folder containing three to five documents.
-- Add an AI model and embedding credential, and choose a vector store available in your n8n workspace.
+- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an up-to-date n8n workspace, then create a new workflow.
+- Create or sign in to a [Google account](https://accounts.google.com/signup), then add a Google Drive connection by following the [n8n Google credential guide](https://docs.n8n.io/integrations/builtin/credentials/google/).
+- Create an [OpenAI account](https://platform.openai.com/signup), create an [API key](https://platform.openai.com/api-keys), and store it in n8n using the [OpenAI credential guide](https://docs.n8n.io/integrations/builtin/credentials/openai/). API usage may incur a small charge.
+- Download [the venue guide](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [the volunteer handbook](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt), and [the sponsor logistics file](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Upload only these three `.txt` files as direct children of a new Drive folder, then copy its folder ID.
+- Use Simple Vector Store only for this workshop demo: it keeps its index in n8n memory, can expose it to other users of the same instance, and loses it after a restart or low-memory cleanup. Re-run ingestion before testing chat after either event, and do not use sensitive documents.
 
 ## Requirements
-- Load every file from the event folder without copying its text manually into the workflow.
-- Split the documents into chunks, create embeddings, and store source metadata with each chunk.
-- Retrieve relevant chunks dynamically for each incoming question.
-- Return an answer together with at least one supporting source filename.
-- For an unsupported question, say that the documents do not contain the answer instead of inventing one.
+- One Manual Trigger run finds and downloads all three direct-child `.txt` files and indexes their chunks under `challenge_5_event_docs`, with `file_name`, `file_id`, and `source_url` metadata preserved on every chunk.
+- After ingestion, "Where and when should volunteers check in?" returns the North Entrance at 08:00, and "When and where may sponsors deliver materials?" returns Loading Bay B from 07:00 to 08:00; each answer ends with a `Sources:` line containing the correct fixture filename.
+- The AI Agent calls the `event_documents` retrieval tool before every answer and, for the bonus test question, returns the exact not-found sentence without a `Sources:` line.
 
 ## Tips
-- Prove that Google Drive can list and download one event document before adding AI nodes.
-- Build and run the ingestion path separately from the question-answering path.
-- Preserve the filename or Drive ID as metadata when loading each document.
-- Use the same embedding model when inserting documents and retrieving them.
-- Tell the agent to answer only from retrieved context and to include the source metadata.
+- Start with Manual Trigger and Google Drive: search the dedicated folder with Return All enabled, limit the result to files, and prove that all three IDs, names, and web links are returned before downloading anything.
+- Add Loop Over Items with a batch size of 1, then a second Google Drive node set to Download file; one-at-a-time processing makes the current file's metadata unambiguous to AI sub-nodes.
+- Connect Default Data Loader to the insert-mode Simple Vector Store, load the `data` binary field, and attach `file_name`, `file_id`, and `source_url` as metadata – labels stored beside every piece of document text.
+- Add Recursive Character Text Splitter with chunk size 800 and overlap 120, then connect one Embeddings OpenAI node using `text-embedding-3-small` to both Simple Vector Store nodes; chunks are overlapping passages, and embeddings are numeric meaning signatures used for semantic search.
+- Finish with Chat Trigger, OpenAI Chat Model, AI Agent, and the retrieve-as-tool Simple Vector Store; reuse `challenge_5_event_docs`, include document metadata, require the agent to call `event_documents`, and run both supported questions plus the exact airport-shuttle bonus test.
 
 # Spanish
 
@@ -62,47 +155,52 @@ When retrieval finds no relevant passage, return a clear not-enough-information 
 RAG con Google Drive
 
 ## Summary
-Responde preguntas a partir de una carpeta de conocimiento en Google Drive y muestra qué documento respalda la respuesta.
+Crea un asistente RAG que busque en una carpeta de conocimiento de Google Drive antes de responder y nombre los archivos que respaldan cada respuesta.
 
 ## Concept
-Ingesta de documentos, embeddings, recuperación vectorial y respuestas fundamentadas
+Ingesta de documentos, búsqueda semántica y respuestas fundamentadas en archivos fuente
 
 ## Scenario
-- El equipo de un evento tiene políticas y guías en Drive y necesita respuestas basadas en esos documentos.
-- El nuevo voluntariado quiere respuestas de configuración que citen el archivo correcto del manual.
-- Las personas asistentes necesitan buscar información logística y de patrocinio sin leer cada documento.
+- El equipo de un evento guarda información del espacio, del voluntariado y de patrocinadores en Drive y quiere un único asistente fundamentado para los tres ámbitos.
+- El nuevo voluntariado necesita respuestas fiables sobre la preparación con el nombre correcto del manual.
+- La organización quiere que las preguntas sin respaldo produzcan una respuesta honesta en lugar de una suposición convincente.
 
 ## Task
-Crea una ruta de ingesta que cargue los documentos del evento desde Google Drive en un almacén vectorial y una ruta de preguntas que recupere fragmentos relevantes, responda y nombre el documento fuente.
+El equipo de eventos de Valencia necesita un asistente de chat que responda preguntas usando todos los documentos proporcionados en su carpeta de Google Drive y nombre los archivos que respaldan cada respuesta.
 
 ## Bonus Task
-Cuando la búsqueda no encuentre ningún fragmento relevante, devuelve una respuesta clara indicando que no hay información suficiente en lugar de inventar una respuesta.
+Para la pregunta "¿El evento ofrece un traslado desde el aeropuerto?", responde exactamente "No pude encontrarlo en los documentos del evento." y no añadas nada más.
 
 ## Nodes
-- Google Drive
+- Manual Trigger
+- Google Drive – dos instancias para Search files and folders y Download file
+- Loop Over Items
 - Default Data Loader
-- Embeddings
-- Vector Store
+- Recursive Character Text Splitter
+- Embeddings OpenAI
+- Simple Vector Store – dos instancias para insertar y buscar
 - Chat Trigger
+- OpenAI Chat Model
 - AI Agent
 
 ## Preparation
-- Conecta una cuenta de Google que pueda leer la carpeta de Drive proporcionada por el evento con entre tres y cinco documentos.
-- Añade credenciales para un modelo de IA y embeddings y elige un almacén vectorial disponible en tu espacio de n8n.
+- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de n8n actualizado y crea un workflow nuevo.
+- Crea una [cuenta de Google](https://accounts.google.com/signup) o inicia sesión y añade una conexión de Google Drive siguiendo la [guía de credenciales de Google para n8n](https://docs.n8n.io/integrations/builtin/credentials/google/).
+- Crea una [cuenta de OpenAI](https://platform.openai.com/signup), genera una [API key](https://platform.openai.com/api-keys) y guárdala en n8n con la [guía de credenciales de OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). El uso de la API puede generar un pequeño coste.
+- Descarga [la guía del espacio](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [el manual de voluntariado](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt) y [el archivo de logística para patrocinadores](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Sube únicamente estos tres archivos `.txt` como hijos directos de una nueva carpeta de Drive y copia su ID.
+- Usa Simple Vector Store solo para esta demostración: guarda el índice en la memoria de n8n, puede exponerlo a otras personas de la misma instancia y lo pierde tras un reinicio o una limpieza por poca memoria. Vuelve a ejecutar la ingesta antes de probar el chat después de cualquiera de esos eventos y no uses documentos sensibles.
 
 ## Requirements
-- Carga todos los archivos de la carpeta del evento sin copiar manualmente su texto en el workflow.
-- Divide los documentos en fragmentos, crea embeddings y guarda los metadatos de origen con cada fragmento.
-- Recupera dinámicamente fragmentos relevantes para cada pregunta recibida.
-- Devuelve una respuesta junto con al menos un nombre de archivo que la respalde.
-- Ante una pregunta no cubierta, indica que los documentos no contienen la respuesta en lugar de inventarla.
+- Una ejecución de Manual Trigger encuentra y descarga los tres archivos `.txt` que son hijos directos e indexa sus fragmentos bajo `challenge_5_event_docs`, conservando los metadatos `file_name`, `file_id` y `source_url` en cada fragmento.
+- Después de la ingesta, "¿Dónde y cuándo debe registrarse el voluntariado?" devuelve North Entrance a las 08:00 y "¿Cuándo y dónde pueden entregar material los patrocinadores?" devuelve Loading Bay B de 07:00 a 08:00; cada respuesta termina con una línea `Sources:` que contiene el nombre correcto del archivo de prueba.
+- AI Agent llama a la herramienta de búsqueda `event_documents` antes de cada respuesta y, para la pregunta de prueba extra, devuelve la frase exacta de no encontrado sin una línea `Sources:`.
 
 ## Tips
-- Comprueba que Google Drive puede listar y descargar un documento del evento antes de añadir nodos de IA.
-- Construye y ejecuta la ruta de ingesta separada de la ruta de preguntas y respuestas.
-- Conserva el nombre del archivo o el ID de Drive como metadato al cargar cada documento.
-- Usa el mismo modelo de embeddings al insertar documentos y al recuperarlos.
-- Indica al agente que responda solo con el contexto recuperado y que incluya los metadatos de la fuente.
+- Empieza con Manual Trigger y Google Drive: busca en la carpeta dedicada con Return All activado, limita el resultado a archivos y comprueba que aparecen los tres ID, nombres y enlaces web antes de descargar nada.
+- Añade Loop Over Items con un tamaño de lote de 1 y después un segundo nodo Google Drive configurado como Download file; procesar de uno en uno deja claro a los subnodos de IA qué metadatos pertenecen al archivo actual.
+- Conecta Default Data Loader al Simple Vector Store en modo insert, carga el campo binario `data` y añade `file_name`, `file_id` y `source_url` como metadatos – etiquetas guardadas junto a cada parte del texto del documento.
+- Añade Recursive Character Text Splitter con un tamaño de fragmento de 800 y un solapamiento de 120; conecta después un nodo Embeddings OpenAI con `text-embedding-3-small` a los dos Simple Vector Store. Los fragmentos son pasajes que se solapan y los embeddings son firmas numéricas de significado para la búsqueda semántica.
+- Termina con Chat Trigger, OpenAI Chat Model, AI Agent y Simple Vector Store en modo retrieve-as-tool; reutiliza `challenge_5_event_docs`, incluye los metadatos, exige que el agente llame a `event_documents` y ejecuta las dos preguntas cubiertas y la prueba extra exacta del traslado.
 
 # Ukrainian
 
@@ -110,44 +208,49 @@ Cuando la búsqueda no encuentre ningún fragmento relevante, devuelve una respu
 RAG з Google Drive
 
 ## Summary
-Відповідайте на запитання за матеріалами з папки знань у Google Drive і показуйте, який документ підтверджує відповідь.
+Створіть RAG-асистента, який перед відповіддю шукає в папці знань Google Drive і називає файли, що підтверджують кожну відповідь.
 
 ## Concept
-Завантаження документів, ембеддинги, векторний пошук і відповіді на основі джерел
+Завантаження документів, семантичний пошук і відповіді, обґрунтовані файлами-джерелами
 
 ## Scenario
-- Команда події зберігає правила й посібники на Drive та потребує відповідей, обґрунтованих цими документами.
-- Новим волонтерам потрібні відповіді щодо налаштування з посиланням на правильний файл посібника.
-- Учасникам потрібно шукати інформацію в документах про логістику та спонсорів, не читаючи кожен файл повністю.
+- Команда події зберігає у Drive відомості про приміщення, волонтерів і спонсорів та хоче мати одного обґрунтованого асистента для всіх трьох тем.
+- Новим волонтерам потрібні надійні відповіді щодо підготовки з правильною назвою файла посібника.
+- Організатори хочуть, щоб на запитання без підтвердження система давала чесну відмову, а не правдоподібну здогадку.
 
 ## Task
-Створіть шлях завантаження, який переносить документи події з Google Drive до векторного сховища, і шлях запитань та відповідей, який знаходить релевантні фрагменти, відповідає на запитання та називає вихідний документ.
+Команді подій у Валенсії потрібен чат-асистент, який відповідає на запитання за всіма наданими документами з папки Google Drive і називає файли, що підтверджують кожну відповідь.
 
 ## Bonus Task
-Якщо пошук не знаходить релевантного фрагмента, повертайте зрозуміле повідомлення про недостатність інформації замість непідтвердженої відповіді.
+На запитання "Чи надає подія трансфер з аеропорту?" дайте точну відповідь "У документах події немає цієї інформації." і нічого більше не додавайте.
 
 ## Nodes
-- Google Drive
+- Manual Trigger
+- Google Drive – дві ноди для Search files and folders і Download file
+- Loop Over Items
 - Default Data Loader
-- Embeddings
-- Vector Store
+- Recursive Character Text Splitter
+- Embeddings OpenAI
+- Simple Vector Store – дві ноди для додавання та пошуку
 - Chat Trigger
+- OpenAI Chat Model
 - AI Agent
 
 ## Preparation
-- Підключіть обліковий запис Google, який має доступ для читання до наданої організаторами папки Drive з трьома–п’ятьма документами.
-- Додайте облікові дані моделі ШІ та моделі ембеддингів і виберіть векторне сховище, доступне у вашому воркспейсі n8n.
+- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте актуальний воркспейс n8n, а потім створіть новий воркфлоу.
+- Створіть [обліковий запис Google](https://accounts.google.com/signup) або ввійдіть у нього та додайте підключення Google Drive за [інструкцією n8n для облікових даних Google](https://docs.n8n.io/integrations/builtin/credentials/google/).
+- Створіть [обліковий запис OpenAI](https://platform.openai.com/signup), згенеруйте [API key](https://platform.openai.com/api-keys) і збережіть його в n8n за [інструкцією для облікових даних OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Використання API може мати невелику вартість.
+- Завантажте [посібник приміщення](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [довідник волонтера](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt) і [файл логістики спонсорів](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Додайте лише ці три файли `.txt` безпосередньо до нової папки Drive і скопіюйте її ID.
+- Використовуйте Simple Vector Store лише для цієї демонстрації: він тримає індекс у пам’яті n8n, може відкривати його іншим користувачам того самого екземпляра та втрачає його після перезапуску або очищення через нестачу пам’яті. Після будь-якої з цих подій повторно запустіть завантаження перед перевіркою чату та не використовуйте конфіденційні документи.
 
 ## Requirements
-- Завантажуйте кожен файл з папки події, не копіюючи його текст до воркфлоу вручну.
-- Розділіть документи на фрагменти, створіть ембеддинги та збережіть метадані джерела разом з кожним фрагментом.
-- Динамічно знаходьте релевантні фрагменти для кожного вхідного запитання.
-- Повертайте відповідь разом з назвою щонайменше одного файла-джерела.
-- Для запитання без підтвердження повідомте, що документи не містять відповіді, замість того щоб вигадувати її.
+- Один запуск Manual Trigger знаходить і завантажує всі три файли `.txt`, що є безпосередніми дочірніми файлами папки, та індексує їхні фрагменти під ключем `challenge_5_event_docs`, зберігаючи метадані `file_name`, `file_id` і `source_url` у кожному фрагменті.
+- Після завантаження запитання "Де й коли мають зареєструватися волонтери?" повертає North Entrance о 08:00, а "Коли й куди спонсори можуть доставити матеріали?" повертає Loading Bay B з 07:00 до 08:00; кожна відповідь завершується рядком `Sources:` із правильною назвою файла-фікстури.
+- AI Agent викликає інструмент пошуку `event_documents` перед кожною відповіддю, а для додаткового тестового запитання повертає точну фразу про відсутність інформації без рядка `Sources:`.
 
 ## Tips
-- Перш ніж додавати ноди ШІ, переконайтеся, що Google Drive може показати список файлів і завантажити один документ події.
-- Побудуйте й запустіть шлях завантаження окремо від шляху запитань та відповідей.
-- Під час завантаження кожного документа зберігайте назву файла або Drive ID як метадані.
-- Використовуйте ту саму модель ембеддингів під час додавання документів і їх пошуку.
-- Накажіть агенту відповідати лише на основі знайденого контексту та додавати метадані джерела.
+- Почніть із Manual Trigger і Google Drive: виконайте пошук у спеціальній папці з увімкненим Return All, обмежте результат файлами та перевірте наявність усіх трьох ID, назв і вебпосилань до завантаження.
+- Додайте Loop Over Items із розміром пакета 1, а потім другу ноду Google Drive з операцією Download file; послідовна обробка однозначно пов’язує метадані поточного файла із субнодами ШІ.
+- Підключіть Default Data Loader до Simple Vector Store у режимі insert, завантажте бінарне поле `data` й додайте `file_name`, `file_id` і `source_url` як метадані – мітки, що зберігаються поряд із кожною частиною тексту документа.
+- Додайте Recursive Character Text Splitter із розміром фрагмента 800 і перекриттям 120, а потім підключіть одну ноду Embeddings OpenAI з `text-embedding-3-small` до обох Simple Vector Store; фрагменти – це уривки тексту з перекриттям, а ембеддинги – числові відбитки змісту для семантичного пошуку.
+- Завершіть нодами Chat Trigger, OpenAI Chat Model, AI Agent і Simple Vector Store у режимі retrieve-as-tool; повторно використайте `challenge_5_event_docs`, додайте метадані документів, вимагайте виклику `event_documents` і виконайте два підтверджені запитання та точний додатковий тест про трансфер.

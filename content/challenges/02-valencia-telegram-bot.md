@@ -8,6 +8,278 @@ color: #f7cb55
 ink: #1b2427
 ---
 
+# Solution Data
+
+Internal reference for solution rendering and workflow comparison. This section is not displayed on the challenge page.
+
+## Core Workflow JSON (without bonus)
+
+```json
+{
+  "name": "Challenge 2 – Valencia Air Quality Telegram Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "b20b363a-3cfa-462d-ad63-f56de3fa6c9e",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "c900b467-258e-4b04-afd0-6a3726132521",
+      "notesInFlow": true,
+      "notes": "Starts the workflow whenever the bot receives a Telegram message."
+    },
+    {
+      "parameters": {
+        "url": "https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors",
+        "options": {}
+      },
+      "id": "0a2df19f-1ef6-4f10-8194-6e72ae86e897",
+      "name": "Get Valencia Air Quality",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Fetches the latest readings from Valencia City Council Open Data."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b6b11a6e-b5e0-420f-b400-b435572b416b",
+              "name": "station",
+              "value": "={{ Object.fromEntries($json.metadata.map(({ colName, colIndex }) => [colName, $json.resultset.find(row => row[$json.metadata.find(column => column.colName === 'address').colIndex] === 'VALÈNCIA CENTRE')[colIndex]])) }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "76b9f2ea-63de-4bf8-89ce-9183f7af4a89",
+      "name": "Extract VALÈNCIA CENTRE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        600,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Uses metadata column indexes to find VALÈNCIA CENTRE without hard-coding a row number."
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ 'Air quality at ' + $json.station.address + '\nObserved: ' + $json.station.dateobserved + '\nStatus: ' + $json.station.calidad_ambiental + '\nNO₂: ' + ($json.station.no2value ?? 'N/A') + '\nPM10: ' + ($json.station.pm10value ?? 'N/A') + '\nPM2.5: ' + ($json.station.pm25value ?? 'N/A') }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "1ab5d87c-399b-4562-887b-5fda877f386c",
+      "name": "Reply with Air Quality",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Replies to the originating chat with the required air-quality fields."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Valencia Air Quality",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Valencia Air Quality": {
+      "main": [
+        [
+          {
+            "node": "Extract VALÈNCIA CENTRE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract VALÈNCIA CENTRE": {
+      "main": [
+        [
+          {
+            "node": "Reply with Air Quality",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "32a63f29-ad20-4b9b-a73c-1d633571f4fb",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
+```
+
+## Bonus Workflow JSON
+
+```json
+{
+  "name": "Challenge 2 – Valencia Air Quality Telegram Bot (Bonus)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "caf3b4cf-37c5-4fac-ab7f-51a2186606ae",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "a54fdf81-34b2-4786-9a6c-6cfe66f30c54",
+      "notesInFlow": true,
+      "notes": "Starts the workflow whenever the bot receives a Telegram message."
+    },
+    {
+      "parameters": {
+        "url": "https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors",
+        "options": {}
+      },
+      "id": "3c75a446-a9a8-43e1-9f36-1f218aef2e85",
+      "name": "Get Valencia Air Quality",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        300,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Fetches the latest readings from Valencia City Council Open Data."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "eef82536-ef40-45d1-8f35-a6f35c183ddf",
+              "name": "station",
+              "value": "={{ Object.fromEntries($json.metadata.map(({ colName, colIndex }) => [colName, $json.resultset.find(row => row[$json.metadata.find(column => column.colName === 'address').colIndex] === 'VALÈNCIA CENTRE')[colIndex]])) }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b9a9ea09-93f5-4886-878d-63b4e0154948",
+      "name": "Extract VALÈNCIA CENTRE",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        600,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Uses metadata column indexes to find VALÈNCIA CENTRE without hard-coding a row number."
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').first().json.message.chat.id }}",
+        "text": "={{ (['Buena', 'Razonablemente Buena'].includes($json.station.calidad_ambiental) ? '✅' : '⚠️') + ' Air quality at ' + $json.station.address + '\nObserved: ' + $json.station.dateobserved + '\nStatus: ' + $json.station.calidad_ambiental + '\nNO₂: ' + ($json.station.no2value ?? 'N/A') + '\nPM10: ' + ($json.station.pm10value ?? 'N/A') + '\nPM2.5: ' + ($json.station.pm25value ?? 'N/A') }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "fd78be82-275a-42d5-974b-c25a028469f7",
+      "name": "Reply with Status Icon",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        900,
+        0
+      ],
+      "notesInFlow": true,
+      "notes": "Replies with ✅ for Buena or Razonablemente Buena; otherwise it replies with ⚠️."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Valencia Air Quality",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Valencia Air Quality": {
+      "main": [
+        [
+          {
+            "node": "Extract VALÈNCIA CENTRE",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract VALÈNCIA CENTRE": {
+      "main": [
+        [
+          {
+            "node": "Reply with Status Icon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "91632c01-14c6-40e2-b2aa-10bf5b05ea67",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}
+```
+
 # English
 
 ## Title
@@ -19,16 +291,6 @@ Reply to a Telegram message with the latest air-quality reading for VALÈNCIA CE
 ## Concept
 Chat triggers, HTTP requests, and data filtering
 
-## Glossary
-- Valencia Open Data: Valencia Open Data is a website where Valencia City Council publishes public information that people and apps can reuse.
-- API: An API is a way for one app to ask another app for data or an action in a predictable format.
-- Trigger: A trigger is the first node in an n8n workflow. It starts the workflow when a specific event happens.
-- Telegram: Telegram is a free messaging app that works on phones, computers, and the web.
-- Telegram bot: A Telegram bot is an automated Telegram account that can receive messages and send replies.
-- BotFather: BotFather is Telegram's official bot for creating and managing Telegram bots.
-- Token: A token is a private code that lets n8n connect to and act as your Telegram bot. Do not share it.
-- n8n credential: An n8n credential securely stores the connection details that a node needs to access another service.
-
 ## Scenario
 - A resident wants to check the latest air quality in central Valencia without searching it on Google.
 - An event organizer wants to check local air quality before choosing an outdoor meetup spot.
@@ -36,7 +298,7 @@ Chat triggers, HTTP requests, and data filtering
 - Residents could use the same workflow pattern to request information from Valencia Open Data's nearly 300 public datasets through a familiar messaging app such as Telegram or WhatsApp.
 
 ## Task
-Build a Telegram bot that reacts to any text message, requests the live Valencia Open Data air-quality dataset, finds the record whose address is VALÈNCIA CENTRE, and replies with the address, observation date, air-quality status, and available NO₂, PM10, and PM2.5 values.
+The Valencia event team needs a Telegram bot that answers each text message with the latest air-quality report for VALÈNCIA CENTRE.
 
 ## Bonus Task
 Add ✅ when the calidad_ambiental status is Buena or Razonablemente Buena; otherwise add ⚠️ so the result is easy to understand at a glance.
@@ -48,23 +310,22 @@ Add ✅ when the calidad_ambiental status is Buena or Razonablemente Buena; othe
 - Telegram
 
 ## Preparation
-- Install [Telegram](https://telegram.org/). Telegram is free and secure, and connecting a Telegram bot to n8n is quick and simple. We use it here because connecting WhatsApp is more complex and requires additional business setup.
+- Sign up for [n8n Cloud](https://app.n8n.cloud/register) or open an existing n8n workspace, then create a new workflow.
+- Install [Telegram](https://telegram.org/), then create or sign in to a Telegram account.
 - Create a Telegram bot with [BotFather](https://t.me/botfather), then [add its token as an n8n credential](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - The [Valencia City Council air-quality endpoint](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) provides real-time data. Keep it ready to use in your HTTP Request node.
 
 ## Requirements
-- Run the workflow when you send a text message to your Telegram bot.
-- Fetch the live air-quality dataset from the provided Valencia City Council endpoint through HTTP Request.
-- Select the resultset row whose address is exactly VALÈNCIA CENTRE instead of hard-coding a row number.
-- Reply to the same chat with the address, dateobserved, calidad_ambiental, and available no2value, pm10value, and pm25value data.
-- Demonstrate that two messages receive replies using fresh data from the endpoint.
+- Every text message makes the bot look up the current VALÈNCIA CENTRE reading instead of relying on a fixed row position.
+- The reply returns to the same Telegram chat with the address, observation date, air-quality status, and every available NO₂, PM10, and PM2.5 value.
+- Two separate test messages each receive a new reply based on data fetched at that time.
 
 ## Tips
-- After you create the bot, BotFather returns a new access token. Add this token to your Telegram credential in n8n.
-- Send your new bot a message after activating Telegram Trigger so n8n receives sample data and you can verify that Telegram is connected correctly.
-- Use the air-quality endpoint in an HTTP Request node and inspect both metadata and resultset in the response.
-- Use the Edit Fields (Set) node to identify each column position from metadata, then find the resultset row whose address is exactly VALÈNCIA CENTRE.
-- Map the chat ID from Telegram Trigger into the Telegram send-message operation and include the selected station's air-quality values.
+- Start with Telegram Trigger, which begins the workflow when your bot receives a message. Select Message as the event and add the Telegram credential that securely stores your bot's private access token.
+- Add HTTP Request next, which asks a web address for data. Paste the provided Valencia City Council endpoint into its URL field and run the node once.
+- In HTTP Request, inspect metadata, which describes the response columns, and resultset, which contains the station rows and their readings.
+- Use Edit Fields (Set) with an expression – a small formula – to match each metadata column name to its position and select the resultset row whose address is exactly VALÈNCIA CENTRE.
+- Finish with Telegram and choose Send Message. Map the chat ID – the number that identifies the conversation – from Telegram Trigger, include the selected readings, and add the bonus status icon when appropriate.
 
 # Spanish
 
@@ -77,16 +338,6 @@ Responde a un mensaje de Telegram con la última medición de calidad del aire d
 ## Concept
 Triggers de chat, peticiones HTTP y filtrado de datos
 
-## Glossary
-- Valencia Open Data: Valencia Open Data es el sitio donde el Ayuntamiento de Valencia publica información pública que las personas y las aplicaciones pueden reutilizar.
-- API: Una API es una forma de que una aplicación pida datos o una acción a otra aplicación en un formato predecible.
-- Trigger: Un trigger es el primer nodo de un workflow de n8n. Inicia el workflow cuando ocurre un evento concreto.
-- Telegram: Telegram es una aplicación de mensajería gratuita que funciona en teléfonos, ordenadores y la web.
-- Bot de Telegram: Un bot de Telegram es una cuenta automatizada de Telegram que puede recibir mensajes y enviar respuestas.
-- BotFather: BotFather es el bot oficial de Telegram para crear y administrar bots de Telegram.
-- Token: Un token es un código privado que permite a n8n conectarse a tu bot de Telegram y actuar en su nombre. No lo compartas.
-- Credencial de n8n: Una credencial de n8n guarda de forma segura los datos de conexión que un nodo necesita para acceder a otro servicio.
-
 ## Scenario
 - Una persona residente quiere consultar la última calidad del aire en el centro de Valencia sin buscarla en Google.
 - La organización de un evento quiere revisar la calidad del aire antes de elegir un lugar de encuentro al aire libre.
@@ -94,7 +345,7 @@ Triggers de chat, peticiones HTTP y filtrado de datos
 - El mismo patrón de workflow puede ofrecer información de cualquiera de los casi 300 conjuntos de datos públicos adecuados de Valencia Open Data mediante una aplicación de mensajería conocida, como Telegram o WhatsApp.
 
 ## Task
-Crea un bot de Telegram que reaccione a cualquier mensaje de texto, solicite el conjunto de datos en directo sobre la calidad del aire de Valencia Open Data, encuentre el registro cuya dirección sea VALÈNCIA CENTRE y responda con la dirección, la fecha de observación, el estado de calidad del aire y los valores disponibles de NO₂, PM10 y PM2.5.
+El equipo de eventos de Valencia necesita un bot de Telegram que responda a cada mensaje de texto con el informe más reciente sobre la calidad del aire de VALÈNCIA CENTRE.
 
 ## Bonus Task
 Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; en caso contrario, añade ⚠️ para que el resultado se entienda de un vistazo.
@@ -106,23 +357,22 @@ Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; 
 - Telegram
 
 ## Preparation
-- Instala [Telegram](https://telegram.org/). Telegram es gratuito y seguro, y conectar un bot de Telegram con n8n es rápido y sencillo. Lo usamos aquí porque conectar WhatsApp es más complejo y requiere una configuración empresarial adicional.
+- Regístrate en [n8n Cloud](https://app.n8n.cloud/register) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
+- Instala [Telegram](https://telegram.org/) y después crea una cuenta de Telegram o inicia sesión en una existente.
 - Crea un bot de Telegram con [BotFather](https://t.me/botfather) y después [añade su token como credencial de n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - El [endpoint de calidad del aire del Ayuntamiento de Valencia](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) proporciona datos en tiempo real. Tenlo preparado para usarlo en tu nodo HTTP Request.
 
 ## Requirements
-- Ejecuta el workflow cuando envíes un mensaje de texto a tu bot de Telegram.
-- Obtén el conjunto de datos en directo sobre la calidad del aire desde el endpoint proporcionado por el Ayuntamiento de Valencia mediante HTTP Request.
-- Selecciona la fila de resultset cuya dirección sea exactamente VALÈNCIA CENTRE en lugar de fijar manualmente un número de fila.
-- Responde al mismo chat con address, dateobserved, calidad_ambiental y los datos disponibles de no2value, pm10value y pm25value.
-- Demuestra que dos mensajes reciben respuestas con datos nuevos del endpoint.
+- Cada mensaje de texto hace que el bot consulte la medición actual de VALÈNCIA CENTRE sin depender de una posición de fila fija.
+- La respuesta vuelve al mismo chat de Telegram con la dirección, la fecha de observación, el estado de calidad del aire y todos los valores disponibles de NO₂, PM10 y PM2.5.
+- Dos mensajes de prueba distintos reciben cada uno una respuesta nueva basada en los datos obtenidos en ese momento.
 
 ## Tips
-- Después de crear el bot, BotFather devuelve un nuevo token de acceso. Añade este token a tu credencial de Telegram en n8n.
-- Envía un mensaje a tu bot después de activar Telegram Trigger para que n8n reciba datos de ejemplo y puedas comprobar que Telegram está conectado correctamente.
-- Usa el endpoint de calidad del aire en un nodo HTTP Request e inspecciona metadata y resultset en la respuesta.
-- Usa el nodo Edit Fields (Set) para identificar la posición de cada columna a partir de metadata y después encontrar la fila de resultset cuya dirección sea exactamente VALÈNCIA CENTRE.
-- Mapea el chat ID de Telegram Trigger en la operación de envío del nodo Telegram e incluye los valores de calidad del aire de la estación seleccionada.
+- Empieza con Telegram Trigger, que inicia el workflow cuando el bot recibe un mensaje. Selecciona Message como evento y añade la credencial de Telegram que guarda de forma segura el token de acceso privado de tu bot.
+- Añade HTTP Request a continuación, que solicita datos a una dirección web. Pega el endpoint proporcionado por el Ayuntamiento de Valencia en el campo URL y ejecuta el nodo una vez.
+- En HTTP Request, revisa metadata, que describe las columnas de la respuesta, y resultset, que contiene las filas de estaciones y sus mediciones.
+- Usa Edit Fields (Set) con una expresión – una pequeña fórmula – para relacionar el nombre de cada columna de metadata con su posición y seleccionar la fila de resultset cuya dirección sea exactamente VALÈNCIA CENTRE.
+- Termina con Telegram y elige Send Message. Mapea el chat ID – el número que identifica la conversación – desde Telegram Trigger, incluye las mediciones seleccionadas y añade el icono de estado de la tarea extra cuando corresponda.
 
 # Ukrainian
 
@@ -135,16 +385,6 @@ Telegram-бот для перевірки якості повітря у Вал�
 ## Concept
 Чат-тригери, HTTP-запити та фільтрування даних
 
-## Glossary
-- Valencia Open Data: Valencia Open Data — це сайт, на якому міська рада Валенсії публікує відкриту інформацію для повторного використання людьми й застосунками.
-- API: API — це спосіб, за допомогою якого один застосунок може у передбачуваному форматі запросити в іншого дані або дію.
-- Тригер: Тригер — це перша нода у воркфлоу n8n. Вона запускає воркфлоу, коли відбувається певна подія.
-- Telegram: Telegram — це безплатний месенджер, який працює на телефонах, комп’ютерах і у веббраузері.
-- Telegram-бот: Telegram-бот — це автоматизований обліковий запис Telegram, який може отримувати повідомлення та надсилати відповіді.
-- BotFather: BotFather — офіційний бот Telegram для створення й керування Telegram-ботами.
-- Токен: Токен — це приватний код, який дає n8n змогу підключатися до вашого Telegram-бота й діяти від його імені. Нікому його не передавайте.
-- Облікові дані n8n: Облікові дані n8n безпечно зберігають параметри підключення, необхідні ноді для доступу до іншого сервісу.
-
 ## Scenario
 - Мешканець хоче дізнатися про найсвіжішу якість повітря в центрі Валенсії без пошуку в Google.
 - Організатор події хоче перевірити місцеву якість повітря перед вибором місця для зустрічі просто неба.
@@ -152,7 +392,7 @@ Telegram-бот для перевірки якості повітря у Вал�
 - За тим самим шаблоном воркфлоу мешканці могли б запитувати інформацію з майже 300 відкритих наборів даних Valencia Open Data через знайомий месенджер, як-от Telegram або WhatsApp.
 
 ## Task
-Створіть Telegram-бота, який реагує на будь-яке текстове повідомлення, запитує актуальний набір даних про якість повітря з Valencia Open Data, знаходить запис з адресою VALÈNCIA CENTRE та відповідає, указуючи адресу, дату спостереження, стан якості повітря й доступні значення NO₂, PM10 і PM2.5.
+Команді подій Валенсії потрібен Telegram-бот, який відповідатиме на кожне текстове повідомлення найсвіжішим звітом про якість повітря для VALÈNCIA CENTRE.
 
 ## Bonus Task
 Додайте ✅, коли статус calidad_ambiental має значення Buena або Razonablemente Buena; в інших випадках додайте ⚠️, щоб результат було легко зрозуміти з першого погляду.
@@ -164,20 +404,19 @@ Telegram-бот для перевірки якості повітря у Вал�
 - Telegram
 
 ## Preparation
-- Установіть [Telegram](https://telegram.org/). Telegram безплатний і безпечний, а підключити Telegram-бота до n8n можна швидко й просто. Ми використовуємо його, тому що підключення WhatsApp складніше й потребує додаткового налаштування бізнес-акаунта.
+- Зареєструйтеся в [n8n Cloud](https://app.n8n.cloud/register) або відкрийте наявний воркспейс n8n, а потім створіть новий воркфлоу.
+- Установіть [Telegram](https://telegram.org/), а потім створіть обліковий запис Telegram або увійдіть до наявного.
 - Створіть Telegram-бота за допомогою [BotFather](https://t.me/botfather), а потім [додайте його токен до облікових даних n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
 - [Ендпоінт міської ради Валенсії з даними про якість повітря](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) надає інформацію в реальному часі. Підготуйте його для використання в ноді HTTP Request.
 
 ## Requirements
-- Запускайте воркфлоу, коли надсилаєте текстове повідомлення своєму Telegram-боту.
-- Отримуйте актуальний набір даних про якість повітря з наданого ендпоінта міської ради Валенсії через HTTP Request.
-- Вибирайте рядок resultset, у якому адреса точно дорівнює VALÈNCIA CENTRE, замість жорстко заданого номера рядка.
-- Відповідайте в тому самому чаті, указуючи address, dateobserved, calidad_ambiental і доступні дані no2value, pm10value та pm25value.
-- Продемонструйте, що два повідомлення отримують відповіді зі свіжими даними з ендпоінта.
+- Кожне текстове повідомлення спонукає бота запитати актуальні дані для VALÈNCIA CENTRE, не покладаючись на фіксовану позицію рядка.
+- Відповідь повертається в той самий чат Telegram і містить адресу, дату спостереження, стан якості повітря й усі доступні значення NO₂, PM10 та PM2.5.
+- Два окремі тестові повідомлення отримують нові відповіді на основі даних, отриманих у момент кожного запиту.
 
 ## Tips
-- Після створення бота BotFather повертає новий токен доступу. Додайте його до облікових даних Telegram у n8n.
-- Після активації Telegram Trigger надішліть новому боту повідомлення, щоб n8n отримав тестові дані й ви могли перевірити правильність підключення Telegram.
-- Використайте ендпоінт якості повітря в ноді HTTP Request і перегляньте у відповіді metadata та resultset.
-- За допомогою ноди Edit Fields (Set) визначте позицію кожного стовпця з metadata, а потім знайдіть у resultset рядок, адреса якого точно дорівнює VALÈNCIA CENTRE.
-- Передайте chat ID з Telegram Trigger в операцію надсилання повідомлення ноди Telegram і додайте значення якості повітря вибраної станції.
+- Почніть із Telegram Trigger, який запускає воркфлоу, коли бот отримує повідомлення. Виберіть Message як подію та додайте облікові дані Telegram, які безпечно зберігають приватний токен доступу вашого бота.
+- Додайте далі HTTP Request, який запитує дані за вебадресою. Вставте наданий ендпоінт міської ради Валенсії в поле URL і виконайте ноду один раз.
+- У HTTP Request перегляньте metadata, яка описує стовпці відповіді, і resultset, який містить рядки станцій та їхні вимірювання.
+- Використайте Edit Fields (Set) з виразом – невеликою формулою – щоб зіставити назву кожного стовпця metadata з його позицією та вибрати з resultset рядок, адреса якого точно дорівнює VALÈNCIA CENTRE.
+- Завершіть нодою Telegram і виберіть Send Message. Передайте chat ID – номер, який ідентифікує розмову, – з Telegram Trigger, додайте вибрані вимірювання та значок стану для додаткового завдання, коли він потрібен.

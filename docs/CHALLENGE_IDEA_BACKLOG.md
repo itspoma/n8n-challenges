@@ -2,7 +2,7 @@
 
 Status: idea history and preserved alternatives
 
-The static MVP uses the selected challenge set in [N8N_CHALLENGES_PLAN.md](N8N_CHALLENGES_PLAN.md#4-active-challenge-set). This file preserves the ideas considered during selection. C03, C07, C10, C11, C13, C14, C16, and C20 now contribute to the active set; the remaining ideas are available for future events, substitutions, or later challenge packs.
+The static MVP uses the selected challenge set in [N8N_CHALLENGES_PLAN.md](N8N_CHALLENGES_PLAN.md#4-active-challenge-set). This file preserves the ideas considered during selection. C03, C07, C10, C11, C13, C14, C20, and C21 now contribute to the active set; C16 preserves the former Challenge 8; the remaining ideas are available for future events, substitutions, or later challenge packs.
 
 Backlog IDs are stable discussion references, not final challenge numbers or balloon assignments.
 
@@ -28,6 +28,7 @@ Backlog IDs are stable discussion references, not final challenge numbers or bal
 | C18 | Talk to Google Sheets through WhatsApp | Advanced | Query or update a Google Sheet from WhatsApp using natural language. | Define permissions, allowed operations, mutation confirmation, row identification, and sandbox credentials. |
 | C19 | Calendar Meeting-Slot Assistant | Intermediate | Read calendar availability and suggest meeting slots that satisfy attendee constraints. | Define provider, timezones, working hours, duration, conflicts, and whether the workflow proposes only or also books. |
 | C20 | Idealista Morning Apartment Brief | Advanced | Send a daily briefing with newly listed apartments matching the user's preferences. | Confirm a permitted stable data source; define deduplication, ranking, delivery channel, and a fixture fallback. |
+| C21 | Unstable Restaurant Orders | Advanced | Recover every order from a deliberately unreliable paginated API, validate each record, and preserve rejected data. Bonus: batch writes and capture exhausted-retry diagnostics. | Active as challenge 8. Keep the organizer-owned provider workflow deployed, share only its normal production URL with participants, and retain deterministic scenario controls for mentor review. |
 
 ## Future selection criteria
 

@@ -9,6 +9,7 @@ These rules apply to every challenge and every supported language.
 ### Explain technical language inline
 
 - Do not show a standalone glossary section on the challenge page.
+- An optional internal `## Glossary` may follow `## Concept` in Markdown. Use its definitions only to power inline explanations; never render it as a standalone page section.
 - Give every technical word or unfamiliar term an inline tooltip or hint where the learner encounters it.
 - Common candidates include `webhook`, `route`, `RAG`, `ingestion path`, `vector store`, `API`, `token`, `credential`, `trigger`, `query parameter`, `expression`, and similar workflow-specific language. This list is not exhaustive: explain any term a beginner may not understand.
 - Write each explanation in simple, beginner-friendly language. Explain what the term means in this workflow, not only its dictionary definition.
@@ -41,12 +42,15 @@ These rules apply to every challenge and every supported language.
 - Never include a real key, token, password, or other secret in a challenge file.
 - If no external account or credential is needed, say so clearly instead of leaving the section empty.
 
-### List every node with its official icon and documentation
+### List each required node once with its official icon and documentation
 
-- In `Nodes you'll use` (`## Nodes` in Markdown), list every node needed for the core workflow and the bonus task. A learner should not discover an unlisted required node halfway through the challenge.
-- Use the node's official light- and dark-theme icon assets from the [n8n nodes source on GitHub](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes). Repository-local icon files are allowed, provided they are copied from or directly based on the official assets at that source. Do not substitute a generic or invented icon.
+- In `Nodes you'll use` (`## Nodes` in Markdown), list every node type needed anywhere in the challenge exactly once. A learner should not discover an unlisted required node halfway through the challenge.
+- Order the nodes as they will most likely be used in the workflow: start with the trigger, continue through processing and attached AI sub-nodes or tools, and finish with the output node. If the challenge contains multiple workflow branches, keep each branch together and list the primary branch before supporting or bonus branches.
+- Do not duplicate a node type when the workflow uses multiple instances of it.
+- Do not label nodes or describe their relationship to the core workflow or bonus task in this section. List only the node names; explain how each instance is used in the task, bonus task, or tips instead.
+- Use the node's official light- and dark-theme icon assets from the [n8n nodes source](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes), the [official AI nodes package](https://github.com/n8n-io/n8n/tree/master/packages/%40n8n/nodes-langchain/nodes), or the [n8n design-system node icons](https://github.com/n8n-io/n8n/tree/master/packages/frontend/%40n8n/design-system/src/components/N8nIcon/nodes). Repository-local icon files are allowed when they are copied from or directly based on those official assets. Do not substitute a generic or invented icon.
 - When an official icon is stored locally, keep its filename and light/dark mapping clear enough that its upstream source can be verified later.
-- Link every displayed node to its matching page in the [official n8n built-in integrations documentation](https://docs.n8n.io/integrations/builtin/).
+- Link every built-in node to its matching page in the [official n8n built-in integrations documentation](https://docs.n8n.io/integrations/builtin/). For an n8n-verified partner node, use the partner's official icon and link to its official n8n integration page.
 - Verify the icon and documentation link against the exact n8n node named in the challenge.
 
 ### Limit the expected result
@@ -68,14 +72,19 @@ These rules apply to every challenge and every supported language.
 - The first image must show the completed core workflow without the bonus task.
 - The second image must show the completed workflow with the bonus task.
 - Label the two versions clearly, make the node names and connections readable, and provide descriptive alt text in every supported language.
+- Use the shared Pixtex preset: Like n8n canvas style, n8n icon pack, 20% border outline, Match bg node color, dots grid, original arrangement, normal image padding, detailed node detail, rounded icons, n8n 2.x card geometry, title card enabled, legend enabled, and AI group highlighting enabled.
+- Under the internal `# Solution Data` heading, add a `## Solution Images` section that references the core and bonus PNGs for both light and dark themes with Markdown image syntax. The page reads these explicit paths when the section is present.
 - Generate or update both images only after the core and bonus workflows are final, so the visuals match the challenge exactly.
 
-### Keep workflow JSON inside the challenge Markdown
+### Keep all workflow JSON inside the challenge Markdown
 
 - Store the importable JSON for both the core workflow and the bonus workflow inside the matching challenge Markdown file.
 - Put the JSON in fenced `json` code blocks under an internal `# Solution Data` section, following the pattern used by challenge 1. This internal section is not displayed on the challenge page.
-- Do not create or commit separate workflow `.json` files anywhere in the repository.
+- Store any organizer-owned provider or fixture workflow in the same `# Solution Data` section under a clearly named heading such as `## Organizer Provider Workflow JSON`.
+- Do not create or commit standalone workflow `.json` files anywhere in the repository.
 - Keep the embedded JSON and both Pixtex solution images synchronized whenever a workflow changes.
+- Provider workflows are internal event infrastructure. Do not expose them as downloadable participant solutions, and share only the intended production endpoint with learners.
+- Document hidden test controls inside the embedded provider workflow, keep participant-facing URLs free of those controls, and verify the deployed provider before the event.
 
 ## File format
 

@@ -2361,8 +2361,8 @@ html[data-theme="light"] .theme-icon-moon {
 
 .n8n-node-glyph {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   place-items: center;
   color: #f4f0f3;
 }
@@ -2669,14 +2669,67 @@ html[data-theme="light"] .theme-icon-moon {
   background: #0c0c0c;
 }
 
+.challenge-solution-image-link {
+  position: relative;
+  display: block;
+  color: inherit;
+  cursor: zoom-in;
+}
+
 .challenge-solution-content img {
   display: block;
   width: 100%;
   height: auto;
+  transition: filter 160ms ease, transform 160ms ease;
 }
 
 .challenge-solution-content .challenge-solution-image-light {
   display: none;
+}
+
+.challenge-solution-image-link:hover img,
+.challenge-solution-image-link:focus-visible img {
+  filter: brightness(0.9);
+  transform: scale(1.002);
+}
+
+.challenge-solution-image-link:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: -3px;
+}
+
+.challenge-solution-zoom {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  background: rgba(8, 9, 10, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+  color: #ffffff;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.challenge-solution-zoom svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.challenge-solution-image-link:hover .challenge-solution-zoom,
+.challenge-solution-image-link:focus-visible .challenge-solution-zoom {
+  background: rgba(234, 75, 113, 0.94);
+  transform: translateY(-2px);
 }
 
 @keyframes challenge-solution-reveal {
@@ -4497,6 +4550,11 @@ html[data-theme="light"] .challenge-solution-tabs button[aria-pressed="true"] {
 
 html[data-theme="light"] .challenge-solution-figure {
   background: #ffffff;
+}
+
+html[data-theme="light"] .challenge-solution-image-link:hover img,
+html[data-theme="light"] .challenge-solution-image-link:focus-visible img {
+  filter: brightness(0.96);
 }
 
 html[data-theme="light"] .challenge-solution-content .challenge-solution-image-dark {

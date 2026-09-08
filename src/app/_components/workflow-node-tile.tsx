@@ -15,9 +15,11 @@ const NODE_DOCUMENTATION_URLS = {
     "https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.telegramtrigger",
   httpRequest:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.httprequest",
+  trello: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.trello",
   telegram: "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.telegram",
   formTrigger:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.formtrigger",
+  form: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.form",
   if: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.if",
   dataTable:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.datatable",
@@ -25,6 +27,9 @@ const NODE_DOCUMENTATION_URLS = {
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger",
   splitOut:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitout",
+  wait: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait",
+  errorTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger",
   filter:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.filter",
   removeDuplicates:
@@ -34,12 +39,89 @@ const NODE_DOCUMENTATION_URLS = {
   aggregate:
     "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.aggregate",
   firecrawl: "https://n8n.io/integrations/firecrawl/",
-  resend:
-    "https://github.com/resend/n8n-nodes-resend/blob/main/nodes/Resend/resend-icon-black.svg",
+  aiAgent:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent",
+  openRouterChatModel:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.lmchatopenrouter",
+  mcpClientTool:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolmcp",
+  mcpServerTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger",
+  calculator:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolcalculator",
+  chatTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.chattrigger",
+  basicLlmChain:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm",
+  openAiChatModel:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.lmchatopenai",
+  structuredOutputParser:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.outputparserstructured",
+  manualTrigger:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.manualworkflowtrigger",
+  googleDrive:
+    "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googledrive",
+  loopOverItems:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitinbatches",
+  defaultDataLoader:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.documentdefaultdataloader",
+  recursiveCharacterTextSplitter:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.textsplitterrecursivecharactertextsplitter",
+  embeddingsOpenAi:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.embeddingsopenai",
+  simpleVectorStore:
+    "https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.vectorstoreinmemory",
+  switch: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.switch",
+  sendEmail: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.sendemail",
+  resend: "https://n8n.io/integrations/resend/",
 } as const;
 
 function getNodeDocumentationUrl(name: string): string | undefined {
   const normalizedName = name.toLowerCase();
+
+  if (normalizedName.includes("google drive")) {
+    return NODE_DOCUMENTATION_URLS.googleDrive;
+  }
+
+  if (normalizedName.includes("default data loader")) {
+    return NODE_DOCUMENTATION_URLS.defaultDataLoader;
+  }
+
+  if (normalizedName.includes("recursive character text splitter")) {
+    return NODE_DOCUMENTATION_URLS.recursiveCharacterTextSplitter;
+  }
+
+  if (normalizedName.includes("embeddings openai")) {
+    return NODE_DOCUMENTATION_URLS.embeddingsOpenAi;
+  }
+
+  if (normalizedName.includes("simple vector store")) {
+    return NODE_DOCUMENTATION_URLS.simpleVectorStore;
+  }
+
+  if (normalizedName.includes("mcp server trigger")) {
+    return NODE_DOCUMENTATION_URLS.mcpServerTrigger;
+  }
+
+  if (normalizedName.includes("mcp client tool")) {
+    return NODE_DOCUMENTATION_URLS.mcpClientTool;
+  }
+
+  if (normalizedName.includes("openrouter chat model")) {
+    return NODE_DOCUMENTATION_URLS.openRouterChatModel;
+  }
+
+  if (normalizedName.includes("ai agent")) {
+    return NODE_DOCUMENTATION_URLS.aiAgent;
+  }
+
+  if (normalizedName.includes("calculator")) {
+    return NODE_DOCUMENTATION_URLS.calculator;
+  }
+
+  if (normalizedName.includes("chat trigger")) {
+    return NODE_DOCUMENTATION_URLS.chatTrigger;
+  }
 
   if (normalizedName.includes("telegram trigger")) {
     return NODE_DOCUMENTATION_URLS.telegramTrigger;
@@ -47,6 +129,10 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName.includes("http request")) {
     return NODE_DOCUMENTATION_URLS.httpRequest;
+  }
+
+  if (normalizedName === "trello") {
+    return NODE_DOCUMENTATION_URLS.trello;
   }
 
   if (normalizedName === "telegram") {
@@ -57,12 +143,32 @@ function getNodeDocumentationUrl(name: string): string | undefined {
     return NODE_DOCUMENTATION_URLS.formTrigger;
   }
 
+  if (normalizedName === "n8n form") {
+    return NODE_DOCUMENTATION_URLS.form;
+  }
+
+  if (normalizedName.includes("manual trigger")) {
+    return NODE_DOCUMENTATION_URLS.manualTrigger;
+  }
+
   if (normalizedName.includes("schedule trigger")) {
     return NODE_DOCUMENTATION_URLS.scheduleTrigger;
   }
 
   if (normalizedName === "split out") {
     return NODE_DOCUMENTATION_URLS.splitOut;
+  }
+
+  if (normalizedName.includes("loop over items")) {
+    return NODE_DOCUMENTATION_URLS.loopOverItems;
+  }
+
+  if (normalizedName === "wait") {
+    return NODE_DOCUMENTATION_URLS.wait;
+  }
+
+  if (normalizedName.includes("error trigger")) {
+    return NODE_DOCUMENTATION_URLS.errorTrigger;
   }
 
   if (normalizedName === "filter") {
@@ -95,6 +201,26 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName.includes("data table")) {
     return NODE_DOCUMENTATION_URLS.dataTable;
+  }
+
+  if (normalizedName.includes("basic llm chain")) {
+    return NODE_DOCUMENTATION_URLS.basicLlmChain;
+  }
+
+  if (normalizedName.includes("openai chat model")) {
+    return NODE_DOCUMENTATION_URLS.openAiChatModel;
+  }
+
+  if (normalizedName.includes("structured output parser")) {
+    return NODE_DOCUMENTATION_URLS.structuredOutputParser;
+  }
+
+  if (normalizedName === "switch") {
+    return NODE_DOCUMENTATION_URLS.switch;
+  }
+
+  if (normalizedName.includes("send email")) {
+    return NODE_DOCUMENTATION_URLS.sendEmail;
   }
 
   if (normalizedName.includes("resend")) {
@@ -162,6 +288,94 @@ function getNodeKind(name: string): NodeKind {
 function getNodeIcon(name: string) {
   const normalizedName = name.toLowerCase();
 
+  if (normalizedName.includes("manual trigger")) {
+    return {
+      light: "/nodes/manual-trigger.svg",
+      dark: "/nodes/manual-trigger-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("google drive")) {
+    return { light: "/nodes/google-drive.svg" };
+  }
+
+  if (normalizedName.includes("loop over items")) {
+    return {
+      light: "/nodes/loop-over-items.svg",
+      dark: "/nodes/loop-over-items-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("default data loader")) {
+    return {
+      light: "/nodes/default-data-loader.svg",
+      dark: "/nodes/default-data-loader-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("recursive character text splitter")) {
+    return {
+      light: "/nodes/recursive-character-text-splitter.svg",
+      dark: "/nodes/recursive-character-text-splitter-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("embeddings openai")) {
+    return {
+      light: "/nodes/openai.svg",
+      dark: "/nodes/openai-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("simple vector store")) {
+    return {
+      light: "/nodes/simple-vector-store.svg",
+      dark: "/nodes/simple-vector-store-dark.svg",
+    };
+  }
+
+  if (
+    normalizedName.includes("mcp server trigger") ||
+    normalizedName.includes("mcp client tool")
+  ) {
+    return {
+      light: "/nodes/mcp.svg",
+      dark: "/nodes/mcp-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("openrouter chat model")) {
+    return {
+      light: "/nodes/openrouter.svg",
+      dark: "/nodes/openrouter-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("ai agent")) {
+    return {
+      light: "/nodes/ai-agent.svg",
+      dark: "/nodes/ai-agent-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("calculator")) {
+    return {
+      light: "/nodes/calculator.svg",
+      dark: "/nodes/calculator-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("chat trigger")) {
+    return {
+      light: "/nodes/chat-trigger-light.svg",
+      dark: "/nodes/chat-trigger-dark.svg",
+    };
+  }
+
+  if (normalizedName === "trello") {
+    return { light: "/nodes/trello.svg" };
+  }
+
   if (normalizedName.includes("telegram")) {
     return { light: "/nodes/telegram.svg" };
   }
@@ -173,7 +387,22 @@ function getNodeIcon(name: string) {
     };
   }
 
+  if (
+    normalizedName.includes("edit fields") ||
+    normalizedName.includes("editar campos") ||
+    normalizedName === "set"
+  ) {
+    return {
+      light: "/nodes/edit-fields.svg",
+      dark: "/nodes/edit-fields.svg",
+    };
+  }
+
   if (normalizedName.includes("form trigger")) {
+    return { light: "/nodes/form-trigger.svg" };
+  }
+
+  if (normalizedName === "n8n form") {
     return { light: "/nodes/form-trigger.svg" };
   }
 
@@ -188,6 +417,20 @@ function getNodeIcon(name: string) {
     return {
       light: "/nodes/split-out.svg",
       dark: "/nodes/split-out-dark.svg",
+    };
+  }
+
+  if (normalizedName === "wait") {
+    return {
+      light: "/nodes/wait-light.svg",
+      dark: "/nodes/wait-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("error trigger")) {
+    return {
+      light: "/nodes/error-trigger-light.svg",
+      dark: "/nodes/error-trigger-dark.svg",
     };
   }
 
@@ -248,6 +491,41 @@ function getNodeIcon(name: string) {
     return {
       light: "/nodes/resend-black.svg",
       dark: "/nodes/resend-white.svg",
+    };
+  }
+
+  if (normalizedName.includes("basic llm chain")) {
+    return {
+      light: "/nodes/basic-llm-chain-light.svg",
+      dark: "/nodes/basic-llm-chain-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("openai chat model")) {
+    return {
+      light: "/nodes/openai-chat-model-light.svg",
+      dark: "/nodes/openai-chat-model-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("structured output parser")) {
+    return {
+      light: "/nodes/structured-output-parser-light.svg",
+      dark: "/nodes/structured-output-parser-dark.svg",
+    };
+  }
+
+  if (normalizedName === "switch") {
+    return {
+      light: "/nodes/switch-light.svg",
+      dark: "/nodes/switch-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("send email")) {
+    return {
+      light: "/nodes/send-email-light.svg",
+      dark: "/nodes/send-email-dark.svg",
     };
   }
 

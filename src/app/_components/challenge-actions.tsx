@@ -2,14 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
 import type { ChallengePageLabels, ChallengeSolutions } from "@/lib/challenges";
+import type { Locale } from "@/lib/home-copy";
 
 type ChallengeActionsProps = {
   challengeSlug: string;
   challengeTitle: string;
+  locale: Locale;
+  glossary: Array<{ term: string; definition: string }>;
   labels: ChallengePageLabels;
   solutions: ChallengeSolutions | null;
   tips: string[];
@@ -102,9 +105,73 @@ function getServerSolutionReveal() {
   return false;
 }
 
+function escapeRegularExpression(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function TipWithGlossary({
+  text,
+  locale,
+  glossary,
+  idPrefix,
+}: {
+  text: string;
+  locale: Locale;
+  glossary: Array<{ term: string; definition: string }>;
+  idPrefix: string;
+}) {
+  const terms = [...glossary].sort((left, right) => right.term.length - left.term.length);
+
+  if (terms.length === 0) {
+    return text;
+  }
+
+  const termPattern = new RegExp(
+    `(?<![\\p{L}\\p{N}_])(?:${terms
+      .map(({ term }) => escapeRegularExpression(term))
+      .join("|")})(?![\\p{L}\\p{N}_])`,
+    "giu",
+  );
+  const content: ReactNode[] = [];
+  let previousIndex = 0;
+
+  for (const match of text.matchAll(termPattern)) {
+    const matchIndex = match.index ?? 0;
+    const matchedText = match[0];
+    const entry = terms.find(
+      ({ term }) => term.localeCompare(matchedText, locale, { sensitivity: "accent" }) === 0,
+    );
+
+    if (!entry) continue;
+
+    if (matchIndex > previousIndex) {
+      content.push(text.slice(previousIndex, matchIndex));
+    }
+
+    const tooltipId = `${idPrefix}-definition-${matchIndex}`;
+    content.push(
+      <span className="glossary-term" tabIndex={0} aria-describedby={tooltipId} key={tooltipId}>
+        {matchedText}
+        <span className="glossary-tooltip" id={tooltipId} role="tooltip">
+          {entry.definition}
+        </span>
+      </span>,
+    );
+    previousIndex = matchIndex + matchedText.length;
+  }
+
+  if (previousIndex < text.length) {
+    content.push(text.slice(previousIndex));
+  }
+
+  return <>{content}</>;
+}
+
 export function ChallengeActions({
   challengeSlug,
   challengeTitle,
+  locale,
+  glossary,
   labels,
   solutions,
   tips,
@@ -174,9 +241,10 @@ export function ChallengeActions({
   const allTipsVisible = visibleTips >= tips.length;
   const hasSolution = solutions !== null;
   const activeSolution = solutions?.[selectedSolution] ?? null;
-  const activeSolutionAlt = selectedSolution === "core"
-    ? labels.solutionCoreImageAlt
-    : labels.solutionBonusImageAlt;
+  const activeSolutionAlt =
+    selectedSolution === "core"
+      ? labels.solutionCoreImageAlt
+      : labels.solutionBonusImageAlt;
   const solutionPanelId = `challenge-solution-${challengeSlug}`;
 
   function revealTip() {
@@ -218,7 +286,14 @@ export function ChallengeActions({
               {tips.slice(0, visibleTips).map((tip, index) => (
                 <li key={tip}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{tip}</p>
+                  <p>
+                    <TipWithGlossary
+                      text={tip}
+                      locale={locale}
+                      glossary={glossary}
+                      idPrefix={`tip-${challengeSlug}-${index}`}
+                    />
+                  </p>
                 </li>
               ))}
             </ol>
@@ -290,24 +365,36 @@ export function ChallengeActions({
                   className="challenge-solution-figure"
                   id={solutionPanelId}
                 >
-                  <Image
-                    className="challenge-solution-image challenge-solution-image-dark"
-                    src={`${basePath}${activeSolution.dark}`}
-                    width={2400}
-                    height={1350}
-                    sizes="(max-width: 1280px) 100vw, 700px"
-                    alt={`${challengeTitle}: ${activeSolutionAlt}`}
-                    unoptimized
-                  />
-                  <Image
-                    className="challenge-solution-image challenge-solution-image-light"
-                    src={`${basePath}${activeSolution.light}`}
-                    width={2400}
-                    height={1350}
-                    sizes="(max-width: 1280px) 100vw, 700px"
-                    alt={`${challengeTitle}: ${activeSolutionAlt}`}
-                    unoptimized
-                  />
+                  {([
+                    ["dark", activeSolution.dark],
+                    ["light", activeSolution.light],
+                  ] as const).map(([theme, imagePath]) => (
+                    <a
+                      key={theme}
+                      className={`challenge-solution-image-link challenge-solution-image-${theme}`}
+                      href={`${basePath}${imagePath}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${labels.solutionOpenImage}: ${activeSolutionAlt}`}
+                      title={labels.solutionOpenImage}
+                    >
+                      <Image
+                        className="challenge-solution-image"
+                        src={`${basePath}${imagePath}`}
+                        width={2400}
+                        height={1350}
+                        sizes="(max-width: 1280px) 100vw, 700px"
+                        alt={`${challengeTitle}: ${activeSolutionAlt}`}
+                        unoptimized
+                      />
+                      <span className="challenge-solution-zoom" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="presentation">
+                          <circle cx="10.5" cy="10.5" r="6.5" />
+                          <path d="m15.5 15.5 4.5 4.5M10.5 7.5v6M7.5 10.5h6" />
+                        </svg>
+                      </span>
+                    </a>
+                  ))}
                 </div>
               </div>
             ) : null}

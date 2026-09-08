@@ -16,23 +16,45 @@ const outputDirectory = join(projectDirectory, "public", "solutions");
 const manifestPath = join(outputDirectory, "pixtex-manifest.json");
 const apiUrl = "https://api.pixtex.dev/v1/render";
 const checkOnly = process.argv.includes("--check");
+const forceRender = process.argv.includes("--force");
+const requiredSolutionSlugs = new Set([
+  "valencia-citizen-request-classifier",
+  "trello-morning-brief",
+]);
+const requestedSlug = process.argv
+  .find((argument) => argument.startsWith("--slug="))
+  ?.slice("--slug=".length);
+const renderStyle = "canvas";
+
+if (requestedSlug && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(requestedSlug)) {
+  throw new Error("--slug must use lowercase kebab-case");
+}
+
+if (checkOnly && forceRender) {
+  throw new Error("--check and --force cannot be used together");
+}
 
 const sharedOptions = {
   format: "png",
   scale: 2,
   frame: "custom",
   customFrame: { w: 1200, h: 675 },
-  padding: "roomy",
+  padding: "normal",
   iconPack: "n8n",
-  outlineOpacity: 0.15,
-  layout: "auto",
+  cardGeometry: "v2",
+  nodeDetail: "detailed",
+  iconShape: "rounded",
+  outlineOpacity: 0.2,
+  nodeTint: "match",
+  layout: "original",
   layoutDirection: "LR",
   spacing: "normal",
   stickyMode: "n8n",
   gridStyle: "dots",
   gridOpacity: 0.45,
   showTitle: true,
-  showLegend: false,
+  showLegend: true,
+  showGroupBorders: true,
   showWatermark: false,
 };
 
@@ -152,7 +174,7 @@ async function readManifest() {
 
 function assetHash(workflow, options) {
   return createHash("sha256")
-    .update(JSON.stringify({ workflow, options }))
+    .update(JSON.stringify({ workflow, style: renderStyle, options }))
     .digest("hex");
 }
 
@@ -194,7 +216,7 @@ async function renderImage(workflow, options, outputPath) {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ workflow, options }),
+    body: JSON.stringify({ workflow, style: renderStyle, options }),
   });
 
   if (!response.ok) {
@@ -212,9 +234,47 @@ async function renderImage(workflow, options, outputPath) {
   await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
 }
 
+function expectedAssetsFor(discovered) {
+  const assets = {};
+
+  for (const { slug, pair, source } of discovered) {
+    for (const variant of ["core", "bonus"]) {
+      const workflow = sanitizeWorkflow(pair[variant]);
+
+      for (const theme of ["dark", "light"]) {
+        const fileName = `${slug}-${variant}-${theme}.png`;
+        const options = {
+          ...sharedOptions,
+          background: theme === "light" ? "white" : "dark",
+        };
+        assets[fileName] = {
+          hash: assetHash(workflow, options),
+          source,
+        };
+      }
+    }
+  }
+
+  return assets;
+}
+
 async function main() {
+  const standaloneWorkflowFiles = (await readdir(workflowDirectory))
+    .filter((fileName) => /^challenge-\d{2}-.*\.json$/.test(fileName));
+
+  if (standaloneWorkflowFiles.length > 0) {
+    throw new Error(
+      `Move standalone challenge workflow JSON into its challenge Markdown: ${standaloneWorkflowFiles.join(", ")}`,
+    );
+  }
+
   const challengeFiles = (await readdir(challengeDirectory))
     .filter((fileName) => /^\d{2}-[a-z0-9-]+\.md$/.test(fileName))
+    .filter(
+      (fileName) =>
+        !requestedSlug ||
+        fileName.replace(/^\d{2}-/, "").replace(/\.md$/, "") === requestedSlug,
+    )
     .sort();
   const discovered = [];
 
@@ -229,16 +289,65 @@ async function main() {
     discovered.push({ slug, ...solutions });
   }
 
+  if (requestedSlug && discovered.length === 0) {
+    throw new Error(`No embedded solution pair found for challenge slug: ${requestedSlug}`);
+  }
+
   if (checkOnly) {
+    const discoveredSlugs = new Set(discovered.map(({ slug }) => slug));
+    const missingRequiredSlugs = [...requiredSolutionSlugs].filter(
+      (slug) =>
+        (!requestedSlug || requestedSlug === slug) && !discoveredSlugs.has(slug),
+    );
+
+    if (missingRequiredSlugs.length > 0) {
+      throw new Error(
+        `Missing required solution data for: ${missingRequiredSlugs.join(", ")}`,
+      );
+    }
+
+    const manifest = await readManifest();
+    const expectedAssets = expectedAssetsFor(discovered);
+    const problems = [];
+
+    for (const [fileName, expectedAsset] of Object.entries(expectedAssets)) {
+      const manifestAsset = manifest.assets[fileName];
+
+      if (!(await fileExists(join(outputDirectory, fileName)))) {
+        problems.push(`${fileName}: image is missing`);
+      } else if (
+        manifestAsset?.hash !== expectedAsset.hash ||
+        manifestAsset?.source !== expectedAsset.source
+      ) {
+        problems.push(`${fileName}: manifest is outdated`);
+      }
+    }
+
+    if (!requestedSlug) {
+      for (const fileName of Object.keys(manifest.assets)) {
+        if (!expectedAssets[fileName]) {
+          problems.push(`${fileName}: stale manifest entry`);
+        }
+      }
+    }
+
+    if (problems.length > 0) {
+      throw new Error(
+        `Solution images are not synchronized:\n- ${problems.join("\n- ")}`,
+      );
+    }
+
     console.log(
-      `Validated ${discovered.length} challenge solution pair${discovered.length === 1 ? "" : "s"}: ${discovered.map(({ slug }) => slug).join(", ") || "none"}`,
+      `Validated ${discovered.length} synchronized challenge solution pair${discovered.length === 1 ? "" : "s"}: ${discovered.map(({ slug }) => slug).join(", ") || "none"}`,
     );
     return;
   }
 
   await mkdir(outputDirectory, { recursive: true });
   const previousManifest = await readManifest();
-  const nextManifest = { version: 1, assets: {} };
+  const nextManifest = requestedSlug
+    ? structuredClone(previousManifest)
+    : { version: 1, assets: {} };
   let renderedCount = 0;
 
   for (const { slug, pair, source } of discovered) {
@@ -254,7 +363,7 @@ async function main() {
         };
         const hash = assetHash(workflow, options);
         const previousAsset = previousManifest.assets[fileName];
-        const isCurrent = previousAsset?.hash === hash && await fileExists(outputPath);
+        const isCurrent = !forceRender && previousAsset?.hash === hash && await fileExists(outputPath);
 
         if (!isCurrent) {
           console.log(`Rendering ${slug} / ${variant} / ${theme}`);
@@ -263,6 +372,10 @@ async function main() {
         }
 
         nextManifest.assets[fileName] = { hash, source };
+
+        if (requestedSlug && !isCurrent) {
+          await writeFile(manifestPath, `${JSON.stringify(nextManifest, null, 2)}\n`);
+        }
       }
     }
   }

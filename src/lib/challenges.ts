@@ -103,6 +103,7 @@ export type ChallengePageLabels = {
   solutionBonus: string;
   solutionCoreImageAlt: string;
   solutionBonusImageAlt: string;
+  solutionOpenImage: string;
   modalEyebrow: string;
   modalTitle: string;
   modalBody: string;
@@ -153,6 +154,7 @@ export const challengePageCopy = {
     solutionBonus: "With bonus",
     solutionCoreImageAlt: "Core workflow without the bonus task",
     solutionBonusImageAlt: "Completed workflow including the bonus task",
+    solutionOpenImage: "Open workflow image in a new tab",
     modalEyebrow: "Mentor review",
     modalTitle: "Find a mentor and ask them to review.",
     modalBody: "Show them your working workflow. Once they approve it, collect the balloon for this challenge.",
@@ -201,6 +203,7 @@ export const challengePageCopy = {
     solutionBonus: "Con tarea extra",
     solutionCoreImageAlt: "Workflow principal sin la tarea extra",
     solutionBonusImageAlt: "Workflow completo con la tarea extra incluida",
+    solutionOpenImage: "Abrir la imagen del workflow en una pestaña nueva",
     modalEyebrow: "Revisión del mentor",
     modalTitle: "Busca a un mentor y pídele que revise tu workflow.",
     modalBody: "Muéstrale el workflow funcionando. Cuando lo apruebe, recoge el globo de este reto.",
@@ -249,6 +252,7 @@ export const challengePageCopy = {
     solutionBonus: "З додатковим завданням",
     solutionCoreImageAlt: "Основний воркфлоу без додаткового завдання",
     solutionBonusImageAlt: "Завершений воркфлоу з додатковим завданням",
+    solutionOpenImage: "Відкрити зображення воркфлоу в новій вкладці",
     modalEyebrow: "Перевірка ментором",
     modalTitle: "Знайдіть ментора й попросіть перевірити ваш воркфлоу.",
     modalBody: "Покажіть робочий воркфлоу. Після схвалення заберіть кульку за це завдання.",
@@ -338,8 +342,19 @@ function hasSolutionWorkflows(fileName: string, challengeSource: string) {
   );
 }
 
-function solutionImages(slug: string): ChallengeSolutions {
-  return {
+const solutionImageEntries = [
+  ["Core", "core", "dark"],
+  ["Core", "core", "light"],
+  ["Bonus", "bonus", "dark"],
+  ["Bonus", "bonus", "light"],
+] as const;
+
+function solutionImages(
+  slug: string,
+  source: string,
+  fileName: string,
+): ChallengeSolutions {
+  const conventionalImages: ChallengeSolutions = {
     core: {
       dark: `/solutions/${slug}-core-dark.png`,
       light: `/solutions/${slug}-core-light.png`,
@@ -347,6 +362,56 @@ function solutionImages(slug: string): ChallengeSolutions {
     bonus: {
       dark: `/solutions/${slug}-bonus-dark.png`,
       light: `/solutions/${slug}-bonus-light.png`,
+    },
+  };
+
+  const headingMatch = /^## Solution Images\s*$/m.exec(source);
+  if (!headingMatch) return conventionalImages;
+
+  const sectionStart = headingMatch.index + headingMatch[0].length;
+  const remainingSource = source.slice(sectionStart).replace(/^\r?\n/, "");
+  const nextHeadingIndex = remainingSource.search(/^#{1,2}\s/m);
+  const section = (nextHeadingIndex < 0
+    ? remainingSource
+    : remainingSource.slice(0, nextHeadingIndex)).trim();
+  const paths = new Map<string, string>();
+
+  for (const line of section.split(/\r?\n/).filter((entry) => entry.trim())) {
+    const match = line.match(
+      /^-\s+(Core|Bonus)\s+(dark|light):\s+!\[([^\]]+)\]\((\/solutions\/[^)\s]+\.png)\)$/,
+    );
+
+    if (!match) {
+      fail(
+        fileName,
+        "## Solution Images entries must use '- Core dark: ![descriptive alt](/solutions/file.png)' syntax",
+      );
+    }
+
+    const key = `${match[1].toLowerCase()}-${match[2]}`;
+    if (paths.has(key)) fail(fileName, `## Solution Images contains duplicate ${key} entries`);
+    paths.set(key, match[4]);
+  }
+
+  for (const [label, variant, theme] of solutionImageEntries) {
+    const key = `${variant}-${theme}`;
+    const expectedPath = conventionalImages[variant][theme];
+    const imagePath = paths.get(key);
+
+    if (!imagePath) fail(fileName, `## Solution Images is missing ${label} ${theme}`);
+    if (imagePath !== expectedPath) {
+      fail(fileName, `## Solution Images ${label} ${theme} must use ${expectedPath}`);
+    }
+  }
+
+  return {
+    core: {
+      dark: paths.get("core-dark")!,
+      light: paths.get("core-light")!,
+    },
+    bonus: {
+      dark: paths.get("bonus-dark")!,
+      light: paths.get("bonus-light")!,
     },
   };
 }
@@ -381,7 +446,14 @@ function parseMetadata(source: string, fileName: string) {
 }
 
 function splitLanguageSections(body: string, fileName: string) {
-  const parts = body.split(/^# (English|Spanish|Ukrainian)\s*$/m);
+  const solutionDataIndex = body.search(/^# Solution Data\s*$/m);
+  const englishIndex = body.search(/^# English\s*$/m);
+  const translationSource = solutionDataIndex < 0
+    ? body
+    : solutionDataIndex < englishIndex
+      ? body.slice(englishIndex)
+      : body.slice(0, solutionDataIndex);
+  const parts = translationSource.split(/^# (English|Spanish|Ukrainian)\s*$/m);
   const languages: Partial<Record<"English" | "Spanish" | "Ukrainian", string>> = {};
 
   for (let index = 1; index < parts.length; index += 2) {
@@ -432,6 +504,10 @@ function readList(
 
   if (section === "Tips" && items.length !== 5) {
     fail(fileName, `${language} must contain exactly five tips`);
+  }
+
+  if (section === "Requirements" && items.length !== 3) {
+    fail(fileName, `${language} must contain exactly three requirements`);
   }
 
   if (section === "Scenario" && items.length < 2) {
@@ -527,7 +603,7 @@ function parseChallenge(fileName: string): Challenge {
     color: metadata.color,
     ink: metadata.ink,
     solutions: hasSolutionWorkflows(fileName, source)
-      ? solutionImages(metadata.slug)
+      ? solutionImages(metadata.slug, source, fileName)
       : null,
     copy: {
       en: parseTranslation(languages.English, fileName, "English"),

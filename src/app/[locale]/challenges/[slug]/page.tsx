@@ -28,10 +28,87 @@ const inlineGlossaryTerms: Partial<Record<string, Record<Locale, string[]>>> = {
     es: ["Webhook", "Código QR"],
     uk: ["Webhook", "QR-код"],
   },
-  "valencia-telegram-bot": {
-    en: ["Valencia Open Data", "Telegram"],
-    es: ["Valencia Open Data", "Telegram"],
-    uk: ["Valencia Open Data", "Telegram"],
+  "unstable-restaurant-orders": {
+    en: [
+      "paginated API",
+      "rate limits",
+      "retries",
+      "controlled batches",
+      "validation",
+      "Retry-After",
+      "Error Trigger",
+    ],
+    es: [
+      "API paginada",
+      "límites de frecuencia",
+      "reintentos",
+      "lotes controlados",
+      "validación",
+      "Retry-After",
+      "Error Trigger",
+    ],
+    uk: [
+      "API з пагінацією",
+      "обмеження частоти",
+      "повторні спроби",
+      "контрольованими пакетами",
+      "перевірки",
+      "Retry-After",
+      "Error Trigger",
+    ],
+  },
+  "form-to-follow-up": {
+    en: [
+      "n8n form",
+      "validation",
+      "n8n Data Table",
+      "Data Table",
+      "normalized",
+      "workflow",
+      "Form Trigger",
+      "Edit Fields (Set)",
+      "IF",
+      "Form Ending",
+      "Resend",
+      "expression",
+      "true output",
+      "false output",
+      "credential",
+    ],
+    es: [
+      "formulario público de n8n",
+      "validación",
+      "Data Table de n8n",
+      "Data Table",
+      "normaliza",
+      "workflow",
+      "Form Trigger",
+      "Edit Fields (Set)",
+      "IF",
+      "Form Ending",
+      "Resend",
+      "expresión",
+      "salida true",
+      "salida false",
+      "credencial",
+    ],
+    uk: [
+      "форму n8n",
+      "валідація",
+      "n8n Data Table",
+      "Data Table",
+      "нормалізується",
+      "воркфлоу",
+      "Form Trigger",
+      "Edit Fields (Set)",
+      "IF",
+      "Form Ending",
+      "Resend",
+      "вираз",
+      "вихід true",
+      "вихід false",
+      "облікові дані",
+    ],
   },
 };
 
@@ -77,6 +154,21 @@ const additionalInlineTerms: Partial<
   "valencia-telegram-bot": {
     en: [
       {
+        term: "Telegram bot",
+        definition:
+          "A Telegram bot is an automated Telegram account that can receive messages and send replies.",
+      },
+      {
+        term: "Telegram",
+        definition:
+          "Telegram is a messaging app that works on phones, computers, and the web.",
+      },
+      {
+        term: "Valencia Open Data",
+        definition:
+          "Valencia Open Data is the website where Valencia City Council publishes public information for people and apps to reuse.",
+      },
+      {
         term: "air-quality status",
         definition:
           "The overall air-quality label reported by the station, such as Buena, Razonablemente Buena, Regular, or Desfavorable.",
@@ -103,6 +195,21 @@ const additionalInlineTerms: Partial<
       },
     ],
     es: [
+      {
+        term: "bot de Telegram",
+        definition:
+          "Un bot de Telegram es una cuenta automatizada de Telegram que puede recibir mensajes y enviar respuestas.",
+      },
+      {
+        term: "Telegram",
+        definition:
+          "Telegram es una aplicación de mensajería que funciona en teléfonos, ordenadores y la web.",
+      },
+      {
+        term: "Valencia Open Data",
+        definition:
+          "Valencia Open Data es el sitio donde el Ayuntamiento de Valencia publica información pública que las personas y las aplicaciones pueden reutilizar.",
+      },
       {
         term: "estado de calidad del aire",
         definition:
@@ -131,6 +238,21 @@ const additionalInlineTerms: Partial<
     ],
     uk: [
       {
+        term: "Telegram-бот",
+        definition:
+          "Telegram-бот – це автоматизований обліковий запис Telegram, який може отримувати повідомлення та надсилати відповіді.",
+      },
+      {
+        term: "Telegram",
+        definition:
+          "Telegram – це месенджер, який працює на телефонах, комп’ютерах і у веббраузері.",
+      },
+      {
+        term: "Valencia Open Data",
+        definition:
+          "Valencia Open Data – це сайт, на якому міська рада Валенсії публікує відкриту інформацію для повторного використання людьми й застосунками.",
+      },
+      {
         term: "стан якості повітря",
         definition:
           "Загальна категорія якості повітря, яку повідомляє станція, наприклад Buena, Razonablemente Buena, Regular або Desfavorable.",
@@ -138,17 +260,17 @@ const additionalInlineTerms: Partial<
       {
         term: "NO₂",
         definition:
-          "Діоксид азоту (NO₂) — це газ, який утворюється переважно через дорожній рух та інше спалювання палива. Значення подається в мікрограмах на кубічний метр (мкг/м³).",
+          "Діоксид азоту (NO₂) – це газ, який утворюється переважно через дорожній рух та інше спалювання палива. Значення подається в мікрограмах на кубічний метр (мкг/м³).",
       },
       {
         term: "PM10",
         definition:
-          "PM10 — це зважені в повітрі частинки діаметром не більше 10 мікрометрів. Значення подається в мікрограмах на кубічний метр (мкг/м³).",
+          "PM10 – це зважені в повітрі частинки діаметром не більше 10 мікрометрів. Значення подається в мікрограмах на кубічний метр (мкг/м³).",
       },
       {
         term: "PM2.5",
         definition:
-          "PM2.5 — це дрібні зважені частинки діаметром не більше 2,5 мікрометра. Вони можуть проникати в легені глибше за PM10; значення подається в мкг/м³.",
+          "PM2.5 – це дрібні зважені частинки діаметром не більше 2,5 мікрометра. Вони можуть проникати в легені глибше за PM10; значення подається в мкг/м³.",
       },
       {
         term: "статус calidad_ambiental",
@@ -157,101 +279,139 @@ const additionalInlineTerms: Partial<
       },
     ],
   },
-  "form-to-follow-up": {
+  "valencia-citizen-request-classifier": {
     en: [
       {
-        term: "n8n Forms",
+        term: "AI model",
         definition:
-          "n8n Forms are web pages created by a workflow so people can enter information that starts the workflow.",
+          "An AI model is software that interprets the request and returns the category, priority, and summary required by this workflow.",
       },
       {
-        term: "n8n form",
+        term: "request ID",
         definition:
-          "An n8n form is a web page created by a workflow. Submitting it sends the entered information into the next node.",
-      },
-      {
-        term: "n8n Data Table",
-        definition:
-          "An n8n Data Table stores rows of information inside n8n so other workflow steps can read or update them later.",
-      },
-      {
-        term: "Data Tables",
-        definition:
-          "Data Tables store rows of information inside n8n so workflows can keep and reuse data between runs.",
-      },
-      {
-        term: "Data Table",
-        definition:
-          "A Data Table stores rows of information inside n8n so a workflow can keep and reuse data between runs.",
-      },
-      {
-        term: "normalize",
-        definition:
-          "To normalize data means to make its format consistent, such as trimming spaces and lowercasing an email address.",
+          "A request ID is the unique n8n execution number used to match the support email with the sender's confirmation.",
       },
     ],
     es: [
       {
-        term: "Formularios de n8n",
+        term: "modelo de IA",
         definition:
-          "Los formularios de n8n son páginas web creadas por un workflow para recoger información e iniciar sus siguientes pasos.",
+          "Un modelo de IA es un software que interpreta la solicitud y devuelve la categoría, la prioridad y el resumen requeridos por este workflow.",
       },
       {
-        term: "formulario público de n8n",
+        term: "ID de solicitud",
         definition:
-          "Un formulario de n8n es una página web creada por un workflow. Al enviarlo, los datos pasan al siguiente nodo.",
-      },
-      {
-        term: "Data Table de n8n",
-        definition:
-          "Una Data Table de n8n guarda filas de información dentro de n8n para que otros pasos puedan leerlas o actualizarlas.",
-      },
-      {
-        term: "Data Tables",
-        definition:
-          "Las Data Tables guardan filas de información dentro de n8n para reutilizarlas entre ejecuciones.",
-      },
-      {
-        term: "Data Table",
-        definition:
-          "Una Data Table guarda filas de información dentro de n8n para que un workflow pueda reutilizarlas más adelante.",
-      },
-      {
-        term: "normaliza",
-        definition:
-          "Normalizar datos significa darles un formato consistente, por ejemplo quitando espacios y convirtiendo un email a minúsculas.",
+          "El ID de solicitud es el número único de ejecución de n8n que permite relacionar el email de soporte con la confirmación a la persona remitente.",
       },
     ],
     uk: [
       {
-        term: "Форми n8n",
+        term: "модель ШІ",
         definition:
-          "Форми n8n — це вебсторінки, створені воркфлоу для збору інформації та запуску наступних кроків.",
+          "Модель ШІ – це програмне забезпечення, яке інтерпретує звернення й повертає потрібні воркфлоу категорію, пріоритет і короткий опис.",
       },
       {
-        term: "форму n8n",
+        term: "ID звернення",
         definition:
-          "Форма n8n — це вебсторінка, створена воркфлоу. Після надсилання введені дані переходять до наступної ноди.",
+          "ID звернення – це унікальний номер виконання n8n, який пов’язує лист службі підтримки з підтвердженням для відправника.",
+      },
+    ],
+  },
+  "alien-translator": {
+    en: [
+      {
+        term: "AI Assistant",
+        definition:
+          "The n8n AI Assistant is a chat-based builder that creates and changes workflows from natural-language prompts.",
       },
       {
-        term: "n8n Data Table",
+        term: "confidence score",
         definition:
-          "n8n Data Table зберігає рядки інформації всередині n8n, щоб інші кроки могли читати або оновлювати їх пізніше.",
+          "A confidence score is a number from 0 to 100 showing how much of the message the supplied dictionary can explain.",
       },
       {
-        term: "Data Tables",
+        term: "back-translation",
         definition:
-          "Data Tables зберігають рядки інформації всередині n8n для повторного використання між запусками.",
+          "A back-translation converts the English result into the alien language again so it can be compared with the original message.",
       },
       {
-        term: "Data Table",
+        term: "Chat Trigger",
         definition:
-          "Data Table зберігає рядки інформації всередині n8n, щоб воркфлоу міг використати їх пізніше.",
+          "The Chat Trigger node starts the workflow whenever someone sends a message in the n8n chat.",
       },
       {
-        term: "нормалізуйте",
+        term: "structured response",
         definition:
-          "Нормалізувати дані означає привести їх до узгодженого формату, наприклад прибрати пробіли та перевести email у нижній регістр.",
+          "A structured response always returns the same named fields and data types so other workflow steps can use them reliably.",
+      },
+      {
+        term: "unknownWords",
+        definition:
+          "unknownWords is the output list containing every input word that does not appear in the supplied dictionary.",
+      },
+    ],
+    es: [
+      {
+        term: "AI Assistant",
+        definition:
+          "AI Assistant de n8n es un constructor por chat que crea y modifica workflows a partir de instrucciones en lenguaje natural.",
+      },
+      {
+        term: "puntuación de confianza",
+        definition:
+          "La puntuación de confianza es un número de 0 a 100 que indica cuánto del mensaje puede explicar el diccionario suministrado.",
+      },
+      {
+        term: "traducción inversa",
+        definition:
+          "Una traducción inversa convierte el resultado en inglés otra vez al idioma alienígena para compararlo con el mensaje original.",
+      },
+      {
+        term: "Chat Trigger",
+        definition:
+          "El nodo Chat Trigger inicia el workflow cuando alguien envía un mensaje en el chat de n8n.",
+      },
+      {
+        term: "respuesta estructurada",
+        definition:
+          "Una respuesta estructurada siempre devuelve los mismos campos y tipos de datos para que otros pasos puedan utilizarlos de forma fiable.",
+      },
+      {
+        term: "unknownWords",
+        definition:
+          "unknownWords es la lista de salida que contiene cada palabra del mensaje que no aparece en el diccionario suministrado.",
+      },
+    ],
+    uk: [
+      {
+        term: "AI Assistant",
+        definition:
+          "AI Assistant у n8n – це чат-конструктор, який створює та змінює воркфлоу за інструкціями природною мовою.",
+      },
+      {
+        term: "оцінку впевненості",
+        definition:
+          "Оцінка впевненості – це число від 0 до 100, яке показує, яку частину повідомлення можна пояснити за допомогою наданого словника.",
+      },
+      {
+        term: "зворотного перекладу",
+        definition:
+          "Зворотний переклад перетворює англійський результат назад на інопланетну мову, щоб порівняти його з оригіналом.",
+      },
+      {
+        term: "Chat Trigger",
+        definition:
+          "Нода Chat Trigger запускає воркфлоу, коли хтось надсилає повідомлення в чаті n8n.",
+      },
+      {
+        term: "структуровану відповідь",
+        definition:
+          "Структурована відповідь завжди повертає однакові іменовані поля й типи даних, щоб наступні кроки могли надійно їх використати.",
+      },
+      {
+        term: "unknownWords",
+        definition:
+          "unknownWords – це список у результаті, що містить кожне слово повідомлення, якого немає в наданому словнику.",
       },
     ],
   },
@@ -338,6 +498,157 @@ const additionalInlineTerms: Partial<
       },
     ],
   },
+  "google-drive-rag": {
+    en: [
+      {
+        term: "RAG assistant",
+        definition:
+          "A RAG assistant searches a selected knowledge source for relevant passages before an AI model writes its answer.",
+      },
+      {
+        term: "grounded chat assistant",
+        definition:
+          "A grounded assistant limits its factual claims to evidence found in the supplied documents instead of relying on general model knowledge.",
+      },
+      {
+        term: "indexes their chunks",
+        definition:
+          "Indexing chunks means splitting documents into smaller passages and storing searchable meaning-based representations of them.",
+      },
+      {
+        term: "metadata",
+        definition:
+          "Metadata is identifying information stored beside each passage, such as its source filename, Drive ID, and link.",
+      },
+      {
+        term: "retrieval tool",
+        definition:
+          "The retrieval tool searches the stored document passages for the ones most closely related to the user's question.",
+      },
+    ],
+    es: [
+      {
+        term: "asistente RAG",
+        definition:
+          "Un asistente RAG busca pasajes relevantes en una fuente de conocimiento seleccionada antes de que un modelo de IA redacte la respuesta.",
+      },
+      {
+        term: "asistente fundamentado",
+        definition:
+          "Un asistente fundamentado limita sus afirmaciones a las pruebas encontradas en los documentos proporcionados, no al conocimiento general del modelo.",
+      },
+      {
+        term: "indexa sus fragmentos",
+        definition:
+          "Indexar fragmentos significa dividir los documentos en pasajes más pequeños y guardar representaciones de su significado que se puedan buscar.",
+      },
+      {
+        term: "metadatos",
+        definition:
+          "Los metadatos son datos de identificación guardados junto a cada pasaje, como el nombre del archivo, el ID de Drive y su enlace.",
+      },
+      {
+        term: "herramienta de búsqueda",
+        definition:
+          "La herramienta de búsqueda encuentra en los pasajes almacenados los que más se relacionan con la pregunta de la persona usuaria.",
+      },
+    ],
+    uk: [
+      {
+        term: "RAG-асистента",
+        definition:
+          "RAG-асистент шукає релевантні уривки у вибраному джерелі знань, перш ніж модель ШІ сформує відповідь.",
+      },
+      {
+        term: "обґрунтованого асистента",
+        definition:
+          "Обґрунтований асистент обмежує фактичні твердження доказами з наданих документів і не покладається на загальні знання моделі.",
+      },
+      {
+        term: "індексує їхні фрагменти",
+        definition:
+          "Індексування фрагментів означає поділ документів на менші уривки та збереження придатних до пошуку представлень їхнього змісту.",
+      },
+      {
+        term: "метадані",
+        definition:
+          "Метадані – це ідентифікаційні відомості поряд з кожним уривком, наприклад назва файла, Drive ID і посилання.",
+      },
+      {
+        term: "інструмент пошуку",
+        definition:
+          "Інструмент пошуку знаходить серед збережених уривків ті, що найбільше відповідають запитанню користувача.",
+      },
+    ],
+  },
+  "mercadona-mcp-assistant": {
+    en: [
+      {
+        term: "MCP server",
+        definition:
+          "An MCP server publishes a named set of tools that an AI client can discover and call through one connection.",
+      },
+      {
+        term: "external client",
+        definition:
+          "An external client is another AI application, such as ChatGPT or Claude, connected to the workflow's published MCP address.",
+      },
+      {
+        term: "unit price",
+        definition:
+          "The unit price is the current catalog price for one package or sellable unit, not the comparison price per kilogram or litre.",
+      },
+      {
+        term: "live catalog tools",
+        definition:
+          "These tools read the current category and product records directly from the catalog endpoints while the workflow runs.",
+      },
+    ],
+    es: [
+      {
+        term: "servidor MCP",
+        definition:
+          "Un servidor MCP publica un conjunto de herramientas con nombre para que un cliente de IA pueda descubrirlas y utilizarlas mediante una sola conexión.",
+      },
+      {
+        term: "cliente externo",
+        definition:
+          "Un cliente externo es otra aplicación de IA, como ChatGPT o Claude, conectada a la dirección MCP publicada por el workflow.",
+      },
+      {
+        term: "precio unitario",
+        definition:
+          "El precio unitario es el precio actual de un envase o unidad vendible, no el precio comparativo por kilogramo o litro.",
+      },
+      {
+        term: "herramientas del catálogo activo",
+        definition:
+          "Estas herramientas leen los registros actuales de categorías y productos directamente desde los endpoints mientras se ejecuta el workflow.",
+      },
+    ],
+    uk: [
+      {
+        term: "MCP-сервер",
+        definition:
+          "MCP-сервер публікує набір іменованих інструментів, які ШІ-клієнт може знайти й викликати через одне з’єднання.",
+      },
+      {
+        term: "зовнішній клієнт",
+        definition:
+          "Зовнішній клієнт – це інший ШІ-застосунок, наприклад ChatGPT або Claude, підключений до опублікованої MCP-адреси воркфлоу.",
+      },
+      {
+        term: "цінами за одиницю",
+        definition:
+          "Ціна за одиницю – це актуальна ціна однієї упаковки або товарної одиниці, а не порівняльна ціна за кілограм чи літр.",
+      },
+      {
+        term: "інструментами активного каталогу",
+        definition:
+          "Ці інструменти читають актуальні записи категорій і товарів безпосередньо з endpoints під час виконання воркфлоу.",
+      },
+    ],
+  },
 };
 
 function escapeRegularExpression(value: string) {
@@ -373,7 +684,12 @@ function TextWithGlossary({
     return text;
   }
 
-  const termPattern = new RegExp(terms.map(({ term }) => escapeRegularExpression(term)).join("|"), "gi");
+  const termPattern = new RegExp(
+    `(?<![\\p{L}\\p{N}_])(?:${terms
+      .map(({ term }) => escapeRegularExpression(term))
+      .join("|")})(?![\\p{L}\\p{N}_])`,
+    "giu",
+  );
   const content: ReactNode[] = [];
   let previousIndex = 0;
 
@@ -538,26 +854,6 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
       </section>
 
       <section className="challenge-detail-content shell">
-        {challenge.slug !== "webhook-welcome" && content.glossary.length > 0 ? (
-          <details className="challenge-glossary-card">
-            <summary>
-              <span className="challenge-glossary-heading">
-                <span className="section-kicker">{labels.glossary}</span>
-                <span className="challenge-glossary-description">{labels.glossaryBody}</span>
-              </span>
-              <span className="challenge-glossary-icon" aria-hidden="true">+</span>
-            </summary>
-            <dl className="challenge-glossary-list">
-              {content.glossary.map((entry) => (
-                <div key={entry.term}>
-                  <dt>{entry.term}</dt>
-                  <dd>{entry.definition}</dd>
-                </div>
-              ))}
-            </dl>
-          </details>
-        ) : null}
-
         <div className="challenge-task-stack">
           <article className="challenge-task-card">
             <p className="section-kicker">{labels.task}</p>
@@ -647,6 +943,8 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
         <ChallengeActions
           challengeSlug={challenge.slug}
           challengeTitle={content.title}
+          locale={locale}
+          glossary={content.glossary}
           labels={labels}
           solutions={challenge.solutions}
           tips={content.tips}
