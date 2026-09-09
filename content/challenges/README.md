@@ -88,9 +88,12 @@ These rules apply to every challenge and every supported language.
 
 ## File format
 
-The active MVP has exactly ten challenges, so normally edit one of the existing
-numbered files. If the event format is intentionally expanded later, use a filename
-such as `11-example-challenge.md`. The metadata block must contain:
+The main collection has exactly ten challenges. Additional challenges use
+`collection: more` in metadata and appear in the collapsed More challenges section.
+Omit `collection` (or use `collection: main`) for a main challenge. Keep numbers
+unique and continuous across both collections; keep existing slugs stable so links
+continue to work. New files use the next number, such as `12-example-challenge.md`.
+The metadata block must contain:
 
 ```yaml
 ---
@@ -153,3 +156,5 @@ One optional extension that builds on the completed core task.
 Repeat the same structure below `# Spanish` and `# Ukrainian`. Keep all three translations aligned, including inline term explanations and solution-image alt text. Every challenge must include one `Bonus Task` in each language. `Scenario` must contain at least two example use cases. `Nodes` lists every n8n node required by the core and bonus workflows. `Preparation` lists anything learners need to sign up for, install, obtain, or prepare before building and supports inline links written as `[label](https://example.com)`. `Requirements` must contain exactly three observable outcomes. Never put API keys or other credentials in these files. Every challenge must have exactly five progressive tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md#edit-a-challenge) for the pull-request workflow.
+
+Optional `## Why n8n` and `## When to use n8n` sections may follow Tips in each language. Use a localized heading on the first line and explanatory paragraphs below it. Open-ended challenges may include a clearly labelled example solution rather than prescribing one workflow for everyone.

@@ -4,7 +4,7 @@ slug: trello-morning-brief
 difficulty: intermediate
 time: 30–40 min
 complexity: 3
-color: #ea4b71
+color: #e84d49
 ink: #ffffff
 ---
 
@@ -325,7 +325,7 @@ Internal reference for solution rendering and workflow comparison. This section 
 # English
 
 ## Title
-Trello Morning Brief
+Your Morning Brief
 
 ## Summary
 Send the three most important open Trello cards to Telegram each weekday morning.
@@ -375,7 +375,7 @@ If open cards exist but none is red-labelled or overdue, add "No urgent cards to
 # Spanish
 
 ## Title
-Resumen matinal de Trello
+Tu resumen de la mañana
 
 ## Summary
 Envía a Telegram las tres tarjetas abiertas más importantes de Trello cada mañana de lunes a viernes.
@@ -425,7 +425,7 @@ Si hay tarjetas abiertas, pero ninguna tiene etiqueta roja ni está vencida, añ
 # Ukrainian
 
 ## Title
-Ранковий огляд Trello
+Твій ранковий огляд
 
 ## Summary
 Щоранку з понеділка по п’ятницю надсилайте в Telegram три найважливіші відкриті картки Trello.

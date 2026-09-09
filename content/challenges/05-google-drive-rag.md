@@ -4,8 +4,8 @@ slug: google-drive-rag
 difficulty: advanced
 time: 45–60 min
 complexity: 4
-color: #ff8a55
-ink: #1b2427
+color: #040506
+ink: #ffffff
 ---
 
 # Solution Data
@@ -99,7 +99,7 @@ Replace `REPLACE_WITH_YOUR_FOLDER_ID` after importing either workflow. Credentia
 # English
 
 ## Title
-Google Drive RAG
+Ask Your Google Drive
 
 ## Summary
 Build a RAG assistant that searches a Google Drive knowledge folder before answering and names the files that support each answer.
@@ -152,7 +152,7 @@ For the question "Does the event provide an airport shuttle?", reply exactly "I 
 # Spanish
 
 ## Title
-RAG con Google Drive
+Pregúntale a tu Google Drive
 
 ## Summary
 Crea un asistente RAG que busque en una carpeta de conocimiento de Google Drive antes de responder y nombre los archivos que respaldan cada respuesta.
@@ -205,7 +205,7 @@ Para la pregunta "¿El evento ofrece un traslado desde el aeropuerto?", responde
 # Ukrainian
 
 ## Title
-RAG з Google Drive
+Запитай свій Google Drive
 
 ## Summary
 Створіть RAG-асистента, який перед відповіддю шукає в папці знань Google Drive і називає файли, що підтверджують кожну відповідь.

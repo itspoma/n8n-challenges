@@ -1806,8 +1806,9 @@ html[data-theme="light"] .theme-icon-moon {
   content: none;
 }
 
-.balloon-challenge-card:hover .collection-balloon {
-  transform: rotate(-4deg);
+.balloon-challenge-card:hover .collection-balloon,
+.balloon-challenge-card:focus-visible .collection-balloon {
+  transform: scale(1.15) rotate(-8deg);
 }
 
 .collection-balloon strong {
@@ -2207,7 +2208,8 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .challenge-task-card h2,
-.challenge-bonus-card h2 {
+.challenge-bonus-card h2,
+.challenge-rationale-card h2 {
   max-width: 780px;
   margin: 0;
   font-size: clamp(1.55rem, 2.2vw, 2.2rem);
@@ -2217,11 +2219,27 @@ html[data-theme="light"] .theme-icon-moon {
   text-wrap: balance;
 }
 
+.challenge-rationale-card h2.challenge-rationale-title {
+  max-width: none;
+  margin: 0 0 23px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  line-height: normal;
+  text-transform: uppercase;
+  text-wrap: initial;
+}
+
 .glossary-term {
   position: relative;
   border-bottom: 2px dashed currentColor;
   cursor: help;
 }
+
+.tip-prompt-button { display: block; margin-top: 12px; }
+.tip-prompt-dialog { width: min(720px, calc(100vw - 32px)); max-height: 85vh; overflow-y: auto; }
+.tip-prompt-text { margin: 24px 0; padding: 20px; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 12px; color: var(--ink); font-size: 1rem; line-height: 1.6; white-space: pre-wrap; text-align: left; }
 
 .glossary-term:focus-visible {
   border-radius: 3px;
@@ -5420,3 +5438,13 @@ html[data-theme="light"] .collection-balloon-string {
     transition-duration: 0.01ms !important;
   }
 }
+
+.more-challenges { margin-top: 2rem; padding-top: 1.25rem; }
+.more-challenges summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none; font-size: 1.5rem; font-weight: 500; padding: .75rem 0; }
+.more-challenges summary::-webkit-details-marker { display: none; }
+.more-challenges summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.more-challenges-toggle { font-size: 2rem; }
+.more-challenges[open] .more-challenges-toggle { transform: rotate(45deg); }
+.more-challenges > p { max-width: 44rem; margin: .5rem 0 1.5rem; line-height: 1.6; }
+.challenge-story-card > h2 { margin-bottom: 1rem; }
+.challenge-story-card > p { line-height: 1.7; margin-top: 1rem; }

@@ -33,7 +33,7 @@ export type HomeCopy = {
   titleBottom: string;
   intro: string;
   primaryCta: string;
-  stats: Array<{ value: string; label: string }>;
+  stats: Array<{ label: string }>;
   gallery: {
     kicker: string;
     ariaLabel: string;
@@ -61,6 +61,8 @@ export type HomeCopy = {
     body: string;
     openLabel: string;
     complexityLabel: string;
+    moreTitle: string;
+    moreBody: string;
   };
   contribute: {
     kicker: string;
@@ -98,13 +100,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "Real learning comes through practice, and knowledge sticks when you share it with others.",
     primaryCta: "View challenges",
     stats: [
-      { value: "10", label: "hands-on challenges" },
-      { value: "41", label: "n8n nodes covered" },
+      { label: "hands-on challenges" },
+      { label: "n8n nodes covered" },
       {
-        value: "38+",
         label: "technical terms explained simply",
       },
-      { value: "3", label: "available languages" },
+      { label: "available languages" },
     ],
     gallery: {
       kicker: "Moments from previous events",
@@ -140,12 +141,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       levels: [
         {
           name: "Beginner",
-          count: "4 challenges",
+          count: "3 challenges",
           body: "Triggers, APIs, decisions, and clean data mapping.",
         },
         {
           name: "Intermediate",
-          count: "3 challenges",
+          count: "4 challenges",
           body: "List processing, forms, storage, and structured AI output.",
         },
         {
@@ -160,6 +161,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       title: "Choose your next challenge.",
       body: "Pick a balloon, build the workflow, and collect it after mentor approval.",
       openLabel: "Open challenge",
+      moreTitle: "Need more challenges?",
+      moreBody: "More ideas to try, including a little extraterrestrial fun. Open a challenge and build something new.",
       complexityLabel: "Complexity",
     },
     contribute: {
@@ -197,10 +200,10 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "El aprendizaje real nace de la práctica, y el conocimiento perdura cuando lo compartes con los demás.",
     primaryCta: "Ver los retos",
     stats: [
-      { value: "10", label: "retos prácticos" },
-      { value: "41", label: "nodos de n8n que aprenderás" },
-      { value: "38+", label: "términos técnicos explicados" },
-      { value: "3", label: "idiomas disponibles" },
+      { label: "retos prácticos" },
+      { label: "nodos de n8n que aprenderás" },
+      { label: "términos técnicos explicados" },
+      { label: "idiomas disponibles" },
     ],
     gallery: {
       kicker: "Momentos de eventos anteriores",
@@ -236,12 +239,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       levels: [
         {
           name: "Inicial",
-          count: "4 retos",
+          count: "3 retos",
           body: "Triggers, APIs, decisiones y mapeo de datos limpio.",
         },
         {
           name: "Intermedio",
-          count: "3 retos",
+          count: "4 retos",
           body: "Listas, formularios, almacenamiento y resultados estructurados con IA.",
         },
         {
@@ -256,6 +259,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       title: "Elige tu próximo reto.",
       body: "Elige un globo, crea el workflow y recógelo cuando lo apruebe un mentor.",
       openLabel: "Abrir reto",
+      moreTitle: "¿Quieres más retos?",
+      moreBody: "Más ideas para probar, con un poco de diversión extraterrestre. Abre un reto y crea algo nuevo.",
       complexityLabel: "Complejidad",
     },
     contribute: {
@@ -293,10 +298,10 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "Справжнє навчання починається з практики, а знання закріплюються, коли ви ділитеся ними з іншими.",
     primaryCta: "Переглянути завдання",
     stats: [
-      { value: "10", label: "практичних завдань" },
-      { value: "41", label: "нод n8n, які ви опануєте" },
-      { value: "38+", label: "технічних термінів простими словами" },
-      { value: "3", label: "доступні мови" },
+      { label: "практичних завдань" },
+      { label: "нод n8n, які ви опануєте" },
+      { label: "технічних термінів простими словами" },
+      { label: "доступні мови" },
     ],
     gallery: {
       kicker: "Моменти з попередніх подій",
@@ -332,12 +337,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       levels: [
         {
           name: "Початковий",
-          count: "4 завдання",
+          count: "3 завдання",
           body: "Тригери, API, розгалуження та акуратне зіставлення даних.",
         },
         {
           name: "Середній",
-          count: "3 завдання",
+          count: "4 завдання",
           body: "Обробка списків, форми, зберігання та структуровані результати ШІ.",
         },
         {
@@ -352,6 +357,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       title: "Оберіть наступне завдання.",
       body: "Оберіть кульку, створіть воркфлоу та отримайте її після схвалення ментора.",
       openLabel: "Відкрити завдання",
+      moreTitle: "Хочеш більше завдань?",
+      moreBody: "Ще більше ідей, зокрема трохи інопланетних розваг. Відкрийте завдання та створіть щось нове.",
       complexityLabel: "Складність",
     },
     contribute: {

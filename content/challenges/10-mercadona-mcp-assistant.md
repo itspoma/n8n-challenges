@@ -4,7 +4,7 @@ slug: mercadona-mcp-assistant
 difficulty: advanced
 time: 60–75 min
 complexity: 5
-color: #040506
+color: #ea4b71
 ink: #ffffff
 ---
 
@@ -329,7 +329,7 @@ Internal reference for future solution features. This section is not displayed o
 # English
 
 ## Title
-Mercadona MCP Shopping Assistant
+What’s for Dinner?
 
 ## Summary
 Build a read-only Mercadona MCP server and let a Telegram shopping assistant turn any dish into a live, priced product list.
@@ -380,7 +380,7 @@ Connect the published catalog MCP server to an eligible ChatGPT or Claude accoun
 # Spanish
 
 ## Title
-Asistente de compra MCP para Mercadona
+¿Qué hay para cenar?
 
 ## Summary
 Crea un servidor MCP de Mercadona de solo lectura y permite que un asistente de Telegram convierta cualquier plato en una lista de productos con precios actuales.
@@ -431,7 +431,7 @@ Conecta el servidor MCP del catálogo publicado con una cuenta compatible de Cha
 # Ukrainian
 
 ## Title
-MCP-помічник для покупок у Mercadona
+Що на вечерю?
 
 ## Summary
 Створіть MCP-сервер Mercadona лише для читання, щоб Telegram-помічник перетворював назву будь-якої страви на актуальний список продуктів із цінами.

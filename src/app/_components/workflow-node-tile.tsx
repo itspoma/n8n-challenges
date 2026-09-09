@@ -74,6 +74,8 @@ const NODE_DOCUMENTATION_URLS = {
   switch: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.switch",
   sendEmail: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.sendemail",
   resend: "https://n8n.io/integrations/resend/",
+  wordpress:
+    "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.wordpress",
 } as const;
 
 function getNodeDocumentationUrl(name: string): string | undefined {
@@ -225,6 +227,10 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName.includes("resend")) {
     return NODE_DOCUMENTATION_URLS.resend;
+  }
+
+  if (normalizedName === "wordpress") {
+    return NODE_DOCUMENTATION_URLS.wordpress;
   }
 
   if (
@@ -492,6 +498,10 @@ function getNodeIcon(name: string) {
       light: "/nodes/resend-black.svg",
       dark: "/nodes/resend-white.svg",
     };
+  }
+
+  if (normalizedName === "wordpress") {
+    return { light: "/nodes/wordpress.svg" };
   }
 
   if (normalizedName.includes("basic llm chain")) {

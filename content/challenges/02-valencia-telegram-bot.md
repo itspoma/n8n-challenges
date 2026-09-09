@@ -283,7 +283,7 @@ Internal reference for solution rendering and workflow comparison. This section 
 # English
 
 ## Title
-Valencia Air Quality Telegram Bot
+Air Quality in Valencia
 
 ## Summary
 Reply to a Telegram message with the latest air-quality reading for VALÈNCIA CENTRE.
@@ -330,7 +330,7 @@ Add ✅ when the calidad_ambiental status is Buena or Razonablemente Buena; othe
 # Spanish
 
 ## Title
-Bot de Telegram sobre la calidad del aire en Valencia
+Calidad del aire en Valencia
 
 ## Summary
 Responde a un mensaje de Telegram con la última medición de calidad del aire de VALÈNCIA CENTRE.
@@ -377,7 +377,7 @@ Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; 
 # Ukrainian
 
 ## Title
-Telegram-бот для перевірки якості повітря у Валенсії
+Якість повітря у Валенсії
 
 ## Summary
 Відповідайте на повідомлення в Telegram найсвіжішими даними про якість повітря для станції VALÈNCIA CENTRE.

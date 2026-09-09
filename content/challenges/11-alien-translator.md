@@ -1,6 +1,7 @@
 ---
-number: 7
+number: 11
 slug: alien-translator
+collection: more
 difficulty: beginner
 time: 15–25 min
 complexity: 2

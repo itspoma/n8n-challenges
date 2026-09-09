@@ -4,7 +4,7 @@ slug: idealista-morning-brief
 difficulty: intermediate
 time: 45–60 min
 complexity: 4
-color: #c6c9c7
+color: #ff8a55
 ink: #1b2427
 ---
 
@@ -520,7 +520,7 @@ ink: #1b2427
 # English
 
 ## Title
-Valencia Apartment Morning Brief
+Find Your Valencia Apartment
 
 ## Summary
 Use Firecrawl for permitted web scraping and send only new matching apartments in a concise morning brief.
@@ -572,7 +572,7 @@ When no new apartments match, send a short Telegram update instead.
 # Spanish
 
 ## Title
-Resumen matinal de pisos en Valencia
+Encuentra tu piso en Valencia
 
 ## Summary
 Usa Firecrawl para una extracción web permitida y envía solo pisos nuevos que coincidan en un resumen matinal breve.
@@ -624,7 +624,7 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 # Ukrainian
 
 ## Title
-Ранковий огляд квартир у Валенсії
+Знайди свою квартиру у Валенсії
 
 ## Summary
 Використовуйте Firecrawl для дозволеного вебзбирання та надсилайте стислий ранковий огляд лише з новими відповідними квартирами.

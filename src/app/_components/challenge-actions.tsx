@@ -20,6 +20,33 @@ type ChallengeActionsProps = {
 };
 
 const TIP_PROGRESS_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-tips:v1:";
+
+function TipPrompt({ prompt, locale }: { prompt: string; locale: Locale }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
+  const copy = {
+    en: { open: "Open prompt", copy: "Copy prompt", copied: "Copied!", close: "Close", failed: "Could not copy. Select the prompt and copy it manually." },
+    es: { open: "Abrir prompt", copy: "Copiar prompt", copied: "¡Copiado!", close: "Cerrar", failed: "No se pudo copiar. Selecciona el texto y cópialo manualmente." },
+    uk: { open: "Відкрити промпт", copy: "Копіювати промпт", copied: "Скопійовано!", close: "Закрити", failed: "Не вдалося скопіювати. Виділи текст і скопіюй вручну." },
+  }[locale];
+  return (
+    <>
+      <button className="hint-button tip-prompt-button" type="button" onClick={() => { setCopyState("idle"); dialog.current?.showModal(); }}>{copy.open}</button>
+      <dialog className="solution-confirm-dialog tip-prompt-dialog" ref={dialog} aria-label={copy.open}>
+        <div className="solution-confirm-dialog-inner">
+          <form method="dialog"><button className="solution-confirm-dialog-close" aria-label={copy.close}>×</button></form>
+          <h2>{copy.open}</h2>
+          <div className="tip-prompt-text" tabIndex={0}>{prompt}</div>
+          <button className="hint-button" type="button" onClick={async () => {
+            try { await navigator.clipboard.writeText(prompt); setCopyState("copied"); }
+            catch { setCopyState("failed"); }
+          }}>{copy.copy}</button>
+          <p role="status">{copyState === "copied" ? copy.copied : copyState === "failed" ? copy.failed : ""}</p>
+        </div>
+      </dialog>
+    </>
+  );
+}
 const TIP_PROGRESS_EVENT = "n8n-balloon-challenges:tip-progress";
 const fallbackTipProgress = new Map<string, number>();
 const SOLUTION_REVEAL_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-solution:v1:";
@@ -286,14 +313,17 @@ export function ChallengeActions({
               {tips.slice(0, visibleTips).map((tip, index) => (
                 <li key={tip}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div>
                   <p>
                     <TipWithGlossary
-                      text={tip}
+                      text={tip.split(" ||PROMPT|| ")[0]}
                       locale={locale}
                       glossary={glossary}
                       idPrefix={`tip-${challengeSlug}-${index}`}
                     />
                   </p>
+                  {tip.includes(" ||PROMPT|| ") ? <TipPrompt prompt={tip.split(" ||PROMPT|| ")[1]} locale={locale} /> : null}
+                  </div>
                 </li>
               ))}
             </ol>

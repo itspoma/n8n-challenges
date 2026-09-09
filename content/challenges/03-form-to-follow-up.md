@@ -11,7 +11,7 @@ ink: #1b2427
 # English
 
 ## Title
-Form to Follow-up
+Don’t Miss a New Contact
 
 ## Summary
 Validate a public n8n form and save clean contact data in an n8n Data Table.
@@ -77,7 +77,7 @@ After accepting a valid submission, notify the organizers by email through Resen
 # Spanish
 
 ## Title
-Del formulario al seguimiento
+No pierdas un nuevo contacto
 
 ## Summary
 Valida un formulario público de n8n y guarda datos de contacto limpios en una Data Table de n8n.
@@ -143,7 +143,7 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 # Ukrainian
 
 ## Title
-Від форми до подальшої комунікації
+Не пропусти новий контакт
 
 ## Summary
 Перевірте публічну форму n8n та збережіть чисті контактні дані в n8n Data Table.

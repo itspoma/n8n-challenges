@@ -9,6 +9,7 @@ Challenge node tiles use official n8n assets. The source-tracked files below are
 - `switch-light.svg` and `switch-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/switch.svg` to the same theme colors.
 - `send-email-light.svg` and `send-email-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/send-mail.svg` to the same theme colors.
 - `trello.svg` is copied from `packages/nodes-base/nodes/Trello/trello.svg`.
+- `wordpress.svg` is copied from `packages/nodes-base/nodes/Wordpress/wordpress.svg`.
 
 Challenge 8 uses these n8n design-system assets:
 

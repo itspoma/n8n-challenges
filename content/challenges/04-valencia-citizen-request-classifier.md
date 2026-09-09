@@ -1125,7 +1125,7 @@ Internal reference for solution rendering and workflow comparison. This section 
 # English
 
 ## Title
-Valencia Citizen Request Classifier
+Get City Problems to the Right People
 
 ## Summary
 Use an AI model to sort a citizen request by topic and urgency, send it to the responsible team, and confirm receipt.
@@ -1174,7 +1174,7 @@ Include a suggested reply, written in the same language as the request, in the c
 # Spanish
 
 ## Title
-Clasificador de solicitudes ciudadanas de Valencia
+Lleva los problemas de la ciudad a quien pueda resolverlos
 
 ## Summary
 Usa un modelo de IA para ordenar una solicitud ciudadana por tema y urgencia, enviarla al equipo responsable y confirmar su recepción.
@@ -1223,7 +1223,7 @@ Incluye en el email de confirmación una respuesta sugerida escrita en el mismo 
 # Ukrainian
 
 ## Title
-Класифікатор звернень мешканців Валенсії
+Передай міські проблеми тим, хто їх вирішить
 
 ## Summary
 Використайте модель ШІ, щоб упорядкувати звернення мешканця за темою й терміновістю, надіслати його відповідальній команді та підтвердити отримання.

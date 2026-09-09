@@ -189,7 +189,7 @@ Internal reference for future solution features. This section is not displayed o
 # English
 
 ## Title
-Valencia Greeting Webhook
+Valencia Greeting
 
 ## Summary
 Create a web address that greets its visitor from Valencia.
@@ -243,7 +243,7 @@ Make the same address greet a visitor by name when their name is added to it –
 # Spanish
 
 ## Title
-Webhook de saludo desde Valencia
+Un saludo desde Valencia
 
 ## Summary
 Crea una dirección web que salude a quien la visite desde Valencia.
@@ -297,7 +297,7 @@ Haz que esa misma dirección salude a cada visitante por su nombre cuando se añ
 # Ukrainian
 
 ## Title
-Webhook-привітання з Валенсії
+Привітання з Валенсії
 
 ## Summary
 Створіть вебадресу, яка вітає відвідувача з Валенсії.

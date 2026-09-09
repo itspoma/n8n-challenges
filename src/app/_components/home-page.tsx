@@ -1,4 +1,5 @@
 import { withBasePath } from "@/lib/site-path";
+import { challengeMetricValues } from "@/lib/challenge-metrics";
 import Link from "next/link";
 
 import { BalloonString } from "@/app/_components/balloon-string";
@@ -6,9 +7,36 @@ import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
 import { EventPhotoStrip } from "@/app/_components/event-photo-strip";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
-import { challenges, difficultyLabels } from "@/lib/challenges";
+import { mainChallenges, moreChallenges, difficultyLabels } from "@/lib/challenges";
 import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
 import { homeCopy, type Locale } from "@/lib/home-copy";
+
+const difficultyOrder = { beginner: 0, intermediate: 1, advanced: 2 };
+const balloonColorNames: Record<string, Record<Locale, string>> = {
+  "#fffdf6": { en: "White", es: "Blanco", uk: "Білий" },
+  "#e84d49": { en: "Red", es: "Rojo", uk: "Червоний" },
+  "#f7cb55": { en: "Yellow", es: "Amarillo", uk: "Жовтий" },
+  "#ff8a55": { en: "Orange", es: "Naranja", uk: "Помаранчевий" },
+  "#244a9b": { en: "Dark blue", es: "Azul oscuro", uk: "Темно-синій" },
+  "#8dcef0": { en: "Light blue", es: "Azul claro", uk: "Блакитний" },
+  "#a9d96c": { en: "Green", es: "Verde", uk: "Зелений" },
+  "#9b83d7": { en: "Purple", es: "Morado", uk: "Фіолетовий" },
+  "#ea4b71": { en: "Pink", es: "Rosa", uk: "Рожевий" },
+  "#040506": { en: "Black", es: "Negro", uk: "Чорний" },
+  "#c6c9c7": { en: "Grey", es: "Gris", uk: "Сірий" },
+};
+const advancedOrder: Record<string, number> = {
+  "mercadona-mcp-assistant": 0,
+  "unstable-restaurant-orders": 1,
+  "google-drive-rag": 2,
+};
+const orderedChallenges = [...mainChallenges].sort(
+  (left, right) => difficultyOrder[left.difficulty] - difficultyOrder[right.difficulty]
+    || (left.difficulty === "advanced"
+      ? (advancedOrder[left.slug] ?? Infinity) - (advancedOrder[right.slug] ?? Infinity)
+      : 0)
+    || left.number - right.number,
+);
 
 function ArrowIcon() {
   return (
@@ -72,9 +100,9 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <section className="stats-band" aria-label={copy.accessibility.formatSummary}>
         <div className="shell stats-grid">
-          {copy.stats.map((stat) => (
+          {copy.stats.map((stat, index) => (
             <div className="stat" key={stat.label}>
-              <strong>{stat.value}</strong>
+              <strong>{challengeMetricValues[index]}</strong>
               <span>{stat.label}</span>
             </div>
           ))}
@@ -136,7 +164,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
 
         <ol className="balloon-collection" aria-label={copy.accessibility.balloonCollection}>
-          {challenges.map((challenge) => (
+          {orderedChallenges.map((challenge) => (
             <li
               id={`challenge-${challenge.slug}`}
               key={challenge.slug}
@@ -149,6 +177,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               >
                 <span
                   className="collection-balloon"
+                  title={balloonColorNames[challenge.color.toLowerCase()]?.[locale] ?? challenge.color}
                   style={{ "--balloon": challenge.color, "--ink": challenge.ink } as React.CSSProperties}
                   aria-hidden="true"
                 >
@@ -166,6 +195,44 @@ export function HomePage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ol>
+        {moreChallenges.length > 0 ? (
+          <details className="more-challenges" id="more-challenges">
+            <summary><span>{copy.collection.moreTitle}</span><span className="more-challenges-toggle" aria-hidden="true">+</span></summary>
+            <p>{copy.collection.moreBody}</p>
+        <ol className="balloon-collection" aria-label={copy.collection.moreTitle}>
+          {moreChallenges.map((challenge) => (
+            <li
+              id={`challenge-${challenge.slug}`}
+              key={challenge.slug}
+              data-difficulty={challenge.difficulty}
+            >
+              <Link
+                className="balloon-challenge-card"
+                href={`/${locale}/challenges/${challenge.slug}`}
+                aria-label={`${copy.collection.openLabel}: ${challenge.copy[locale].title}`}
+              >
+                <span
+                  className="collection-balloon"
+                  title={balloonColorNames[challenge.color.toLowerCase()]?.[locale] ?? challenge.color}
+                  style={{ "--balloon": challenge.color, "--ink": challenge.ink } as React.CSSProperties}
+                  aria-hidden="true"
+                >
+                  <strong>{String(challenge.number).padStart(2, "0")}</strong>
+                  <BalloonString className="collection-balloon-string" />
+                </span>
+                <span className="balloon-card-copy">
+                  <span className="balloon-card-meta">
+                    <span>{difficultyLabels[locale][challenge.difficulty]}</span>
+                  </span>
+                  <strong>{challenge.copy[locale].title}</strong>
+                </span>
+                <span className="balloon-card-arrow" aria-hidden="true">↗</span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+          </details>
+        ) : null}
       </section>
 
       <section className="challenge-section" id="experience-levels" aria-labelledby="challenge-title">
@@ -185,7 +252,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               return {
                 ...level,
                 difficulty,
-                challenges: challenges
+                challenges: orderedChallenges
                   .filter((challenge) => challenge.difficulty === difficulty)
                   .map((challenge) => ({
                     color: challenge.color,

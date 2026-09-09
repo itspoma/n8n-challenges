@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import type { Locale } from "@/lib/home-copy";
@@ -9,6 +9,7 @@ type ChallengeTranslation = {
   title: string;
   summary: string;
   concept: string;
+  rationale: Array<{ title: string; body: string }>;
   glossary: Array<{
     term: string;
     definition: string;
@@ -24,6 +25,7 @@ type ChallengeTranslation = {
 
 export type Challenge = {
   number: number;
+  collection: "main" | "more";
   slug: string;
   difficulty: ChallengeDifficulty;
   time: string;
@@ -545,6 +547,12 @@ function parseTranslation(source: string, fileName: string, language: string) {
     title: sections.Title,
     summary: sections.Summary,
     concept: sections.Concept,
+    rationale: ["Why n8n", "When to use n8n"].flatMap((heading) => {
+      const value = sections[heading];
+      if (!value) return [];
+      const [title, ...body] = value.split("\n");
+      return [{ title, body: body.join("\n").trim() }];
+    }),
     glossary: readGlossary(sections, fileName, language),
     scenario: readList(sections, "Scenario", fileName, language),
     task: sections.Task,
@@ -569,6 +577,8 @@ function parseChallenge(fileName: string): Challenge {
   const number = parseInteger(metadata.number, "number", fileName);
   const complexity = parseInteger(metadata.complexity, "complexity", fileName);
   const difficulty = metadata.difficulty as ChallengeDifficulty;
+  const collection = metadata.collection ?? "main";
+  if (collection !== "main" && collection !== "more") fail(fileName, "collection must be main or more");
 
   if (number < 1 || number > 99) fail(fileName, "number must be between 1 and 99");
   if (complexity < 1 || complexity > 5) fail(fileName, "complexity must be between 1 and 5");
@@ -583,17 +593,23 @@ function parseChallenge(fileName: string): Challenge {
 
   const languages = splitLanguageSections(body, fileName);
 
+  const images = hasSolutionWorkflows(fileName, source)
+    ? solutionImages(metadata.slug, source, fileName)
+    : null;
+  const hasImages = images && Object.values(images).every((variant) =>
+    Object.values(variant).every((path) => existsSync(join(process.cwd(), "public", path))),
+  );
+
   return {
     number,
+    collection,
     slug: metadata.slug,
     difficulty,
     time: metadata.time,
     complexity: complexity as Challenge["complexity"],
     color: metadata.color,
     ink: metadata.ink,
-    solutions: hasSolutionWorkflows(fileName, source)
-      ? solutionImages(metadata.slug, source, fileName)
-      : null,
+    solutions: hasImages ? images : null,
     copy: {
       en: parseTranslation(languages.English, fileName, "English"),
       es: parseTranslation(languages.Spanish, fileName, "Spanish"),
@@ -608,8 +624,8 @@ function loadChallenges() {
     .map(parseChallenge)
     .sort((left, right) => left.number - right.number);
 
-  if (loaded.length !== 10) {
-    throw new Error(`Expected exactly 10 active challenge Markdown files, found ${loaded.length}`);
+  if (loaded.filter((challenge) => challenge.collection === "main").length !== 10) {
+    throw new Error(`Expected exactly 10 active challenge Markdown files, found ${loaded.filter((challenge) => challenge.collection === "main").length}`);
   }
 
   const numberSet = new Set(loaded.map((challenge) => challenge.number));
@@ -626,7 +642,10 @@ function loadChallenges() {
   return loaded;
 }
 
+// Challenge copy is loaded from Markdown when this module is evaluated.
 export const challenges = loadChallenges();
+export const mainChallenges = challenges.filter((challenge) => challenge.collection === "main");
+export const moreChallenges = challenges.filter((challenge) => challenge.collection === "more");
 
 export function getChallenge(slug: string) {
   return challenges.find((challenge) => challenge.slug === slug);

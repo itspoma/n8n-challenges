@@ -4,8 +4,8 @@ slug: unstable-restaurant-orders
 difficulty: advanced
 time: 45–60 min
 complexity: 5
-color: #e84d49
-ink: #ffffff
+color: #c6c9c7
+ink: #1b2427
 ---
 
 # Solution Data
@@ -1314,7 +1314,7 @@ The lower Error Trigger branch is a template for the required separate error wor
 # English
 
 ## Title
-Unstable Restaurant Orders
+Keep Restaurant Orders Moving
 
 ## Summary
 Recover every valid restaurant order from a paginated API – a service that returns a large result in numbered pages – even when it rate-limits requests or fails unexpectedly.
@@ -1374,7 +1374,7 @@ Process valid orders in controlled batches – small groups handled one at a tim
 # Spanish
 
 ## Title
-Pedidos inestables de restaurante
+Que los pedidos del restaurante sigan adelante
 
 ## Summary
 Recupera todos los pedidos válidos de restaurantes desde una API paginada – un servicio que divide un resultado grande en páginas numeradas – incluso cuando limita las peticiones o falla de forma inesperada.
@@ -1434,7 +1434,7 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 # Ukrainian
 
 ## Title
-Нестабільні ресторанні замовлення
+Нехай ресторанні замовлення рухаються далі
 
 ## Summary
 Отримайте всі коректні ресторанні замовлення з API з пагінацією – сервісу, що ділить великий результат на пронумеровані сторінки, – навіть коли він обмежує частоту запитів або несподівано відмовляє.
