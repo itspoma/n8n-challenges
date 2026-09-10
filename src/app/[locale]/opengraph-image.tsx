@@ -26,6 +26,12 @@ const copy = {
     titleSize: 62,
     subtitle: "10 практичних завдань n8n",
   },
+  id: {
+    eyebrow: "belajar bareng komunitas n8n",
+    title: "Bangun. Belajar. Otomasi.",
+    titleSize: 68,
+    subtitle: "10 tantangan praktik n8n",
+  },
 } as const;
 
 export function generateStaticParams() {

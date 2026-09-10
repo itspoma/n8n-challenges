@@ -254,3 +254,56 @@ Para la pregunta "¿El evento ofrece un traslado desde el aeropuerto?", responde
 - Підключіть Default Data Loader до Simple Vector Store у режимі insert, завантажте бінарне поле `data` й додайте `file_name`, `file_id` і `source_url` як метадані – мітки, що зберігаються поряд із кожною частиною тексту документа.
 - Додайте Recursive Character Text Splitter із розміром фрагмента 800 і перекриттям 120, а потім підключіть одну ноду Embeddings OpenAI з `text-embedding-3-small` до обох Simple Vector Store; фрагменти – це уривки тексту з перекриттям, а ембеддинги – числові відбитки змісту для семантичного пошуку.
 - Завершіть нодами Chat Trigger, OpenAI Chat Model, AI Agent і Simple Vector Store у режимі retrieve-as-tool; повторно використайте `challenge_5_event_docs`, додайте метадані документів, вимагайте виклику `event_documents` і виконайте два підтверджені запитання та точний додатковий тест про трансфер.
+
+# Indonesian
+
+## Title
+Tanya Google Drive-mu
+
+## Summary
+Bangun asisten RAG yang mencari di folder pengetahuan Google Drive sebelum menjawab, lalu menyebutkan file mana yang jadi dasar tiap jawaban.
+
+## Concept
+Ingestion dokumen, pencarian semantik, dan jawaban yang berpijak pada file sumber
+
+## Scenario
+- Tim acara menyimpan info venue, relawan, dan sponsor di Drive, dan ingin satu asisten chat yang jawabannya berdasar dokumen untuk ketiganya.
+- Relawan baru butuh jawaban setup yang bisa dipercaya, lengkap dengan nama file handbook yang benar.
+- Panitia ingin pertanyaan yang tidak ada di dokumen dijawab jujur "tidak ketemu", bukan tebakan yang terdengar meyakinkan.
+
+## Task
+Tim acara Valencia butuh asisten chat yang menjawab pertanyaan berdasarkan semua dokumen di folder Google Drive mereka, dan menyebutkan file mana yang jadi dasar tiap jawaban.
+
+## Bonus Task
+Untuk pertanyaan "Does the event provide an airport shuttle?", balas persis "I could not find this in the event documents." tanpa tambahan apa pun.
+
+## Nodes
+- Manual Trigger
+- Google Drive – two instances for Search files and folders and Download file
+- Loop Over Items
+- Default Data Loader
+- Recursive Character Text Splitter
+- Embeddings OpenAI
+- Simple Vector Store – two instances for inserting and searching
+- Chat Trigger
+- OpenAI Chat Model
+- AI Agent
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang versinya sudah terbaru, lalu buat workflow baru.
+- Buat atau masuk ke [akun Google](https://accounts.google.com/signup), lalu tambahkan koneksi Google Drive dengan mengikuti [panduan credential Google di n8n](https://docs.n8n.io/integrations/builtin/credentials/google/).
+- Buat [akun OpenAI](https://platform.openai.com/signup), buat [API key](https://platform.openai.com/api-keys), lalu simpan di n8n lewat [panduan credential OpenAI](https://docs.n8n.io/integrations/builtin/credentials/openai/). Pemakaian API bisa kena biaya kecil.
+- Download [panduan venue](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-venue-guide.txt), [handbook relawan](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-volunteer-handbook.txt), dan [file logistik sponsor](https://raw.githubusercontent.com/itspoma/n8n-challenges/main/public/fixtures/google-drive-rag/valencia-event-sponsor-logistics.txt). Upload hanya tiga file `.txt` ini langsung di dalam folder Drive baru (bukan di subfolder), lalu salin ID foldernya.
+- Pakai Simple Vector Store hanya untuk demo workshop ini: indeksnya disimpan di memori n8n, bisa terlihat oleh pengguna lain di instance yang sama, dan hilang setelah restart atau pembersihan memori. Kalau salah satunya terjadi, jalankan ulang ingestion sebelum mencoba chat lagi, dan jangan pakai dokumen sensitif.
+
+## Requirements
+- Satu kali jalan dari Manual Trigger menemukan dan men-download ketiga file `.txt` di folder itu, lalu mengindeks potongannya di bawah `challenge_5_event_docs`, dengan metadata `file_name`, `file_id`, dan `source_url` tetap ada di setiap potongan.
+- Setelah ingestion, "Where and when should volunteers check in?" dijawab North Entrance jam 08:00, dan "When and where may sponsors deliver materials?" dijawab Loading Bay B jam 07:00 sampai 08:00; tiap jawaban diakhiri baris `Sources:` yang berisi nama file fixture yang benar.
+- AI Agent memanggil tool pencarian `event_documents` sebelum setiap jawaban, dan untuk pertanyaan bonus mengembalikan kalimat "tidak ketemu" persis seperti yang diminta, tanpa baris `Sources:`.
+
+## Tips
+- Mulai dari Manual Trigger dan Google Drive: cari di folder khusus tadi dengan Return All aktif, batasi hasilnya ke file saja, dan pastikan ketiga ID, nama, dan link web-nya muncul sebelum men-download apa pun.
+- Tambahkan Loop Over Items dengan batch size 1, lalu node Google Drive kedua yang diset ke Download file; memproses satu per satu membuat metadata file yang sedang diproses jelas bagi sub-node AI.
+- Sambungkan Default Data Loader ke Simple Vector Store mode insert, muat field binary `data`, dan tempelkan `file_name`, `file_id`, dan `source_url` sebagai metadata – label yang disimpan di samping setiap potongan teks dokumen.
+- Tambahkan Recursive Character Text Splitter dengan chunk size 800 dan overlap 120, lalu sambungkan satu node Embeddings OpenAI yang memakai `text-embedding-3-small` ke kedua node Simple Vector Store; chunk itu potongan teks yang saling tumpang tindih, dan embedding itu sidik jari makna berbentuk angka yang dipakai untuk pencarian semantik.
+- Tutup dengan Chat Trigger, OpenAI Chat Model, AI Agent, dan Simple Vector Store mode retrieve-as-tool; pakai lagi `challenge_5_event_docs`, sertakan metadata dokumen, wajibkan agent memanggil `event_documents`, lalu coba kedua pertanyaan yang ada jawabannya plus tes bonus airport shuttle persis seperti ditulis.

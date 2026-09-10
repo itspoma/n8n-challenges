@@ -1,4 +1,4 @@
-export const locales = ["en", "es", "uk"] as const;
+export const locales = ["en", "es", "uk", "id"] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -6,6 +6,7 @@ export const localeLabels = {
   en: "EN",
   es: "ES",
   uk: "UK",
+  id: "ID",
 } satisfies Record<Locale, string>;
 
 export function isLocale(value: string): value is Locale {
@@ -372,5 +373,103 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     footer: "Створено для допитливих людей, які навчаються, змушуючи речі працювати.",
     footerContact: "Зв’язатися",
+  },
+  id: {
+    metadataTitle: "Selamat datang",
+    accessibility: {
+      primaryNavigation: "Navigasi utama",
+      formatSummary: "Format tantangan sekilas",
+      balloonCollection: "Sepuluh balon tantangan",
+      backToTop: "Kembali ke atas",
+      home: "Beranda n8n Balloon Challenges",
+      languageSelector: "Pilih bahasa",
+      challengeCount: "10 tantangan",
+    },
+    nav: {
+      format: "Cara mainnya",
+      challenges: "Tantangan",
+      events: "Acara",
+    },
+    eyebrow: "Format acara dari n8n Ambassador",
+    titleTop: "Selamat datang di",
+    titleBottom: "n8n Balloon Challenges",
+    intro:
+      "Belajar paling nyantol kalau langsung praktik, dan makin melekat kalau kamu bagikan ke orang lain.",
+    primaryCta: "Lihat tantangan",
+    stats: [
+      { label: "tantangan praktik langsung" },
+      { label: "node n8n yang dipakai" },
+      { label: "istilah teknis dijelaskan sederhana" },
+      { label: "bahasa tersedia" },
+    ],
+    gallery: {
+      kicker: "Momen dari acara sebelumnya",
+      ariaLabel: "Foto dari acara komunitas n8n sebelumnya",
+      photoAlts: [
+        "Peserta menyimak sesi di acara komunitas n8n sebelumnya",
+        "Dua peserta memegang stiker n8n sambil mengacungkan jempol",
+        "Seorang peserta acara n8n menjelaskan idenya",
+        "Peserta berdiskusi tentang workflow di depan laptop",
+        "Peserta duduk menyimak presentasi komunitas n8n",
+        "Pembicara komunitas n8n presentasi di depan peserta",
+        "Empat penyelenggara komunitas n8n berfoto bersama setelah acara",
+      ],
+    },
+    format: {
+      kicker: "Formatnya",
+      title: "Cara mainnya",
+      body:
+        "Pilih tantangan mana saja yang cocok buat tim kamu. Tidak harus urut, dan tidak harus selesai semua.",
+      steps: [
+        { number: "01", title: "Daftar n8n Cloud", href: "/n8n-sign-up" },
+        { number: "02", title: "Pilih tantangan" },
+        { number: "03", title: "Bangun workflow" },
+        { number: "04", title: "Tunjukkan ke mentor" },
+        { number: "05", title: "Ambil balonnya" },
+      ],
+    },
+    challengeMap: {
+      kicker: "10 tantangan",
+      title: "Ada tantangan untuk semua level",
+      body:
+        "Setiap tantangan mengajarkan satu konsep praktis n8n. Warna balon menandai misinya, bukan nilaimu.",
+      levels: [
+        {
+          name: "Pemula",
+          count: "3 tantangan",
+          body: "Trigger, API, percabangan, dan mapping data yang rapi.",
+        },
+        {
+          name: "Menengah",
+          count: "4 tantangan",
+          body: "Olah list, form, penyimpanan, dan output AI yang terstruktur.",
+        },
+        {
+          name: "Lanjutan",
+          count: "3 tantangan",
+          body: "Agent dengan tool, persetujuan manusia, dan otomasi yang tahan banting.",
+        },
+      ],
+    },
+    collection: {
+      eyebrow: "Pilih tantangan",
+      title: "Pilih tantangan berikutnya.",
+      body: "Pilih balon, bangun workflow-nya, lalu ambil balonnya setelah mentor menyetujui.",
+      openLabel: "Buka tantangan",
+      moreTitle: "Mau tantangan lagi?",
+      moreBody: "Masih ada ide lain buat dicoba, termasuk yang sedikit berbau alien. Buka tantangannya dan bikin sesuatu yang baru.",
+      complexityLabel: "Tingkat kesulitan",
+    },
+    contribute: {
+      kicker: "Untuk penyelenggara acara n8n",
+      title: "Bawa Balloon Challenges ke komunitasmu.",
+      body:
+        "Tambahkan acaramu lewat GitHub. Panduan kontribusinya menjelaskan tiap langkah, dan maintainer akan mengecek perubahannya sebelum tayang.",
+      button: "Tambahkan acaramu",
+      currentEventsKicker: "Acara terdekat",
+      allEvents: "Semua acara",
+    },
+    footer: "Dibuat untuk orang-orang penasaran yang belajar dengan cara membuat sesuatu jalan.",
+    footerContact: "Kontak",
   },
 };

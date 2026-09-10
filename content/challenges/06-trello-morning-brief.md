@@ -471,3 +471,53 @@ Si hay tarjetas abiertas, pero ninguna tiene etiqueta roja ni está vencida, añ
 - Додайте Filter, щоб залишити картки, у яких поле closed має значення false, а потім використайте Edit Fields (Set), щоб створити значення для пріоритету червоної мітки, порядку дат виконання, алфавітного порядку назв і ознаки терміновості картки.
 - Додайте Sort, щоб упорядкувати обчислені поля, а потім використайте Limit зі значенням 3 у Max Items і значенням First Items у Keep.
 - Завершіть воркфлоу нодою Aggregate, щоб об’єднати вибрані картки в один елемент, нодою Edit Fields (Set), щоб створити огляд і додаткове повідомлення, та нодою Telegram, щоб надіслати одне повідомлення. Перевірте випадки без термінових і без відкритих карток, а потім опублікуйте воркфлоу.
+
+# Indonesian
+
+## Title
+Ringkasan Pagimu
+
+## Summary
+Kirim tiga kartu Trello terbuka yang paling penting ke Telegram setiap pagi di hari kerja.
+
+## Concept
+Jadwal, aturan prioritas yang konsisten, pengolahan list, dan pengiriman pesan
+
+## Scenario
+- Tim kecil ingin ringkasan pagi yang bisa diandalkan, bukan mengecek setiap kartu Trello satu per satu.
+- Panitia acara butuh tiga tugas paling mendesak sebelum stand-up harian.
+- Tim relawan ingin pekerjaan yang lewat tenggat atau berlabel merah otomatis muncul tiap pagi hari kerja.
+
+## Task
+Setiap hari kerja jam 09:00 Europe/Madrid, kirim satu ringkasan pagi ke Telegram berisi maksimal tiga kartu terbuka teratas dari board Trello baru yang kamu buat. Kartu berlabel merah didahulukan, lalu pilih yang tenggatnya paling dekat.
+
+## Bonus Task
+Kalau ada kartu terbuka tapi tidak ada yang berlabel merah atau lewat tenggat, tambahkan "No urgent cards today" ke ringkasan sambil tetap menampilkan maksimal tiga kartu. Kalau tidak ada kartu terbuka sama sekali, kirim "No open cards today".
+
+## Nodes
+- Schedule Trigger
+- Trello
+- Filter
+- Edit Fields (Set)
+- Sort
+- Limit
+- Aggregate
+- Telegram
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah ada, lalu buat workflow baru.
+- Masuk ke [Trello](https://trello.com/) dan [buat board baru](https://support.atlassian.com/trello/docs/creating-a-new-board/) apa saja. Tambahkan minimal dua list dan lima kartu tes yang masih terbuka: satu kartu berlabel merah, beberapa kartu dengan tenggat berbeda, satu kartu yang sudah lewat tenggat, dan satu kartu tanpa tenggat. Buka board-nya, tambahkan `.json` di ujung URL-nya, lalu salin nilai `id` untuk dipakai di node Trello.
+- [Buat app Trello baru](https://trello.com/apps/admin/new), buka tab API Key, generate API key, lalu pilih Token dan setujui aksesnya untuk mendapatkan API token – kode rahasia yang bisa mengakses data Trello-mu. Tambahkan base URL n8n-mu sebagai allowed origin, simpan key dan token di [credential Trello di n8n](https://docs.n8n.io/integrations/builtin/credentials/trello/), dan jangan pernah bagikan token-nya.
+- Install [Telegram](https://telegram.org/), buat bot lewat [BotFather](https://t.me/botfather), lalu tambahkan token bot-nya ke [credential Telegram di n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token). Kirim pesan tes ke bot-nya dan catat chat ID yang akan menerima ringkasan.
+
+## Requirements
+- Jam 09:00 Europe/Madrid setiap hari kerja, workflow membaca kartu terbuka dari semua list di board Trello yang dibuat untuk tantangan ini.
+- Kartu berlabel merah di urutan pertama, lalu urutkan dari tenggat paling awal, kartu tanpa tenggat di paling akhir, tenggat yang sama diurutkan menurut abjad nama kartu, dan maksimal tiga kartu yang dikirim.
+- Kirim tepat satu pesan Telegram berisi nama tiap kartu terpilih, tenggatnya atau "No due date", dan URL-nya; kalau tidak ada kartu terbuka, kirim "No open cards today".
+
+## Tips
+- Mulai dari Schedule Trigger, pilih interval mingguan untuk Senin sampai Jumat jam 09:00, dan set timezone workflow ke Europe/Madrid. Kamu bisa klik Execute workflow untuk mencobanya manual sebelum dipublikasikan.
+- Tambahkan Trello dengan List → Get Many untuk board-mu, lalu node Trello kedua dengan List → Get Cards dan map ID list yang masuk supaya semua list ikut dicek.
+- Tambahkan Filter untuk menyimpan kartu yang field closed-nya false, lalu pakai Edit Fields (Set) untuk membuat nilai prioritas label merah, urutan tenggat, urutan abjad nama, dan apakah kartu itu mendesak.
+- Tambahkan Sort untuk mengurutkan berdasarkan field yang tadi dihitung, lalu pakai Limit dengan Max Items 3 dan Keep diset ke First Items.
+- Tutup dengan Aggregate untuk menggabungkan kartu terpilih jadi satu item, Edit Fields (Set) untuk menyusun ringkasan dan pesan bonus, dan Telegram untuk mengirim satu pesan. Coba kasus tidak ada kartu mendesak dan tidak ada kartu terbuka, lalu publikasikan workflow-nya.

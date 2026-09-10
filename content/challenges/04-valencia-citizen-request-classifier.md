@@ -1268,3 +1268,52 @@ Incluye en el email de confirmación una respuesta sugerida escrita en el mismo 
 - Підключіть Structured Output Parser – ноду, яка вимагає іменовані поля – і визначте category, priority та summary. Для додаткового воркфлоу також вимагайте suggestedReply мовою звернення з англійською як запасним варіантом.
 - Додайте Switch – ноду, яка надсилає дані відповідною гілкою – з виходами waste, noise, roads, parks і other. Підключіть кожен вихід до відповідної тестової адреси.
 - Завершіть нодами Send Email: надішліть початкове звернення й результат ШІ на адресу служби підтримки, об’єднайте п’ять гілок в окремому листі-підтвердженні відправнику, використайте ID виконання n8n як ID звернення та запустіть усі три тестові випадки.
+
+# Indonesian
+
+## Title
+Sampaikan Masalah Kota ke Orang yang Tepat
+
+## Summary
+Pakai model AI untuk memilah laporan warga berdasarkan topik dan urgensi, kirim ke tim yang bertanggung jawab, dan konfirmasi penerimaannya.
+
+## Concept
+Output AI terstruktur, percabangan, dan pengiriman email
+
+## Scenario
+- Meja layanan kota menerima laporan tentang berbagai layanan dan butuh pemilahan yang konsisten sebelum ditinjau.
+- Help desk acara ingin memisahkan pertanyaan soal aksesibilitas, venue, dan jadwal secara otomatis.
+- Inbox komunitas perlu mengenali laporan mendesak sebelum pesan-pesan rutin.
+
+## Task
+Meja layanan Valencia butuh setiap laporan yang masuk dikategorikan berdasarkan topik dan prioritas, diringkas untuk petugas, dikirim ke tim yang bertanggung jawab, dan dikonfirmasi dengan nomor referensi.
+
+## Bonus Task
+Sertakan usulan balasan, ditulis dalam bahasa yang sama dengan laporannya, di email konfirmasi. Kalau bahasanya tidak jelas, pakai bahasa Inggris.
+
+## Nodes
+- Form Trigger
+- Basic LLM Chain
+- OpenAI Chat Model
+- Structured Output Parser
+- Switch
+- Send Email
+
+## Preparation
+- [Daftar n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah ada, lalu buat workflow baru.
+- [Buat akun OpenAI](https://platform.openai.com/signup), [buat API key](https://platform.openai.com/api-keys), dan ikuti [petunjuk credential OpenAI di n8n](https://docs.n8n.io/integrations/builtin/credentials/openai/). Simpan key-nya hanya di credential n8n.
+- [Daftar Resend](https://resend.com/signup), lalu ikuti [petunjuk SMTP Resend](https://resend.com/docs/send-with-smtp) dan [petunjuk credential Send Email di n8n](https://docs.n8n.io/integrations/builtin/credentials/send-email/). Simpan API key Resend sebagai password SMTP, jangan pernah di dalam workflow.
+- Siapkan lima inbox atau alias uji yang sudah disetujui mentor dan petakan seperti ini: waste → `replace+waste@example.com`, noise → `replace+noise@example.com`, roads → `replace+roads@example.com`, parks → `replace+parks@example.com`, dan other → `replace+other@example.com`. Ganti semua placeholder sebelum uji coba dan pakai hanya alamat yang disetujui.
+- Siapkan laporan uji berikut: normal – “The rubbish bin on Calle de la Paz was not collected this morning.” harus menghasilkan waste/medium; mendesak – “A deep sinkhole has opened in the road and cars are swerving into oncoming traffic.” harus menghasilkan roads/high; ambigu – “Something near my street needs attention.” harus menghasilkan other/low. Jangan pakai data warga sungguhan.
+
+## Requirements
+- Setiap kiriman lengkap dengan name, email, dan request menghasilkan category, priority, dan summary; category hanya boleh waste, noise, roads, parks, atau other, dan priority hanya boleh low, medium, atau high. Laporan yang tidak jelas memakai other dan low, kecuali menyebutkan risiko yang mendesak.
+- Setiap category mengirim email dukungan ke alamat uji yang dipetakan untuknya, berisi kiriman asli, hasil AI, dan request ID.
+- Pengirim menerima email konfirmasi terpisah dengan request ID yang sama, dan ketiga laporan uji (normal, mendesak, ambigu) menghasilkan hasil yang sudah ditentukan.
+
+## Tips
+- Mulai dari Form Trigger – node yang membuat form publik – dan tambahkan field wajib name, email, dan request. Kirim satu entri uji supaya node berikutnya bisa melihat contoh datanya.
+- Lanjutkan dengan Basic LLM Chain dan pasang OpenAI Chat Model – node yang membaca laporannya. Di prompt, tentukan nilai yang diizinkan, aturan untuk laporan ambigu, dan tiga laporan uji tadi.
+- Sambungkan Structured Output Parser – node yang memaksa output punya field bernama – dan definisikan category, priority, dan summary. Untuk workflow bonus, wajibkan juga suggestedReply dalam bahasa laporannya dengan bahasa Inggris sebagai cadangan.
+- Tambahkan Switch – node yang mengarahkan data ke cabang yang cocok – dengan output untuk waste, noise, roads, parks, dan other. Sambungkan tiap output ke alamat uji yang sesuai.
+- Tutup dengan node Send Email: kirim laporan asli dan hasil AI ke alias dukungan, satukan kelima cabang ke satu email konfirmasi terpisah untuk pengirim, pakai execution ID n8n sebagai request ID, lalu jalankan ketiga laporan uji.

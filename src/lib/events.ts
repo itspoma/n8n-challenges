@@ -99,6 +99,27 @@ export const eventsPageCopy = {
       "Скопіюйте шаблон події, додайте публічні відомості та надішліть pull request. Обліковий запис або бекенд для керування подіями не потрібні.",
     contributeButton: "Додати подію",
   },
+  id: {
+    metadataTitle: "Acara komunitas",
+    metadataDescription: "Cari acara n8n Balloon Challenges yang diadakan komunitas.",
+    eyebrow: "Acara komunitas",
+    title: "Bangun workflow bareng, langsung ketemu.",
+    intro:
+      "Cari acara n8n Balloon Challenges, kenalan dengan builder lain, dan belajar otomasi lewat praktik.",
+    date: "Tanggal",
+    location: "Lokasi",
+    language: "Bahasa",
+    organizer: "Diselenggarakan oleh",
+    viewEvent: "Lihat acara",
+    openEventLabel: "Buka acara",
+    emptyTitle: "Belum ada acara yang terdaftar.",
+    emptyBody: "Penyelenggara bisa mengajukan acara pertama lewat GitHub.",
+    contributeKicker: "Untuk penyelenggara acara n8n",
+    contributeTitle: "Bawa Balloon Challenges ke komunitasmu.",
+    contributeBody:
+      "Salin template acara, isi detail publik acaramu, lalu kirim pull request. Tidak perlu akun atau backend pengelola acara.",
+    contributeButton: "Tambahkan acaramu",
+  },
 } satisfies Record<Locale, EventsPageCopy>;
 
 const eventDirectory = join(process.cwd(), "content", "events");

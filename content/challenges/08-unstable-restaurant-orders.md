@@ -1490,3 +1490,63 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 - У HTTP Request увімкніть Retry On Fail для тимчасових відповідей 429 і 500, дозвольте достатньо спроб для подолання випадкових збоїв і зачекайте щонайменше дві секунди з Retry-After перед новою спробою.
 - Під’єднайте Split Out, щоб перетворити масив data на окремі замовлення, а потім використайте IF для перевірки orderId, customer.email і числового totalCents; за допомогою Edit Fields (Set) сформуйте причину відхилення та запишіть обидві гілки до відповідних Data Table.
 - Для додаткового завдання розмістіть Loop Over Items і Wait навколо запису коректних замовлень, щоб контролювати розмір пакета, а потім використайте окремий воркфлоу з Error Trigger для збереження назви невдалого воркфлоу, URL виконання, повідомлення про помилку та даних останнього запиту після вичерпання повторних спроб.
+
+# Indonesian
+
+## Title
+Jaga Pesanan Restoran Tetap Jalan
+
+## Summary
+Selamatkan setiap pesanan restoran yang valid dari sebuah API dengan pagination – layanan yang mengembalikan hasil besar dalam halaman-halaman bernomor – meskipun API-nya membatasi request lewat rate limit atau tiba-tiba gagal.
+
+## Concept
+Pagination, retry, batching, validasi, data yang ditolak, dan penanganan error yang tahan banting
+
+## Glossary
+- API dengan pagination: Layanan yang memecah hasil besar menjadi halaman-halaman bernomor dan memberi tahu workflow apakah masih ada halaman berikutnya.
+- rate limit: Penolakan sementara yang dikirim layanan saat menerima terlalu banyak request; fixture ini memakai status HTTP 429.
+- retry: Percobaan ulang setelah sebuah request gagal untuk sementara.
+- batch terkontrol: Kelompok-kelompok kecil item yang diproses satu kelompok dalam satu waktu.
+- validasi: Pengecekan bahwa field yang wajib ada memang ada dan memakai tipe data yang aman sebelum sebuah record disimpan.
+- Retry-After: Header respons yang memberi tahu pemanggil harus menunggu berapa detik sebelum mencoba lagi.
+- Error Trigger: Node n8n yang menjalankan workflow error terpisah setelah workflow lain gagal.
+
+## Scenario
+- Platform pengantaran harus tetap bisa mengimpor pesanan meskipun API restorannya sedang tidak stabil.
+- Tim operasional butuh pesanan yang valid terus diproses tanpa kehilangan record yang ditolak.
+- Sinkronisasi tiap malam harus bisa pulih dari rate limit – penolakan sementara karena terlalu banyak request – tanpa menghasilkan data yang setengah jadi.
+
+## Task
+Ambil semua pesanan dari API yang disediakan, tetap bertahan saat ada gangguan sementara, lalu pisahkan pesanan yang valid dari data yang tidak aman untuk diproses.
+
+## Bonus Task
+Proses pesanan yang valid dalam batch terkontrol – kelompok kecil yang ditangani satu per satu – dan catat informasi diagnostik yang berguna kalau API masih gagal setelah semua retry habis.
+
+## Nodes
+- Manual Trigger
+- HTTP Request
+- Split Out
+- IF
+- Edit Fields (Set)
+- Loop Over Items
+- Wait
+- Data Table
+- Error Trigger
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah ada, lalu buat workflow baru.
+- Pakai [Unstable Restaurant Orders API](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5) milik acara ini. URL normal ini secara acak mengembalikan halaman yang sukses, respons rate limit 429, atau error server 500 yang bisa di-retry; jangan tambahkan parameter scenario selama membangun.
+- Buat Data Table bernama rescued_orders untuk pesanan valid, satu lagi bernama rejected_orders untuk data yang ditolak beserta alasan penolakannya, dan – untuk bonus – api_failure_diagnostics untuk detail saat retry sudah habis.
+- Tidak butuh akun eksternal, API key, atau credential lain. Saat review, mentor mungkin memakai kontrol tes deterministik dari penyedia API untuk memunculkan respons sukses, rate limit, dan error server.
+
+## Requirements
+- Ikuti informasi pagination dari API dan ambil semua 25 pesanan tanpa membuat request terpisah secara manual untuk tiap halaman.
+- Retry respons 429 dan 500 yang sifatnya sementara, simpan semua 24 pesanan valid, dan jangan sampai kehilangan pesanan yang sudah sukses sebelum request lain gagal.
+- Tolak ORD-1013, catat alasan validasi yang jelas, dan tunjukkan workflow-nya bekerja untuk respons sukses, rate limit, dan retry yang habis.
+
+## Tips
+- Mulai dari Manual Trigger supaya kamu bisa menjalankan proses penyelamatan ini dengan aman sambil membangun, dan memeriksa tiap eksekusi sebelum diotomatiskan.
+- Tambahkan HTTP Request dan periksa body respons, status code, header, dan objek pagination-nya; atur pagination supaya pagination.nextPage memberikan halaman berikutnya selama pagination.hasNext bernilai true.
+- Di HTTP Request, aktifkan Retry On Fail untuk respons 429 dan 500 yang sementara, beri cukup percobaan untuk gagal acak, dan tunggu minimal sesuai nilai Retry-After, yaitu dua detik, sebelum mencoba lagi.
+- Sambungkan Split Out untuk memecah array data menjadi pesanan satu per satu, lalu pakai IF untuk validasi orderId, customer.email, dan totalCents yang harus berupa angka; pakai Edit Fields (Set) untuk alasan penolakan dan tulis kedua cabangnya ke Data Table masing-masing.
+- Untuk bonus, apit penulisan pesanan valid dengan Loop Over Items dan Wait supaya ukuran batch terkendali, lalu pakai workflow Error Trigger terpisah untuk menyimpan nama workflow yang gagal, URL eksekusi, pesan error, dan detail request terakhir saat retry sudah habis.
