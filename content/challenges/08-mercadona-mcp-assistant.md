@@ -1,5 +1,5 @@
 ---
-number: 10
+number: 8
 slug: mercadona-mcp-assistant
 difficulty: advanced
 time: 60–75 min

@@ -216,7 +216,7 @@ Webhook triggers, query parameters, and browser responses
 The Valencia event team needs a web address that displays "Hello world from Valencia!" whenever someone opens it.
 
 ## Bonus Task
-Make the same address greet a visitor by name when their name is added to it – for example, "Hello Ana from Valencia!"
+Make the greeting personal. If someone adds `?name=Ana` to the address, it should show **“Hello Ana from Valencia!”**
 
 ## Nodes
 - Webhook
@@ -270,7 +270,7 @@ Triggers Webhook, parámetros de consulta y respuestas para el navegador
 El equipo de eventos de Valencia necesita una dirección web que muestre "Hello world from Valencia!" cada vez que alguien la abra.
 
 ## Bonus Task
-Haz que esa misma dirección salude a cada visitante por su nombre cuando se añada el nombre; por ejemplo, "Hello Ana from Valencia!"
+Personaliza el saludo. Si alguien añade `?name=Ana` a la dirección, debe mostrar **“Hello Ana from Valencia!”**
 
 ## Nodes
 - Webhook
@@ -324,7 +324,7 @@ Webhook-тригери, параметри запиту та відповіді 
 Команді подій у Валенсії потрібна вебадреса, яка показує "Hello world from Valencia!" щоразу, коли хтось її відкриває.
 
 ## Bonus Task
-Зробіть так, щоб ця сама адреса вітала відвідувача на ім’я, коли до неї додано ім’я, наприклад "Hello Ana from Valencia!"
+Зробіть привітання особистим. Якщо хтось додасть `?name=Ana` до адреси, вона має показати **“Hello Ana from Valencia!”**
 
 ## Nodes
 - Webhook

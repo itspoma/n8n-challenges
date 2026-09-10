@@ -298,10 +298,12 @@ Chat triggers, HTTP requests, and data filtering
 - Residents could use the same workflow pattern to request information from Valencia Open Data's nearly 300 public datasets through a familiar messaging app such as Telegram or WhatsApp.
 
 ## Task
-The Valencia event team needs a Telegram bot that answers each text message with the latest air-quality report for VALÈNCIA CENTRE.
+Create a Telegram bot that answers the question: **“What is the air quality in central Valencia right now?”**
+
+Whenever someone sends the bot a text message, fetch the latest reading for the **VALÈNCIA CENTRE** monitoring station. Reply in the same chat with the station’s address, the date of the reading, its air-quality rating and all available NO₂, PM10 and PM2.5 measurements. Check the data again for every new message.
 
 ## Bonus Task
-Add ✅ when the calidad_ambiental status is Buena or Razonablemente Buena; otherwise add ⚠️ so the result is easy to understand at a glance.
+Add ✅ when the rating is **Buena** or **Razonablemente Buena**, and ⚠️ for any other rating.
 
 ## Nodes
 - Telegram Trigger
@@ -345,10 +347,12 @@ Triggers de chat, peticiones HTTP y filtrado de datos
 - El mismo patrón de workflow puede ofrecer información de cualquiera de los casi 300 conjuntos de datos públicos adecuados de Valencia Open Data mediante una aplicación de mensajería conocida, como Telegram o WhatsApp.
 
 ## Task
-El equipo de eventos de Valencia necesita un bot de Telegram que responda a cada mensaje de texto con el informe más reciente sobre la calidad del aire de VALÈNCIA CENTRE.
+Crea un bot de Telegram que responda a la pregunta: **“¿Cuál es la calidad del aire en el centro de Valencia ahora mismo?”**
+
+Cada vez que alguien envíe un mensaje de texto al bot, consulta la última medición de la estación **VALÈNCIA CENTRE**. Responde en el mismo chat con la dirección de la estación, la fecha de la medición, su valoración de calidad del aire y todas las mediciones disponibles de NO₂, PM10 y PM2.5. Vuelve a consultar los datos con cada mensaje nuevo.
 
 ## Bonus Task
-Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; en caso contrario, añade ⚠️ para que el resultado se entienda de un vistazo.
+Añade ✅ cuando la valoración sea **Buena** o **Razonablemente Buena**, y ⚠️ para cualquier otra valoración.
 
 ## Nodes
 - Telegram Trigger
@@ -392,10 +396,12 @@ Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; 
 - За тим самим шаблоном воркфлоу мешканці могли б запитувати інформацію з майже 300 відкритих наборів даних Valencia Open Data через знайомий месенджер, як-от Telegram або WhatsApp.
 
 ## Task
-Команді подій Валенсії потрібен Telegram-бот, який відповідатиме на кожне текстове повідомлення найсвіжішим звітом про якість повітря для VALÈNCIA CENTRE.
+Створіть Telegram-бота, який відповідає на запитання: **«Яка якість повітря в центрі Валенсії зараз?»**
+
+Щоразу, коли хтось надсилає боту текстове повідомлення, отримуйте найсвіжіші дані станції моніторингу **VALÈNCIA CENTRE**. Відповідайте в тому самому чаті, вказуючи адресу станції, дату вимірювання, оцінку якості повітря та всі доступні вимірювання NO₂, PM10 і PM2.5. Перевіряйте дані заново для кожного нового повідомлення.
 
 ## Bonus Task
-Додайте ✅, коли статус calidad_ambiental має значення Buena або Razonablemente Buena; в інших випадках додайте ⚠️, щоб результат було легко зрозуміти з першого погляду.
+Додайте ✅, коли оцінка – **Buena** або **Razonablemente Buena**, і ⚠️ для будь-якої іншої оцінки.
 
 ## Nodes
 - Telegram Trigger

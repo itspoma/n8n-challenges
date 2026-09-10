@@ -1,5 +1,5 @@
 ---
-number: 7
+number: 6
 slug: ai-workflow-builder
 difficulty: intermediate
 time: 30–45 min
@@ -25,7 +25,9 @@ Build, inspect, and improve a complete publishing automation with an external AI
 - Automate personal routines or team processes by describing the outcome, without going into node configuration details.
 
 ## Task
-Use only ChatGPT or Claude to create and run a workflow that generates a short article from your topic and saves it as a WordPress.com draft. Do not open the n8n web app or manually create, edit, connect, or run nodes. Give every workflow instruction through the AI chatbot.
+Use only ChatGPT or Claude to create and run a workflow that generates a short article from your topic and saves it as a WordPress.com draft.
+
+Your accounts and connections must be ready before starting. During the challenge, give every workflow instruction through the chatbot. Do not open the n8n editor or manually create, change, connect or run its nodes. Check WordPress.com to confirm that the draft was created.
 
 ## Bonus Task
 Ask your chatbot to generate a catchy headline and one image, add the image as the article header, and publish the finished article on your WordPress.com blog.
@@ -87,7 +89,9 @@ Crear, revisar y mejorar una automatización completa de publicación con un asi
 - Automatiza rutinas personales o procesos del equipo describiendo el resultado, sin entrar en detalles de configuración.
 
 ## Task
-Usa solo ChatGPT o Claude para crear y ejecutar un workflow que genere un artículo corto a partir de tu tema y lo guarde como borrador en WordPress.com. No abras la aplicación web de n8n ni crees, edites, conectes o ejecutes nodos manualmente. Da todas las instrucciones a través del chatbot.
+Usa solo ChatGPT o Claude para crear y ejecutar un workflow que genere un artículo corto a partir de tu tema y lo guarde como borrador en WordPress.com.
+
+Tus cuentas y conexiones deben estar listas antes de empezar. Durante el reto, da todas las instrucciones del workflow a través del chatbot. No abras el editor de n8n ni crees, modifiques, conectes o ejecutes sus nodos manualmente. Comprueba en WordPress.com que se haya creado el borrador.
 
 ## Bonus Task
 Pide al chatbot que genere un titular atractivo y una imagen, coloque la imagen como cabecera del artículo y publique el resultado en tu blog de WordPress.com.
@@ -149,7 +153,9 @@ Para tareas personales o de equipo repetibles que conectan servicios, como escri
 - Автоматизуй особисті справи чи процеси команди, описуючи результат без деталей налаштування нод.
 
 ## Task
-Використовуй лише ChatGPT або Claude, щоб створити й запустити воркфлоу, який генерує коротку статтю за твоєю темою та зберігає чернетку у WordPress.com. Не відкривай вебзастосунок n8n і не створюй, не редагуй, не з’єднуй та не запускай ноди вручну. Усі інструкції давай через ШІ-чатбот.
+Використовуй лише ChatGPT або Claude, щоб створити й запустити воркфлоу, який генерує коротку статтю за твоєю темою та зберігає чернетку у WordPress.com.
+
+Твої акаунти та підключення мають бути готові до початку. Під час завдання давай всі інструкції для воркфлоу через чатбот. Не відкривай редактор n8n і не створюй, не змінюй, не з’єднуй та не запускай його ноди вручну. Перевір у WordPress.com, що чернетку створено.
 
 ## Bonus Task
 Попроси чатбот згенерувати влучний заголовок та одне зображення, додати його на початок статті й опублікувати результат у блозі WordPress.com.

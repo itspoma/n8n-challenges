@@ -1139,7 +1139,7 @@ Structured AI output, branching, and email delivery
 - A community inbox needs to identify urgent requests before routine messages.
 
 ## Task
-Valencia's service desk needs every submitted request categorized by topic and priority, summarized for staff, sent to the responsible team, and acknowledged with a reference number.
+Build a form for people to submit requests to Valencia’s service desk. Every submitted request must be categorized by topic and priority, summarized for staff, sent to the responsible team, and acknowledged with a reference number.
 
 ## Bonus Task
 Include a suggested reply, written in the same language as the request, in the confirmation email. If the language is unclear, use English.
@@ -1188,7 +1188,7 @@ Salida estructurada de IA, ramificación y envío de emails
 - Un buzón comunitario necesita identificar solicitudes urgentes antes que los mensajes rutinarios.
 
 ## Task
-El servicio de atención de Valencia necesita que cada solicitud recibida se clasifique por tema y prioridad, se resuma para el personal, se envíe al equipo responsable y se confirme con un número de referencia.
+Crea un formulario para enviar solicitudes al servicio de atención de Valencia. Cada solicitud recibida debe clasificarse por tema y prioridad, resumirse para el personal, enviarse al equipo responsable y confirmarse con un número de referencia.
 
 ## Bonus Task
 Incluye en el email de confirmación una respuesta sugerida escrita en el mismo idioma que la solicitud. Si el idioma no está claro, usa inglés.
@@ -1237,7 +1237,7 @@ Incluye en el email de confirmación una respuesta sugerida escrita en el mismo 
 - Скринька спільноти має визначати термінові звернення раніше за звичайні повідомлення.
 
 ## Task
-Службі підтримки Валенсії потрібно, щоб кожне отримане звернення було класифіковане за темою та пріоритетом, стисло описане для працівників, надіслане відповідальній команді й підтверджене довідковим номером.
+Створіть форму для надсилання звернень до служби підтримки Валенсії. Кожне отримане звернення потрібно класифікувати за темою та пріоритетом, стисло описати для працівників, надіслати відповідальній команді й підтвердити довідковим номером.
 
 ## Bonus Task
 Додайте до листа-підтвердження запропоновану відповідь тією самою мовою, якою написано звернення. Якщо мову визначити неможливо, використайте англійську.

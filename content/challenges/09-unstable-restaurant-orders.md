@@ -1,5 +1,5 @@
 ---
-number: 8
+number: 9
 slug: unstable-restaurant-orders
 difficulty: advanced
 time: 45–60 min

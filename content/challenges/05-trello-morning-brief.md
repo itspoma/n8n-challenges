@@ -1,5 +1,5 @@
 ---
-number: 6
+number: 5
 slug: trello-morning-brief
 difficulty: intermediate
 time: 30–40 min

@@ -42,10 +42,12 @@ n8n Forms, validation, and Data Tables
 - A volunteer group needs to save valid help requests while giving invalid submissions clear feedback.
 
 ## Task
-The event team needs a public contact form that saves only usable submissions and clearly tells each visitor whether their message was accepted.
+Create a public contact form with three required fields: **name, email and message**.
+
+If a field is missing or the email address has an invalid format, tell the visitor what to fix. Save valid submissions in an n8n Data Table, removing extra spaces and making email addresses lowercase. Include the name, email, message, status **new** and submission time. Show the visitor a confirmation after saving.
 
 ## Bonus Task
-After accepting a valid submission, notify the organizers by email through Resend.
+After accepting a valid submission, notify the organizers by email through Resend. Use your own personal email address as the recipient, pretending it is the organizers’ email address.
 
 ## Nodes
 - Form Trigger
@@ -60,19 +62,19 @@ After accepting a valid submission, notify the organizers by email through Resen
 - Create an [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) named event_leads with name, email, message, and status columns. n8n adds createdAt automatically.
 - No third-party account is required for the core challenge.
 - Bonus: install the [n8n-verified Resend node](https://n8n.io/integrations/resend/) and [sign up for Resend](https://resend.com/signup).
-- Bonus: [create a Resend API key](https://resend.com/docs/dashboard/api-keys/introduction). This is the secret code Resend uses to authorize a connection. Save it in an n8n credential, [verify a sending domain](https://resend.com/docs/dashboard/domains/introduction), choose an organizer-approved recipient for testing, and never paste the API key into the workflow.
+- Bonus: [create a Resend API key](https://resend.com/docs/dashboard/api-keys/introduction). This is the secret code Resend uses to authorize a connection. Save it in an n8n credential, [verify a sending domain](https://resend.com/docs/dashboard/domains/introduction), use your own personal email address as the organizer recipient for testing, and never paste the API key into the workflow.
 
 ## Requirements
 - A visitor cannot submit missing fields, and an invalid email address produces a clear correction message.
 - A valid submission is normalized, saved with name, email, message, status set to new, and the automatic createdAt timestamp, then followed by a clear success message.
-- Bonus: a valid saved submission sends a text-only notification from a verified sender to an organizer-approved address; invalid submissions are neither stored nor emailed.
+- Bonus: a valid saved submission sends a text-only notification from a verified sender to your own personal email address; invalid submissions are neither stored nor emailed.
 
 ## Tips
 - Start with Form Trigger: create the public form and make name, email, and message required. Keep email as a text field so the workflow can demonstrate its own validation message.
 - Add Edit Fields (Set) next: trim name and message, lowercase email, set status to new, and calculate isValidEmail with an expression.
 - Add IF third: check isValidEmail and send valid submissions to the true output and invalid submissions to the false output.
 - Connect Data Table to IF's true output, insert the clean fields into event_leads, and finish each IF branch with its own n8n Form set to Form Ending.
-- For the bonus, connect Resend after Data Table, select the saved credential, use a verified sender and organizer-approved recipient, send text only, then connect it to the success n8n Form.
+- For the bonus, connect Resend after Data Table, select the saved credential, use a verified sender and your own personal email address as the recipient, send text only, then connect it to the success n8n Form.
 
 # Spanish
 
@@ -108,10 +110,12 @@ Formularios de n8n, validación y Data Tables
 - Un grupo de voluntariado necesita guardar solicitudes válidas y dar una respuesta clara a los envíos inválidos.
 
 ## Task
-El equipo del evento necesita un formulario público que guarde solo los envíos útiles y explique claramente a cada persona si su mensaje ha sido aceptado.
+Crea un formulario público de contacto con tres campos obligatorios: **nombre, email y mensaje**.
+
+Si falta un campo o el email tiene un formato inválido, indica al visitante qué debe corregir. Guarda los envíos válidos en una n8n Data Table, eliminando los espacios sobrantes y convirtiendo los emails a minúsculas. Incluye el nombre, el email, el mensaje, el estado **new** y la fecha y hora del envío. Muestra una confirmación al visitante después de guardar.
 
 ## Bonus Task
-Después de aceptar un envío válido, avisa por email al equipo organizador mediante Resend.
+Después de aceptar un envío válido, avisa por email al equipo organizador mediante Resend. Usa tu propia dirección de email personal como destinatario, imaginando que es la del equipo organizador.
 
 ## Nodes
 - Form Trigger
@@ -126,19 +130,19 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Crea una [Data Table de n8n](https://docs.n8n.io/build/work-with-data/data-tables) llamada event_leads con las columnas name, email, message y status. n8n añade createdAt automáticamente.
 - No necesitas una cuenta de terceros para el reto principal.
 - Bonus: instala el [nodo Resend verificado por n8n](https://n8n.io/integrations/resend/) y [regístrate en Resend](https://resend.com/signup).
-- Bonus: [crea una API key de Resend](https://resend.com/docs/dashboard/api-keys/introduction). Es el código secreto que Resend usa para autorizar una conexión. Guárdala en una credencial de n8n, [verifica un dominio de envío](https://resend.com/docs/dashboard/domains/introduction), elige una dirección aprobada por el equipo organizador para las pruebas y no pegues nunca la API key en el workflow.
+- Bonus: [crea una API key de Resend](https://resend.com/docs/dashboard/api-keys/introduction). Es el código secreto que Resend usa para autorizar una conexión. Guárdala en una credencial de n8n, [verifica un dominio de envío](https://resend.com/docs/dashboard/domains/introduction), usa tu propia dirección de email personal como destinatario del equipo organizador para las pruebas y no pegues nunca la API key en el workflow.
 
 ## Requirements
 - No se puede enviar el formulario con campos vacíos y un email inválido muestra un mensaje claro para corregirlo.
 - Un envío válido se normaliza, se guarda con name, email, message, status con el valor new y el timestamp createdAt automático, y después muestra un mensaje claro de éxito.
-- Bonus: un envío válido ya guardado manda una notificación de texto desde un remitente verificado a una dirección aprobada por el equipo; los envíos inválidos no se guardan ni envían emails.
+- Bonus: un envío válido ya guardado manda una notificación de texto desde un remitente verificado a tu propia dirección de email personal; los envíos inválidos no se guardan ni envían emails.
 
 ## Tips
 - Empieza con Form Trigger: crea el formulario público y haz obligatorios name, email y message. Mantén email como campo de texto para que el workflow pueda mostrar su propio mensaje de validación.
 - Añade después Edit Fields (Set): elimina espacios de name y message, convierte email a minúsculas, asigna new a status y calcula isValidEmail con una expresión.
 - Añade IF en tercer lugar: comprueba isValidEmail y envía los datos válidos por la salida true y los inválidos por la salida false.
 - Conecta Data Table a la salida true de IF, inserta los campos limpios en event_leads y termina cada rama de IF con su propio n8n Form configurado como Form Ending.
-- Para el bonus, conecta Resend después de Data Table, selecciona la credencial guardada, usa un remitente verificado y una dirección aprobada, envía solo texto y conéctalo después al n8n Form de éxito.
+- Para el bonus, conecta Resend después de Data Table, selecciona la credencial guardada, usa un remitente verificado y tu propia dirección de email personal, envía solo texto y conéctalo después al n8n Form de éxito.
 
 # Ukrainian
 
@@ -174,10 +178,12 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Волонтерській групі потрібно зберігати коректні запити та давати зрозумілу відповідь на некоректні заявки.
 
 ## Task
-Команді події потрібна публічна контактна форма, яка зберігає лише придатні заявки та чітко повідомляє кожному відвідувачу, чи прийнято його повідомлення.
+Створіть публічну контактну форму з трьома обов’язковими полями: **ім’я, електронна адреса та повідомлення**.
+
+Якщо поле не заповнене або формат електронної адреси некоректний, поясніть відвідувачу, що виправити. Зберігайте коректні заявки в n8n Data Table, прибираючи зайві пробіли та переводячи електронні адреси в нижній регістр. Додайте ім’я, електронну адресу, повідомлення, статус **new** та час надсилання. Після збереження покажіть відвідувачу підтвердження.
 
 ## Bonus Task
-Після прийняття коректної заявки повідомте організаторів електронною поштою через Resend.
+Після прийняття коректної заявки повідомте організаторів електронною поштою через Resend. Використайте власну особисту електронну адресу як адресу отримувача, уявляючи, що це адреса організаторів.
 
 ## Nodes
 - Form Trigger
@@ -192,19 +198,19 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Створіть [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) з назвою event_leads і стовпцями name, email, message та status. n8n додає createdAt автоматично.
 - Для основного завдання сторонній обліковий запис не потрібен.
 - Додатково: установіть [перевірену n8n ноду Resend](https://n8n.io/integrations/resend/) і [зареєструйтеся в Resend](https://resend.com/signup).
-- Додатково: [створіть API-ключ Resend](https://resend.com/docs/dashboard/api-keys/introduction). Це секретний код, яким Resend авторизує підключення. Збережіть його як облікові дані n8n, [підтвердьте домен відправника](https://resend.com/docs/dashboard/domains/introduction), виберіть схвалену організаторами адресу для тестування та ніколи не вставляйте API-ключ у воркфлоу.
+- Додатково: [створіть API-ключ Resend](https://resend.com/docs/dashboard/api-keys/introduction). Це секретний код, яким Resend авторизує підключення. Збережіть його як облікові дані n8n, [підтвердьте домен відправника](https://resend.com/docs/dashboard/domains/introduction), використайте власну особисту електронну адресу як адресу організаторів для тестування та ніколи не вставляйте API-ключ у воркфлоу.
 
 ## Requirements
 - Форму не можна надіслати з порожніми полями, а некоректна електронна адреса показує зрозуміле повідомлення для виправлення.
 - Коректна заявка нормалізується, зберігається з полями name, email, message, status зі значенням new та автоматичною часовою міткою createdAt, після чого показується зрозуміле повідомлення про успіх.
-- Додатково: збережена коректна заявка надсилає текстове сповіщення від підтвердженого відправника на схвалену організаторами адресу; некоректні заявки не зберігаються й не надсилаються електронною поштою.
+- Додатково: збережена коректна заявка надсилає текстове сповіщення від підтвердженого відправника на власну особисту електронну адресу; некоректні заявки не зберігаються й не надсилаються електронною поштою.
 
 ## Tips
 - Почніть із Form Trigger: створіть публічну форму та зробіть поля name, email і message обов’язковими. Залиште email текстовим полем, щоб воркфлоу міг показати власне повідомлення валідації.
 - Далі додайте Edit Fields (Set): приберіть зайві пробіли з name і message, переведіть email у нижній регістр, задайте status значення new та обчисліть isValidEmail за допомогою виразу.
 - Третім додайте IF: перевірте isValidEmail і спрямуйте коректні дані на вихід true, а некоректні на вихід false.
 - Під’єднайте Data Table до виходу true ноди IF, додайте чисті поля до event_leads і завершіть кожну гілку IF окремою нодою n8n Form з налаштуванням Form Ending.
-- Для додаткового завдання під’єднайте Resend після Data Table, виберіть збережені облікові дані, використайте підтвердженого відправника та схвалену адресу, надішліть лише текст і потім під’єднайте успішну n8n Form.
+- Для додаткового завдання під’єднайте Resend після Data Table, виберіть збережені облікові дані, використайте підтвердженого відправника та власну особисту електронну адресу, надішліть лише текст і потім під’єднайте успішну n8n Form.
 
 # Solution Data
 

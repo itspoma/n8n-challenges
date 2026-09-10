@@ -11,7 +11,6 @@ import { mainChallenges, moreChallenges, difficultyLabels } from "@/lib/challeng
 import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
 import { homeCopy, type Locale } from "@/lib/home-copy";
 
-const difficultyOrder = { beginner: 0, intermediate: 1, advanced: 2 };
 const balloonColorNames: Record<string, Record<Locale, string>> = {
   "#fffdf6": { en: "White", es: "Blanco", uk: "Білий" },
   "#e84d49": { en: "Red", es: "Rojo", uk: "Червоний" },
@@ -25,18 +24,6 @@ const balloonColorNames: Record<string, Record<Locale, string>> = {
   "#040506": { en: "Black", es: "Negro", uk: "Чорний" },
   "#c6c9c7": { en: "Grey", es: "Gris", uk: "Сірий" },
 };
-const advancedOrder: Record<string, number> = {
-  "mercadona-mcp-assistant": 0,
-  "unstable-restaurant-orders": 1,
-  "google-drive-rag": 2,
-};
-const orderedChallenges = [...mainChallenges].sort(
-  (left, right) => difficultyOrder[left.difficulty] - difficultyOrder[right.difficulty]
-    || (left.difficulty === "advanced"
-      ? (advancedOrder[left.slug] ?? Infinity) - (advancedOrder[right.slug] ?? Infinity)
-      : 0)
-    || left.number - right.number,
-);
 
 function ArrowIcon() {
   return (
@@ -164,7 +151,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
 
         <ol className="balloon-collection" aria-label={copy.accessibility.balloonCollection}>
-          {orderedChallenges.map((challenge) => (
+          {mainChallenges.map((challenge) => (
             <li
               id={`challenge-${challenge.slug}`}
               key={challenge.slug}
@@ -252,7 +239,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               return {
                 ...level,
                 difficulty,
-                challenges: orderedChallenges
+                challenges: mainChallenges
                   .filter((challenge) => challenge.difficulty === difficulty)
                   .map((challenge) => ({
                     color: challenge.color,

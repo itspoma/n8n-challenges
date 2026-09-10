@@ -1,5 +1,5 @@
 ---
-number: 9
+number: 7
 slug: idealista-morning-brief
 difficulty: intermediate
 time: 45–60 min

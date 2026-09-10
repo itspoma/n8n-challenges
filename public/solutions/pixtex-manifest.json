@@ -67,35 +67,35 @@
     },
     "google-drive-rag-core-dark.png": {
       "hash": "d25e1e6ea85ba745b2c62b8869633bcb3b67a927e01058c0ab9e8045d2b4d828",
-      "source": "content/challenges/05-google-drive-rag.md"
+      "source": "content/challenges/10-google-drive-rag.md"
     },
     "google-drive-rag-core-light.png": {
       "hash": "0f2ea0da10b1d797ef7dc202a74acdb50c70e4827866c3d6a3b8ef2f9d769c6b",
-      "source": "content/challenges/05-google-drive-rag.md"
+      "source": "content/challenges/10-google-drive-rag.md"
     },
     "google-drive-rag-bonus-dark.png": {
       "hash": "1de5343e1210b58b64158da03da99387b1e9d1771647321397b3dabafcd0b122",
-      "source": "content/challenges/05-google-drive-rag.md"
+      "source": "content/challenges/10-google-drive-rag.md"
     },
     "google-drive-rag-bonus-light.png": {
       "hash": "15b18579085e0e37370c3defd145b03361436aef21b23d1e1fb5dc572aa78d0d",
-      "source": "content/challenges/05-google-drive-rag.md"
+      "source": "content/challenges/10-google-drive-rag.md"
     },
     "trello-morning-brief-core-dark.png": {
       "hash": "7f78d6466e9fa97e3d4f9af31f7c7d237250d1c36035b568c2061a22b40457fb",
-      "source": "content/challenges/06-trello-morning-brief.md"
+      "source": "content/challenges/05-trello-morning-brief.md"
     },
     "trello-morning-brief-core-light.png": {
       "hash": "aa08cc675dfe5bfca7d01d49cd53db5f49dff8537b505b65939ada77867ed34f",
-      "source": "content/challenges/06-trello-morning-brief.md"
+      "source": "content/challenges/05-trello-morning-brief.md"
     },
     "trello-morning-brief-bonus-dark.png": {
       "hash": "b2ea998159eac32277db42a4bec4769e523db407bf4fc9df782da6fc293fb1d4",
-      "source": "content/challenges/06-trello-morning-brief.md"
+      "source": "content/challenges/05-trello-morning-brief.md"
     },
     "trello-morning-brief-bonus-light.png": {
       "hash": "95d2705982e1c9e54751755387d70ab4ab1170990de6c59718f9c3c4267dbc27",
-      "source": "content/challenges/06-trello-morning-brief.md"
+      "source": "content/challenges/05-trello-morning-brief.md"
     },
     "alien-translator-core-dark.png": {
       "hash": "d8b2f992b3ea22b4070541e06788c9c3722a88a8c340f597144f7c0ecbdf2290",
@@ -115,51 +115,51 @@
     },
     "idealista-morning-brief-core-dark.png": {
       "hash": "18d7a33526f5a488c7e554c054c43dbfadbdca331e002331664dc2b05605c228",
-      "source": "content/challenges/09-idealista-morning-brief.md"
+      "source": "content/challenges/07-idealista-morning-brief.md"
     },
     "idealista-morning-brief-core-light.png": {
       "hash": "591e0c31eab8eb54fcea45c0ab7ec654b3ba71dcc5289510f89d6a55a8aea307",
-      "source": "content/challenges/09-idealista-morning-brief.md"
+      "source": "content/challenges/07-idealista-morning-brief.md"
     },
     "idealista-morning-brief-bonus-dark.png": {
       "hash": "adeae1fb9ce7eb7f1655adb8d0823e8601a359a23df498640a911398408b666b",
-      "source": "content/challenges/09-idealista-morning-brief.md"
+      "source": "content/challenges/07-idealista-morning-brief.md"
     },
     "idealista-morning-brief-bonus-light.png": {
       "hash": "319021441b7c86222ecc5104c694ee1c8db6b320ee72209c16505668d3c686b9",
-      "source": "content/challenges/09-idealista-morning-brief.md"
+      "source": "content/challenges/07-idealista-morning-brief.md"
     },
     "mercadona-mcp-assistant-core-dark.png": {
       "hash": "c88fbae5d234987433460eb6ee38baf86aa814acb55a83e3b5f42c02161f6964",
-      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+      "source": "content/challenges/08-mercadona-mcp-assistant.md"
     },
     "mercadona-mcp-assistant-core-light.png": {
       "hash": "fbba71ff45e24e7e3a9d4d00ebbbb656c4c67528a4f8a12bcd2595fa3fbf396a",
-      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+      "source": "content/challenges/08-mercadona-mcp-assistant.md"
     },
     "mercadona-mcp-assistant-bonus-dark.png": {
       "hash": "4d7a8687a9f88e96d9d13313b93f49a2e738b6a0c07183eb06a1ac166eb62271",
-      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+      "source": "content/challenges/08-mercadona-mcp-assistant.md"
     },
     "mercadona-mcp-assistant-bonus-light.png": {
       "hash": "9cff0e100fc381d824815a527fac5ad63c3df59de6dd047863c48ba721f1c71f",
-      "source": "content/challenges/10-mercadona-mcp-assistant.md"
+      "source": "content/challenges/08-mercadona-mcp-assistant.md"
     },
     "unstable-restaurant-orders-core-dark.png": {
       "hash": "c40650cbf2bf8d331addad8d5c1a0a8f40404bd2d6be326f0609afa3aa4e83cd",
-      "source": "content/challenges/08-unstable-restaurant-orders.md"
+      "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-core-light.png": {
       "hash": "7f8ff751747e1dc29e9f6d803362e0c37110360cdda0b23bdc4827784f5f1f5e",
-      "source": "content/challenges/08-unstable-restaurant-orders.md"
+      "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-bonus-dark.png": {
       "hash": "001d88295bc527f31259a19558db811f926668f9d0efd70eeca408d958f40f81",
-      "source": "content/challenges/08-unstable-restaurant-orders.md"
+      "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-bonus-light.png": {
       "hash": "fc43c46a33da31c82dbb5ec309f0a6627650f5fc12ebe15d9a553b6f695863f3",
-      "source": "content/challenges/08-unstable-restaurant-orders.md"
+      "source": "content/challenges/09-unstable-restaurant-orders.md"
     }
   }
 }
