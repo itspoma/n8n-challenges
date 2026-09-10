@@ -13,17 +13,17 @@ import { homeCopy, type Locale } from "@/lib/home-copy";
 
 const difficultyOrder = { beginner: 0, intermediate: 1, advanced: 2 };
 const balloonColorNames: Record<string, Record<Locale, string>> = {
-  "#fffdf6": { en: "White", es: "Blanco", uk: "Білий" },
-  "#e84d49": { en: "Red", es: "Rojo", uk: "Червоний" },
-  "#f7cb55": { en: "Yellow", es: "Amarillo", uk: "Жовтий" },
-  "#ff8a55": { en: "Orange", es: "Naranja", uk: "Помаранчевий" },
-  "#244a9b": { en: "Dark blue", es: "Azul oscuro", uk: "Темно-синій" },
-  "#8dcef0": { en: "Light blue", es: "Azul claro", uk: "Блакитний" },
-  "#a9d96c": { en: "Green", es: "Verde", uk: "Зелений" },
-  "#9b83d7": { en: "Purple", es: "Morado", uk: "Фіолетовий" },
-  "#ea4b71": { en: "Pink", es: "Rosa", uk: "Рожевий" },
-  "#040506": { en: "Black", es: "Negro", uk: "Чорний" },
-  "#c6c9c7": { en: "Grey", es: "Gris", uk: "Сірий" },
+  "#fffdf6": { en: "White", es: "Blanco", uk: "Білий", id: "Putih" },
+  "#e84d49": { en: "Red", es: "Rojo", uk: "Червоний", id: "Merah" },
+  "#f7cb55": { en: "Yellow", es: "Amarillo", uk: "Жовтий", id: "Kuning" },
+  "#ff8a55": { en: "Orange", es: "Naranja", uk: "Помаранчевий", id: "Oranye" },
+  "#244a9b": { en: "Dark blue", es: "Azul oscuro", uk: "Темно-синій", id: "Biru tua" },
+  "#8dcef0": { en: "Light blue", es: "Azul claro", uk: "Блакитний", id: "Biru muda" },
+  "#a9d96c": { en: "Green", es: "Verde", uk: "Зелений", id: "Hijau" },
+  "#9b83d7": { en: "Purple", es: "Morado", uk: "Фіолетовий", id: "Ungu" },
+  "#ea4b71": { en: "Pink", es: "Rosa", uk: "Рожевий", id: "Merah muda" },
+  "#040506": { en: "Black", es: "Negro", uk: "Чорний", id: "Hitam" },
+  "#c6c9c7": { en: "Grey", es: "Gris", uk: "Сірий", id: "Abu-abu" },
 };
 const advancedOrder: Record<string, number> = {
   "mercadona-mcp-assistant": 0,

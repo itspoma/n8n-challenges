@@ -11,23 +11,29 @@ const openGraphLocales = {
   en: "en_US",
   es: "es_ES",
   uk: "uk_UA",
+  id: "id_ID",
 } satisfies Record<string, string>;
 
 const homeMetadata = {
   en: {
     title: "Hands-on n8n Automation Challenges",
     description:
-      "Build 10 hands-on n8n automation challenges with webhooks, APIs, AI, and data. Available in English, Spanish, and Ukrainian.",
+      "Build 10 hands-on n8n automation challenges with webhooks, APIs, AI, and data. Available in English, Spanish, Ukrainian, and Indonesian.",
   },
   es: {
     title: "Retos prácticos de automatización con n8n",
     description:
-      "Resuelve 10 retos prácticos de automatización con n8n, webhooks, APIs, IA y datos. Disponibles en inglés, español y ucraniano.",
+      "Resuelve 10 retos prácticos de automatización con n8n, webhooks, APIs, IA y datos. Disponibles en inglés, español, ucraniano e indonesio.",
   },
   uk: {
     title: "Практичні завдання з автоматизації в n8n",
     description:
-      "Виконайте 10 практичних завдань з автоматизації в n8n із вебхуками, API, ШІ та даними. Доступно англійською, іспанською та українською.",
+      "Виконайте 10 практичних завдань з автоматизації в n8n із вебхуками, API, ШІ та даними. Доступно англійською, іспанською, українською та індонезійською.",
+  },
+  id: {
+    title: "Tantangan Otomasi n8n dengan Praktik Langsung",
+    description:
+      "Kerjakan 10 tantangan otomasi n8n dengan webhook, API, AI, dan data. Tersedia dalam bahasa Inggris, Spanyol, Ukraina, dan Indonesia.",
   },
 } satisfies Record<string, { title: string; description: string }>;
 

@@ -420,3 +420,50 @@ Añade ✅ cuando el estado calidad_ambiental sea Buena o Razonablemente Buena; 
 - У HTTP Request перегляньте metadata, яка описує стовпці відповіді, і resultset, який містить рядки станцій та їхні вимірювання.
 - Використайте Edit Fields (Set) з виразом – невеликою формулою – щоб зіставити назву кожного стовпця metadata з його позицією та вибрати з resultset рядок, адреса якого точно дорівнює VALÈNCIA CENTRE.
 - Завершіть нодою Telegram і виберіть Send Message. Передайте chat ID – номер, який ідентифікує розмову, – з Telegram Trigger, додайте вибрані вимірювання та значок стану для додаткового завдання, коли він потрібен.
+
+# Indonesian
+
+## Title
+Kualitas Udara di Valencia
+
+## Summary
+Balas pesan Telegram dengan data kualitas udara terbaru untuk VALÈNCIA CENTRE.
+
+## Concept
+Trigger chat, HTTP request, dan penyaringan data
+
+## Scenario
+- Warga ingin mengecek kualitas udara terbaru di pusat kota Valencia tanpa harus mencarinya di Google.
+- Penyelenggara acara ingin mengecek kualitas udara setempat sebelum memilih lokasi meetup di luar ruangan.
+- Kelompok warga butuh update kualitas udara singkat lewat Telegram yang bisa dibagikan ke anggota komunitas.
+- Pola workflow yang sama bisa dipakai warga untuk meminta informasi dari hampir 300 dataset publik Valencia Open Data lewat aplikasi chat yang sudah akrab, seperti Telegram atau WhatsApp.
+
+## Task
+Tim acara Valencia butuh bot Telegram yang membalas setiap pesan teks dengan laporan kualitas udara terbaru untuk VALÈNCIA CENTRE.
+
+## Bonus Task
+Tambahkan ✅ kalau status calidad_ambiental bernilai Buena atau Razonablemente Buena; kalau bukan, tambahkan ⚠️ supaya hasilnya langsung terbaca sekali lihat.
+
+## Nodes
+- Telegram Trigger
+- HTTP Request
+- Edit Fields (Set)
+- Telegram
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah ada, lalu buat workflow baru.
+- Install [Telegram](https://telegram.org/), lalu buat atau masuk ke akun Telegram.
+- Buat bot Telegram lewat [BotFather](https://t.me/botfather), lalu [simpan token-nya sebagai credential n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram#using-api-bot-access-token).
+- [Endpoint kualitas udara Pemkot Valencia](https://www.valencia.es/web/guest/valenciaalminut/calidadaire.cors) menyediakan data real-time. Siapkan URL-nya untuk dipakai di node HTTP Request.
+
+## Requirements
+- Setiap pesan teks membuat bot mencari data VALÈNCIA CENTRE yang terbaru, bukan mengandalkan posisi baris yang tetap.
+- Balasan kembali ke chat Telegram yang sama, berisi alamat, tanggal pengamatan, status kualitas udara, dan semua nilai NO₂, PM10, dan PM2.5 yang tersedia.
+- Dua pesan uji yang terpisah masing-masing mendapat balasan baru berdasarkan data yang diambil saat itu.
+
+## Tips
+- Mulai dari Telegram Trigger, yang menjalankan workflow begitu bot kamu menerima pesan. Pilih Message sebagai event-nya dan tambahkan credential Telegram yang menyimpan token akses privat bot kamu dengan aman.
+- Lanjutkan dengan HTTP Request, yang meminta data dari sebuah alamat web. Tempel endpoint Pemkot Valencia tadi ke field URL, lalu jalankan node-nya sekali.
+- Di HTTP Request, perhatikan metadata, yang menjelaskan kolom-kolom respons, dan resultset, yang berisi baris tiap stasiun beserta hasil pengukurannya.
+- Pakai Edit Fields (Set) dengan expression – rumus kecil – untuk mencocokkan nama kolom di metadata dengan posisinya, lalu ambil baris resultset yang alamatnya persis VALÈNCIA CENTRE.
+- Tutup dengan Telegram dan pilih Send Message. Ambil chat ID – angka yang mengenali percakapan – dari Telegram Trigger, sertakan nilai yang sudah dipilih, dan tambahkan ikon status bonus kalau perlu.

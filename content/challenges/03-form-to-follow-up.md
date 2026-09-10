@@ -206,6 +206,72 @@ Después de aceptar un envío válido, avisa por email al equipo organizador med
 - Під’єднайте Data Table до виходу true ноди IF, додайте чисті поля до event_leads і завершіть кожну гілку IF окремою нодою n8n Form з налаштуванням Form Ending.
 - Для додаткового завдання під’єднайте Resend після Data Table, виберіть збережені облікові дані, використайте підтвердженого відправника та схвалену адресу, надішліть лише текст і потім під’єднайте успішну n8n Form.
 
+# Indonesian
+
+## Title
+Jangan Sampai Kontak Baru Terlewat
+
+## Summary
+Validasi form n8n publik dan simpan data kontak yang bersih ke n8n Data Table.
+
+## Concept
+n8n Form, validasi, dan Data Table
+
+## Glossary
+- form n8n: Halaman web yang dibuat workflow n8n untuk mengumpulkan informasi dari pengunjung.
+- validasi: Pengecekan bahwa data yang dikirim sesuai aturan yang kamu harapkan sebelum dipakai workflow.
+- n8n Data Table: Tabel di dalam n8n yang menyimpan baris data untuk dipakai workflow di lain waktu.
+- Data Table: Node n8n untuk membaca atau mengubah baris di n8n Data Table.
+- dirapikan: Dibuat konsisten, misalnya dengan membuang spasi berlebih atau mengubah alamat email jadi huruf kecil semua.
+- workflow: Rangkaian node yang tersambung dan dijalankan n8n untuk mengotomatiskan sebuah tugas.
+- Form Trigger: Node yang menampilkan form publik pertama dan menjalankan workflow begitu form dikirim.
+- Edit Fields (Set): Node untuk membuat atau mengubah field data sebelum dipakai node berikutnya.
+- IF: Node yang mengecek sebuah kondisi dan mengarahkan data ke cabang true atau false.
+- Form Ending: Pengaturan n8n Form yang mengakhiri alur form dengan halaman hasil.
+- Resend: Layanan pengiriman email yang tersedia di n8n lewat node partner terverifikasi.
+- expression: Rumus kecil yang menghitung sebuah nilai dari data workflow.
+- output true: Cabang IF yang dipakai saat kondisinya terpenuhi.
+- output false: Cabang IF yang dipakai saat kondisinya tidak terpenuhi.
+- credential: Koneksi tersimpan di n8n yang menjaga rahasia layanan eksternal tetap di luar workflow.
+
+## Scenario
+- Tim acara butuh form kontak yang andal dan menjaga kiriman tidak valid keluar dari daftar follow-up.
+- Penyelenggara meetup ingin mengumpulkan proposal pembicara dengan detail kontak yang konsisten.
+- Kelompok relawan perlu menyimpan permintaan bantuan yang valid sambil memberi umpan balik jelas untuk kiriman yang tidak valid.
+
+## Task
+Tim acara butuh form kontak publik yang hanya menyimpan kiriman yang bisa dipakai, dan memberi tahu setiap pengunjung dengan jelas apakah pesannya diterima.
+
+## Bonus Task
+Setelah kiriman yang valid diterima, beri tahu panitia lewat email dengan Resend.
+
+## Nodes
+- Form Trigger
+- Edit Fields (Set)
+- IF
+- Data Table
+- n8n Form
+- Resend
+
+## Preparation
+- [Daftar n8n Cloud](/n8n-sign-up) atau pakai workspace n8n yang sudah ada, lalu buat workflow baru.
+- Buat [n8n Data Table](https://docs.n8n.io/build/work-with-data/data-tables) bernama event_leads dengan kolom name, email, message, dan status. Kolom createdAt ditambahkan n8n secara otomatis.
+- Tantangan intinya tidak butuh akun pihak ketiga.
+- Bonus: install [node Resend terverifikasi n8n](https://n8n.io/integrations/resend/) dan [daftar Resend](https://resend.com/signup).
+- Bonus: [buat API key Resend](https://resend.com/docs/dashboard/api-keys/introduction). Ini kode rahasia yang dipakai Resend untuk mengizinkan koneksi. Simpan di credential n8n, [verifikasi domain pengirim](https://resend.com/docs/dashboard/domains/introduction), pilih alamat penerima yang sudah disetujui panitia untuk uji coba, dan jangan pernah menempel API key langsung ke workflow.
+
+## Requirements
+- Pengunjung tidak bisa mengirim form dengan field kosong, dan alamat email yang tidak valid memunculkan pesan koreksi yang jelas.
+- Kiriman yang valid dirapikan, disimpan dengan name, email, message, status bernilai new, dan timestamp createdAt otomatis, lalu diikuti pesan sukses yang jelas.
+- Bonus: kiriman valid yang tersimpan mengirim notifikasi teks biasa dari pengirim terverifikasi ke alamat yang disetujui panitia; kiriman tidak valid tidak disimpan dan tidak dikirim lewat email.
+
+## Tips
+- Mulai dari Form Trigger: buat form publiknya dan jadikan name, email, dan message wajib diisi. Biarkan email sebagai field teks biasa supaya workflow bisa menunjukkan pesan validasi buatannya sendiri.
+- Lanjutkan dengan Edit Fields (Set): trim name dan message, ubah email jadi huruf kecil, set status ke new, dan hitung isValidEmail dengan expression.
+- Ketiga, tambahkan IF: cek isValidEmail, kirim kiriman valid ke output true dan kiriman tidak valid ke output false.
+- Sambungkan Data Table ke output true dari IF, masukkan field yang sudah bersih ke event_leads, dan akhiri tiap cabang IF dengan n8n Form masing-masing yang diset ke Form Ending.
+- Untuk bonusnya, sambungkan Resend setelah Data Table, pilih credential yang tersimpan, pakai pengirim terverifikasi dan penerima yang disetujui panitia, kirim teks saja, lalu sambungkan ke n8n Form untuk pesan sukses.
+
 # Solution Data
 
 ## Core Workflow JSON (without bonus)

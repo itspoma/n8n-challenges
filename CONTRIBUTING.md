@@ -7,7 +7,7 @@ The website is designed so community organizers and n8n Ambassadors can improve 
 1. Open [`content/challenges`](content/challenges) on GitHub.
 2. Choose the numbered Markdown file for the challenge you want to improve.
 3. Select the pencil icon (**Edit this file**).
-4. Update the English, Spanish, and Ukrainian sections together. Keep the documented headings unchanged.
+4. Update the English, Spanish, Ukrainian, and Indonesian sections together. Keep the documented headings unchanged.
 5. Keep exactly five tips per language, ordered from broad guidance to the nearest solution.
 6. Select **Propose changes** and open a pull request.
 7. Explain what changed and why in the pull-request description.
@@ -32,9 +32,9 @@ The public Events directory is generated from the Markdown files in `content/eve
 ## Pull-request checklist
 
 - The content is public and contains no personal or secret information.
-- English, Spanish, and Ukrainian challenge sections remain aligned.
+- English, Spanish, Ukrainian, and Indonesian challenge sections remain aligned.
 - Challenge metadata uses a unique number and slug.
-- Each challenge lists its required n8n nodes and preparation steps in all three languages.
+- Each challenge lists its required n8n nodes and preparation steps in all four languages.
 - Challenge content never includes API keys, access tokens, or other credentials.
 - A challenge solution contains both core and bonus workflow JSON, or neither.
 - Each challenge still contains exactly five tips per language.

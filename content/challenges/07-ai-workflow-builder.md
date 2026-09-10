@@ -193,3 +193,65 @@ n8n Cloud розміщує автоматизацію та з’єднує се�
 - ChatGPT: ШІ-чатбот від OpenAI. Йому можна давати завдання в розмові, а з підключеними інструментами він може виконувати дії.
 - Claude: ШІ-чатбот від Anthropic, який допомагає писати, планувати й створювати воркфлоу через підключені інструменти.
 - MCP: Model Context Protocol — стандарт, який дозволяє ШІ-чатботу користуватися інструментами іншого застосунку, наприклад n8n.
+
+# Indonesian
+
+## Title
+Bikin Artikel dengan AI – Tanpa Buka n8n
+
+## Summary
+Sambungkan ChatGPT atau Claude ke n8n lewat MCP, lalu buat artikel untuk blog WordPress.com-mu sepenuhnya dari chatbot.
+
+## Concept
+Bangun, periksa, dan perbaiki otomasi publikasi lengkap lewat asisten AI eksternal.
+
+## Scenario
+- Ubah sebuah topik jadi artikel siap review untuk blog pribadimu.
+- Bangun workflow lewat obrolan tanpa membuka n8n atau mempelajari node satu per satu.
+- Otomatiskan rutinitas pribadi atau proses tim cukup dengan menjelaskan hasil yang diinginkan, tanpa masuk ke detail konfigurasi node.
+
+## Task
+Pakai hanya ChatGPT atau Claude untuk membuat dan menjalankan workflow yang menulis artikel pendek dari topikmu dan menyimpannya sebagai draft di WordPress.com. Jangan buka aplikasi web n8n dan jangan membuat, mengedit, menyambungkan, atau menjalankan node secara manual. Semua instruksi workflow harus lewat chatbot AI.
+
+## Bonus Task
+Minta chatbot-mu membuat judul yang menarik dan satu gambar, pasang gambarnya sebagai header artikel, lalu publikasikan artikelnya di blog WordPress.com-mu.
+
+## Nodes
+- Form Trigger
+- Basic LLM Chain
+- OpenAI Chat Model
+- Structured Output Parser
+- WordPress
+
+## Preparation
+- Mulai dari [akun n8n Cloud](/n8n-sign-up) atau instance yang akses pembuatan workflow lewat MCP-nya sudah aktif.
+- Sambungkan [ChatGPT](https://chatgpt.com/) atau [Claude](https://claude.ai/) mengikuti [petunjuk MCP n8n](https://docs.n8n.io/connect/connect-to-n8n-mcp-server). Koneksinya harus mengizinkan membuat, mengubah, dan menjalankan workflow.
+- Siapkan blog [WordPress.com](https://wordpress.com/start) yang sudah tersambung lewat [OAuth2](https://docs.n8n.io/integrations/builtin/credentials/wordpress/#using-oauth2) sebelum mulai. Selesaikan otorisasi akunnya saat setup.
+- Siapkan credential untuk generate teks di instance yang tersambung; untuk bonus, siapkan juga akses ke layanan generate gambar. Koneksi akun ini syarat awal: semua pembuatan dan eksekusi workflow selama tantangan ini terjadi lewat chatbot.
+
+## Requirements
+- Workflow dibuat dan dijalankan sepenuhnya lewat chatbot AI, tanpa satu pun aksi manual di aplikasi web n8n.
+- Artikel dihasilkan dari sebuah topik, dan draft-nya bisa dicek di WordPress.com.
+- Bonus: artikel terbit dengan judul buatan AI dan gambar header buatan AI, lengkap dengan link publiknya.
+
+## Tips
+- Tanya ChatGPT atau Claude apakah dia bisa tersambung ke instance n8n-mu dan membuat data table serta workflow. Minta dia mengecek tool yang tersedia dan izin eksekusinya sebelum membangun apa pun.
+- Beri chatbot-mu brief yang jelas. Buka dan salin prompt ini, lalu ganti placeholder topik dan blognya. ||PROMPT|| Cek dulu tool n8n yang tersambung denganmu. Bangun dan jalankan workflow sederhana sepenuhnya lewat MCP, tanpa memintaku membuka n8n atau mengatur node. Topik artikelku [TOPIK], pembacanya [AUDIENS], dan blog WordPress.com-ku [BLOG]. Pakai koneksi generate teks dan koneksi OAuth2 WordPress.com yang sudah ada. Buat artikel pendek yang bermanfaat dengan judul dan isi HTML yang enak dibaca, lalu simpan sebagai draft. Pilih sendiri node yang dibutuhkan. Kalau ada koneksi atau tool yang tidak tersedia, jelaskan persis apa yang kurang. Jangan minta secret lewat chat. Kembalikan hasil eksekusinya dan link draft WordPress-nya.
+- Minta chatbot menjalankan workflow-nya atau script yang dia buat lewat tool yang tersambung, melaporkan hasilnya, dan memberimu link draft WordPress. Buka WordPress dan pastikan artikelnya ada dan enak dibaca.
+- Bonus: minta chatbot menambahkan gambar header buatan AI dan menerbitkan artikelnya. ||PROMPT|| Perbarui workflow n8n yang barusan kita bangun, hanya lewat tool yang tersambung denganmu. Buat judul yang menarik dan akurat, plus satu gambar header yang relevan pakai layanan generate gambar yang tersedia. Upload gambarnya ke media library WordPress.com-ku, taruh di bagian atas artikel, dan jadikan featured image kalau didukung. Terbitkan artikel jadinya ke [BLOG]. Jalankan workflow yang sudah diperbarui dan kembalikan URL publik artikelnya beserta hasil eksekusinya. Pastikan halaman yang terbit memuat artikel dan gambarnya. Kalau ada tool atau koneksi yang kurang, jelaskan apa yang menghambat; jangan memintaku mengedit node n8n secara manual.
+- Buka link WordPress terakhir dan cek judul, teks, gambar, dan status terbitnya. Kalau ada yang kurang, jelaskan masalahnya ke chatbot dan minta dia memperbaiki lalu menjalankan ulang workflow-nya.
+
+## Why n8n
+Kenapa membangun dengan n8n dan asisten AI?
+
+n8n Cloud menjalankan otomasimu dan menyambungkan layanan-layananmu. Chatbot yang membangunnya untukmu, sementara n8n menyimpan workflow visual dan riwayat eksekusi yang bisa kamu periksa nanti.
+
+## When to use n8n
+Kapan sebaiknya dipakai?
+
+Pakai untuk tugas pribadi atau tim yang berulang dan melibatkan beberapa layanan sekaligus – misalnya menulis artikel lalu langsung mengirimnya ke blogmu.
+
+## Glossary
+- ChatGPT: Chatbot AI dari OpenAI. Kamu jelaskan yang kamu mau lewat obrolan; kalau ada tool yang tersambung, dia juga bisa mengambil tindakan untukmu.
+- Claude: Chatbot AI dari Anthropic. Bisa membantu menulis, merencanakan, dan memakai tool yang tersambung untuk membangun workflow dari instruksimu.
+- MCP: Model Context Protocol – standar koneksi yang membuat chatbot AI bisa memakai tool di aplikasi lain, misalnya n8n.

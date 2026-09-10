@@ -478,3 +478,54 @@ Conecta el servidor MCP del catálogo publicado con una cuenta compatible de Cha
 - Підключіть OpenRouter Chat Model, MCP Client Tool і Calculator до AI Agent; у MCP Client Tool укажіть опубліковану Production URL від MCP Server Trigger, виберіть Streamable HTTP і дозвольте всі три інструменти.
 - У get_category побудуйте URL за допомогою `$fromAI('id', 'Numeric category ID returned by get_categories', 'number')`; застосуйте той самий шаблон до id товару в get_product і ввімкніть Optimize Response, щоб модель отримувала лише ID, назви, доступність і ціни.
 - В AI Agent вимагайте точну послідовність категорії → категорії по одній → деталі товарів → Calculator, обмежте результат чотирма-шістьма товарами з фіксованою ціною, установіть Max Iterations на 20 і перевірте "paella de marisco" та "gazpacho" перед публікацією.
+
+# Indonesian
+
+## Title
+Malam Ini Masak Apa?
+
+## Summary
+Bangun MCP server Mercadona yang hanya bisa membaca data, lalu biarkan asisten belanja di Telegram mengubah nama masakan apa pun jadi daftar produk lengkap dengan harga terkini.
+
+## Concept
+MCP server buatan sendiri, orkestrasi tool oleh agent, jawaban yang berpijak pada katalog langsung, dan perhitungan yang terverifikasi
+
+## Scenario
+- Seorang pembeli mengirim "paella de marisco" dan menerima daftar ringkas produk Mercadona yang tersedia beserta harga satuannya saat ini.
+- Sebuah keluarga menyebut "gazpacho" dan mendapat satu kemasan praktis untuk tiap bahan penting plus total belanjanya.
+- Workshop memasak bisa memakai tool katalog yang sama dari Telegram, ChatGPT, atau Claude tanpa memberi model izin untuk mengubah data.
+
+## Task
+Seorang pembeli butuh asisten di Telegram: begitu dia mengirim nama masakan, balas di chat yang sama dengan empat sampai enam produk Mercadona yang relevan, harga satuan terkini masing-masing, dan total yang dihitung dengan benar untuk satu unit dari setiap produk.
+
+## Bonus Task
+Sambungkan MCP server katalog yang sudah dipublikasikan ke akun ChatGPT atau Claude yang mendukungnya, minta "paella de marisco" atau "gazpacho", dan tunjukkan bahwa client eksternal itu bisa memakai ketiga tool yang sama.
+
+## Nodes
+- Telegram Trigger
+- AI Agent
+- OpenRouter Chat Model
+- MCP Client Tool
+- Calculator
+- Telegram
+- MCP Server Trigger
+- HTTP Request Tool – three instances
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau pakai instance n8n versi terbaru yang punya alamat HTTPS publik; baca [panduan MCP Server Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-langchain.mcptrigger/) dan pakai Production URL-nya setelah dipublikasikan.
+- Buat akun Telegram, bikin bot lewat [BotFather](https://t.me/botfather), lalu tambahkan token-nya dengan mengikuti [panduan credential Telegram di n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/).
+- Buat akun [OpenRouter](https://openrouter.ai/), buat [API key](https://openrouter.ai/keys), dan simpan di credential OpenRouter di n8n.
+- Siapkan tiga endpoint katalog yang hanya bisa dibaca: [semua kategori](https://tienda.mercadona.es/api/categories/), [contoh satu kategori](https://tienda.mercadona.es/api/categories/115), dan [contoh satu produk](https://tienda.mercadona.es/api/products/5598). Ini endpoint pihak ketiga yang aktif dan bisa berubah; kalau tidak bisa diakses, minta snapshot katalog cadangan ke mentor acara.
+- Untuk bonus, pastikan akunmu mendukung custom connector remote, lalu ikuti [panduan MCP connector ChatGPT](https://help.openai.com/en/articles/12584461-developer-mode-and-full-mcp-connectors-in-chatgpt) atau [panduan custom connector Claude](https://support.anthropic.com/en/articles/11175166-getting-started-with-custom-connectors-using-remote-mcp). Server ini memang sengaja hanya bisa membaca data; kalau autentikasinya kamu biarkan None, nonaktifkan workflow-nya setelah selesai mencoba.
+
+## Requirements
+- Setiap pesan teks berisi nama masakan dibalas satu pesan Telegram berisi empat sampai enam nama produk Mercadona yang relevan dan tersedia beserta harga satuan terkini, tanpa ID internal apa pun di balasannya.
+- Bukti eksekusi menunjukkan agent memanggil get_categories dulu, lalu get_category dengan id yang dibutuhkan untuk tiap kategori yang dipilih, dan terakhir get_product untuk setiap produk yang dimasukkan.
+- Balasan diakhiri total dalam euro dengan dua angka desimal, dihitung untuk satu unit atau kemasan dari tiap produk berharga tetap yang tercantum, dan dua uji coba dengan masakan berbeda hanya memakai nilai yang dikembalikan tool katalog langsung.
+
+## Tips
+- Mulai dari MCP Server Trigger, beri path mercadona-catalog, lalu sambungkan tiga node HTTP Request Tool bernama get_categories, get_category, dan get_product ke input Tool-nya.
+- Berikutnya tambahkan Telegram Trigger dan Telegram, supaya teks pesan yang masuk bisa kamu petakan ke agent dan output agent dikirim balik ke message.chat.id yang sama.
+- Sambungkan OpenRouter Chat Model, MCP Client Tool, dan Calculator ke AI Agent; arahkan MCP Client Tool ke Production URL milik MCP Server Trigger yang sudah dipublikasikan, pakai Streamable HTTP, dan izinkan ketiga tool-nya.
+- Di get_category, susun URL-nya dengan `$fromAI('id', 'Numeric category ID returned by get_categories', 'number')`; pakai pola yang sama untuk id produk di get_product, dan nyalakan Optimize Response supaya hanya field ID, nama, ketersediaan, dan harga yang sampai ke model.
+- Di AI Agent, wajibkan urutan persis categories → categories satu per satu → detail produk → Calculator, batasi hasil ke empat sampai enam produk berharga tetap, set Max Iterations ke 20, dan coba "paella de marisco" maupun "gazpacho" sebelum dipublikasikan.

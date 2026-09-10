@@ -107,7 +107,7 @@ ink: #ffffff
 ---
 ```
 
-The document body must contain `# English`, `# Spanish`, and `# Ukrainian`. Each language must have these second-level sections in this exact order:
+The document body must contain `# English`, `# Spanish`, `# Ukrainian`, and `# Indonesian`. Each language must have these second-level sections in this exact order:
 
 ```markdown
 # English
@@ -153,7 +153,7 @@ One optional extension that builds on the completed core task.
 - Give the most specific node-focused hint.
 ```
 
-Repeat the same structure below `# Spanish` and `# Ukrainian`. Keep all three translations aligned, including inline term explanations and solution-image alt text. Every challenge must include one `Bonus Task` in each language. `Scenario` must contain at least two example use cases. `Nodes` lists every n8n node required by the core and bonus workflows. `Preparation` lists anything learners need to sign up for, install, obtain, or prepare before building and supports inline links written as `[label](https://example.com)`. `Requirements` must contain exactly three observable outcomes. Never put API keys or other credentials in these files. Every challenge must have exactly five progressive tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
+Repeat the same structure below `# Spanish`, `# Ukrainian`, and `# Indonesian`. Keep all four translations aligned, including inline term explanations and solution-image alt text. Every challenge must include one `Bonus Task` in each language. `Scenario` must contain at least two example use cases. `Nodes` lists every n8n node required by the core and bonus workflows. `Preparation` lists anything learners need to sign up for, install, obtain, or prepare before building and supports inline links written as `[label](https://example.com)`. `Requirements` must contain exactly three observable outcomes. Never put API keys or other credentials in these files. Every challenge must have exactly five progressive tips in each language. The build rejects missing fields, empty lists, invalid metadata, duplicate numbers/slugs, filename mismatches, missing translations, and an incorrect number of active challenges.
 
 See [CONTRIBUTING.md](../../CONTRIBUTING.md#edit-a-challenge) for the pull-request workflow.
 

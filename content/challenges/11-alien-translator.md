@@ -516,3 +516,49 @@ Añade una comprobación independiente de traducción inversa. Traduce el result
 - OpenAI Chat Model – попросіть AI Assistant підключити її до ланцюжка перекладу, а потім виберіть кредити Gateway або свої облікові дані через картку облікових даних, не вставляючи секрет у чат.
 - Structured Output Parser – попросіть AI Assistant вимагати translation як текст, confidence як ціле число від 0 до 100 та unknownWords як список текстових значень без додаткових полів.
 - Basic LLM Chain – для додаткового завдання попросіть AI Assistant додати другий ланцюжок із власними OpenAI Chat Model і Structured Output Parser, застосувати штраф 20 балів за зміну зворотного перекладу й перевірити обидва офіційні повідомлення. Якщо тест не пройдено, попросіть Assistant виправити це без ручного редагування нод.
+
+# Indonesian
+
+## Title
+Penerjemah Bahasa Alien
+
+## Summary
+Bangun penerjemah bahasa alien hanya dengan memberi prompt ke AI Assistant n8n, sambil menandai setiap kata yang tidak ada di panduan bahasanya.
+
+## Concept
+Merancang prompt, membangun workflow dibantu AI, dan output AI yang terstruktur
+
+## Scenario
+- Ada tamu ramah yang datang dari planet lain, tapi penerjemah saku mereka kehilangan paket bahasanya.
+- Tim peneliti perlu memecahkan catatan lapangan sambil menandai dengan jelas kata-kata yang tidak dikenal.
+- Peserta acara ingin saling berkirim pesan alien tanpa mengarang arti di luar kamus yang disediakan.
+
+## Task
+Bantu tamu acara memahami pesan alien memakai panduan bahasa yang disediakan. Hasilkan terjemahan dalam bahasa Inggris, skor keyakinan, dan setiap kata yang tidak bisa dijelaskan panduan itu.
+
+## Bonus Task
+Tambahkan pengecekan terjemahan balik yang berdiri sendiri. Terjemahkan hasil bahasa Inggrisnya kembali ke bahasa alien, lalu kurangi 20 poin keyakinan kalau pesannya berubah setelah dinormalisasi.
+
+## Nodes
+- Chat Trigger
+- Basic LLM Chain
+- OpenAI Chat Model
+- Structured Output Parser
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah mengaktifkan [AI Assistant](https://docs.n8n.io/build/ways-of-building-workflows/ai-assistant) versi preview.
+- Pakai prompt ke AI Assistant saja untuk membuat, menambah, menyambungkan, mengatur, dan merevisi setiap node. Jangan lakukan perubahan itu secara manual. Kamu boleh memeriksa dan mencoba workflow hasilnya, serta memilih credential saat Assistant memintanya. Biarkan percakapan dengan Assistant tetap terbuka untuk dicek mentor.
+- Pakai OpenAI Chat Model. Di n8n Cloud, pilih Gateway credits kalau tersedia; kalau tidak, [daftar OpenAI](https://platform.openai.com/signup) dan ikuti [petunjuk resmi credential OpenAI di n8n](https://docs.n8n.io/integrations/builtin/credentials/openai/). Jangan pernah menempelkan key atau rahasia lain ke chat Assistant.
+- Buka [panduan bahasa alien](https://github.com/itspoma/n8n-challenges/blob/main/public/fixtures/alien-language-guide.md) milik acara ini. Di situ ada kamus resmi, aturan tata bahasa, rumus skor keyakinan, dan pesan uji resminya.
+
+## Requirements
+- Setiap pesan dari Chat Trigger mengembalikan respons terstruktur yang hanya berisi translation berupa string bahasa Inggris, confidence berupa bilangan bulat 0 sampai 100, dan unknownWords berupa array string.
+- Untuk "mira sava nalo vela", kembalikan translation "Hello friend from Valencia.", confidence 100, dan unknownWords berupa array kosong.
+- Untuk "mira zorb nalo vela", kembalikan translation "Hello [zorb] from Valencia.", confidence 70, dan unknownWords yang isinya persis "zorb".
+
+## Tips
+- Chat Trigger – minta AI Assistant memulai workflow saat ada pesan chat masuk dan mengembalikan hasil dari node terakhir. Dari sinilah penerjemah menerima pesannya.
+- Basic LLM Chain – minta AI Assistant menyambungkan chatInput yang masuk, menaruh kamus lengkap dan aturan penerjemahan di system instructions, dan memperlakukan kamus itu sebagai satu-satunya acuan.
+- OpenAI Chat Model – minta AI Assistant menyambungkannya ke chain penerjemah, lalu pilih Gateway credits atau credential-mu lewat kartu credential, bukan dengan menempelkan rahasia ke chat.
+- Structured Output Parser – minta AI Assistant mewajibkan translation berupa string, confidence berupa bilangan bulat 0 sampai 100, dan unknownWords berupa array string, tanpa field tambahan.
+- Basic LLM Chain – untuk bonus, minta AI Assistant menambahkan chain kedua dengan OpenAI Chat Model dan Structured Output Parser-nya sendiri, menerapkan penalti 20 poin untuk terjemahan balik, dan mencoba kedua pesan resmi. Kalau ada uji yang gagal, minta Assistant memperbaikinya tanpa mengedit node secara manual.

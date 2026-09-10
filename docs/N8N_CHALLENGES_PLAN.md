@@ -2,13 +2,13 @@
 
 Status: active implementation plan
 
-Primary UI languages: English, Spanish, and Ukrainian
+Primary UI languages: English, Spanish, Ukrainian, and Indonesian
 
 Deployment target: static hosting, including GitHub Pages
 
 ## 1. Product summary
 
-n8n Balloon Challenges is a small trilingual learning website for a practical community workshop. Participants choose from 10 challenges, build workflows in their own n8n environment, reveal progressive tips when needed, and show completed work directly to an in-person mentor. The mentor awards the matching physical balloon.
+n8n Balloon Challenges is a small multilingual learning website for a practical community workshop. Participants choose from 10 challenges, build workflows in their own n8n environment, reveal progressive tips when needed, and show completed work directly to an in-person mentor. The mentor awards the matching physical balloon.
 
 The website is intentionally content-only. It does not identify participants, record progress, transmit submissions, notify mentors, or depend on a backend service. A challenge page may show a UI-only review confirmation to support the in-room mentor flow, but it does not send or store anything.
 
@@ -37,7 +37,7 @@ Functionality:
 
 - n8n Balloon Challenges branding.
 - Dark and light themes, with the chosen theme stored locally in the browser.
-- English, Spanish, and Ukrainian navigation.
+- English, Spanish, Ukrainian, and Indonesian navigation.
 - Short introduction and event summary.
 - Compact **How it works** sequence:
   1. Sign up for n8n Cloud.
@@ -56,7 +56,7 @@ Purpose: list public community events without introducing a backend or organizer
 
 Functionality:
 
-- English, Spanish, and Ukrainian page chrome.
+- English, Spanish, Ukrainian, and Indonesian page chrome.
 - One card per event loaded from `content/events/*.md` during the static build.
 - Event title, description, date, location, language, organizer, and public event link.
 - A contribution panel linking to the GitHub pull-request instructions.
@@ -92,7 +92,7 @@ Functionality:
 | Silver | Idealista Morning Apartment Brief | Intermediate | Persistent state and deduplication |
 | Black | Mercadona MCP Shopping Assistant | Advanced | Custom MCP servers, agent tool orchestration, and live catalog grounding |
 
-The current top 10 is the selected challenge set for the static MVP. Alternative ideas and the source ideas promoted into this set are preserved in [CHALLENGE_IDEA_BACKLOG.md](CHALLENGE_IDEA_BACKLOG.md). Historical detailed definitions from the earlier platform plan remain in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md#6-challenge-candidate-pool-and-working-set). The implemented trilingual copy lives in `content/challenges/*.md` and is validated by `src/lib/challenges.ts`.
+The current top 10 is the selected challenge set for the static MVP. Alternative ideas and the source ideas promoted into this set are preserved in [CHALLENGE_IDEA_BACKLOG.md](CHALLENGE_IDEA_BACKLOG.md). Historical detailed definitions from the earlier platform plan remain in [DEFERRED_PLATFORM_PLAN.md](DEFERRED_PLATFORM_PLAN.md#6-challenge-candidate-pool-and-working-set). The implemented multilingual copy lives in `content/challenges/*.md` and is validated by `src/lib/challenges.ts`.
 
 ## 5. Content requirements
 
@@ -101,9 +101,9 @@ Every active challenge must contain:
 - Stable number and slug.
 - Difficulty and complexity.
 - Balloon color and readable text color.
-- English, Spanish, and Ukrainian title, summary, multiple example use cases, core task, bonus task, required nodes, preparation checklist, and requirements.
+- English, Spanish, Ukrainian, and Indonesian title, summary, multiple example use cases, core task, bonus task, required nodes, preparation checklist, and requirements.
 - A preparation checklist that identifies any account, installation, credential, fixture, or organizer-provided resource needed before building.
-- Exactly five progressive tips in all three languages.
+- Exactly five progressive tips in all four languages.
 - Content parity between translations.
 
 The build should fail when required challenge content or a translation is missing.

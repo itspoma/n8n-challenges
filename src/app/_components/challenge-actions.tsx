@@ -28,6 +28,7 @@ function TipPrompt({ prompt, locale }: { prompt: string; locale: Locale }) {
     en: { open: "Open prompt", copy: "Copy prompt", copied: "Copied!", close: "Close", failed: "Could not copy. Select the prompt and copy it manually." },
     es: { open: "Abrir prompt", copy: "Copiar prompt", copied: "¡Copiado!", close: "Cerrar", failed: "No se pudo copiar. Selecciona el texto y cópialo manualmente." },
     uk: { open: "Відкрити промпт", copy: "Копіювати промпт", copied: "Скопійовано!", close: "Закрити", failed: "Не вдалося скопіювати. Виділи текст і скопіюй вручну." },
+    id: { open: "Buka prompt", copy: "Salin prompt", copied: "Tersalin!", close: "Tutup", failed: "Gagal menyalin. Pilih teks prompt-nya dan salin manual." },
   }[locale];
   return (
     <>

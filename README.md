@@ -1,13 +1,13 @@
 # n8n Balloon Challenges
 
-A trilingual static learning website with 10 practical n8n automation challenges and five progressive tips per challenge. Participants build in their own n8n environment, show their work to an in-person mentor, and collect the matching physical balloon.
+A multilingual static learning website with 10 practical n8n automation challenges and five progressive tips per challenge. Participants build in their own n8n environment, show their work to an in-person mentor, and collect the matching physical balloon.
 
 ## Current scope
 
-- English, Spanish, and Ukrainian landing pages: `/en`, `/es`, and `/uk`
-- Static English, Spanish, and Ukrainian Events directories generated from Markdown
+- English, Spanish, Ukrainian, and Indonesian landing pages: `/en`, `/es`, `/uk`, and `/id`
+- Static English, Spanish, Ukrainian, and Indonesian Events directories generated from Markdown
 - Ten clickable challenge cards
-- Thirty statically generated localized challenge pages
+- Forty statically generated localized challenge pages
 - Five tips revealed one at a time on every challenge
 - Dark and light themes
 - Manual, in-person mentor verification
@@ -67,7 +67,7 @@ npm run solutions:render  # Generate changed Pixtex light/dark solution images
 
 ```text
 docs/                 Active and deferred product documentation
-content/challenges/   Active trilingual challenge Markdown
+content/challenges/   Active multilingual challenge Markdown
 content/events/       Active public event listings and contribution template
 public/brand/         n8n brand assets
 src/app/              Next.js App Router pages and global styles

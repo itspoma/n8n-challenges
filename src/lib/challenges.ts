@@ -63,6 +63,11 @@ export const difficultyLabels: Record<Locale, Record<ChallengeDifficulty, string
     intermediate: "Середній",
     advanced: "Просунутий",
   },
+  id: {
+    beginner: "Pemula",
+    intermediate: "Menengah",
+    advanced: "Lanjutan",
+  },
 };
 
 export type ChallengePageLabels = {
@@ -262,6 +267,55 @@ export const challengePageCopy = {
     modalClose: "Продовжити роботу",
     modalNext: "Почати наступне завдання",
   },
+  id: {
+    back: "Semua tantangan",
+    edit: "Edit tantangan ini",
+    challenge: "Tantangan",
+    complexity: "Tingkat kesulitan",
+    complexityScale: "dari 5 bintang",
+    time: "Waktu",
+    scenario: "Contoh kasus",
+    task: "Tugasmu",
+    bonusTask: "Tugas bonus",
+    glossary: "Glosarium",
+    glossaryBody: "Istilah teknis, dijelaskan dengan sederhana",
+    nodes: "Node yang dipakai",
+    preparation: "Sebelum mulai",
+    requirements: "Yang harus bisa dilakukan workflow",
+    previous: "Tantangan sebelumnya",
+    next: "Tantangan berikutnya",
+    hintsTitle: "Butuh petunjuk?",
+    hintsBody: "Buka sampai lima tips, satu per satu.",
+    firstTip: "Lihat tips pertama",
+    nextTip: "Lihat tips berikutnya",
+    allTips: "Semua tips sudah dibuka",
+    showWorkflowAnswer: "Lihat jawaban workflow",
+    tip: "Tips",
+    reviewTitle: "Siap setor?",
+    reviewBody: "Kirim kalau workflow tim kamu sudah jalan dan siap didemokan.",
+    submit: "Tandai selesai",
+    solution: "Solusi",
+    solutionTitle: "Lihat jawaban tantangan workflow",
+    solutionBody: "Buka workflow jadinya hanya kalau kamu sudah siap membandingkannya dengan punyamu.",
+    solutionExpand: "Buka solusi",
+    solutionConfirmTitle: "Buka solusi workflow?",
+    solutionConfirmBody:
+      "Ini akan menampilkan workflow lengkap untuk tantangan ini. Yakin mau lanjut?",
+    solutionConfirmCancel: "Belum",
+    solutionConfirmReveal: "Ya, tampilkan solusi",
+    solutionDialogDismiss: "Tutup konfirmasi",
+    solutionCore: "Workflow inti",
+    solutionBonus: "Dengan bonus",
+    solutionCoreImageAlt: "Workflow inti tanpa tugas bonus",
+    solutionBonusImageAlt: "Workflow lengkap termasuk tugas bonus",
+    solutionOpenImage: "Buka gambar workflow di tab baru",
+    modalEyebrow: "Review mentor",
+    modalTitle: "Cari mentor dan minta mereka mengecek workflow-mu.",
+    modalBody: "Tunjukkan workflow yang sudah jalan. Kalau mentor setuju, ambil balon untuk tantangan ini.",
+    modalDismiss: "Tutup dialog",
+    modalClose: "Lanjut kerjakan",
+    modalNext: "Mulai tantangan berikutnya",
+  },
 } satisfies Record<Locale, ChallengePageLabels>;
 
 const challengeDirectory = join(process.cwd(), "content", "challenges");
@@ -436,6 +490,8 @@ function parseMetadata(source: string, fileName: string) {
   return metadata;
 }
 
+type ContentLanguage = "English" | "Spanish" | "Ukrainian" | "Indonesian";
+
 function splitLanguageSections(body: string, fileName: string) {
   const solutionDataIndex = body.search(/^# Solution Data\s*$/m);
   const englishIndex = body.search(/^# English\s*$/m);
@@ -444,19 +500,19 @@ function splitLanguageSections(body: string, fileName: string) {
     : solutionDataIndex < englishIndex
       ? body.slice(englishIndex)
       : body.slice(0, solutionDataIndex);
-  const parts = translationSource.split(/^# (English|Spanish|Ukrainian)\s*$/m);
-  const languages: Partial<Record<"English" | "Spanish" | "Ukrainian", string>> = {};
+  const parts = translationSource.split(/^# (English|Spanish|Ukrainian|Indonesian)\s*$/m);
+  const languages: Partial<Record<ContentLanguage, string>> = {};
 
   for (let index = 1; index < parts.length; index += 2) {
-    const language = parts[index] as "English" | "Spanish" | "Ukrainian";
+    const language = parts[index] as ContentLanguage;
     languages[language] = parts[index + 1]?.trim() ?? "";
   }
 
-  if (!languages.English || !languages.Spanish || !languages.Ukrainian) {
-    fail(fileName, "# English, # Spanish, and # Ukrainian sections are required");
+  if (!languages.English || !languages.Spanish || !languages.Ukrainian || !languages.Indonesian) {
+    fail(fileName, "# English, # Spanish, # Ukrainian, and # Indonesian sections are required");
   }
 
-  return languages as Record<"English" | "Spanish" | "Ukrainian", string>;
+  return languages as Record<ContentLanguage, string>;
 }
 
 function parseSections(source: string, fileName: string, language: string) {
@@ -614,6 +670,7 @@ function parseChallenge(fileName: string): Challenge {
       en: parseTranslation(languages.English, fileName, "English"),
       es: parseTranslation(languages.Spanish, fileName, "Spanish"),
       uk: parseTranslation(languages.Ukrainian, fileName, "Ukrainian"),
+      id: parseTranslation(languages.Indonesian, fileName, "Indonesian"),
     },
   };
 }

@@ -347,3 +347,57 @@ Webhook-тригери, параметри запиту та відповіді 
 - У ноді Webhook встановіть для Respond значення "Using Respond to Webhook Node", щоб остання нода керувала тим, що отримає браузер.
 - У Edit Fields (Set) створіть поле greeting. Для додаткового завдання використайте вираз – коротку формулу – щоб прочитати name з параметрів запиту, тобто додаткових значень після ? в адресі, і використовуйте world, якщо ім’я не вказано.
 - Завершіть нодою Respond to Webhook, яка надсилає результат назад у браузер. Виберіть Text і поверніть поле greeting. Test URL працює, поки n8n очікує на запит; після публікації використовуйте Production URL.
+
+# Indonesian
+
+## Title
+Salam dari Valencia
+
+## Summary
+Bikin alamat web yang menyapa pengunjungnya dari Valencia.
+
+## Concept
+Trigger webhook, query parameter, dan respons ke browser
+
+## Glossary
+- n8n: n8n itu alat untuk mengotomatiskan pekerjaan. Kamu menyambungkan langkah-langkah yang disebut node supaya data bisa mengalir dan aplikasi bisa saling bekerja sama.
+- Webhook: Webhook itu URL khusus yang bisa menjalankan workflow n8n begitu seseorang atau aplikasi lain membukanya atau mengirim request ke sana.
+- Metode GET: GET meminta sebuah URL mengirimkan informasi balik. Membuka halaman web biasa di browser umumnya mengirim request GET.
+- Parameter GET: Parameter itu nilai tambahan yang ditempel di ujung URL setelah tanda ?. Gunanya memberi detail ekstra ke workflow, misalnya ?name=Ana.
+- Metode HTTP lainnya: POST mengirim data ke sebuah URL, biasanya untuk membuat atau mengirimkan sesuatu. GET pada dasarnya meminta data; POST mengirim data. PUT dan PATCH memperbarui data, sedangkan DELETE menghapusnya.
+- JSON, teks, dan HTML: Teks itu tulisan biasa. HTML menambahkan struktur dan format halaman untuk browser. JSON menyusun data dalam pasangan nama dan nilai supaya mudah dibaca aplikasi.
+- Kode QR: Kode QR itu gambar kotak yang menyimpan informasi, biasanya sebuah URL. Kamera HP bisa memindainya dan langsung membuka URL itu.
+
+## Scenario
+- Halaman landing acara mengambil daftar acaranya dari sebuah alamat web, jadi acara yang baru dipublikasikan langsung muncul tanpa perlu mengedit halaman.
+- Sebuah workshop memakai alamat web daftar peserta sebagai sumber data langsung, jadi setiap pendaftar baru otomatis muncul begitu dia mendaftar.
+- Kode QR di venue membuka alamat web yang menampilkan password Wi-Fi saat ini, jadi panitia bisa mengganti password tanpa mencetak ulang kode QR-nya.
+- Halaman status menampilkan kapasitas workshop atau sisa kursi secara langsung.
+
+## Task
+Tim acara Valencia butuh alamat web yang menampilkan "Hello world from Valencia!" setiap kali ada yang membukanya.
+
+## Bonus Task
+Bikin alamat yang sama menyapa pengunjung dengan namanya kalau nama itu ditambahkan ke alamatnya – misalnya, "Hello Ana from Valencia!"
+
+## Nodes
+- Webhook
+- Edit Fields (Set)
+- Respond to Webhook
+
+## Preparation
+- Daftar [n8n Cloud](/n8n-sign-up) atau buka workspace n8n yang sudah ada, lalu buat workflow baru.
+- Pakai browser modern di komputer atau HP untuk membangun dan mencoba hasilnya.
+- Tantangan ini tidak butuh layanan lain atau kode akses rahasia apa pun.
+
+## Requirements
+- Alamat web yang sama selalu jalan setiap kali dibuka di browser.
+- Tanpa nama, browser menampilkan persis "Hello world from Valencia!"
+- Kalau alamatnya diakhiri "?name=Ana", browser menampilkan persis "Hello Ana from Valencia!"
+
+## Tips
+- Mulai dari node Webhook, yang membuat alamat web untuk menjalankan workflow. Pilih GET – opsi yang dipakai browser untuk meminta informasi dari sebuah alamat – dan isi Path, bagian akhir alamatnya, dengan welcome.
+- Tambahkan Edit Fields (Set), yang membuat teks sapaan untuk diteruskan workflow ke langkah terakhir.
+- Di node Webhook, set Respond ke "Using Respond to Webhook Node" supaya node terakhir yang mengatur apa yang diterima browser.
+- Di Edit Fields (Set), buat field bernama greeting. Untuk bonusnya, pakai expression – rumus kecil – untuk membaca name dari query parameter, nilai tambahan setelah ? di alamat, dan pakai world kalau tidak ada nama yang diberikan.
+- Tutup dengan Respond to Webhook, yang mengirim hasilnya balik ke browser. Pilih Text dan kembalikan field greeting. Test URL jalan selama n8n sedang mendengarkan; setelah dipublikasikan, pakai Production URL.

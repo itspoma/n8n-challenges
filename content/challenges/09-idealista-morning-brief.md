@@ -672,3 +672,55 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Додайте Filter із трьома перевірками: ціна не більше 1200, щонайменше 2 спальні й район Russafa, El Carme або Benimaclet.
 - Налаштуйте Remove Duplicates на видалення елементів, оброблених у попередніх запусках, збереження нових значень і використання listingId як значення для порівняння.
 - Завершіть за допомогою Sort, Limit, Aggregate і Telegram, а потім додайте Schedule Trigger. Для додаткового завдання ввімкніть Always Output Data у Filter і Remove Duplicates, щоб порожній результат усе одно дійшов до If, перевірте наявність listingId і протестуйте день 1, день 2 та ще раз день 2; перед новою демонстрацією очистьте історію Remove Duplicates.
+
+# Indonesian
+
+## Title
+Cari Apartemen di Valencia
+
+## Summary
+Pakai Firecrawl untuk web scraping yang diizinkan, lalu kirim hanya apartemen baru yang cocok dalam ringkasan pagi yang singkat.
+
+## Concept
+Ekstraksi data web terstruktur secara terjadwal, filtering, dan deduplikasi antar-eksekusi
+
+## Scenario
+- Pencari apartemen hanya mau melihat listing Valencia yang benar-benar baru dan sesuai budget serta lingkungan pilihannya.
+- Kelompok relawan relokasi ingin mengirim ringkasan harian pilihan tanpa mengulang apartemen kemarin.
+- Sekelompok mahasiswa yang tinggal bareng butuh update pagi yang singkat, bukan mengecek halaman properti yang panjang secara manual.
+
+## Task
+Setiap pagi pukul 08:00, kirim ringkasan lewat Telegram berisi maksimal lima apartemen Valencia yang baru ditemukan dari halaman sewa milik panitia yang sudah diizinkan. Masukkan hanya hunian dengan harga maksimal €1.200, minimal dua kamar tidur, di Russafa, El Carme, atau Benimaclet.
+
+## Bonus Task
+Kalau tidak ada apartemen baru yang cocok, kirim update singkat lewat Telegram sebagai gantinya.
+
+## Nodes
+- Schedule Trigger
+- Firecrawl
+- Split Out
+- Filter
+- Remove Duplicates
+- If
+- Sort
+- Limit
+- Aggregate
+- Telegram
+
+## Preparation
+- Buat [akun n8n Cloud](/n8n-sign-up) atau pakai instance n8n self-hosted.
+- Buat [akun Firecrawl](https://www.firecrawl.dev/app), pakai kredit gratis awalnya, lalu ikuti [panduan resmi setup n8n](https://docs.firecrawl.dev/integrations/n8n) untuk menambahkan node terverifikasinya dan membuat key – nilai rahasia yang memberi n8n izin memakai kreditmu.
+- Buat bot lewat [petunjuk BotFather Telegram](https://core.telegram.org/bots/features#botfather), lalu ikuti [panduan credential Telegram di n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/) dan ambil chat ID untuk tes.
+- Pakai hanya halaman milik acara ini: [hari 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) dan [hari 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Latihan ini tidak memakai API Idealista – layanan listing yang bisa dibaca mesin dari Idealista tidak termasuk cakupan – dan [ketentuan hukum Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) tidak mengizinkan scraping otomatis tanpa izin tertulis.
+
+## Requirements
+- Pukul 08:00 Europe/Madrid, halaman yang diizinkan berubah jadi data terstruktur berisi listingId, title, neighborhood, price, bedrooms, dan URL untuk setiap kartu apartemen.
+- Setiap listing ID dicek dengan deduplikasi antar-eksekusi; hanya hunian yang belum pernah terlihat dan cocok dengan ketiga preferensi yang lolos, diurutkan dari harga termurah dan dibatasi lima.
+- Telegram menerima satu ringkasan yang enak dibaca berisi semua hunian terpilih; workflow bonus mengirim satu pesan jelas "tidak ada yang baru" saat halaman hari 2 yang sama dijalankan lagi.
+
+## Tips
+- Mulai dari Firecrawl sambil menjalankan workflow secara manual; pilih Scrape dan output JSON supaya halamannya jadi enam field yang bisa diprediksi untuk dipakai nanti.
+- Lanjutkan dengan Split Out pada data.json.listings supaya tiap apartemen jadi satu record terpisah untuk node berikutnya.
+- Tambahkan Filter dengan tiga pengecekan: price maksimal 1200, bedrooms minimal 2, dan neighborhood sama dengan Russafa, El Carme, atau Benimaclet.
+- Atur Remove Duplicates untuk membuang item yang sudah diproses di eksekusi sebelumnya, simpan nilai yang baru, dan pakai listingId sebagai nilai pembanding.
+- Tutup dengan Sort, Limit, Aggregate, dan Telegram, lalu tambahkan Schedule Trigger. Untuk bonus, aktifkan Always Output Data di Filter dan Remove Duplicates supaya hasil kosong tetap sampai ke If, cek apakah listingId ada, lalu uji hari 1, hari 2, kemudian hari 2 lagi; bersihkan riwayat Remove Duplicates sebelum demo dari awal.
