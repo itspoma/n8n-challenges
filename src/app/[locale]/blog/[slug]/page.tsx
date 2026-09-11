@@ -58,7 +58,17 @@ export async function generateMetadata({
       description: post.seo.description,
       images: [absoluteUrl(post.coverImage)],
     },
-    alternates: { canonical: absoluteUrl(`/${locale}/blog/${slug}`) },
+    alternates: {
+      canonical: absoluteUrl(`/${locale}/blog/${slug}`),
+      languages: Object.fromEntries(
+        posts()
+          .filter((translation) => translation.id === post.id)
+          .map((translation) => [
+            translation.locale,
+            absoluteUrl(`/${translation.locale}/blog/${translation.slug}`),
+          ]),
+      ),
+    },
     other: { "content-factory-revision": post.revision },
   };
 }
@@ -73,9 +83,17 @@ export default async function Article({ params }: BlogArticlePageProps) {
     notFound();
   }
 
+  // The shared article ID connects translations even when their slugs differ.
+  // Only offer languages that have a published Markdown version of this article.
+  const languagePaths = Object.fromEntries(
+    posts()
+      .filter((translation) => translation.id === post.id)
+      .map((translation) => [translation.locale, `/blog/${translation.slug}`]),
+  );
+
   return (
     <main>
-      <SiteHeader locale={post.locale} languagePath="/blog" />
+      <SiteHeader locale={post.locale} languagePaths={languagePaths} />
 
       <article className="shell blog-content">
         <Link className="blog-back" href={`/${post.locale}/blog`}>
