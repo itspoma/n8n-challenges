@@ -471,6 +471,7 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
           <strong className="event-name">Balloon Challenges</strong>
         </Link>
         <div className="footer-links">
+          <Link href={`/${locale}/blog`}>{locale === "uk" ? "Блог" : "Blog"}</Link>
           <Link href={`/${locale}#challenge-map`}>{labels.back}</Link>
           <a
             href={`https://github.com/itspoma/n8n-challenges/edit/main/content/challenges/${String(challenge.number).padStart(2, "0")}-${challenge.slug}.md`}

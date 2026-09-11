@@ -319,6 +319,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </Link>
         <p>{copy.footer}</p>
         <div className="footer-links">
+          <Link href={`/${locale}/blog`}>{locale === "uk" ? "Блог" : "Blog"}</Link>
           <a
             href="https://github.com/itspoma/n8n-challenges"
             target="_blank"

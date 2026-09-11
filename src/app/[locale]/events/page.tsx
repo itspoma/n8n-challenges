@@ -139,6 +139,7 @@ export default async function EventsPage({ params }: EventsPageProps) {
         </Link>
         <p>{homeCopy[locale].footer}</p>
         <div className="footer-links">
+          <Link href={`/${locale}/blog`}>{locale === "uk" ? "Блог" : "Blog"}</Link>
           <a
             href="https://github.com/itspoma/n8n-challenges"
             target="_blank"
