@@ -3,7 +3,7 @@ import Link from "next/link";
 import { tagPath, publicationLabel, type Post } from "@/lib/blog";
 
 export function BlogPostList({ items }: { items: Post[] }) {
-  return <>
+  return <div className="blog-grid">
           {items.map((post) => (
             <article key={post.id} className="blog-card">
               <Link
@@ -31,5 +31,5 @@ export function BlogPostList({ items }: { items: Post[] }) {
               </ul>
             </article>
           ))}
-  </>;
+  </div>;
 }
