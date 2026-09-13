@@ -16,7 +16,8 @@ export function generateStaticParams() {
 
   // Keep a placeholder route when no articles have been published yet.
   return allPosts.length
-    ? allPosts.map(({ locale, slug }) => ({ locale, slug }))
+    ? allPosts.flatMap(({ locale, slug, legacySlug }) =>
+        [...new Set([slug, legacySlug])].map((slug) => ({ locale, slug })))
     : [{ locale: "en", slug: "empty-blog" }];
 }
 
@@ -32,7 +33,7 @@ export async function generateMetadata({
 }: BlogArticlePageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const post = posts().find(
-    (post) => post.locale === locale && post.slug === slug,
+    (post) => post.locale === locale && (post.slug === slug || post.legacySlug === slug),
   );
 
   if (!post) {
@@ -47,7 +48,7 @@ export async function generateMetadata({
       type: "article",
       title: post.seo.title,
       description: post.seo.description,
-      url: absoluteUrl(`/${locale}/blog/${slug}`),
+      url: absoluteUrl(`/${locale}/blog/${post.slug}`),
       publishedTime: post.publishedAt ?? post.date,
       tags: post.tags,
       images: [{ url: absoluteUrl(post.coverImage), alt: post.coverAlt }],
@@ -59,7 +60,7 @@ export async function generateMetadata({
       images: [absoluteUrl(post.coverImage)],
     },
     alternates: {
-      canonical: absoluteUrl(`/${locale}/blog/${slug}`),
+      canonical: absoluteUrl(`/${locale}/blog/${post.slug}`),
       languages: Object.fromEntries(
         posts()
           .filter((translation) => translation.id === post.id)
@@ -76,7 +77,7 @@ export async function generateMetadata({
 export default async function Article({ params }: BlogArticlePageProps) {
   const { locale, slug } = await params;
   const post = posts().find(
-    (post) => post.locale === locale && post.slug === slug,
+    (post) => post.locale === locale && (post.slug === slug || post.legacySlug === slug),
   );
 
   if (!post) {

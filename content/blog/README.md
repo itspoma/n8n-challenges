@@ -5,3 +5,15 @@ Add `publishedAt` to each article’s JSON front matter using an ISO 8601 timest
 Listings and article pages show the timestamp as a date and 24-hour hours/minutes in Europe/Madrid. Articles without a timestamp show only their date; no time is invented. The publishing integration should supply `publishedAt` when it first publishes a translation and preserve it on later edits.
 
 Existing articles were backfilled from their first Git commit timestamps. These record publication to the repository, not the exact time GitHub Pages finished deploying.
+
+## Readable article URLs
+
+Set `urlSlug` in JSON front matter to a short, descriptive lowercase slug with hyphens, such as `tracing-a-missing-n8n-webhook-field`. Choose a localized slug for each translation (use Latin transliteration for Ukrainian). Preserve it when updating the article so published URLs stay stable.
+
+Keep `slug`, the Markdown filename, and image paths unchanged for compatibility with the publisher. The public listing, sitemap, canonical URL, and language links use `urlSlug`; the original `slug` remains a working static alias with the same canonical URL. GitHub Pages does not provide server redirects here. If `urlSlug` is omitted, the original `slug` is used. Duplicate public routes fail the build.
+
+## Preserve publication history across publisher updates
+
+`publication-history.json` stores established public slugs and first-publication timestamps keyed by `locale/id`. Existing timestamps come from the original article's first Git commit, not its latest revision or deployment. This file is separate from generated Markdown so republishing does not remove them. A saved URL takes precedence over `urlSlug` in front matter; a saved timestamp is used when `publishedAt` is missing. Add new articles here if the publisher cannot yet provide these fields. Never invent a publication time from a date-only value.
+
+Articles are sorted by publication timestamp, newest first. All dated articles with known timestamps display `YYYY-MM-DD · HH:mm` in Europe/Madrid, on both cards and article pages.

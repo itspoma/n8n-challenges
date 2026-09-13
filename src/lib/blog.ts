@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
+import publicationHistory from "../../content/blog/publication-history.json";
 
 import { locales, type Locale } from "./home-copy";
 
@@ -9,6 +10,7 @@ export type Post = {
   id: string;
   locale: Locale;
   slug: string;
+  legacySlug: string;
   title: string;
   description: string;
   subtitle: string;
@@ -75,6 +77,10 @@ export function posts(): Post[] {
       }
 
       const metadata = JSON.parse(frontMatterMatch[1]);
+      // Publisher updates may replace front matter. Preserve established URLs
+      // and first-publication times independently of the generated article.
+      const history = (publicationHistory as Record<string, { publishedAt: string; urlSlug?: string }>)[`${locale}/${metadata.id}`];
+      metadata.publishedAt ??= history?.publishedAt;
 
       // Reject metadata that disagrees with the file path or publisher schema.
       if (
@@ -131,14 +137,29 @@ export function posts(): Post[] {
           !Number.isFinite(Date.parse(metadata.publishedAt)))) {
         throw new Error(`Invalid publishedAt timestamp: ${fileName}`);
       }
+      const urlSlug = history?.urlSlug ?? metadata.urlSlug ?? metadata.slug;
+      if (typeof urlSlug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(urlSlug)) {
+        throw new Error(`Invalid readable URL slug: ${fileName}`);
+      }
       result.push({
         ...metadata,
+        slug: urlSlug,
+        legacySlug: metadata.slug,
         subtitle,
         coverImage,
         coverAlt,
         seo,
         body: frontMatterMatch[2],
       });
+    }
+  }
+
+  const routes = new Set<string>();
+  for (const post of result) {
+    for (const slug of new Set([post.slug, post.legacySlug])) {
+      const route = `${post.locale}/${slug}`;
+      if (routes.has(route)) throw new Error(`Duplicate blog route: ${route}`);
+      routes.add(route);
     }
   }
 
