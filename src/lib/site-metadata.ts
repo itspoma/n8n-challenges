@@ -52,6 +52,10 @@ export function getHomeMetadata(locale: Locale) {
   return homeMetadata[locale] ?? homeMetadata.en;
 }
 
+export function projectPreviewImage(locale: Locale) {
+  return { url: absoluteUrl(`/${locale}/opengraph-image`), width: 1200, height: 630, alt: SITE_NAME };
+}
+
 export function createLocalizedMetadata({
   locale,
   suffix = "",
@@ -65,6 +69,7 @@ export function createLocalizedMetadata({
   description: string;
   images?: NonNullable<Metadata["openGraph"]>["images"];
 }): Metadata {
+  const previewImages = images ?? [projectPreviewImage(locale)];
   const pathname = localizedPath(locale, suffix);
   const brandedTitle = `${title} · ${SITE_NAME}`;
   const openGraphLocale = openGraphLocales[locale] ?? openGraphLocales.en;
@@ -83,7 +88,7 @@ export function createLocalizedMetadata({
       siteName: SITE_NAME,
       title: brandedTitle,
       description,
-      images,
+      images: previewImages,
       locale: openGraphLocale,
       alternateLocale: locales
         .filter((alternateLocale) => alternateLocale !== locale)
@@ -93,7 +98,7 @@ export function createLocalizedMetadata({
       card: "summary_large_image",
       title: brandedTitle,
       description,
-      images,
+      images: previewImages,
     },
   };
 }

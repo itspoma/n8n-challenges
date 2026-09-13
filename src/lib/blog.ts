@@ -1,5 +1,6 @@
 /** Reads the static blog at build time. JSON front matter is followed by safe Markdown. */
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 
 import { locales, type Locale } from "./home-copy";
@@ -25,6 +26,21 @@ export const blogLabels = {
   es: "Blog",
   uk: "Блог",
 };
+
+export const blogMetadata = {
+  en: {
+    title: "n8n Automation & AI Blog",
+    description: "Learn n8n through practical tutorials, workflow debugging guides, and AI automation examples from the n8n Balloon Challenges community.",
+  },
+  es: {
+    title: "Blog de automatización e IA con n8n",
+    description: "Aprende n8n con tutoriales prácticos, guías para depurar workflows y ejemplos de automatización con IA de la comunidad n8n Balloon Challenges.",
+  },
+  uk: {
+    title: "Блог про автоматизацію та ШІ з n8n",
+    description: "Вивчай n8n за практичними посібниками, порадами з налагодження воркфлоу та прикладами автоматизації з ШІ від спільноти n8n Balloon Challenges.",
+  },
+} satisfies Record<Locale, { title: string; description: string }>;
 
 export const emptyLabels = {
   en: "Articles are coming soon.",
@@ -121,4 +137,27 @@ export function posts(): Post[] {
 
   // ISO date strings sort chronologically, with the newest articles first.
   return result.sort((first, second) => second.date.localeCompare(first.date));
+}
+
+export const normalizeTag = (tag: string) => tag.trim().normalize("NFC").toLowerCase();
+
+export function tagSlug(tag: string) {
+  const normalized = normalizeTag(tag);
+  const readable = normalized.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "tag";
+  return `${readable}-${createHash("sha256").update(normalized).digest("hex").slice(0, 8)}`;
+}
+
+export function tagPath(locale: Locale, tag: string) {
+  return `/${locale}/blog/tag/${tagSlug(tag)}`;
+}
+
+export function blogTags() {
+  const tags = new Map<string, { locale: Locale; tag: string; label: string }>();
+  for (const post of posts()) {
+    for (const label of post.tags) {
+      const tag = normalizeTag(label);
+      if (tag) tags.set(`${post.locale}:${tag}`, { locale: post.locale, tag, label });
+    }
+  }
+  return [...tags.values()];
 }

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { posts } from "@/lib/blog";
+import { posts, blogTags, tagPath } from "@/lib/blog";
 import { challenges } from "@/lib/challenges";
 import { locales } from "@/lib/home-copy";
 import {
@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...pages,
+    ...blogTags().map(({ locale, tag }) => ({ url: absoluteUrl(tagPath(locale, tag)) })),
     ...posts().map((p) => ({
       url: absoluteUrl(`/${p.locale}/blog/${p.slug}`),
       lastModified: p.date,

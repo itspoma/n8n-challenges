@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { posts } from "@/lib/blog";
+import { posts, tagPath } from "@/lib/blog";
 import { absoluteUrl } from "@/lib/site-metadata";
 import { SiteHeader } from "@/app/_components/site-header";
 import { FooterMeta } from "@/app/_components/footer-meta";
@@ -109,7 +109,7 @@ export default async function Article({ params }: BlogArticlePageProps) {
         <p className="blog-subtitle">{post.subtitle}</p>
         <ul className="blog-tags">
           {post.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
+            <li key={tag}><Link href={tagPath(post.locale, tag)}>{tag}</Link></li>
           ))}
         </ul>
         <Image
