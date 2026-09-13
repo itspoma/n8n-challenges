@@ -25,7 +25,8 @@
       "Roman Rodomansky",
       "community learning"
     ]
-  }
+  },
+  "publishedAt": "2026-09-11T18:19:41+02:00"
 }
 ---
 

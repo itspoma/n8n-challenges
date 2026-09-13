@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { tagPath, type Post } from "@/lib/blog";
+import { tagPath, publicationLabel, type Post } from "@/lib/blog";
 
 export function BlogPostList({ items }: { items: Post[] }) {
   return <>
@@ -22,7 +22,7 @@ export function BlogPostList({ items }: { items: Post[] }) {
               <h2>
                 <Link href={`/${post.locale}/blog/${post.slug}`}>{post.title}</Link>
               </h2>
-              <time dateTime={post.date}>{post.date}</time>
+              <time dateTime={post.publishedAt ?? post.date} title="Europe/Madrid">{publicationLabel(post)}</time>
               <p>{post.subtitle}</p>
               <ul className="blog-tags">
                 {post.tags.map((tag) => (

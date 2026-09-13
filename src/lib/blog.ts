@@ -16,6 +16,7 @@ export type Post = {
   coverAlt: string;
   seo: { title: string; description: string; keywords: string[] };
   date: string;
+  publishedAt?: string;
   tags: string[];
   revision: string;
   body: string;
@@ -124,6 +125,12 @@ export function posts(): Post[] {
           `Invalid blog presentation or SEO metadata: ${fileName}`,
         );
       }
+      if (metadata.publishedAt !== undefined &&
+        (typeof metadata.publishedAt !== "string" ||
+          !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(metadata.publishedAt) ||
+          !Number.isFinite(Date.parse(metadata.publishedAt)))) {
+        throw new Error(`Invalid publishedAt timestamp: ${fileName}`);
+      }
       result.push({
         ...metadata,
         subtitle,
@@ -135,8 +142,8 @@ export function posts(): Post[] {
     }
   }
 
-  // ISO date strings sort chronologically, with the newest articles first.
-  return result.sort((first, second) => second.date.localeCompare(first.date));
+  // Compare instants so timezone offsets do not affect publication order.
+  return result.sort((first, second) => Date.parse(second.publishedAt ?? second.date) - Date.parse(first.publishedAt ?? first.date));
 }
 
 export const normalizeTag = (tag: string) => tag.trim().normalize("NFC").toLowerCase();
@@ -160,4 +167,14 @@ export function blogTags() {
     }
   }
   return [...tags.values()];
+}
+
+export function publicationLabel(post: Post) {
+  if (!post.publishedAt) return post.date;
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date(post.publishedAt));
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${values.year}-${values.month}-${values.day} · ${values.hour}:${values.minute}`;
 }

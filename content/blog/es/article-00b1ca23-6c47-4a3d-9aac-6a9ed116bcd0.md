@@ -25,7 +25,8 @@
       "Checklist"
     ]
   },
-  "revision": "d679bbc314a8cfccfe69284c86e407ecae55d44f79bee35e22e5adf7b9e471d6"
+  "revision": "d679bbc314a8cfccfe69284c86e407ecae55d44f79bee35e22e5adf7b9e471d6",
+  "publishedAt": "2026-09-13T10:11:34+02:00"
 }
 ---
 

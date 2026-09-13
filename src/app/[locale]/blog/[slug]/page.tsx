@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { posts, tagPath } from "@/lib/blog";
+import { posts, tagPath, publicationLabel } from "@/lib/blog";
 import { absoluteUrl } from "@/lib/site-metadata";
 import { SiteHeader } from "@/app/_components/site-header";
 import { FooterMeta } from "@/app/_components/footer-meta";
@@ -48,7 +48,7 @@ export async function generateMetadata({
       title: post.seo.title,
       description: post.seo.description,
       url: absoluteUrl(`/${locale}/blog/${slug}`),
-      publishedTime: post.date,
+      publishedTime: post.publishedAt ?? post.date,
       tags: post.tags,
       images: [{ url: absoluteUrl(post.coverImage), alt: post.coverAlt }],
     },
@@ -105,7 +105,7 @@ export default async function Article({ params }: BlogArticlePageProps) {
               : "Back to blog"}
         </Link>
         <h1>{post.title}</h1>
-        <time dateTime={post.date}>{post.date}</time>
+        <time dateTime={post.publishedAt ?? post.date} title="Europe/Madrid">{publicationLabel(post)}</time>
         <p className="blog-subtitle">{post.subtitle}</p>
         <ul className="blog-tags">
           {post.tags.map((tag) => (

@@ -25,7 +25,8 @@
       "Roman Rodomansky",
       "aprendizaje en comunidad"
     ]
-  }
+  },
+  "publishedAt": "2026-09-11T18:22:56+02:00"
 }
 ---
 

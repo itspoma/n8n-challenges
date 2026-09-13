@@ -25,7 +25,8 @@
       "Checklist"
     ]
   },
-  "revision": "818bd45cd52533551fd14f818a882fafbd9a45d5aae8c84ad80366260f9521ee"
+  "revision": "818bd45cd52533551fd14f818a882fafbd9a45d5aae8c84ad80366260f9521ee",
+  "publishedAt": "2026-09-13T09:53:57+02:00"
 }
 ---
 
