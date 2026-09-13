@@ -43,7 +43,14 @@ export type HomeCopy = {
     kicker: string;
     title: string;
     body: string;
-    steps: Array<{ number: string; title: string; href?: string }>;
+    steps: Array<{ number: string; title: string; description?: string; href?: string }>;
+  };
+  reading: {
+    kicker: string;
+    title: string;
+    body: string;
+    viewBook: string;
+    descriptions: [string, string, string];
   };
   challengeMap: {
     kicker: string;
@@ -93,7 +100,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       challenges: "Challenges",
       events: "Events",
     },
-    eyebrow: "An n8n Ambassador event format",
+    eyebrow: "Learn n8n through practice",
     titleTop: "Welcome to the",
     titleBottom: "n8n Balloon Challenges",
     intro:
@@ -129,8 +136,23 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { number: "01", title: "Sign up for n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Choose challenge" },
         { number: "03", title: "Build a workflow" },
-        { number: "04", title: "Show a mentor" },
-        { number: "05", title: "Collect a balloon" },
+        { number: "04", title: "Show your workflow to a mentor" },
+        {
+          number: "05",
+          title: "Collect a balloon",
+          description: "Complete the bonus task to earn an extra balloon.",
+        },
+      ],
+    },
+    reading: {
+      kicker: "Recommended reading",
+      title: "Keep learning",
+      body: "Three books we recommend to build your n8n and AI skills, one chapter at a time.",
+      viewBook: "Explore the book",
+      descriptions: [
+        "Go deeper into designing n8n workflows and connecting multiple AI models.",
+        "Learn by building practical AI automations and agents, without code.",
+        "Develop the human skills and judgment to make AI part of your everyday work.",
       ],
     },
     challengeMap: {
@@ -193,7 +215,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       challenges: "Retos",
       events: "Eventos",
     },
-    eyebrow: "Formato de evento creado por un n8n Ambassador",
+    eyebrow: "Aprende n8n practicando",
     titleTop: "Bienvenidos al",
     titleBottom: "n8n Balloon Challenges",
     intro:
@@ -228,7 +250,22 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { number: "02", title: "Elige un reto" },
         { number: "03", title: "Crea un workflow" },
         { number: "04", title: "Muéstraselo a un mentor" },
-        { number: "05", title: "Recoge un globo" },
+        {
+          number: "05",
+          title: "Recoge un globo",
+          description: "Completa la tarea extra para ganar otro globo.",
+        },
+      ],
+    },
+    reading: {
+      kicker: "Lecturas recomendadas",
+      title: "Sigue aprendiendo",
+      body: "Tres libros que recomendamos para mejorar tus habilidades con n8n e IA, capítulo a capítulo.",
+      viewBook: "Explora el libro",
+      descriptions: [
+        "Profundiza en el diseño de flujos de n8n y la conexión de varios modelos de IA.",
+        "Aprende creando automatizaciones y agentes de IA prácticos, sin código.",
+        "Desarrolla las habilidades humanas y el criterio para integrar la IA en tu trabajo diario.",
       ],
     },
     challengeMap: {
@@ -291,7 +328,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       challenges: "Завдання",
       events: "Події",
     },
-    eyebrow: "Формат події від амбасадора n8n",
+    eyebrow: "Вивчай n8n на практиці",
     titleTop: "Ласкаво просимо до",
     titleBottom: "n8n Balloon Challenges",
     intro:
@@ -326,7 +363,22 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { number: "02", title: "Оберіть завдання" },
         { number: "03", title: "Створіть воркфлоу" },
         { number: "04", title: "Покажіть його ментору" },
-        { number: "05", title: "Отримайте кульку" },
+        {
+          number: "05",
+          title: "Отримайте кульку",
+          description: "Виконайте бонусне завдання, щоб отримати додаткову кульку.",
+        },
+      ],
+    },
+    reading: {
+      kicker: "Рекомендуємо прочитати",
+      title: "Продовжуй вчитися",
+      body: "Три книжки, які ми радимо для розвитку навичок роботи з n8n та ШІ — розділ за розділом.",
+      viewBook: "Дізнатися про книжку",
+      descriptions: [
+        "Поглиблюй знання зі створення робочих процесів n8n і поєднання кількох моделей ШІ.",
+        "Навчайся на практиці: створюй автоматизації та агентів ШІ без коду.",
+        "Розвивай людські навички та вміння оцінювати результати ШІ для щоденної роботи.",
       ],
     },
     challengeMap: {

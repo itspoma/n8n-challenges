@@ -5,8 +5,8 @@ collection: more
 difficulty: beginner
 time: 15–25 min
 complexity: 2
-color: #9b83d7
-ink: #ffffff
+color: #fffdf6
+ink: #1b2427
 ---
 
 # Solution Data

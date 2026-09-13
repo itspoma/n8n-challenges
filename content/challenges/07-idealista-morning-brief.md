@@ -61,7 +61,7 @@ ink: #1b2427
       "typeVersion": 1,
       "position": [240, 300],
       "id": "09000000-0000-4000-8000-000000000002",
-      "name": "Scrape permitted feed"
+      "name": "Scrape rental page"
     },
     {
       "parameters": {
@@ -200,9 +200,9 @@ ink: #1b2427
   ],
   "connections": {
     "Every day at 08:00": {
-      "main": [[{"node": "Scrape permitted feed", "type": "main", "index": 0}]]
+      "main": [[{"node": "Scrape rental page", "type": "main", "index": 0}]]
     },
-    "Scrape permitted feed": {
+    "Scrape rental page": {
       "main": [[{"node": "Split listings", "type": "main", "index": 0}]]
     },
     "Split listings": {
@@ -288,7 +288,7 @@ ink: #1b2427
       "typeVersion": 1,
       "position": [240, 300],
       "id": "09000000-0000-4000-9000-000000000002",
-      "name": "Scrape permitted feed"
+      "name": "Scrape rental page"
     },
     {
       "parameters": {
@@ -474,9 +474,9 @@ ink: #1b2427
   ],
   "connections": {
     "Every day at 08:00": {
-      "main": [[{"node": "Scrape permitted feed", "type": "main", "index": 0}]]
+      "main": [[{"node": "Scrape rental page", "type": "main", "index": 0}]]
     },
-    "Scrape permitted feed": {
+    "Scrape rental page": {
       "main": [[{"node": "Split listings", "type": "main", "index": 0}]]
     },
     "Split listings": {
@@ -523,7 +523,7 @@ ink: #1b2427
 Find Your Valencia Apartment
 
 ## Summary
-Use Firecrawl for permitted web scraping and send only new matching apartments in a concise morning brief.
+Use Firecrawl to extract apartment listings and send only new matching apartments in a concise morning brief.
 
 ## Concept
 Scheduled structured web extraction, filtering, and cross-run deduplication
@@ -534,10 +534,10 @@ Scheduled structured web extraction, filtering, and cross-run deduplication
 - A student household needs a short morning update instead of manually checking a large property page.
 
 ## Task
-Every morning at 08:00, send a Telegram brief with up to five newly discovered Valencia apartments from the organizers’ permitted rental page. Include only homes costing no more than €1,200, with at least two bedrooms, in Russafa, El Carme, or Benimaclet.
+Every morning at 08:00, send a Telegram brief with up to five newly discovered Valencia apartments from Idealista or the fixture pages provided below. Include only homes costing no more than €1,200, with at least two bedrooms, in your favourite parts of the city.
 
 ## Bonus Task
-When no new apartments match, send a short Telegram update instead.
+When no new apartments match your preferences, send a short Telegram update: “No new apartments found today.”
 
 ## Nodes
 - Schedule Trigger
@@ -555,17 +555,17 @@ When no new apartments match, send a short Telegram update instead.
 - Create an [n8n Cloud account](/n8n-sign-up) or use a self-hosted n8n instance.
 - Create a [Firecrawl account](https://www.firecrawl.dev/app), use its free starter credits, and follow the [official n8n setup guide](https://docs.firecrawl.dev/integrations/n8n) to add the verified node and create a key – the secret value that lets n8n use your credits.
 - Create a bot with [Telegram’s BotFather instructions](https://core.telegram.org/bots/features#botfather), then follow the [n8n Telegram credential guide](https://docs.n8n.io/integrations/builtin/credentials/telegram/) and obtain the test chat ID.
-- Use only the event-owned [day 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) and [day 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html) pages. This exercise does not use an Idealista API – a machine-readable listing service from Idealista is not in scope – and [Idealista’s legal terms](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) do not permit automated scraping without express authorization.
+- Choose a rental page on [Idealista](https://www.idealista.com/) or use the provided fixture pages for [day 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) and [day 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Choose your favourite neighbourhoods and use them in your filters.
 
 ## Requirements
-- At 08:00 Europe/Madrid, the permitted page becomes structured data containing listingId, title, neighborhood, price, bedrooms, and URL for every apartment card.
+- At 08:00 Europe/Madrid, your chosen page becomes structured data containing listingId, title, neighborhood, price, bedrooms, and URL for every apartment card.
 - Each listing ID is checked with cross-run deduplication; only unseen homes matching all three preferences remain, sorted by lowest price and limited to five.
 - Telegram receives one readable brief with every selected home; the bonus workflow sends one clear no-new message when the same day 2 page is run again.
 
 ## Tips
 - Start with Firecrawl while running the workflow manually; choose Scrape and JSON output so the page becomes the six predictable fields used later.
 - Continue with Split Out on data.json.listings so each apartment becomes one separate record for the following nodes.
-- Add Filter with three checks: price no more than 1200, bedrooms at least 2, and neighborhood equal to Russafa, El Carme, or Benimaclet.
+- Add Filter with three checks: price no more than 1200, bedrooms at least 2, and neighborhood matching your favourite parts of the city. Replace the example neighbourhoods in the solution with your own choices.
 - Configure Remove Duplicates to remove items processed in previous executions, keep values that are new, and use listingId as the value to compare.
 - Finish with Sort, Limit, Aggregate, and Telegram, then add Schedule Trigger. For the bonus, enable Always Output Data on Filter and Remove Duplicates so an empty result still reaches If, check whether listingId exists, and test day 1, day 2, then day 2 again; clear the Remove Duplicates history before a fresh demo.
 
@@ -575,7 +575,7 @@ When no new apartments match, send a short Telegram update instead.
 Encuentra tu piso en Valencia
 
 ## Summary
-Usa Firecrawl para una extracción web permitida y envía solo pisos nuevos que coincidan en un resumen matinal breve.
+Usa Firecrawl para extraer anuncios de pisos y envía solo pisos nuevos que coincidan en un resumen matinal breve.
 
 ## Concept
 Extracción web estructurada y programada, filtrado y eliminación de duplicados entre ejecuciones
@@ -586,10 +586,10 @@ Extracción web estructurada y programada, filtrado y eliminación de duplicados
 - Un grupo de estudiantes necesita una actualización matinal breve en lugar de revisar manualmente una gran página inmobiliaria.
 
 ## Task
-Cada mañana a las 08:00, envía por Telegram un resumen con hasta cinco pisos recién descubiertos en la página de alquiler permitida de los organizadores. Incluye solo viviendas de hasta 1.200 €, con al menos dos habitaciones, en Russafa, El Carme o Benimaclet.
+Cada mañana a las 08:00, envía por Telegram un resumen con hasta cinco pisos recién descubiertos en Idealista o en las páginas de prueba que encontrarás más abajo. Incluye solo viviendas de hasta 1.200 €, con al menos dos habitaciones, en tus barrios favoritos de la ciudad.
 
 ## Bonus Task
-Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por Telegram.
+Si no hay pisos nuevos que coincidan con tus preferencias, envía una breve actualización por Telegram: «Hoy no se han encontrado pisos nuevos».
 
 ## Nodes
 - Schedule Trigger
@@ -607,17 +607,17 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Crea una [cuenta de n8n Cloud](/n8n-sign-up) o usa una instancia propia de n8n.
 - Crea una [cuenta de Firecrawl](https://www.firecrawl.dev/app), usa sus créditos iniciales gratuitos y sigue la [guía oficial para n8n](https://docs.firecrawl.dev/integrations/n8n) para añadir el nodo verificado y crear una clave – el valor secreto que permite a n8n usar tus créditos.
 - Crea un bot con las [instrucciones de BotFather de Telegram](https://core.telegram.org/bots/features#botfather), sigue la [guía de credenciales de Telegram en n8n](https://docs.n8n.io/integrations/builtin/credentials/telegram/) y obtén el ID del chat de prueba.
-- Usa solo las páginas del evento del [día 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) y [día 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Este ejercicio no utiliza una API de Idealista – no forma parte del reto ningún servicio de anuncios legible por máquinas de Idealista – y los [términos legales de Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=es) no permiten la extracción automatizada sin autorización expresa.
+- Elige una página de alquiler en [Idealista](https://www.idealista.com/) o usa las páginas de prueba del [día 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) y [día 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Elige tus barrios favoritos y úsalos en los filtros.
 
 ## Requirements
-- A las 08:00 Europe/Madrid, la página permitida se convierte en datos estructurados con listingId, título, barrio, precio, habitaciones y URL para cada piso.
+- A las 08:00 Europe/Madrid, la página elegida se convierte en datos estructurados con listingId, título, barrio, precio, habitaciones y URL para cada piso.
 - Cada ID de anuncio se comprueba mediante la eliminación de duplicados entre ejecuciones; solo quedan viviendas no vistas que cumplen las tres preferencias, ordenadas por menor precio y limitadas a cinco.
 - Telegram recibe un único resumen legible con cada vivienda seleccionada; el workflow extra envía un único aviso claro cuando se ejecuta de nuevo la página del día 2 y no hay novedades.
 
 ## Tips
 - Empieza con Firecrawl mientras ejecutas el workflow manualmente; elige Scrape y salida JSON para convertir la página en los seis campos predecibles que usarás después.
 - Continúa con Split Out sobre data.json.listings para convertir cada piso en un registro separado para los siguientes nodos.
-- Añade Filter con tres comprobaciones: precio máximo de 1200, al menos 2 habitaciones y barrio igual a Russafa, El Carme o Benimaclet.
+- Añade Filter con tres comprobaciones: precio máximo de 1200, al menos 2 habitaciones y barrio dentro de tus zonas favoritas. Sustituye los barrios de ejemplo de la solución por los que prefieras.
 - Configura Remove Duplicates para eliminar elementos procesados en ejecuciones anteriores, conservar los valores nuevos y usar listingId como valor de comparación.
 - Termina con Sort, Limit, Aggregate y Telegram, y después añade Schedule Trigger. Para la tarea extra, activa Always Output Data en Filter y Remove Duplicates para que un resultado vacío llegue a If, comprueba si existe listingId y prueba día 1, día 2 y de nuevo día 2; borra el historial de Remove Duplicates antes de una demostración nueva.
 
@@ -627,7 +627,7 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 Знайди свою квартиру у Валенсії
 
 ## Summary
-Використовуйте Firecrawl для дозволеного вебзбирання та надсилайте стислий ранковий огляд лише з новими відповідними квартирами.
+Використовуйте Firecrawl для отримання оголошень про квартири та надсилайте стислий ранковий огляд лише з новими відповідними квартирами.
 
 ## Concept
 Заплановане структуроване вебзбирання, фільтрування й усунення дублікатів між запусками
@@ -638,10 +638,10 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Студентському домогосподарству потрібне коротке ранкове оновлення замість ручної перевірки великої сторінки нерухомості.
 
 ## Task
-Щоранку о 08:00 надсилайте в Telegram огляд із щонайбільше п’ятьма новими квартирами зі сторінки оренди, дозволеної організаторами. Додавайте лише житло ціною до €1 200, щонайменше з двома спальнями, у районах Russafa, El Carme або Benimaclet.
+Щоранку о 08:00 надсилайте в Telegram огляд із щонайбільше п’ятьма новими квартирами з Idealista або тестових сторінок, наведених нижче. Додавайте лише житло ціною до €1 200, щонайменше з двома спальнями, у ваших улюблених районах міста.
 
 ## Bonus Task
-Якщо нових відповідних квартир немає, натомість надішліть коротке повідомлення в Telegram.
+Якщо немає нових квартир, що відповідають вашим побажанням, надішліть коротке оновлення в Telegram: «Сьогодні нових квартир не знайдено».
 
 ## Nodes
 - Schedule Trigger
@@ -659,16 +659,16 @@ Cuando no haya pisos nuevos que coincidan, envía en su lugar un aviso breve por
 - Створіть [обліковий запис n8n Cloud](/n8n-sign-up) або скористайтеся власним сервером n8n.
 - Створіть [обліковий запис Firecrawl](https://www.firecrawl.dev/app), скористайтеся безкоштовними стартовими кредитами й виконайте [офіційну інструкцію для n8n](https://docs.firecrawl.dev/integrations/n8n), щоб додати перевірену ноду та створити ключ – секретне значення, яке дає n8n доступ до ваших кредитів.
 - Створіть бота за [інструкцією Telegram BotFather](https://core.telegram.org/bots/features#botfather), виконайте [інструкцію n8n щодо облікових даних Telegram](https://docs.n8n.io/integrations/builtin/credentials/telegram/) й отримайте ID тестового чату.
-- Використовуйте лише сторінки події для [дня 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) і [дня 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Ця вправа не використовує API Idealista – машинозчитуваний сервіс оголошень Idealista не входить до завдання – а [юридичні умови Idealista](https://www.idealista.com/ayuda/articulos/legal-statement/?lang=en) не дозволяють автоматизоване збирання без прямого дозволу.
+- Виберіть сторінку оренди на [Idealista](https://www.idealista.com/) або скористайтеся тестовими сторінками для [дня 1](https://n8n-challenges.app/fixtures/valencia-apartments-day-1.html) і [дня 2](https://n8n-challenges.app/fixtures/valencia-apartments-day-2.html). Виберіть улюблені райони й укажіть їх у фільтрах.
 
 ## Requirements
-- О 08:00 за часовим поясом Europe/Madrid дозволена сторінка перетворюється на структуровані дані з полями listingId, назва, район, ціна, кількість спалень і URL для кожної квартири.
+- О 08:00 за часовим поясом Europe/Madrid вибрана сторінка перетворюється на структуровані дані з полями listingId, назва, район, ціна, кількість спалень і URL для кожної квартири.
 - Кожен ID оголошення перевіряється через усунення дублікатів між запусками; залишаються лише нові квартири, що відповідають усім трьом умовам, відсортовані за найнижчою ціною й обмежені п’ятьма.
 - Telegram отримує один читабельний огляд з усіма вибраними квартирами; додатковий воркфлоу надсилає одне чітке повідомлення без новинок після повторного запуску сторінки дня 2.
 
 ## Tips
 - Почніть із Firecrawl і запускайте воркфлоу вручну; виберіть Scrape та результат JSON, щоб перетворити сторінку на шість передбачуваних полів для наступних кроків.
 - Продовжте зі Split Out для data.json.listings, щоб кожна квартира стала окремим записом для наступних нод.
-- Додайте Filter із трьома перевірками: ціна не більше 1200, щонайменше 2 спальні й район Russafa, El Carme або Benimaclet.
+- Додайте Filter із трьома перевірками: ціна не більше 1200, щонайменше 2 спальні й район із вашого списку улюблених. Замініть приклади районів у розв’язанні на власні варіанти.
 - Налаштуйте Remove Duplicates на видалення елементів, оброблених у попередніх запусках, збереження нових значень і використання listingId як значення для порівняння.
 - Завершіть за допомогою Sort, Limit, Aggregate і Telegram, а потім додайте Schedule Trigger. Для додаткового завдання ввімкніть Always Output Data у Filter і Remove Duplicates, щоб порожній результат усе одно дійшов до If, перевірте наявність listingId і протестуйте день 1, день 2 та ще раз день 2; перед новою демонстрацією очистьте історію Remove Duplicates.

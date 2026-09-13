@@ -13,6 +13,12 @@ const terms = new Set(challenges.flatMap(({ slug, copy }) => [
   ...(additionalInlineTerms[slug]?.en ?? []),
 ].map(({ term }) => normalize(term))));
 
+export const mainChallengeCount = challenges.filter(({ collection }) => collection === "main").length;
+export const extraChallengeCount = challenges.length - mainChallengeCount;
+export const challengeCountLabel = extraChallengeCount
+  ? `${mainChallengeCount} + ${extraChallengeCount}`
+  : String(mainChallengeCount);
+
 export const challengeMetricValues = [
   challenges.length,
   nodes.size,

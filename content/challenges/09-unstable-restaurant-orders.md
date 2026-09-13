@@ -290,7 +290,8 @@ Internal workflow data for Challenge 8. This section is not displayed on the cha
             }
           ]
         },
-        "options": {}
+        "options": {},
+        "includeOtherFields": true
       },
       "id": "08000000-0000-4000-8000-000000000104",
       "name": "Validate order fields",
@@ -734,7 +735,8 @@ The lower Error Trigger branch is a template for the required separate error wor
             }
           ]
         },
-        "options": {}
+        "options": {},
+        "includeOtherFields": true
       },
       "id": "08000000-0000-4000-8000-000000000104",
       "name": "Validate order fields",
@@ -785,11 +787,11 @@ The lower Error Trigger branch is a template for the required separate error wor
     },
     {
       "parameters": {
-        "batchSize": 5,
+        "batchSize": 1,
         "options": {}
       },
       "id": "08000000-0000-4000-8000-000000000108",
-      "name": "Batch valid orders",
+      "name": "Process orders one by one",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
@@ -797,7 +799,7 @@ The lower Error Trigger branch is a template for the required separate error wor
         -300
       ],
       "notesInFlow": true,
-      "notes": "Processes five valid orders at a time; the loop output continues through the write and wait nodes."
+      "notes": "Processes one valid order at a time. The done output calculates the combined total only after all orders have been saved."
     },
     {
       "parameters": {
@@ -901,7 +903,7 @@ The lower Error Trigger branch is a template for the required separate error wor
         "options": {}
       },
       "id": "08000000-0000-4000-8000-000000000106",
-      "name": "Save rescued batch",
+      "name": "Save rescued order",
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1.1,
       "position": [
@@ -909,7 +911,7 @@ The lower Error Trigger branch is a template for the required separate error wor
         -300
       ],
       "notesInFlow": true,
-      "notes": "Inserts the current batch into rescued_orders before the loop continues."
+      "notes": "Saves one valid order per loop iteration."
     },
     {
       "parameters": {
@@ -917,7 +919,7 @@ The lower Error Trigger branch is a template for the required separate error wor
         "unit": "seconds"
       },
       "id": "08000000-0000-4000-8000-000000000109",
-      "name": "Wait between batches",
+      "name": "Wait between orders",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
@@ -926,7 +928,7 @@ The lower Error Trigger branch is a template for the required separate error wor
       ],
       "webhookId": "08000000-0000-4000-8000-000000000401",
       "notesInFlow": true,
-      "notes": "Waits two seconds before asking Loop Over Items for the next batch."
+      "notes": "Waits two seconds before processing the next order."
     },
     {
       "parameters": {
@@ -1169,6 +1171,50 @@ The lower Error Trigger branch is a template for the required separate error wor
       ],
       "notesInFlow": true,
       "notes": "Stores one diagnostic row after the main workflow exhausts all request retries."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a4cfb81-d5a2-41b5-b1de-f270a7fa02df",
+              "name": "orderCount",
+              "value": "={{ $input.all().length }}",
+              "type": "number"
+            },
+            {
+              "id": "e5f73ce1-3f33-41e4-99e4-8a64619571ca",
+              "name": "totalCents",
+              "value": "={{ $input.all().reduce((sum, item) => sum + item.json.totalCents, 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "47713077-5a33-4f65-ab15-d0b1fa07699c",
+              "name": "totalPrice",
+              "value": "={{ ($input.all().reduce((sum, item) => sum + item.json.totalCents, 0) / 100).toFixed(2) }}",
+              "type": "string"
+            },
+            {
+              "id": "bc00bd62-7839-4355-8c1d-8686a2e43600",
+              "name": "currency",
+              "value": "EUR",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc3dae21-e2de-4d59-bb0f-44fe5f878613",
+      "name": "Calculate total price",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        650,
+        -460
+      ],
+      "executeOnce": true,
+      "notesInFlow": true,
+      "notes": "After the loop finishes, sums saved valid orders in integer cents, then formats the combined EUR price. Rejected orders never enter the loop."
     }
   ],
   "connections": {
@@ -1220,7 +1266,7 @@ The lower Error Trigger branch is a template for the required separate error wor
       "main": [
         [
           {
-            "node": "Batch valid orders",
+            "node": "Process orders one by one",
             "type": "main",
             "index": 0
           }
@@ -1234,34 +1280,40 @@ The lower Error Trigger branch is a template for the required separate error wor
         ]
       ]
     },
-    "Batch valid orders": {
+    "Process orders one by one": {
       "main": [
-        [],
         [
           {
-            "node": "Save rescued batch",
+            "node": "Calculate total price",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Save rescued order",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Save rescued batch": {
+    "Save rescued order": {
       "main": [
         [
           {
-            "node": "Wait between batches",
+            "node": "Wait between orders",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Wait between batches": {
+    "Wait between orders": {
       "main": [
         [
           {
-            "node": "Batch valid orders",
+            "node": "Process orders one by one",
             "type": "main",
             "index": 0
           }
@@ -1340,7 +1392,7 @@ Pagination, retries, batching, validation, rejected records, and resilient error
 Retrieve every order from the supplied API, survive temporary failures, and separate valid orders from data that cannot be safely processed.
 
 ## Bonus Task
-Process valid orders in controlled batches – small groups handled one at a time – and record useful diagnostics when the API still fails after every retry.
+Process valid orders one by one and calculate their combined total price. Exclude rejected orders from the total. Record useful diagnostics if the API still fails after every retry.
 
 ## Nodes
 - Manual Trigger
@@ -1369,7 +1421,7 @@ Process valid orders in controlled batches – small groups handled one at a tim
 - Add HTTP Request and inspect its response body, status code, headers, and pagination object; configure pagination so pagination.nextPage supplies the next page while pagination.hasNext is true.
 - In HTTP Request, enable Retry On Fail for temporary 429 and 500 responses, allow enough attempts for random failures, and wait at least the Retry-After value of two seconds before another attempt.
 - Connect Split Out to turn the data array into individual orders, then use IF to validate orderId, customer.email, and numeric totalCents; use Edit Fields (Set) for a rejection reason and write the two branches to their matching Data Table.
-- For the bonus, place Loop Over Items and Wait around valid-order writes to control batch size, then use a separate Error Trigger workflow to store the failed workflow name, execution URL, error message, and last request details when retries are exhausted.
+- For the bonus, set Loop Over Items to a batch size of 1 and connect Data Table and Wait back to the loop. From its done output, use Edit Fields (Set) to sum totalCents across all processed orders and divide by 100 to show the total in euros. Use a separate Error Trigger workflow to record exhausted-retry diagnostics.
 
 # Spanish
 
@@ -1400,7 +1452,7 @@ Paginación, reintentos, procesamiento por lotes, validación, registros rechaza
 Recupera todos los pedidos de la API suministrada, supera los fallos temporales y separa los pedidos válidos de los datos que no se pueden procesar con seguridad.
 
 ## Bonus Task
-Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos uno por uno – y registra diagnósticos útiles cuando la API sigue fallando después de todos los reintentos.
+Procesa los pedidos válidos uno por uno y calcula su importe total conjunto. Excluye los pedidos rechazados del total. Registra diagnósticos útiles si la API sigue fallando después de todos los reintentos.
 
 ## Nodes
 - Manual Trigger
@@ -1429,7 +1481,7 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 - Añade HTTP Request y revisa el cuerpo, el código de estado, los encabezados y el objeto pagination de la respuesta; configura la paginación para que pagination.nextPage indique la página siguiente mientras pagination.hasNext sea true.
 - En HTTP Request, activa Retry On Fail para las respuestas temporales 429 y 500, permite suficientes intentos para superar fallos aleatorios y espera como mínimo los dos segundos indicados por Retry-After antes de volver a intentarlo.
 - Conecta Split Out para convertir el array data en pedidos individuales y después usa IF para validar orderId, customer.email y que totalCents sea numérico; usa Edit Fields (Set) para el motivo de rechazo y escribe cada rama en su Data Table correspondiente.
-- Para la tarea extra, coloca Loop Over Items y Wait alrededor de las escrituras de pedidos válidos para controlar el tamaño del lote y usa un workflow separado con Error Trigger para guardar el nombre del workflow fallido, la URL de ejecución, el mensaje de error y los datos de la última petición cuando se agoten los reintentos.
+- Para la tarea extra, configura Loop Over Items con un tamaño de lote de 1 y conecta Data Table y Wait de vuelta al bucle. Desde la salida done, usa Edit Fields (Set) para sumar totalCents de todos los pedidos procesados y dividir entre 100 para mostrar el total en euros. Usa un workflow separado con Error Trigger para registrar los diagnósticos de reintentos agotados.
 
 # Ukrainian
 
@@ -1460,7 +1512,7 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 Отримайте всі замовлення з наданого API, витримайте тимчасові збої та відокремте коректні замовлення від даних, які не можна безпечно опрацювати.
 
 ## Bonus Task
-Опрацьовуйте коректні замовлення контрольованими пакетами – невеликими групами по черзі – і записуйте корисні діагностичні дані, якщо API продовжує відмовляти після всіх повторних спроб.
+Опрацьовуйте коректні замовлення по одному та обчисліть їхню загальну вартість. Не враховуйте відхилені замовлення в загальній сумі. Записуйте корисні діагностичні дані, якщо API продовжує відмовляти після всіх повторних спроб.
 
 ## Nodes
 - Manual Trigger
@@ -1489,4 +1541,4 @@ Procesa los pedidos válidos en lotes controlados – grupos pequeños atendidos
 - Додайте HTTP Request і перегляньте тіло відповіді, код стану, заголовки та об’єкт pagination; налаштуйте пагінацію так, щоб pagination.nextPage задавав наступну сторінку, поки pagination.hasNext дорівнює true.
 - У HTTP Request увімкніть Retry On Fail для тимчасових відповідей 429 і 500, дозвольте достатньо спроб для подолання випадкових збоїв і зачекайте щонайменше дві секунди з Retry-After перед новою спробою.
 - Під’єднайте Split Out, щоб перетворити масив data на окремі замовлення, а потім використайте IF для перевірки orderId, customer.email і числового totalCents; за допомогою Edit Fields (Set) сформуйте причину відхилення та запишіть обидві гілки до відповідних Data Table.
-- Для додаткового завдання розмістіть Loop Over Items і Wait навколо запису коректних замовлень, щоб контролювати розмір пакета, а потім використайте окремий воркфлоу з Error Trigger для збереження назви невдалого воркфлоу, URL виконання, повідомлення про помилку та даних останнього запиту після вичерпання повторних спроб.
+- Для додаткового завдання встановіть у Loop Over Items розмір пакета 1 і з’єднайте Data Table та Wait назад із циклом. На виході done використайте Edit Fields (Set), щоб підсумувати totalCents усіх опрацьованих замовлень і поділити на 100 для відображення загальної суми в євро. Використайте окремий воркфлоу з Error Trigger для запису діагностики вичерпаних повторних спроб.

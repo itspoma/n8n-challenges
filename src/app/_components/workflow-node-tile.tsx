@@ -7,6 +7,8 @@ type WorkflowNodeTileProps = {
 type NodeKind = "ai" | "data" | "decision" | "integration" | "trigger" | "webhook";
 
 const NODE_DOCUMENTATION_URLS = {
+  wikipedia: "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolwikipedia",
+  simpleMemory: "https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorybufferwindow",
   webhook: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook",
   editFields: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.set",
   respondToWebhook:
@@ -74,12 +76,16 @@ const NODE_DOCUMENTATION_URLS = {
   switch: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.switch",
   sendEmail: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.sendemail",
   resend: "https://n8n.io/integrations/resend/",
+  tally: "https://tally.so/help/n8n-integration",
   wordpress:
     "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.wordpress",
 } as const;
 
 function getNodeDocumentationUrl(name: string): string | undefined {
   const normalizedName = name.toLowerCase();
+
+  if (normalizedName === "wikipedia") return NODE_DOCUMENTATION_URLS.wikipedia;
+  if (normalizedName === "simple memory") return NODE_DOCUMENTATION_URLS.simpleMemory;
 
   if (normalizedName.includes("google drive")) {
     return NODE_DOCUMENTATION_URLS.googleDrive;
@@ -143,6 +149,10 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName.includes("form trigger")) {
     return NODE_DOCUMENTATION_URLS.formTrigger;
+  }
+
+  if (normalizedName.includes("tally")) {
+    return NODE_DOCUMENTATION_URLS.tally;
   }
 
   if (normalizedName === "n8n form") {
@@ -293,6 +303,13 @@ function getNodeKind(name: string): NodeKind {
 
 function getNodeIcon(name: string) {
   const normalizedName = name.toLowerCase();
+
+  if (normalizedName === "wikipedia") return { light: "/nodes/wikipedia.svg" };
+  if (normalizedName === "simple memory") return { light: "/nodes/simple-memory.svg", dark: "/nodes/simple-memory-dark.svg" };
+
+  if (normalizedName.includes("tally")) {
+    return { light: "/nodes/tally.svg", dark: "/nodes/tally-dark.svg" };
+  }
 
   if (normalizedName.includes("manual trigger")) {
     return {

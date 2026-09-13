@@ -157,6 +157,7 @@ input {
 }
 
 .nav-count {
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1377,10 +1378,21 @@ html[data-theme="light"] .theme-icon-moon {
 }
 
 .step-card h3 {
+  position: relative;
+  z-index: 2;
   margin: 40px 0 0;
   font-size: 1.55rem;
   font-weight: 500;
   letter-spacing: -0.04em;
+}
+
+.step-description {
+  position: relative;
+  z-index: 2;
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .step-action-link {
@@ -1685,6 +1697,186 @@ html[data-theme="light"] .theme-icon-moon {
 .level-balloon-link:focus-visible {
   outline: 2px solid var(--pink);
   outline-offset: 3px;
+}
+
+.reading-section {
+  padding-block: 80px 0;
+  scroll-margin-top: 40px;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  margin: 44px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-card {
+  min-width: 0;
+}
+
+.book-link {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: 20px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.book-link:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 6px;
+}
+
+.book-cover-stage {
+  position: relative;
+  display: grid;
+  height: 360px;
+  padding: 30px;
+  place-items: center;
+  perspective: 1000px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 50% 90%, rgba(234, 75, 113, 0.10), transparent 70%);
+}
+
+.standing-book {
+  position: relative;
+  width: 205px;
+  height: 290px;
+  transform-style: preserve-3d;
+  transform: rotateY(-24deg) rotateZ(-2deg);
+  transition: transform 240ms ease;
+  box-shadow: 18px 22px 22px -12px rgba(0, 0, 0, 0.4);
+}
+
+.book-card:nth-child(2) .standing-book {
+  width: 235px;
+  transform: rotateY(-20deg) rotateZ(1deg);
+}
+
+.standing-book::before {
+  position: absolute;
+  inset: 3px auto 3px 100%;
+  width: 19px;
+  background: repeating-linear-gradient(to right, #e8e4db 0 1px, #fffdf5 1px 3px);
+  border: 1px solid #d3cec3;
+  content: "";
+  transform-origin: left;
+  transform: rotateY(90deg);
+}
+
+.standing-book::after {
+  position: absolute;
+  inset: 0;
+  border-radius: 1px 3px 3px 1px;
+  background: #263232;
+  content: "";
+  transform: translateZ(-20px);
+}
+
+.book-front {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 1px 3px 3px 1px;
+  background: #fff;
+  backface-visibility: hidden;
+}
+
+.book-front::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.24), transparent 3%, rgba(255, 255, 255, 0.16) 4%, transparent 6%);
+  content: "";
+  pointer-events: none;
+}
+
+.book-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.standing-book-skill-flip {
+  width: 188px;
+}
+
+.standing-book-skill-flip .book-cover {
+  /* Frame just the front cover within the author's padded mockup asset. */
+  position: absolute;
+  width: 161.3%;
+  max-width: none;
+  height: 138.9%;
+  left: -30.65%;
+  top: -19.44%;
+}
+
+.book-link:hover .standing-book,
+.book-link:focus-visible .standing-book {
+  transform: rotateY(-12deg) translateY(-5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .standing-book {
+    transition: none;
+  }
+}
+
+.book-details {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 4px 0;
+}
+
+.book-author {
+  margin: 0 0 9px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.book-details h3 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.book-description {
+  margin: 14px 0 22px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.book-cta {
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .book-cover-stage {
+    height: 330px;
+  }
+
+  .reading-section {
+    padding-top: 12px;
+  }
 }
 
 .collection-section {

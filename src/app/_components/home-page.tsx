@@ -1,6 +1,7 @@
 import { withBasePath } from "@/lib/site-path";
 import { challengeMetricValues } from "@/lib/challenge-metrics";
 import Link from "next/link";
+import Image from "next/image";
 
 import { BalloonString } from "@/app/_components/balloon-string";
 import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
@@ -10,6 +11,7 @@ import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
 import { mainChallenges, moreChallenges, difficultyLabels } from "@/lib/challenges";
 import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
 import { homeCopy, type Locale } from "@/lib/home-copy";
+import { recommendedBooks } from "@/lib/recommended-books";
 
 const balloonColorNames: Record<string, Record<Locale, string>> = {
   "#fffdf6": { en: "White", es: "Blanco", uk: "Білий" },
@@ -131,11 +133,13 @@ export function HomePage({ locale }: { locale: Locale }) {
                   </a>
                 ) : step.title}
               </h3>
+              {step.description && <p className="step-description">{step.description}</p>}
               <span className={`mini-balloon mini-balloon-${index + 1}`} aria-hidden="true" />
             </li>
           ))}
         </ol>
       </section>
+
 
       <section
         className="collection-section shell"
@@ -253,6 +257,47 @@ export function HomePage({ locale }: { locale: Locale }) {
             openLabel={copy.collection.openLabel}
           />
         </div>
+      </section>
+
+      <section
+        className="reading-section shell"
+        id="recommended-reading"
+        aria-labelledby="reading-title"
+      >
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">{copy.reading.kicker}</p>
+            <h2 id="reading-title">{copy.reading.title}</h2>
+          </div>
+          <p>{copy.reading.body}</p>
+        </div>
+        <ul className="books-grid">
+          {recommendedBooks.map((book, index) => (
+            <li key={book.cover} className="book-card">
+              <a href={book.href} target="_blank" rel="noopener noreferrer" className="book-link">
+                <div className="book-cover-stage">
+                  <div className={`standing-book${book.cover.endsWith("the-ai-skill-flip.png") ? " standing-book-skill-flip" : ""}`}>
+                    <div className="book-front">
+                      <Image
+                        src={withBasePath(book.cover)}
+                        alt={book.title}
+                        width={book.width}
+                        height={book.height}
+                        className="book-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="book-details">
+                  <p className="book-author">{book.author}</p>
+                  <h3>{book.title}</h3>
+                  <p className="book-description">{copy.reading.descriptions[index]}</p>
+                  <span className="book-cta">{copy.reading.viewBook}<span aria-hidden="true">↗</span></span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="contribute-section shell" aria-labelledby="contribute-title">

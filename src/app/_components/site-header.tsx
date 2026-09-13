@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { challengeCountLabel } from "@/lib/challenge-metrics";
 import Link from "next/link";
 
 import { ThemeToggle } from "@/app/_components/theme-toggle";
@@ -87,9 +88,9 @@ export function SiteHeader({
             {copy.nav.challenges}
             <span
               className="nav-count"
-              aria-label={copy.accessibility.challengeCount}
+              aria-label={`${copy.nav.challenges}: ${challengeCountLabel}`}
             >
-              10
+              {challengeCountLabel}
             </span>
           </Link>
           <Link

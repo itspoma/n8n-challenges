@@ -3,6 +3,12 @@ import type { Locale } from "@/lib/home-copy";
 export const additionalInlineTerms: Partial<
   Record<string, Partial<Record<Locale, Array<{ term: string; definition: string }>>>>
 > = {
+  "telegram-photo-summary": {"en": [{"term": "AI Agent", "definition": "The node that uses an AI model to understand the photo and write a reply."}, {"term": "OpenRouter", "definition": "A service that connects n8n to AI models, including models that can read images."}, {"term": "nativeLanguage", "definition": "A field saved in this workflow that specifies the language you want translations in."}], "es": [{"term": "AI Agent", "definition": "El nodo que usa un modelo de IA para entender la foto y responder."}, {"term": "OpenRouter", "definition": "Un servicio que conecta n8n con modelos de IA, incluidos modelos que leen imágenes."}, {"term": "nativeLanguage", "definition": "Un campo guardado en el workflow que indica el idioma al que quieres traducir."}], "uk": [{"term": "AI Agent", "definition": "Нода, яка використовує модель ШІ, щоб зрозуміти фото й відповісти."}, {"term": "OpenRouter", "definition": "Сервіс, що з’єднує n8n з моделями ШІ, зокрема з моделями для зображень."}, {"term": "nativeLanguage", "definition": "Поле у воркфлоу, яке задає мову перекладу."}]},
+  "wikipedia-ai-agent": {
+    en: [{"term": "AI Agent", "definition": "The node that reads your question, chooses a tool, and writes the answer."}, {"term": "Wikipedia", "definition": "The agent’s tool for looking up information in the online encyclopedia."}, {"term": "Simple Memory", "definition": "A node that keeps recent messages from the same chat so the agent can understand follow-up questions."}, {"term": "session ID", "definition": "An identifier that keeps one chat’s history separate from other chats."}],
+    es: [{"term": "AI Agent", "definition": "El nodo que lee tu pregunta, elige una herramienta y escribe la respuesta."}, {"term": "Wikipedia", "definition": "La herramienta del agente para buscar información en la enciclopedia en línea."}, {"term": "Simple Memory", "definition": "Un nodo que conserva mensajes recientes del mismo chat para entender preguntas de seguimiento."}, {"term": "ID de sesión", "definition": "Un identificador que separa el historial de un chat del de los demás."}],
+    uk: [{"term": "AI Agent", "definition": "Нода, яка читає запитання, обирає інструмент і формує відповідь."}, {"term": "Wikipedia", "definition": "Інструмент агента для пошуку інформації в онлайн-енциклопедії."}, {"term": "Simple Memory", "definition": "Нода, яка зберігає останні повідомлення чату, щоб агент розумів уточнювальні запитання."}, {"term": "ID сесії", "definition": "Ідентифікатор, який відокремлює історію одного чату від інших."}],
+  },
   "webhook-welcome": {
     en: [
       {
@@ -167,41 +173,55 @@ export const additionalInlineTerms: Partial<
       },
     ],
   },
+  "trello-morning-brief": {
+    en: [
+      { term: "P0", definition: "P0 means the highest priority; P1 means high priority. Start the card title with the prefix, for example P0 Fix sign-in or P1: Prepare slides. A space, colon, or hyphen separates the prefix from the title. Both come before unprefixed cards in the bonus." },
+      { term: "P1", definition: "P0 means the highest priority; P1 means high priority. Start the card title with the prefix, for example P0 Fix sign-in or P1: Prepare slides. A space, colon, or hyphen separates the prefix from the title. Both come before unprefixed cards in the bonus." },
+    ],
+    es: [
+      { term: "P0", definition: "P0 indica la prioridad máxima; P1, una prioridad alta. Pon el prefijo al principio del título, por ejemplo P0 Arreglar el acceso o P1: Preparar diapositivas. Sepáralo con espacio, dos puntos o guion. Ambos van antes de las tarjetas sin prefijo en el bonus." },
+      { term: "P1", definition: "P0 indica la prioridad máxima; P1, una prioridad alta. Pon el prefijo al principio del título, por ejemplo P0 Arreglar el acceso o P1: Preparar diapositivas. Sepáralo con espacio, dos puntos o guion. Ambos van antes de las tarjetas sin prefijo en el bonus." },
+    ],
+    uk: [
+      { term: "P0", definition: "P0 означає найвищий пріоритет, P1 — високий. Почніть назву з префікса, наприклад P0 Виправити вхід або P1: Підготувати слайди. Відокремте його пробілом, двокрапкою чи дефісом. У додатковому завданні обидва мають перевагу над картками без префікса." },
+      { term: "P1", definition: "P0 означає найвищий пріоритет, P1 — високий. Почніть назву з префікса, наприклад P0 Виправити вхід або P1: Підготувати слайди. Відокремте його пробілом, двокрапкою чи дефісом. У додатковому завданні обидва мають перевагу над картками без префікса." },
+    ],
+  },
   "valencia-citizen-request-classifier": {
     en: [
+      {
+        term: "responsible team",
+        definition:
+          "For this exercise, simulate three city service contacts: sanitation and parks for waste or green spaces; local police for noise; public works/service desk for roads and other or unclear requests. Use your own personal email addresses or aliases for all three.",
+      },
       {
         term: "AI model",
         definition:
           "An AI model is software that interprets the request and returns the category, priority, and summary required by this workflow.",
       },
-      {
-        term: "request ID",
-        definition:
-          "A request ID is the unique n8n execution number used to match the support email with the sender's confirmation.",
-      },
     ],
     es: [
+      {
+        term: "equipo responsable",
+        definition:
+          "Para este ejercicio, simula tres contactos municipales: limpieza y parques para residuos o zonas verdes; policía local para ruido; obras públicas/atención ciudadana para vías públicas y solicitudes de tipo other o poco claras. Usa tus propias direcciones de email o alias para los tres.",
+      },
       {
         term: "modelo de IA",
         definition:
           "Un modelo de IA es un software que interpreta la solicitud y devuelve la categoría, la prioridad y el resumen requeridos por este workflow.",
       },
-      {
-        term: "ID de solicitud",
-        definition:
-          "El ID de solicitud es el número único de ejecución de n8n que permite relacionar el email de soporte con la confirmación a la persona remitente.",
-      },
     ],
     uk: [
+      {
+        term: "відповідальній команді",
+        definition:
+          "Для цієї вправи змоделюйте три міські контакти: служба прибирання та парків для сміття й зелених зон; місцева поліція для шуму; служба благоустрою/підтримки для доріг та інших або неясних звернень. Для всіх трьох використайте власні електронні адреси або псевдоніми.",
+      },
       {
         term: "модель ШІ",
         definition:
           "Модель ШІ – це програмне забезпечення, яке інтерпретує звернення й повертає потрібні воркфлоу категорію, пріоритет і короткий опис.",
-      },
-      {
-        term: "ID звернення",
-        definition:
-          "ID звернення – це унікальний номер виконання n8n, який пов’язує лист службі підтримки з підтвердженням для відправника.",
       },
     ],
   },
