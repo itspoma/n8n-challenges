@@ -29,6 +29,12 @@ The public Events directory is generated from the Markdown files in `content/eve
 8. Explain who is organizing the event and link to its public registration or information page.
 9. Wait for maintainer review. A submitted pull request does not publish an event; it appears in the Events directory after merge and deployment.
 
+## Search engine notifications
+
+After each successful GitHub Pages deployment, the workflow submits the live sitemap URLs to IndexNow. The public `public/indexnow-key.txt` file verifies ownership; no API secret is required. The script checks that the deployed key matches before submitting. HTTP 202 means key validation is pending, not that pages are indexed. Failed submissions fail the notification step and can be retried by rerunning the deployment workflow.
+
+Run `npm run build` followed by `npm run indexnow -- --dry-run` to validate the exported sitemap without sending requests. Use `npm run indexnow` to submit the live sitemap manually. This submits the full current sitemap, including on scheduled deployments; removed URLs are not included. IndexNow notifies participating search engines and does not guarantee crawling or indexing.
+
 ## Pull-request checklist
 
 - The content is public and contains no personal or secret information.

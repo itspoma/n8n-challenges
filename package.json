@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "indexnow": "node scripts/indexnow.mjs",
     "solutions:check": "node scripts/render-solutions.mjs --check",
     "solutions:render": "node scripts/render-solutions.mjs"
   },
