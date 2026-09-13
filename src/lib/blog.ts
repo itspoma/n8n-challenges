@@ -3,8 +3,25 @@ import fs from "node:fs";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import publicationHistory from "../../content/blog/publication-history.json";
+import { execFileSync } from "node:child_process";
 
 import { locales, type Locale } from "./home-copy";
+
+const gitPublicationTimes = new Map<string, string>();
+
+function firstPublicationTime(file: string): string | undefined {
+  const cached = gitPublicationTimes.get(file);
+  if (cached) return cached;
+  // A shallow clone cannot reliably distinguish creation from a later edit.
+  if (execFileSync("git", ["rev-parse", "--is-shallow-repository"], { encoding: "utf8" }).trim() === "true") {
+    throw new Error(`Cannot determine publication time for ${file}: fetch full Git history or provide publishedAt.`);
+  }
+  const timestamps = execFileSync("git", ["log", "--follow", "--diff-filter=A", "--format=%cI", "--", file], { encoding: "utf8" }).trim().split("\n").filter(Boolean);
+  const timestamp = timestamps.at(-1);
+  if (timestamp) gitPublicationTimes.set(file, timestamp);
+  // Uncommitted drafts have no publication timestamp yet.
+  return timestamp;
+}
 
 export type Post = {
   id: string;
@@ -80,7 +97,7 @@ export function posts(): Post[] {
       // Publisher updates may replace front matter. Preserve established URLs
       // and first-publication times independently of the generated article.
       const history = (publicationHistory as Record<string, { publishedAt: string; urlSlug?: string }>)[`${locale}/${metadata.id}`];
-      metadata.publishedAt ??= history?.publishedAt;
+      metadata.publishedAt ??= history?.publishedAt ?? firstPublicationTime(path.join(directory, fileName));
 
       // Reject metadata that disagrees with the file path or publisher schema.
       if (
