@@ -22,7 +22,11 @@ type BlogMarkdownProps = {
 };
 
 export function BlogMarkdown({ body }: BlogMarkdownProps) {
-  return body.split(/\n\s*\n/).map((block, blockIndex) => {
+  // Front matter can leave a leading newline before the first heading.
+  const blocks = body.replace(/\r\n?/g, "\n").trim().split(/\n\s*\n/).filter(Boolean);
+
+  return blocks.map((source, blockIndex) => {
+    const block = source.trim();
     // Only publisher-owned image paths are rendered as figures.
     const image = /^!\[([^\]]*)\]\((\/blog\/[a-zA-Z0-9_./-]+)\)$/.exec(block.trim());
 
