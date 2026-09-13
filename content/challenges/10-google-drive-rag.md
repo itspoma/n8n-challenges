@@ -3,7 +3,7 @@ number: 10
 slug: google-drive-rag
 difficulty: advanced
 time: 45–60 min
-complexity: 4
+complexity: 5
 color: #040506
 ink: #ffffff
 ---
