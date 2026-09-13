@@ -146,19 +146,19 @@
       "source": "content/challenges/08-mercadona-mcp-assistant.md"
     },
     "unstable-restaurant-orders-core-dark.png": {
-      "hash": "c40650cbf2bf8d331addad8d5c1a0a8f40404bd2d6be326f0609afa3aa4e83cd",
+      "hash": "c47e2ec9420ae7193051dda472e2958ee8261f8ea0251ed50d02844b6c266165",
       "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-core-light.png": {
-      "hash": "7f8ff751747e1dc29e9f6d803362e0c37110360cdda0b23bdc4827784f5f1f5e",
+      "hash": "f34193472d692f048cc51f5c1091f22bc628f1ee091ae211f30b8200e2ae8fa6",
       "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-bonus-dark.png": {
-      "hash": "001d88295bc527f31259a19558db811f926668f9d0efd70eeca408d958f40f81",
+      "hash": "743d69035732641faa8b74ac9e42ef1f69f177bb4ccd8054782ef3bae89c6911",
       "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "unstable-restaurant-orders-bonus-light.png": {
-      "hash": "fc43c46a33da31c82dbb5ec309f0a6627650f5fc12ebe15d9a553b6f695863f3",
+      "hash": "196d932ebd6c058e85d2fcb63e00276cdb117566ae314eae55c6b34604541855",
       "source": "content/challenges/09-unstable-restaurant-orders.md"
     },
     "wikipedia-ai-agent-core-dark.png": {
@@ -176,6 +176,22 @@
     "wikipedia-ai-agent-bonus-light.png": {
       "hash": "5cd532d4692f265ae4f1366179dae5a9231dfa42d48380b2686d1123e39e1c84",
       "source": "content/challenges/12-wikipedia-ai-agent.md"
+    },
+    "telegram-photo-summary-core-dark.png": {
+      "hash": "e85442eb4c147a799c9c753a406812e176cd18f0f678297ea635f3ccdc06329d",
+      "source": "content/challenges/13-telegram-photo-summary.md"
+    },
+    "telegram-photo-summary-core-light.png": {
+      "hash": "9afa9beb35ed7ad86d8adc560b0dd949aa62ea9d11c4aa44c1dda18e40e885b0",
+      "source": "content/challenges/13-telegram-photo-summary.md"
+    },
+    "telegram-photo-summary-bonus-dark.png": {
+      "hash": "f5fd3f67bf769bac8af88b096f7a6b1dfbd8e5e1e99daa5a3387263e2c93d13c",
+      "source": "content/challenges/13-telegram-photo-summary.md"
+    },
+    "telegram-photo-summary-bonus-light.png": {
+      "hash": "efde693c06f226797c2049809058ee9e6461fc0f1d6358591d64bee68adc9981",
+      "source": "content/challenges/13-telegram-photo-summary.md"
     }
   }
 }
