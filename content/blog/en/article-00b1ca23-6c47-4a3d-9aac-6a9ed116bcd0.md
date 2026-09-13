@@ -13,7 +13,7 @@
     "Workflow debugging",
     "Checklist"
   ],
-  "coverImage": "/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/7b2ca43ec9cf53785d8530f18f13bc38fc3a95faccb22c2683fdff095c780363.png",
+  "coverImage": "/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/40a559e9f985b3a54fe2c95e113d9f8e7f12f104f5b0a597f0c7ae130d5d1ed1.png",
   "coverAlt": "Learner tracing a pink data token through request sections and nested boxes.",
   "seo": {
     "title": "Tracing a Missing n8n Webhook Field",
@@ -25,8 +25,7 @@
       "Checklist"
     ]
   },
-  "revision": "818bd45cd52533551fd14f818a882fafbd9a45d5aae8c84ad80366260f9521ee",
-  "publishedAt": "2026-09-13T09:53:57+02:00"
+  "revision": "b5fa12f7281484f62dbdee1ed47fb7968b00847913c0cb536f51c84d945e34ba"
 }
 ---
 
@@ -38,11 +37,11 @@ Keep the complete request available while you investigate. An HTTP request can c
 
 A useful first comparison is the sender’s raw request against what the Webhook node captured. Check the destination URL, method, headers and payload separately. If the distinctive value is absent from the raw request, the problem occurred before n8n received that attempt. If it is present, continue tracing where the Webhook node placed it.
 
-Sources: [S10](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages), [S1](https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/Webhook/Webhook.node.ts), [S6](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/common-issues)
+Sources: [S10](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages), [S1](https://github.com/n8n-io/n8n/blob/master/packages/nodes-base/nodes/Webhook/Webhook.node.ts)
 
-Explore practical automation challenges that you can build in your own n8n environment.
+Practice tracing webhook fields through request sections, nested paths and execution data with hands-on n8n challenges.
 
-[Explore the n8n challenges](https://n8n-challenges.app/en)
+[Explore n8n challenges](https://n8n-challenges.app/en)
 
 ## Check the format before reading the body
 
@@ -56,7 +55,7 @@ Sources: [S10](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages
 
 ## Locate the value in the Webhook output
 
-![Nested containers showing json, body, customer, contact and email beside separate request sections.](/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/32715dbfaecc6d5ba07734765314440f03403f2c4a6f01121df91817a7cb7e71.png)
+![Nested containers showing json, body, customer, contact and email beside separate request sections.](/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/b4cc7e33abc6628b32f25feb0ad5fa833b97f84dcb41ada1244efe66a3a5e33b.png)
 
 Illustrative field structure showing why a nested value needs a path that matches the captured item.
 
@@ -80,7 +79,7 @@ Sources: [S2](https://docs.n8n.io/build/work-with-data/understand-n8ns-data-stru
 
 ## Compare test and production executions
 
-![Comparison of a test request at an editor workbench and a production request stored in an executions cabinet.](/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/10d140a3758aebd27043835c2b60850150d812f785f54ab1c8508b1f1210f47c.png)
+![Comparison of a test request at an editor workbench and a production request stored in an executions cabinet.](/blog/en/article-00b1ca23-6c47-4a3d-9aac-6a9ed116bcd0/3002712514fbb07f3499d34ddb878211b9c74bf383fd742d94567a7945835c11.png)
 
 Conceptual comparison of where test and production webhook evidence is inspected.
 
@@ -101,9 +100,5 @@ Missing history is not proof that the request never arrived. It means the histor
 Finish with a short evidence record: the URL type and method used, the declared Content-Type, the request section containing the value, the exact observed path, the execution context and whether execution data was retained. This checklist helps keep observations separate from assumptions. Webhook behavior can still vary with version, raw-body or binary options, multipart requests and instance configuration, so document those details when they matter.
 
 Sources: [S5](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Type), [S6](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.webhook/common-issues), [S8](https://docs.n8n.io/deploy/host-n8n/configure-n8n/scaling/manage-execution-data)
-
-Choose from ten practical automation challenges to build in your own n8n environment.
-
-[Explore the n8n challenges](https://n8n-challenges.app/en)
 
 Tags: n8n, Webhooks, Workflow debugging, Checklist
