@@ -3649,6 +3649,7 @@ html[data-theme="light"] .theme-icon-moon {
 
 .footer-meta {
   display: flex;
+  flex-wrap: wrap;
   grid-column: 1 / -1;
   justify-content: center;
   justify-self: stretch;
