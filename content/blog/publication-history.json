@@ -43,5 +43,32 @@
   },
   "uk/balloon-challenges-introduction": {
     "publishedAt": "2026-09-11T18:22:56+02:00"
+  },
+  "en/opp_67deff63-e8cc-490c-8537-d1fa289cb76b": {
+    "urlSlug": "choosing-a-small-testable-first-n8n-workflow"
+  },
+  "en/opp_765f97bd-c657-412a-b3ee-cb28eedaa881": {
+    "urlSlug": "retrying-failed-n8n-http-requests-safely"
+  },
+  "en/opp_9ce712f6-663f-4d83-b4cf-a187025bbf23": {
+    "urlSlug": "build-a-human-reviewed-ai-support-workflow-in-n8n"
+  },
+  "es/opp_67deff63-e8cc-490c-8537-d1fa289cb76b": {
+    "urlSlug": "como-elegir-un-primer-flujo-de-trabajo-de-n8n-pequeno-y-comprobable"
+  },
+  "es/opp_765f97bd-c657-412a-b3ee-cb28eedaa881": {
+    "urlSlug": "reintentar-de-forma-segura-solicitudes-http-fallidas-en-n8n"
+  },
+  "es/opp_9ce712f6-663f-4d83-b4cf-a187025bbf23": {
+    "urlSlug": "crea-en-n8n-un-flujo-de-soporte-con-ia-y-revision-humana"
+  },
+  "uk/opp_67deff63-e8cc-490c-8537-d1fa289cb76b": {
+    "urlSlug": "yak-vybraty-nevelykyy-i-prydatnyy-dlya-testuvannya-pershyy-robochyy-protses-n8n"
+  },
+  "uk/opp_765f97bd-c657-412a-b3ee-cb28eedaa881": {
+    "urlSlug": "bezpechni-povtorni-sproby-nevdalykh-http-zapytiv-u-n8n"
+  },
+  "uk/opp_9ce712f6-663f-4d83-b4cf-a187025bbf23": {
+    "urlSlug": "stvorit-v-n8n-robochyy-protses-pidtrymky-z-shi-ta-perevirkoyu-lyudynoyu"
   }
 }
