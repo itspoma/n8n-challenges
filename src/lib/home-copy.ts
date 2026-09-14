@@ -27,6 +27,7 @@ export type HomeCopy = {
     format: string;
     challenges: string;
     events: string;
+    organizers: string;
   };
   eyebrow: string;
   titleTop: string;
@@ -99,6 +100,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       format: "How it works",
       challenges: "Challenges",
       events: "Events",
+      organizers: "For organizers",
     },
     eyebrow: "Learn n8n through practice",
     titleTop: "Welcome to the",
@@ -214,6 +216,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       format: "Cómo funciona",
       challenges: "Retos",
       events: "Eventos",
+      organizers: "Para organizadores",
     },
     eyebrow: "Aprende n8n practicando",
     titleTop: "Bienvenidos al",
@@ -327,6 +330,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       format: "Як це працює",
       challenges: "Завдання",
       events: "Події",
+      organizers: "Організаторам",
     },
     eyebrow: "Вивчай n8n на практиці",
     titleTop: "Ласкаво просимо до",

@@ -9,7 +9,7 @@ type SiteHeaderProps = {
   locale: Locale;
   languagePath?: string;
   languagePaths?: Partial<Record<Locale, string>>;
-  activePage?: "events";
+  activePage?: "events" | "organizers";
 };
 
 export function BrandLogo({
@@ -98,6 +98,12 @@ export function SiteHeader({
             href={`/${locale}/events`}
           >
             {copy.nav.events}
+          </Link>
+          <Link
+            className={activePage === "organizers" ? "active" : undefined}
+            href={`/${locale}/organizers`}
+          >
+            {copy.nav.organizers}
           </Link>
           <Link href={`/${locale}#how-it-works`}>{copy.nav.format}</Link>
         </nav>

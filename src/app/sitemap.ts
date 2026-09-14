@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const suffixes = [
     "",
     "/events",
+    "/organizers",
     "/blog",
     ...challenges.map((challenge) => `/challenges/${challenge.slug}`),
   ];
