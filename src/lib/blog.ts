@@ -8,6 +8,10 @@ import { execFileSync } from "node:child_process";
 import { locales, type Locale } from "./home-copy";
 
 const gitPublicationTimes = new Map<string, string>();
+const publicationHistoryById: Record<
+  string,
+  { publishedAt?: string; urlSlug?: string } | undefined
+> = publicationHistory;
 
 function firstPublicationTime(file: string): string | undefined {
   const cached = gitPublicationTimes.get(file);
@@ -96,7 +100,7 @@ export function posts(): Post[] {
       const metadata = JSON.parse(frontMatterMatch[1]);
       // Publisher updates may replace front matter. Preserve established URLs
       // and first-publication times independently of the generated article.
-      const history = (publicationHistory as Record<string, { publishedAt: string; urlSlug?: string }>)[`${locale}/${metadata.id}`];
+      const history = publicationHistoryById[`${locale}/${metadata.id}`];
       metadata.publishedAt ??= history?.publishedAt ?? firstPublicationTime(path.join(directory, fileName));
 
       // Reject metadata that disagrees with the file path or publisher schema.
