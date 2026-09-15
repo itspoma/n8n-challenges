@@ -2,6 +2,7 @@ import Image from "next/image";
 import { challengeCountLabel } from "@/lib/challenge-metrics";
 import Link from "next/link";
 
+import { NavMenu } from "@/app/_components/nav-menu";
 import { ThemeToggle } from "@/app/_components/theme-toggle";
 import { homeCopy, localeLabels, locales, type Locale } from "@/lib/home-copy";
 
@@ -9,7 +10,7 @@ type SiteHeaderProps = {
   locale: Locale;
   languagePath?: string;
   languagePaths?: Partial<Record<Locale, string>>;
-  activePage?: "events" | "organizers";
+  activePage?: "events" | "organizers" | "about";
 };
 
 export function BrandLogo({
@@ -66,6 +67,23 @@ export function SiteHeader({
 }: SiteHeaderProps) {
   const copy = homeCopy[locale];
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const secondaryLinks = [
+    {
+      href: `/${locale}/events`,
+      label: copy.nav.events,
+      active: activePage === "events",
+    },
+    {
+      href: `/${locale}/organizers`,
+      label: copy.nav.organizers,
+      active: activePage === "organizers",
+    },
+    {
+      href: `/${locale}/about`,
+      label: copy.nav.about,
+      active: activePage === "about",
+    },
+  ];
 
   return (
     <header className="site-header">
@@ -77,13 +95,14 @@ export function SiteHeader({
         >
           <BrandLogo tone="white" priority themeAware />
           <span className="brand-divider" aria-hidden="true" />
-          <strong className="event-name">balloon challenges</strong>
+          <strong className="event-name">{copy.headerTagline}</strong>
         </Link>
 
         <nav
           className="desktop-nav"
           aria-label={copy.accessibility.primaryNavigation}
         >
+          <Link href={`/${locale}#how-it-works`}>{copy.nav.format}</Link>
           <Link className="nav-with-count" href={`/${locale}#challenge-map`}>
             {copy.nav.challenges}
             <span
@@ -93,19 +112,13 @@ export function SiteHeader({
               {challengeCountLabel}
             </span>
           </Link>
-          <Link
-            className={activePage === "events" ? "active" : undefined}
-            href={`/${locale}/events`}
-          >
-            {copy.nav.events}
-          </Link>
-          <Link
-            className={activePage === "organizers" ? "active" : undefined}
-            href={`/${locale}/organizers`}
-          >
-            {copy.nav.organizers}
-          </Link>
-          <Link href={`/${locale}#how-it-works`}>{copy.nav.format}</Link>
+          <NavMenu
+            className="nav-menu-more"
+            icon="chevron"
+            label={copy.nav.more}
+            active={secondaryLinks.some((link) => link.active)}
+            items={secondaryLinks}
+          />
         </nav>
 
         <div className="header-actions">
@@ -132,6 +145,20 @@ export function SiteHeader({
               ))}
           </div>
           <ThemeToggle locale={locale} />
+          <NavMenu
+            className="nav-menu-mobile"
+            icon="bars"
+            label={copy.nav.menu}
+            items={[
+              { href: `/${locale}#how-it-works`, label: copy.nav.format },
+              {
+                href: `/${locale}#challenge-map`,
+                label: copy.nav.challenges,
+                badge: challengeCountLabel,
+              },
+              ...secondaryLinks,
+            ]}
+          />
         </div>
       </div>
     </header>

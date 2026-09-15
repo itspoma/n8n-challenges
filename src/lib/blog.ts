@@ -8,22 +8,62 @@ import { execFileSync } from "node:child_process";
 import { locales, type Locale } from "./home-copy";
 
 const gitPublicationTimes = new Map<string, string>();
+const gitContentUpdateTimes = new Map<string, string | undefined>();
 const publicationHistoryById: Record<
   string,
   { publishedAt?: string; urlSlug?: string } | undefined
 > = publicationHistory;
+let shallowRepository: boolean | undefined;
+
+function isShallowRepository() {
+  shallowRepository ??= execFileSync("git", ["rev-parse", "--is-shallow-repository"], { encoding: "utf8" }).trim() === "true";
+  return shallowRepository;
+}
 
 function firstPublicationTime(file: string): string | undefined {
   const cached = gitPublicationTimes.get(file);
   if (cached) return cached;
   // A shallow clone cannot reliably distinguish creation from a later edit.
-  if (execFileSync("git", ["rev-parse", "--is-shallow-repository"], { encoding: "utf8" }).trim() === "true") {
+  if (isShallowRepository()) {
     throw new Error(`Cannot determine publication time for ${file}: fetch full Git history or provide publishedAt.`);
   }
   const timestamps = execFileSync("git", ["log", "--follow", "--diff-filter=A", "--format=%cI", "--", file], { encoding: "utf8" }).trim().split("\n").filter(Boolean);
   const timestamp = timestamps.at(-1);
   if (timestamp) gitPublicationTimes.set(file, timestamp);
   // Uncommitted drafts have no publication timestamp yet.
+  return timestamp;
+}
+
+// Reader-facing article content; front-matter-only publisher changes are not updates.
+function visibleContent(fileContents: string) {
+  const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(fileContents);
+  if (!match) return fileContents;
+  const metadata = JSON.parse(match[1]);
+  return JSON.stringify([metadata.title, metadata.subtitle ?? metadata.description, metadata.coverImage, match[2].trim()]);
+}
+
+/** Time of the latest commit that changed the visible article after its first version. */
+function lastContentUpdateTime(file: string): string | undefined {
+  if (gitContentUpdateTimes.has(file)) return gitContentUpdateTimes.get(file);
+  let timestamp: string | undefined;
+  // A shallow clone lacks earlier versions; omit the update time rather than guess.
+  if (!isShallowRepository()) {
+    const commits = execFileSync("git", ["log", "--follow", "--name-only", "--format=%x00%H %cI", "--", file], { encoding: "utf8" })
+      .split("\0")
+      .map((entry) => {
+        const [header = "", ...paths] = entry.trim().split("\n");
+        const [sha, time] = header.split(" ");
+        return { sha, time, path: paths.filter(Boolean).at(-1) };
+      })
+      // Merge commits list no changed paths.
+      .filter((commit) => commit.sha && commit.path);
+    const versions = commits.length > 1
+      ? commits.map((commit) => visibleContent(execFileSync("git", ["show", `${commit.sha}:${commit.path}`], { encoding: "utf8" })))
+      : [];
+    // Commits are newest first; compare each version with the one before it.
+    timestamp = commits.find((commit, index) => index + 1 < versions.length && versions[index] !== versions[index + 1])?.time;
+  }
+  gitContentUpdateTimes.set(file, timestamp);
   return timestamp;
 }
 
@@ -40,6 +80,8 @@ export type Post = {
   seo: { title: string; description: string; keywords: string[] };
   date: string;
   publishedAt?: string;
+  // Latest reader-facing content change after publication, from Git history.
+  modifiedAt?: string;
   tags: string[];
   revision: string;
   body: string;
@@ -162,6 +204,7 @@ export function posts(): Post[] {
       if (typeof urlSlug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(urlSlug)) {
         throw new Error(`Invalid readable URL slug: ${fileName}`);
       }
+      const updatedAt = lastContentUpdateTime(path.join(directory, fileName));
       result.push({
         ...metadata,
         slug: urlSlug,
@@ -170,6 +213,11 @@ export function posts(): Post[] {
         coverImage,
         coverAlt,
         seo,
+        // Only content changes after publication count as updates.
+        modifiedAt:
+          updatedAt && metadata.publishedAt && Date.parse(updatedAt) > Date.parse(metadata.publishedAt)
+            ? updatedAt
+            : undefined,
         body: frontMatterMatch[2],
       });
     }
@@ -211,12 +259,16 @@ export function blogTags() {
   return [...tags.values()];
 }
 
-export function publicationLabel(post: Post) {
-  if (!post.publishedAt) return post.date;
+/** Format an ISO timestamp as `YYYY-MM-DD · HH:mm` in Europe/Madrid. */
+export function timestampLabel(timestamp: string) {
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Europe/Madrid", year: "numeric", month: "2-digit", day: "2-digit",
     hour: "2-digit", minute: "2-digit", hourCycle: "h23",
-  }).formatToParts(new Date(post.publishedAt));
+  }).formatToParts(new Date(timestamp));
   const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
   return `${values.year}-${values.month}-${values.day} · ${values.hour}:${values.minute}`;
+}
+
+export function publicationLabel(post: Post) {
+  return post.publishedAt ? timestampLabel(post.publishedAt) : post.date;
 }

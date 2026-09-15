@@ -1,6 +1,8 @@
 /** Render the publisher's Markdown subset as React nodes; raw HTML is never executed. */
 import type { ReactNode } from "react";
 
+import { displayImage, imageSize } from "@/lib/blog-images";
+
 function renderInline(text: string): ReactNode[] {
   return text.split(/(\[[^\]]+\]\(<?[^)>]+>?\))/g).map((part, partIndex) => {
     const linkMatch = /^\[([^\]]+)\]\(<?([^)>]+)>?\)$/.exec(part);
@@ -31,10 +33,20 @@ export function BlogMarkdown({ body }: BlogMarkdownProps) {
     const image = /^!\[([^\]]*)\]\((\/blog\/[a-zA-Z0-9_./-]+)\)$/.exec(block.trim());
 
     if (image && !image[2].includes("..")) {
+      const size = imageSize(image[2]);
+
+      // Lazy loading also stops React from preloading below-the-fold images in <head>.
       return (
         <figure key={blockIndex}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${image[2]}`} alt={image[1]} />
+          <img
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${displayImage(image[2])}`}
+            alt={image[1]}
+            width={size?.width}
+            height={size?.height}
+            loading="lazy"
+            decoding="async"
+          />
           <figcaption>{image[1]}</figcaption>
         </figure>
       );

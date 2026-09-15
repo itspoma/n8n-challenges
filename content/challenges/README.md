@@ -107,6 +107,13 @@ ink: #ffffff
 ---
 ```
 
+Contributors may credit themselves with two optional metadata fields. `author` is the public name shown on the challenge page, and `authorUrl` is an optional public HTTPS profile link. Omit both when no credit is wanted, and never add an email address.
+
+```yaml
+author: Your Name
+authorUrl: https://github.com/your-username
+```
+
 The document body must contain `# English`, `# Spanish`, and `# Ukrainian`. Each language must have these second-level sections in this exact order:
 
 ```markdown

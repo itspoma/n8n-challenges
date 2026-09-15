@@ -26,9 +26,13 @@ export type HomeCopy = {
   nav: {
     format: string;
     challenges: string;
+    more: string;
+    menu: string;
     events: string;
     organizers: string;
+    about: string;
   };
+  headerTagline: string;
   eyebrow: string;
   titleTop: string;
   titleBottom: string;
@@ -81,7 +85,6 @@ export type HomeCopy = {
     allEvents: string;
   };
   footer: string;
-  footerContact: string;
 };
 
 export const homeCopy: Record<Locale, HomeCopy> = {
@@ -99,9 +102,13 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     nav: {
       format: "How it works",
       challenges: "Challenges",
+      more: "More",
+      menu: "Menu",
       events: "Events",
       organizers: "For organizers",
+      about: "About",
     },
+    headerTagline: "learn by doing",
     eyebrow: "Learn n8n through practice",
     titleTop: "Welcome to the",
     titleBottom: "n8n Balloon Challenges",
@@ -210,7 +217,6 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       allEvents: "All events",
     },
     footer: "Built for curious people who learn by making things work.",
-    footerContact: "Contact",
   },
   es: {
     metadataTitle: "Bienvenidos",
@@ -226,9 +232,13 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     nav: {
       format: "Cómo funciona",
       challenges: "Retos",
+      more: "Más",
+      menu: "Menú",
       events: "Eventos",
       organizers: "Para organizadores",
+      about: "Acerca de",
     },
+    headerTagline: "aprende haciendo",
     eyebrow: "Aprende n8n practicando",
     titleTop: "Bienvenidos al",
     titleBottom: "n8n Balloon Challenges",
@@ -335,7 +345,6 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       allEvents: "Todos los eventos",
     },
     footer: "Creado para personas curiosas que aprenden haciendo que las cosas funcionen.",
-    footerContact: "Contacto",
   },
   uk: {
     metadataTitle: "Ласкаво просимо",
@@ -351,9 +360,13 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     nav: {
       format: "Як це працює",
       challenges: "Завдання",
+      more: "Більше",
+      menu: "Меню",
       events: "Події",
       organizers: "Організаторам",
+      about: "Про проєкт",
     },
+    headerTagline: "вчись на практиці",
     eyebrow: "Вивчай n8n на практиці",
     titleTop: "Ласкаво просимо до",
     titleBottom: "n8n Balloon Challenges",
@@ -460,6 +473,5 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       allEvents: "Усі події",
     },
     footer: "Створено для допитливих людей, які навчаються, змушуючи речі працювати.",
-    footerContact: "Зв’язатися",
   },
 };

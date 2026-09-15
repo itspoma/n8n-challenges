@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/events",
     "/organizers",
+    "/about",
     "/blog",
     ...challenges.map((challenge) => `/challenges/${challenge.slug}`),
   ];
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogTags().map(({ locale, tag }) => ({ url: absoluteUrl(tagPath(locale, tag)) })),
     ...posts().map((p) => ({
       url: absoluteUrl(`/${p.locale}/blog/${p.slug}`),
-      lastModified: p.date,
+      lastModified: p.modifiedAt ?? p.publishedAt ?? p.date,
     })),
   ];
 }

@@ -205,9 +205,10 @@ export default async function OrganizersPage({ params }: OrganizersPageProps) {
         <div className="footer-links">
           <Link href={`/${locale}/blog`}>{locale === "uk" ? "Блог" : "Blog"}</Link>
           <Link href={`/${locale}/events`}>{homeCopy[locale].nav.events}</Link>
+          <Link href={`/${locale}/about`}>{homeCopy[locale].nav.about}</Link>
           <a href="#organizers-title" aria-label={copy.top}>↑ Top</a>
         </div>
-        <FooterMeta />
+        <FooterMeta locale={locale} />
       </footer>
     </main>
   );

@@ -55,7 +55,7 @@ export default async function Blog({ params }: BlogPageProps) {
       </section>
 
       <footer className="shell">
-        <FooterMeta />
+        <FooterMeta locale={locale} />
       </footer>
     </main>
   );

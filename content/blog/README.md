@@ -19,3 +19,11 @@ Keep `slug`, the Markdown filename, and image paths unchanged for compatibility 
 Articles are sorted by publication timestamp, newest first. All dated articles with known timestamps display `YYYY-MM-DD · HH:mm` in Europe/Madrid, on both cards and article pages.
 
 For newly published articles without `publishedAt` or a saved history entry, the site now derives the timestamp automatically from the Markdown file's first Git commit (following renames). Later edits do not change that time. Both GitHub Actions workflows fetch full history (`fetch-depth: 0`) for this fallback; a shallow checkout fails clearly rather than guessing. Uncommitted drafts still show date only. Builds outside a Git checkout must supply timestamps through front matter or the history file.
+
+## Author and updated dates
+
+Article pages name the author from `SITE_AUTHOR` in `src/lib/site-metadata.ts` in the byline, the `author` meta tags and JSON-LD. The updated date comes from the latest Git commit that changed the visible article (title, subtitle, cover or body) after its first commit. Front-matter-only edits, such as SEO keywords or `publishedAt` backfills, do not count. Articles without such a change show no updated date, and `dateModified` falls back to the publication time. Shallow checkouts omit updated dates rather than guessing.
+
+## Image variants
+
+`npm run dev` and `npm run build` first run `scripts/blog-images.mjs`. It writes Git-ignored variants next to each publisher PNG under `public/blog`: `<name>.webp` for pages and, for covers, `<name>.og.jpg` cropped to 1200×630 for social previews and JSON-LD. Commit only the PNG originals. Pages fall back to the PNG when a variant is missing.

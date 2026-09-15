@@ -147,14 +147,12 @@ export default async function EventsPage({ params }: EventsPageProps) {
           >
             GitHub ↗
           </a>
-          <a href="https://github.com/itspoma" target="_blank" rel="noopener noreferrer">
-            {homeCopy[locale].footerContact} ↗
-          </a>
+          <Link href={`/${locale}/about`}>{homeCopy[locale].nav.about}</Link>
           <a href="#events-title" aria-label={homeCopy[locale].accessibility.backToTop}>
             ↑ Top
           </a>
         </div>
-        <FooterMeta />
+        <FooterMeta locale={locale} />
       </footer>
     </main>
   );

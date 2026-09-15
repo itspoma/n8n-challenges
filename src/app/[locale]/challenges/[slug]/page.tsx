@@ -19,6 +19,7 @@ import {
   getChallenge,
 } from "@/lib/challenges";
 import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
+import { creditCopy } from "@/lib/people";
 import { createLocalizedMetadata } from "@/lib/site-metadata";
 
 type ChallengePageProps = {
@@ -311,6 +312,18 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
                 </span>
               </span>
               <span>{labels.time}: {challenge.time}</span>
+              {challenge.author ? (
+                <span className="challenge-credit">
+                  {creditCopy[locale].challengeBy}{" "}
+                  {challenge.author.url ? (
+                    <a href={challenge.author.url} target="_blank" rel="noopener noreferrer">
+                      {challenge.author.name}
+                    </a>
+                  ) : (
+                    challenge.author.name
+                  )}
+                </span>
+              ) : null}
             </div>
           </div>
 
@@ -487,15 +500,9 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
           >
             GitHub ↗
           </a>
-          <a
-            href="https://github.com/itspoma"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {homeCopy[locale].footerContact} ↗
-          </a>
+          <Link href={`/${locale}/about`}>{homeCopy[locale].nav.about}</Link>
         </div>
-        <FooterMeta />
+        <FooterMeta locale={locale} />
       </footer>
     </main>
   );

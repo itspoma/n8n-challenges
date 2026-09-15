@@ -6,6 +6,12 @@ export const SITE_NAME = "n8n Balloon Challenges";
 export const SITE_DESCRIPTION =
   "Choose an n8n challenge, build a working automation, and collect a balloon with your team.";
 export const SITE_URL = new URL("https://n8n-challenges.app");
+// Blog articles are written by the site's author; the profile matches the consulting CTA.
+export const SITE_AUTHOR = {
+  name: "Roman Rodomansky",
+  url: "https://www.linkedin.com/in/rodomansky/",
+  sameAs: ["https://www.linkedin.com/in/rodomansky/", "https://github.com/itspoma"],
+};
 
 const openGraphLocales = {
   en: "en_US",
@@ -56,6 +62,17 @@ export function projectPreviewImage(locale: Locale) {
   return { url: absoluteUrl(`/${locale}/opengraph-image`), width: 1200, height: 630, alt: SITE_NAME };
 }
 
+/** Site name and Open Graph locales; pass only the locales that have this page. */
+export function openGraphLocaleFields(locale: Locale, availableLocales: readonly Locale[] = locales) {
+  return {
+    siteName: SITE_NAME,
+    locale: openGraphLocales[locale] ?? openGraphLocales.en,
+    alternateLocale: availableLocales
+      .filter((alternateLocale) => alternateLocale !== locale)
+      .map((alternateLocale) => openGraphLocales[alternateLocale] ?? openGraphLocales.en),
+  };
+}
+
 export function createLocalizedMetadata({
   locale,
   suffix = "",
@@ -72,7 +89,6 @@ export function createLocalizedMetadata({
   const previewImages = images ?? [projectPreviewImage(locale)];
   const pathname = localizedPath(locale, suffix);
   const brandedTitle = `${title} · ${SITE_NAME}`;
-  const openGraphLocale = openGraphLocales[locale] ?? openGraphLocales.en;
 
   return {
     metadataBase: SITE_URL,
@@ -85,14 +101,10 @@ export function createLocalizedMetadata({
     openGraph: {
       type: "website",
       url: pathname,
-      siteName: SITE_NAME,
       title: brandedTitle,
       description,
       images: previewImages,
-      locale: openGraphLocale,
-      alternateLocale: locales
-        .filter((alternateLocale) => alternateLocale !== locale)
-        .map((alternateLocale) => openGraphLocales[alternateLocale] ?? openGraphLocales.en),
+      ...openGraphLocaleFields(locale),
     },
     twitter: {
       card: "summary_large_image",

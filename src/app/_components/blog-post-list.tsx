@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { tagPath, publicationLabel, type Post } from "@/lib/blog";
+import { displayImage } from "@/lib/blog-images";
 
 export function BlogPostList({ items }: { items: Post[] }) {
   return <div className="blog-grid">
@@ -12,7 +13,7 @@ export function BlogPostList({ items }: { items: Post[] }) {
               >
                 <Image
                   className="blog-cover"
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${post.coverImage}`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${displayImage(post.coverImage)}`}
                   alt={post.coverAlt}
                   width={1200}
                   height={675}

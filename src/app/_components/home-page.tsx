@@ -372,18 +372,12 @@ export function HomePage({ locale }: { locale: Locale }) {
           >
             GitHub ↗
           </a>
-          <a
-            href="https://github.com/itspoma"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {copy.footerContact} ↗
-          </a>
+          <Link href={`/${locale}/about`}>{copy.nav.about}</Link>
           <a href="#hero-title" aria-label={copy.accessibility.backToTop}>
             ↑ Top
           </a>
         </div>
-        <FooterMeta />
+        <FooterMeta locale={locale} />
       </footer>
     </main>
   );

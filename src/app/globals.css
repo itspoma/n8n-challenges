@@ -206,6 +206,162 @@ input {
   transform-origin: left;
 }
 
+.nav-menu {
+  position: relative;
+}
+
+.nav-menu-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.nav-menu-chevron,
+.nav-menu-icon {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-menu-chevron {
+  width: 12px;
+  height: 12px;
+  stroke-width: 1.6;
+  transition: transform 180ms ease;
+}
+
+.nav-menu-button[aria-expanded="true"] .nav-menu-chevron {
+  transform: rotate(180deg);
+}
+
+.nav-menu-icon {
+  width: 14px;
+  height: 14px;
+  stroke-width: 1.7;
+}
+
+.nav-menu-list {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  min-width: 190px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: var(--dark);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+  list-style: none;
+}
+
+/* Author display rules override the UA [hidden] style, so restate it. */
+.nav-menu-list[hidden] {
+  display: none;
+}
+
+.nav-menu-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  white-space: nowrap;
+  transition: background 180ms ease;
+}
+
+.nav-menu-list a:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-menu-list a.active {
+  color: var(--pink-soft);
+}
+
+.desktop-nav .nav-menu-list a::after {
+  content: none;
+}
+
+/* Desktop "More": a text link with the nav underline; the list opens centred below it. */
+.nav-menu-more .nav-menu-button::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--pink);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+
+.nav-menu-more .nav-menu-button:hover::after,
+.nav-menu-more .nav-menu-button[aria-expanded="true"]::after,
+.nav-menu-more .nav-menu-button.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-menu-more .nav-menu-button.active {
+  color: var(--pink-soft);
+}
+
+.nav-menu-more .nav-menu-list {
+  top: calc(100% + 30px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Mobile "Menu": a pill in the header actions, shown once the desktop nav is hidden. */
+.nav-menu-mobile {
+  display: none;
+}
+
+.nav-menu-mobile .nav-menu-button {
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.nav-menu-mobile .nav-menu-button:hover,
+.nav-menu-mobile .nav-menu-button[aria-expanded="true"] {
+  border-color: rgba(234, 75, 113, 0.65);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.nav-menu-mobile .nav-menu-list {
+  top: calc(100% + 20px);
+  right: 0;
+  min-width: 220px;
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+/* Keep the word "Menu" on the narrowest phones; the icon is the first thing to go. */
+@media (max-width: 400px) {
+  .nav-menu-mobile .nav-menu-icon {
+    display: none;
+  }
+}
+
 .locale-switch {
   display: flex;
   align-items: center;
@@ -2169,6 +2325,11 @@ html[data-theme="light"] .theme-icon-moon {
   font-weight: 650;
 }
 
+.challenge-detail-meta .challenge-credit a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .challenge-complexity {
   display: inline-flex;
   align-items: center;
@@ -3664,6 +3825,14 @@ html[data-theme="light"] .theme-icon-moon {
   font-weight: 700;
 }
 
+.footer-meta a {
+  transition: color 180ms ease;
+}
+
+.footer-meta a:hover {
+  color: var(--pink-soft);
+}
+
 .challenge-footer {
   grid-template-columns: 1fr auto 1fr;
   column-gap: 48px;
@@ -4954,7 +5123,40 @@ html[data-theme="light"] .leaderboard-progress > span {
   background: rgba(4, 5, 6, 0.1);
 }
 
-html[data-theme="light"] .desktop-nav a.active {
+html[data-theme="light"] .desktop-nav a.active,
+html[data-theme="light"] .nav-menu-more .nav-menu-button.active,
+html[data-theme="light"] .nav-menu-list a.active {
+  color: var(--pink-deep);
+}
+
+html[data-theme="light"] .nav-menu-list {
+  border-color: rgba(4, 5, 6, 0.11);
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(69, 21, 36, 0.12);
+}
+
+html[data-theme="light"] .nav-menu-list a:hover {
+  background: var(--pink-pale);
+}
+
+html[data-theme="light"] .nav-menu-mobile .nav-menu-button {
+  border-color: rgba(4, 5, 6, 0.16);
+  background: var(--pink-pale);
+  color: var(--dark);
+}
+
+html[data-theme="light"] .nav-menu-mobile .nav-menu-button:hover,
+html[data-theme="light"] .nav-menu-mobile .nav-menu-button[aria-expanded="true"] {
+  border-color: rgba(216, 59, 97, 0.48);
+  background: var(--pink-fog);
+}
+
+html[data-theme="light"] .nav-menu-mobile .nav-menu-list {
+  color: var(--dark);
+}
+
+html[data-theme="light"] .footer-meta a:hover,
+html[data-theme="light"] .about-links a {
   color: var(--pink-deep);
 }
 
@@ -5008,6 +5210,10 @@ html[data-theme="light"] .collection-balloon-string {
 
   .desktop-nav {
     display: none;
+  }
+
+  .nav-menu-mobile {
+    display: block;
   }
 
   .hero {
@@ -5707,6 +5913,96 @@ html[data-theme="light"] .blog-tags a { background: #fff1f6; color: #953254; bor
 html[data-theme="light"] .blog-tags a:hover { background: #fce0eb; border-color: #c47693; }
 .blog-back { display: inline-block; margin-bottom: 1.5rem; }
 .blog-subtitle { font-size: 1.2rem; color: var(--ink-soft); }
+.blog-content .blog-byline { display: flex; flex-wrap: wrap; gap: .25rem .5rem; margin-block: .5rem 1rem; color: var(--ink-soft); font-size: .9rem; }
+
+/* Blog author box */
+.blog-author {
+  margin-top: 3.5rem;
+  padding: 28px 30px;
+  border: 1px solid rgba(234, 75, 113, 0.28);
+  border-radius: 20px;
+  background: rgba(234, 75, 113, 0.06);
+  line-height: 1.6;
+}
+
+.blog-content .blog-author p {
+  margin: 0;
+}
+
+.blog-content .blog-author .section-kicker {
+  margin-bottom: 10px;
+}
+
+.blog-author-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.blog-content .blog-author .blog-author-bio {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.blog-content .blog-author-link {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* About page */
+.about-page {
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+
+.about-content {
+  display: grid;
+  gap: 64px;
+  max-width: 880px;
+  padding-block: 80px 20px;
+}
+
+.about-section h2 {
+  margin: 0 0 22px;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.about-section p:not(.section-kicker) {
+  margin: 0 0 16px;
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-links a {
+  color: var(--pink-soft);
+  font-weight: 700;
+}
+
+.about-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.about-maintainer-copy > p + p {
+  margin-top: 14px;
+}
 
 /* Organizer playbook */
 .organizers-page {

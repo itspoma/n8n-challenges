@@ -29,6 +29,12 @@ The public Events directory is generated from the Markdown files in `content/eve
 8. Explain who is organizing the event and link to its public registration or information page.
 9. Wait for maintainer review. A submitted pull request does not publish an event; it appears in the Events directory after merge and deployment.
 
+## Credit your work
+
+The Events directory credits each event's organizers. Challenges can credit the people who create them too: in a challenge's metadata block, add `author: Your Name` and, optionally, `authorUrl: https://...` with a public HTTPS profile link. The name appears on the challenge page.
+
+Only add names and links you are happy to publish, and never add an email address.
+
 ## Search engine notifications
 
 After each successful GitHub Pages deployment, the workflow submits the live sitemap URLs to IndexNow. The public `public/indexnow-key.txt` file verifies ownership; no API secret is required. The script checks that the deployed key matches before submitting. HTTP 202 means key validation is pending, not that pages are indexed. Failed submissions fail the notification step and can be retried by rerunning the deployment workflow.
@@ -45,4 +51,5 @@ Run `npm run build` followed by `npm run indexnow -- --dry-run` to validate the 
 - A challenge solution contains both core and bonus workflow JSON, or neither.
 - Each challenge still contains exactly five tips per language.
 - Links use HTTPS.
+- Credits contain only public names and HTTPS profile links, never email addresses.
 - `npm run lint`, `npm run typecheck`, `npm run solutions:check`, and `npm run build` pass.

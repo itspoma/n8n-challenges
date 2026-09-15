@@ -2,6 +2,7 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 import type { Locale } from "@/lib/home-copy";
+import { isHttpsUrl } from "@/lib/people";
 
 export type ChallengeDifficulty = "beginner" | "intermediate" | "advanced";
 
@@ -32,6 +33,7 @@ export type Challenge = {
   complexity: 1 | 2 | 3 | 4 | 5;
   color: string;
   ink: string;
+  author?: { name: string; url?: string };
   solutions: ChallengeSolutions | null;
   copy: Record<Locale, ChallengeTranslation>;
 };
@@ -587,6 +589,10 @@ function parseChallenge(fileName: string): Challenge {
   if (!/^#[0-9a-f]{6}$/i.test(metadata.color ?? "")) fail(fileName, "color must be a six-digit hex value");
   if (!/^#[0-9a-f]{6}$/i.test(metadata.ink ?? "")) fail(fileName, "ink must be a six-digit hex value");
   if (!metadata.time) fail(fileName, "time is required");
+  if (metadata.authorUrl && !metadata.author) fail(fileName, "authorUrl requires author");
+  if (metadata.authorUrl && !isHttpsUrl(metadata.authorUrl)) {
+    fail(fileName, "authorUrl must be a public HTTPS URL");
+  }
 
   const expectedFileName = `${String(number).padStart(2, "0")}-${metadata.slug}.md`;
   if (fileName !== expectedFileName) fail(fileName, `filename must be ${expectedFileName}`);
@@ -609,6 +615,15 @@ function parseChallenge(fileName: string): Challenge {
     complexity: complexity as Challenge["complexity"],
     color: metadata.color,
     ink: metadata.ink,
+    // Optional contributor credit; challenges without one show no author line.
+    ...(metadata.author
+      ? {
+          author: {
+            name: metadata.author,
+            ...(metadata.authorUrl ? { url: metadata.authorUrl } : {}),
+          },
+        }
+      : {}),
     solutions: hasImages ? images : null,
     copy: {
       en: parseTranslation(languages.English, fileName, "English"),

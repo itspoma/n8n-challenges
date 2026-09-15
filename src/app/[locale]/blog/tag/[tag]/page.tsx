@@ -41,6 +41,6 @@ export default async function TagPage({ params }: Props) {
       <h1>{entry.label}</h1>
       <BlogPostList items={items} />
     </section>
-    <footer className="shell"><FooterMeta /></footer>
+    <footer className="shell"><FooterMeta locale={locale} /></footer>
   </main>;
 }
