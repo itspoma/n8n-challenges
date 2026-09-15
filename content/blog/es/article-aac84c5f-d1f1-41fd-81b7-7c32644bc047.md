@@ -4,9 +4,9 @@
   "locale": "es",
   "slug": "article-aac84c5f-d1f1-41fd-81b7-7c32644bc047",
   "urlSlug": "precios-de-n8n-estima-el-coste-real-de-produccion-de-un-workflow",
-  "title": "Precios de n8n: estima el coste real de un workflow en producción",
-  "subtitle": "Un método práctico para estimar las ejecuciones mensuales de un workflow de n8n separando reintentos, pruebas, crecimiento, servicios externos y autoalojamiento.",
-  "description": "Un método práctico para estimar las ejecuciones mensuales de un workflow de n8n separando reintentos, pruebas, crecimiento, servicios externos y autoalojamiento.",
+  "title": "Precios de n8n: estima el coste real en producción de un workflow",
+  "subtitle": "Guía de precios de n8n para un workflow en producción: cuenta ejecuciones facturadas, separa reintentos y pruebas, añade margen y compara Cloud con autoalojamiento.",
+  "description": "Guía de precios de n8n para un workflow en producción: cuenta ejecuciones facturadas, separa reintentos y pruebas, añade margen y compara Cloud con autoalojamiento.",
   "date": "2026-09-15",
   "tags": [
     "n8n",
@@ -14,104 +14,88 @@
     "Autoalojamiento",
     "Guía"
   ],
-  "coverImage": "/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/0eaf5457f55222661584c06802652cefe9d082c02ae8ae5e4318c197d6123441.png",
-  "coverAlt": "Una responsable técnica separa las ejecuciones del workflow de los costes de pruebas, crecimiento e infraestructura en una mesa de planificación.",
+  "coverImage": "/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/a5e407a188407c5ebd6a5752d3176b92e6572861bbe69386707f5d98153331aa.png",
+  "coverAlt": "Ilustración del pesaje de ejecuciones de workflow para estimar los precios de n8n",
   "seo": {
-    "title": "Precios de n8n: estima el coste real de un workflow en producción",
-    "description": "Un método práctico para estimar las ejecuciones mensuales de un workflow de n8n separando reintentos, pruebas, crecimiento, servicios externos y autoalojamiento.",
-    "keywords": [
-      "n8n",
-      "Preparación para producción",
-      "Autoalojamiento"
-    ]
+    "title": "Precios de n8n: estima el coste real en producción de un workflow",
+    "description": "Guía de precios de n8n para un workflow en producción: cuenta ejecuciones facturadas, separa reintentos y pruebas, añade margen y compara Cloud con autoalojamiento.",
+    "keywords": []
   },
-  "revision": "8b6fcd296da2c12f5ba1edbe0d3915c32561d589fa4e945c23f276fdcc01d120"
+  "revision": "db87e6206fc4b69815703899702f66b0d373ae533f60e5892ddf40bc818b16f2"
 }
 ---
 
-## Empieza por la unidad que factura n8n
+## Guía: define la unidad que facturan los precios de n8n
 
-Empieza por la unidad de facturación, no por el número de nodos del lienzo. Desde la actualización del modelo de precios de n8n de agosto de 2025, los planes de pago se cobran según las ejecuciones completas de workflows, y no por usuarios, workflows activos o pasos individuales. Por tanto, una ejecución complicada no cuenta automáticamente como muchas ejecuciones solo porque contenga muchos nodos.
+Antes de presupuestar un workflow, necesitas saber qué estás contando. Los precios actuales de n8n en los planes de pago se basan en ejecuciones. Desde la actualización de precios de agosto de 2025, pagas por cuántas veces se ejecuta un workflow de principio a fin. No pagas por usuario, por workflow activo ni por paso individual.
 
-Esta distinción te da un punto de partida claro, pero no produce una estimación de costes completa. El precio por ejecución es solo una parte de operar un workflow. Tu hoja de cálculo también debería reflejar los servicios de terceros y, si estás valorando el autoalojamiento, la infraestructura y el trabajo operativo. Trata la estimación como un modelo de planificación que debe contrastarse con las condiciones vigentes del plan antes de comprar.
+Eso cambia cómo estimas. Un workflow con veinte nodos que se ejecuta una vez cuesta lo mismo, en términos de ejecución, que un workflow de tres nodos que se ejecuta una vez. Así que tu hoja de cálculo debe contar ejecuciones, no pasos. Ten en cuenta que este es [el modelo de facturación del proveedor](<https://n8n-challenges.app/es/blog/n8n-frente-a-zapier-una-comparacion-practica-de-webhook-a-api>). No dice nada sobre tu coste operativo total, que es lo que el resto de esta guía te ayuda a construir.
 
-Sources: [S5](https://support.n8n.io/article/updated-pricing-model-august-2025), [S10](https://github.com/n8n-io/n8n-docs/blob/main/docs/get-started/choose-how-to-use-n8n.md), [S9](https://n8n.io/legal/self-serve-terms/)
+Sources: [S5](https://support.n8n.io/article/updated-pricing-model-august-2025)
 
-Practica cómo identificar disparadores, distinguir la actividad de prueba de las ejecuciones de producción y estimar el volumen probable de ejecuciones con un pequeño workflow práctico en tu propio entorno de n8n.
+¿Quieres practicar identificando triggers y ejecuciones de prueba antes de estimar volumen? Prueba un reto práctico de n8n en tu propio entorno de n8n.
 
 [Explora los retos de n8n](https://n8n-challenges.app/es)
 
-## Establece la línea base según los disparadores
+## Establece la línea base según los triggers y separa las categorías
 
-![Los disparadores programados, de webhook y de aplicación se cuentan por separado antes de combinarse en una línea base.](/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/e90678165aebd28973017bb26fdf8757a4b1f68280b354b20998e2db85d5525a.png)
+![Diagrama de proceso que divide el volumen de triggers en columnas de base, reintentos, pruebas y crecimiento](/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/aa1e2dc4d109e460b7c1e808585f32a80afdf6af9d51cd10c5f271f850e62629.png)
 
-Un método ilustrativo para convertir las suposiciones sobre disparadores de producción en una línea base mensual.
+Marco editorial ilustrativo, no una plantilla del proveedor.
 
-Enumera todas las formas en que el workflow puede iniciarse en producción. Algunas filas sugeridas son disparadores programados, webhooks entrantes, eventos de aplicaciones y cualquier otro disparador automático relevante para el diseño. Para cada fila, anota la frecuencia esperada y el número de ejecuciones del workflow que produce un disparador, y multiplica ambos valores. Suma las filas para obtener la estimación base de producción.
+Para un workflow nuevo, n8n sugiere listar tus casos de uso principales y calcular con qué frecuencia se ejecutará cada uno. En la práctica, crea una fila por trigger: ejecuciones programadas, volumen de webhooks o eventos, y cualquier otro trigger de producción. Multiplica la frecuencia esperada de cada trigger por el número de ejecuciones que provoca y suma las filas. Por ejemplo, puedes planificar una programación horaria más una estimación de envíos de formularios entrantes. Trátalo como un ejemplo de hoja de cálculo, no como una referencia.
 
-Esto sigue el enfoque que sugiere n8n de enumerar los casos de uso y estimar con qué frecuencia se ejecutará cada uno. Las ejecuciones de producción incluyen los workflows iniciados automáticamente por eventos o programaciones, y cuentan para las cuotas de ejecución en los planes de pago. Evita empezar con un total mensual vago: las filas por disparador hacen visibles las suposiciones y ayudan a detectar recuentos duplicados.
+Las ejecuciones de producción son las que inicia automáticamente un evento o una programación, y en los planes de pago cuentan para tu cuota de ejecuciones. Otra actividad se trata de forma distinta. Las FAQ sobre el límite de ejecuciones en Cloud indican que las ejecuciones manuales desde el editor, las ejecuciones de chat y las de subworkflows no se ven afectadas por esa categoría de cuota. También indican que las ejecuciones fallidas no cuentan. Esas FAQ pueden no cubrir todas las situaciones de facturación o licencia, así que revisa las reglas del plan que elijas realmente.
 
-Crea versiones baja, esperada y alta de la línea base cuando la demanda sea incierta. Son escenarios de planificación, no predicciones. Escribe las suposiciones junto a cada valor, incluidos los días operativos, los picos estacionales, los tamaños de lote y cualquier sistema previo que pueda generar múltiples eventos.
+La solución más sencilla es mantener cuatro columnas de presupuesto separadas: ejecuciones de producción base, [actividad de reintentos o recuperación](<https://n8n-challenges.app/es/blog/reintentar-de-forma-segura-solicitudes-http-fallidas-en-n8n>), pruebas manuales y crecimiento. No asumas que todas las columnas son facturables. Aplica a cada una las reglas de cuota documentadas. Además, las pruebas manuales siguen consumiendo tiempo de las personas, aunque no usen cuota de ejecuciones.
 
-Sources: [S1](https://n8n.io/pricing/), [S11](https://github.com/n8n-io/n8n-docs/blob/main/docs/build/understand-workflows/understand-executions/types-of-executions.md)
+Sources: [S1](https://n8n.io/pricing/), [S11](https://github.com/n8n-io/n8n-docs/blob/main/docs/build/understand-workflows/understand-executions/types-of-executions.md), [S6](https://support.n8n.io/article/can-you-reset-my-executions)
 
-## Separa producción, recuperación y pruebas
+## Mide el uso real y los patrones de fallo
 
-Crea cuatro columnas distintas: ejecuciones base de producción, actividad de reintento o recuperación, pruebas manuales y crecimiento. Separarlas evita que un presupuesto operativo conservador se confunda con una previsión de ejecuciones facturables. También permite al equipo revisar una suposición sin rehacer toda la estimación.
+Las estimaciones son un punto de partida. Después de un periodo de observación representativo, abre la lista de ejecuciones y filtra por workflow y por estado: fallida, en ejecución, con éxito o en espera. Sustituye tus conteos estimados de triggers por las ejecuciones registradas, anota cualquier patrón de fallo repetido e investiga las grandes diferencias antes de elegir una capacidad.
 
-Aplica las reglas de cuota del plan y del contexto que estés evaluando. Las FAQ de Cloud proporcionadas indican que las ejecuciones manuales iniciadas desde el editor, las ejecuciones de chat y las de sub-workflows quedan excluidas de la categoría de cuota afectada. También indican que las ejecuciones fallidas no cuentan. Esas reglas no deben generalizarse a todos los contextos de facturación o licencia, y las ejecuciones excluidas pueden seguir consumiendo tiempo del personal, infraestructura o servicios externos de pago.
-
-Para la actividad de recuperación, describe qué podría ocurrir tras un fallo: [un reintento automático](<https://n8n-challenges.app/es/blog/reintentar-de-forma-segura-solicitudes-http-fallidas-en-n8n>), una nueva ejecución manual, un evento de origen reenviado o un workflow de recuperación independiente. Después, relaciona cada mecanismo con las reglas aplicables. No supongas que cada fallo genera otra ejecución facturada, pero tampoco ocultes la demanda de recuperación.
-
-Sources: [S6](https://support.n8n.io/article/can-you-reset-my-executions)
-
-## Mide las ejecuciones reales y los patrones de fallo
-
-Cuando el workflow haya funcionado durante un periodo representativo, sustituye las suposiciones allí donde haya registros disponibles. n8n permite filtrar los registros de ejecución accesibles por workflow y estado, incluidas las ejecuciones fallidas, en curso, correctas y en espera. Usa esos filtros para comparar la actividad registrada con tu estimación basada en disparadores.
-
-Investiga las diferencias importantes en lugar de aumentar el presupuesto de inmediato. Una desviación puede reflejar una suposición de frecuencia incorrecta, [eventos previos repetidos](<https://n8n-challenges.app/es/blog/crea-un-webhook-idempotente-en-n8n-que-omita-las-solicitudes-reintentadas>), programaciones inesperadas o un historial incompleto. Anota lo que aprendas y actualiza los escenarios bajo, esperado y alto. La visibilidad depende del acceso y del historial conservado, y eliminar un workflow también elimina su historial de ejecuciones, así que confirma la ventana de observación disponible antes de considerarla representativa.
-
-El objetivo no es afirmar que el tráfico pasado predice la demanda futura, sino sustituir conjeturas evitables por recuentos observados, documentando lanzamientos, estacionalidad y otras condiciones que puedan hacer que el próximo mes sea diferente.
+Lo que puedes ver depende de tus permisos y de cuánto historial se conserve. Según la documentación, eliminar un workflow también elimina su historial de ejecuciones. Si piensas usar los registros para presupuestar, anota los números antes de eliminar cualquier workflow.
 
 Sources: [S4](https://docs.n8n.io/build/understand-workflows/understand-executions/view-all-executions)
 
-## Añade crecimiento y riesgo de cuota
+## Añade un margen de crecimiento y de riesgo de cuota
 
-Añade un margen de crecimiento solo después de establecer la línea base y la variación observada. Elígelo a partir de los planes de lanzamiento del equipo, la estacionalidad, la adopción prevista y la incertidumbre. La evidencia proporcionada no respalda ningún porcentaje universal, así que etiqueta ese margen como una suposición editorial de planificación y muéstralo por separado.
+Construye escenarios bajo, esperado y alto. El tamaño de tu margen de crecimiento es una decisión editorial de planificación basada en tu estacionalidad, tus planes de lanzamiento y tu incertidumbre. n8n no recomienda un porcentaje concreto, y esta guía tampoco.
 
-Compara los escenarios esperado y alto con la asignación del plan actual. Las asignaciones de ejecuciones de Cloud se reinician el primer día de cada mes, con independencia de la fecha de facturación, así que organiza la hoja por mes natural. Esto importa cuando un lanzamiento o un pico estacional cae cerca del límite de reinicio.
+El momento también importa. Las asignaciones de ejecuciones y de créditos de IA en Cloud se reinician el día 1 de cada mes, sea cual sea tu fecha de facturación. Un final de mes con mucha actividad puede agotar la cuota antes del reinicio. En Cloud Pro-2 Monthly puedes añadir ejecuciones extra hasta un total de 500.000. Compara tus escenarios esperado y alto con los precios actuales de n8n en la página de precios vigente, y analiza qué supondría quedarte sin cuota para tus operaciones. Mantén esa pregunta separada de cómo se tratan las ejecuciones fallidas.
 
-El material proporcionado indica que Cloud Pro-2 Monthly puede ampliar la capacidad de ejecución hasta un total de 500.000 ejecuciones, pero no incluye la tabla completa de precios base necesaria para una comparación de costes completa. Verifica los precios vigentes, la elegibilidad del plan, las divisas, los impuestos y las condiciones de exceso. Analiza qué supondría operativamente agotar la cuota aplicable sin dar por hecho que cada ejecución fallida o de prueba forma parte de esa cuota.
+Sources: [S2](https://support.n8n.io/article/n-8-n-cloud-subscription-features-per-tier), [S3](https://support.n8n.io/article/can-i-add-more-executions), [S6](https://support.n8n.io/article/can-you-reset-my-executions)
 
-Sources: [S2](https://support.n8n.io/article/n-8-n-cloud-subscription-features-per-tier), [S3](https://support.n8n.io/article/can-i-add-more-executions)
+## Compara los límites de Cloud con las responsabilidades del autoalojamiento
 
-## Compara las responsabilidades de Cloud y del autoalojamiento
+![Comparación de responsabilidades entre Cloud y autoalojamiento con tarifas de terceros aparte](/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/56f2915bc0e20c430457817e95ddd0c38793081d6d03dea2e0b4667729567e96.png)
 
-![Las responsabilidades gestionadas en Cloud y las del cliente en autoalojamiento aparecen lado a lado, con los servicios de terceros separados.](/blog/es/article-aac84c5f-d1f1-41fd-81b7-7c32644bc047/3d753a916c1192cd103472dfe36666f45147da420ccecb4c8160f07c385d67e2.png)
+Comparación conceptual de los límites de responsabilidad; no implica costes.
 
-Comparación conceptual de los límites de responsabilidad; los costes reales dependen del workflow, los proveedores y la organización.
+En Cloud, n8n se encarga del alojamiento, las actualizaciones y el escalado. Cuando te autoalojas, gestionar la infraestructura es tu trabajo. Eso no hace que ninguna opción sea más barata por defecto. Solo cambia dónde aparece el coste.
 
-Mantén una estructura coherente al comparar Cloud y autoalojamiento. En Cloud, separa la suscripción y la capacidad de ejecución aplicable de los servicios de terceros. En autoalojamiento, separa cualquier cargo del plan de software de la computación, la base de datos, el almacenamiento, las copias de seguridad, la monitorización, las actualizaciones, el trabajo de seguridad y la respuesta a incidentes.
+[Para el autoalojamiento](<https://n8n-challenges.app/es/blog/lista-de-comprobacion-para-preparar-n8n-autoalojado-para-produccion>), mantén los cargos del plan de software separados de la infraestructura y el personal: cómputo, base de datos, almacenamiento, copias de seguridad, monitorización, actualizaciones, seguridad y respuesta a incidentes. Obtén los precios de tu propia organización o de tus proveedores en lugar de usar un total genérico. Las fuentes no ponen cifras a esta carga.
 
-La distinción respaldada es de responsabilidad: n8n gestiona el alojamiento, las actualizaciones y el escalado en Cloud, mientras que [un cliente que se autoaloja gestiona la infraestructura](<https://n8n-challenges.app/es/blog/lista-de-comprobacion-para-preparar-n8n-autoalojado-para-produccion>). La evidencia no cuantifica el coste total de ninguna opción ni demuestra que una sea más barata o más fiable. Obtén estimaciones internas de mano de obra y precios de infraestructura de proveedores concretos para la carga prevista, en lugar de introducir un total genérico de autoalojamiento.
-
-Los cargos de conectores externos, APIs, bases de datos y proveedores de IA también merecen sus propias filas. Las condiciones de n8n indican que pueden requerirse servicios de terceros de pago independientes. Estima esos cargos con las condiciones vigentes de cada proveedor y el uso real del workflow; no los incluyas dentro del precio por ejecución de n8n.
+En ambas opciones, añade los servicios externos como líneas propias. Los términos de n8n indican que una suscripción puede requerir cuentas de terceros de pago, como servicios de API, bases de datos o proveedores de IA, y esas tarifas son independientes de lo que pagas a n8n.
 
 Sources: [S10](https://github.com/n8n-io/n8n-docs/blob/main/docs/get-started/choose-how-to-use-n8n.md), [S9](https://n8n.io/legal/self-serve-terms/)
 
-## Construye la hoja de cálculo y elige una opción
+## Crea una hoja de costes mensuales y elige una opción
 
-Una hoja mensual útil contiene primero las suposiciones y después los costes. Los campos sugeridos son nombre del disparador, frecuencia esperada, ejecuciones por disparador, ejecuciones base de producción, actividad de recuperación, pruebas manuales, margen de crecimiento, escenario esperado, escenario alto, tratamiento de cuota aplicable, cargo de servicios externos y notas. Para el autoalojamiento, añade filas separadas de infraestructura y personal.
+Un diseño sencillo sugerido para la hoja: filas para cada trigger de producción y luego columnas para ejecuciones base, actividad de reintentos, pruebas manuales y crecimiento, cada una marcada como facturable o no facturable según las reglas de tu plan. Debajo, introduce el cargo del plan según los precios actuales de n8n, después las tarifas de servicios de terceros y, en el caso del autoalojamiento, las líneas de infraestructura y personal. Rellena los escenarios bajo, esperado y alto.
 
-Calcula la línea base de producción a partir de las filas de disparadores y muestra junto a ella la recuperación, las pruebas y el crecimiento. Aplica el tratamiento de cuota documentado solo cuando las categorías estén visibles. Compara los escenarios esperado y alto con las asignaciones actuales de Cloud o con una estimación operativa de autoalojamiento basada en cifras reales de proveedores e internas.
+Toda la evidencia aquí proviene de la propia documentación, el material de precios y los términos de n8n. Ningún estudio de costes independiente lo respalda, y los precios, impuestos y condiciones de los planes pueden cambiar. Trata la hoja como una forma de organizar tu decisión, no como prueba de que una opción reducirá costes. Elige la opción cuyo escenario alto puedas seguir permitiéndote y operar de verdad.
 
-La evidencia proporcionada para esta guía procede íntegramente de material propio de n8n; no incluye ningún estudio de costes independiente ni resultados medidos de clientes. Tampoco se aportaron datos de carga del workflow, por lo que esta guía no puede calcular su número real de ejecuciones, tasa de reintentos, tasa de crecimiento ni coste mensual final.
+Sources: [S5](https://support.n8n.io/article/updated-pricing-model-august-2025), [S1](https://n8n.io/pricing/), [S11](https://github.com/n8n-io/n8n-docs/blob/main/docs/build/understand-workflows/understand-executions/types-of-executions.md), [S6](https://support.n8n.io/article/can-you-reset-my-executions), [S10](https://github.com/n8n-io/n8n-docs/blob/main/docs/get-started/choose-how-to-use-n8n.md), [S9](https://n8n.io/legal/self-serve-terms/)
 
-Por último, decide en función tanto del caso esperado como de las consecuencias de equivocarte. Documenta la ventana de observación, las suposiciones que aún deben validarse, las condiciones del plan comprobadas y la persona responsable de revisar la hoja. El resultado no es una calculadora universal de precios de n8n, sino un registro de decisión transparente para un workflow.
+## Siguientes pasos: practica la estimación y consigue ayuda para tu empresa
 
-Sources: [S5](https://support.n8n.io/article/updated-pricing-model-august-2025), [S1](https://n8n.io/pricing/), [S11](https://github.com/n8n-io/n8n-docs/blob/main/docs/build/understand-workflows/understand-executions/types-of-executions.md), [S6](https://support.n8n.io/article/can-you-reset-my-executions), [S4](https://docs.n8n.io/build/understand-workflows/understand-executions/view-all-executions), [S2](https://support.n8n.io/article/n-8-n-cloud-subscription-features-per-tier), [S10](https://github.com/n8n-io/n8n-docs/blob/main/docs/get-started/choose-how-to-use-n8n.md), [S9](https://n8n.io/legal/self-serve-terms/)
+Estimar se vuelve más fácil cuando has rastreado triggers reales por tu cuenta. Construye un workflow pequeño, anota qué lo inicia, cuenta tus ejecuciones de prueba por separado y escribe con qué frecuencia se ejecutaría en producción. Después, aplica la misma hoja al workflow de tu empresa, usando el historial de ejecuciones registrado en cuanto tengas algo.
 
-Para planificar la producción de tu empresa o el mantenimiento de n8n, contacta con el autor del sitio a través de su perfil de LinkedIn y comenta el contexto de tu workflow. El enlace abre un perfil de LinkedIn, no una página de servicios ni un formulario de reserva.
+Sources: [S4](https://docs.n8n.io/build/understand-workflows/understand-executions/view-all-executions)
+
+¿Estás planificando la capacidad de producción o el mantenimiento continuo de n8n en tu empresa? Envía un mensaje al autor del sitio en su perfil de LinkedIn.
 
 [Pregunta por consultoría de n8n en LinkedIn](https://www.linkedin.com/in/rodomansky/)
 
