@@ -11,7 +11,20 @@ const photos = [
   { src: "/events/previous-event-5.jpg", width: 750, height: 500 },
   { src: "/events/previous-event-6.jpg", width: 333, height: 500 },
   { src: "/events/previous-event-7.jpg", width: 662, height: 500 },
+  { src: "/events/previous-event-8.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-9.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-10.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-11.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-12.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-13.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-14.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-15.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-16.jpg", width: 661, height: 500 },
+  { src: "/events/previous-event-17.jpg", width: 750, height: 500 },
+  { src: "/events/previous-event-18.jpg", width: 750, height: 500 },
 ] as const;
+
+const photoOrder = [10, 11, 3, 9, 16, 1, 18, 6, 12, 17, 4, 13, 14, 2, 8, 15, 7, 5];
 
 const autoScrollSpeed = 20;
 const rewindDuration = 800;
@@ -101,19 +114,23 @@ export function EventPhotoStrip({ ariaLabel, kicker, photoAlts }: EventPhotoStri
               aria-hidden={isDuplicate || undefined}
               key={String(isDuplicate)}
             >
-              {photos.map((photo, index) => (
-                <figure className="event-photo-card" key={`${photo.src}-${isDuplicate}`}>
-                  <Image
-                    className="event-photo-image"
-                    src={photo.src}
-                    width={photo.width}
-                    height={photo.height}
-                    sizes={photo.width > photo.height ? "375px" : "167px"}
-                    alt={isDuplicate ? "" : photoAlts[index]}
-                    draggable={false}
-                  />
-                </figure>
-              ))}
+              {photoOrder.map((photoNumber) => {
+                const photo = photos[photoNumber - 1];
+
+                return (
+                  <figure className="event-photo-card" key={`${photo.src}-${isDuplicate}`}>
+                    <Image
+                      className="event-photo-image"
+                      src={photo.src}
+                      width={photo.width}
+                      height={photo.height}
+                      sizes={photo.width > photo.height ? "375px" : "167px"}
+                      alt={isDuplicate ? "" : photoAlts[photoNumber - 1]}
+                      draggable={false}
+                    />
+                  </figure>
+                );
+              })}
             </div>
           ))}
         </div>
