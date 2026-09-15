@@ -20,13 +20,13 @@
     "title": "n8n pricing: estimate one workflow’s real production cost",
     "description": "A practical method to estimate one n8n workflow’s monthly executions while separating retries, testing, growth, external services, and self-hosting overhead.",
     "keywords": [
+      "n8n pricing",
       "n8n",
       "Production readiness",
-      "Self-hosting",
-      "Guide"
+      "Self-hosting"
     ]
   },
-  "revision": "309b2a80140950c4839bf94d4258c3ffad6c8eb711cce7b0df03f1b2de25ff5f"
+  "revision": "add60deea4762bcabd5472ecb85d3ffe3990c157ad6b795591baa41a1d48f469"
 }
 ---
 
