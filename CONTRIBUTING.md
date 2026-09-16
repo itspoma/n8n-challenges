@@ -37,9 +37,17 @@ Only add names and links you are happy to publish, and never add an email addres
 
 ## Search engine notifications
 
-After each successful GitHub Pages deployment, the workflow submits the live sitemap URLs to IndexNow. The public `public/indexnow-key.txt` file verifies ownership; no API secret is required. The script checks that the deployed key matches before submitting. HTTP 202 means key validation is pending, not that pages are indexed. Failed submissions fail the notification step and can be retried by rerunning the deployment workflow.
+Deployments triggered by a push to `main` notify IndexNow about changed pages only. Before deploying, the workflow compares the new `out/sitemap.xml` with the live sitemap and lists the URLs that are new, removed, or have a different `<lastmod>`. After the deployment succeeds, a separate job submits that list. Scheduled and manual deployments send nothing.
 
-Run `npm run build` followed by `npm run indexnow -- --dry-run` to validate the exported sitemap without sending requests. Use `npm run indexnow` to submit the live sitemap manually. This submits the full current sitemap, including on scheduled deployments; removed URLs are not included. IndexNow notifies participating search engines and does not guarantee crawling or indexing.
+Each page's `<lastmod>` comes from the Git history of the files that hold its content: the article file for articles, the challenge Markdown for challenge pages, the newest article for blog listings and tag pages, and the files listed in `src/app/sitemap.ts` for the other pages. Rebuilding without content changes therefore keeps every date. When you add a page, list its content files there. A page that had no `<lastmod>` in the live sitemap is not resubmitted when it first gets one.
+
+The public `public/indexnow-key.txt` file verifies ownership; no API secret is required. The script checks that the deployed key matches before submitting. HTTP 202 means key validation is pending, not that pages are indexed. A failed notification does not fail the workflow run, so the deployment still counts as successful. The job log lists the URLs; resubmit them with `npm run indexnow -- submit <url> ...`.
+
+Run `npm run build` followed by `npm run indexnow -- changes` to print the URLs a deployment would submit, without sending anything. IndexNow notifies participating search engines and does not guarantee crawling or indexing.
+
+## Blog feeds
+
+Each language has an RSS 2.0 feed of its 50 newest articles at `/en/blog/feed.xml`, `/es/blog/feed.xml` and `/uk/blog/feed.xml`. Feed readers discover it from any page, and the footer links to it. Items carry the title, summary, tags and cover image, and link to the article for the full text.
 
 ## Pull-request checklist
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { blogFeedPath, blogMetadata } from "@/lib/blog";
 import { locales, type Locale } from "@/lib/home-copy";
 
 export const SITE_NAME = "n8n Balloon Challenges";
@@ -54,6 +55,15 @@ export function languageAlternates(suffix = "") {
   };
 }
 
+/** Advertises the locale's blog RSS feed to feed readers from any page. */
+export function blogFeedAlternates(locale: Locale) {
+  return {
+    "application/rss+xml": [
+      { url: absoluteUrl(blogFeedPath(locale)), title: blogMetadata[locale].title },
+    ],
+  };
+}
+
 export function getHomeMetadata(locale: Locale) {
   return homeMetadata[locale] ?? homeMetadata.en;
 }
@@ -100,6 +110,7 @@ export function createLocalizedMetadata({
     alternates: {
       canonical: pathname,
       languages: languageAlternates(suffix),
+      types: blogFeedAlternates(locale),
     },
     openGraph: {
       type: "website",

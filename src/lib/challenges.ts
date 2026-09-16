@@ -267,6 +267,11 @@ export const challengePageCopy = {
 } satisfies Record<Locale, ChallengePageLabels>;
 
 const challengeDirectory = join(process.cwd(), "content", "challenges");
+
+/** Markdown filename in content/challenges; loading rejects files that do not match it. */
+export function challengeFileName(number: number, slug: string) {
+  return `${String(number).padStart(2, "0")}-${slug}.md`;
+}
 const difficultyValues = new Set<ChallengeDifficulty>([
   "beginner",
   "intermediate",
@@ -594,7 +599,7 @@ function parseChallenge(fileName: string): Challenge {
     fail(fileName, "authorUrl must be a public HTTPS URL");
   }
 
-  const expectedFileName = `${String(number).padStart(2, "0")}-${metadata.slug}.md`;
+  const expectedFileName = challengeFileName(number, metadata.slug);
   if (fileName !== expectedFileName) fail(fileName, `filename must be ${expectedFileName}`);
 
   const languages = splitLanguageSections(body, fileName);

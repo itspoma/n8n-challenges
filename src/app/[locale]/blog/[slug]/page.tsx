@@ -16,6 +16,7 @@ import { displayImage, imageSize, socialImage } from "@/lib/blog-images";
 import type { Locale } from "@/lib/home-copy";
 import {
   absoluteUrl,
+  blogFeedAlternates,
   openGraphLocaleFields,
   SITE_AUTHOR,
   SITE_NAME,
@@ -169,6 +170,7 @@ export async function generateMetadata({
         // Readers whose language has no version get the English original.
         ...(english ? { "x-default": articleUrl(english) } : {}),
       },
+      types: blogFeedAlternates(post.locale),
     },
     other: { "content-revision": post.revision },
   };

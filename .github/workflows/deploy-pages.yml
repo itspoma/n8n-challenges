@@ -3,6 +3,8 @@ name: Deploy static site to GitHub Pages
 on:
   push:
     branches: [main]
+  # Daily rebuilds refresh date-based sections such as nearby events. They change no
+  # content dates, so only push deployments notify IndexNow.
   schedule:
     - cron: "15 3 * * *"
   workflow_dispatch:
@@ -19,6 +21,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      indexnow-urls: ${{ steps.indexnow.outputs.urls }}
+      indexnow-count: ${{ steps.indexnow.outputs.count }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -46,6 +51,17 @@ jobs:
         env:
           SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
+      # Runs before deployment, while the live sitemap still describes the previous version.
+      # A failure only skips notifications; it never blocks the deployment.
+      - name: Find pages changed since the live deployment
+        id: indexnow
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          urls="$(node scripts/indexnow.mjs changes)"
+          echo "urls=$urls" >> "$GITHUB_OUTPUT"
+          echo "count=$(jq length <<< "$urls")" >> "$GITHUB_OUTPUT"
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
@@ -62,6 +78,15 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+  indexnow:
+    name: Notify IndexNow
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: needs.build.outputs.indexnow-count > 0
+    # Publishing tools read the run result, so a failed notification must not fail the deployment.
+    # The job log lists the URLs; resubmit them with `npm run indexnow -- submit <url> ...`.
+    continue-on-error: true
+    steps:
       - name: Check out repository
         uses: actions/checkout@v6
 
@@ -70,5 +95,7 @@ jobs:
         with:
           node-version: 24
 
-      - name: Notify IndexNow
-        run: npm run indexnow
+      - name: Submit changed URLs
+        run: node scripts/indexnow.mjs submit
+        env:
+          INDEXNOW_URLS: ${{ needs.build.outputs.indexnow-urls }}

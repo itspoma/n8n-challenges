@@ -5,7 +5,7 @@ import { FooterMeta } from "@/app/_components/footer-meta";
 import { BlogPostList } from "@/app/_components/blog-post-list";
 import { blogTags, normalizeTag, posts, tagPath, tagSlug } from "@/lib/blog";
 import { isLocale } from "@/lib/home-copy";
-import { absoluteUrl, projectPreviewImage } from "@/lib/site-metadata";
+import { absoluteUrl, blogFeedAlternates, projectPreviewImage } from "@/lib/site-metadata";
 
 export const dynamicParams = false;
 type Props = { params: Promise<{ locale: string; tag: string }> };
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
   const images = [projectPreviewImage(entry.locale)];
   return {
     title,
-    alternates: { canonical: url },
+    alternates: { canonical: url, types: blogFeedAlternates(entry.locale) },
     openGraph: { type: "website", title, url, images },
     twitter: { card: "summary_large_image", title, images },
   };

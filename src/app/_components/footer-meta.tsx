@@ -1,4 +1,5 @@
 import packageJson from "../../../package.json";
+import { blogFeedPath } from "@/lib/blog";
 import type { Locale } from "@/lib/home-copy";
 import { creditCopy, maintainer } from "@/lib/people";
 import { withBasePath } from "@/lib/site-path";
@@ -19,6 +20,8 @@ export function FooterMeta({ locale = "en" }: { locale?: Locale }) {
       </span>
       <span aria-hidden="true">·</span>
       <a href={withBasePath("/llms.txt")}>llms.txt</a>
+      <span aria-hidden="true">·</span>
+      <a href={withBasePath(blogFeedPath(locale))} type="application/rss+xml">RSS</a>
     </p>
   );
 }
