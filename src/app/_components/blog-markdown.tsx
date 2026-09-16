@@ -1,9 +1,24 @@
 /** Render the publisher's Markdown subset as React nodes; raw HTML is never executed. */
 import type { ReactNode } from "react";
 
+import { posts } from "@/lib/blog";
 import { displayImage, imageSize } from "@/lib/blog-images";
+import { absoluteUrl } from "@/lib/site-metadata";
 
-function renderInline(text: string): ReactNode[] {
+// Links saved before an article got its readable URL still use the ID-based alias.
+// Point them at the canonical URL so crawlers are not sent through the alias.
+function readableArticleUrls() {
+  return new Map(
+    posts()
+      .filter((post) => post.legacySlug !== post.slug)
+      .map((post): [string, string] => [
+        absoluteUrl(`/${post.locale}/blog/${post.legacySlug}`),
+        absoluteUrl(`/${post.locale}/blog/${post.slug}`),
+      ]),
+  );
+}
+
+function renderInline(text: string, articleUrls: Map<string, string>): ReactNode[] {
   return text.split(/(\[[^\]]+\]\(<?[^)>]+>?\))/g).map((part, partIndex) => {
     const linkMatch = /^\[([^\]]+)\]\(<?([^)>]+)>?\)$/.exec(part);
 
@@ -12,7 +27,7 @@ function renderInline(text: string): ReactNode[] {
     }
 
     return (
-      <a key={partIndex} href={linkMatch[2]}>
+      <a key={partIndex} href={articleUrls.get(linkMatch[2]) ?? linkMatch[2]}>
         {linkMatch[1]}
       </a>
     );
@@ -24,6 +39,7 @@ type BlogMarkdownProps = {
 };
 
 export function BlogMarkdown({ body }: BlogMarkdownProps) {
+  const articleUrls = readableArticleUrls();
   // Front matter can leave a leading newline before the first heading.
   const blocks = body.replace(/\r\n?/g, "\n").trim().split(/\n\s*\n/).filter(Boolean);
 
@@ -53,23 +69,23 @@ export function BlogMarkdown({ body }: BlogMarkdownProps) {
     }
 
     if (block.startsWith("### ")) {
-      return <h3 key={blockIndex}>{renderInline(block.slice(4))}</h3>;
+      return <h3 key={blockIndex}>{renderInline(block.slice(4), articleUrls)}</h3>;
     }
 
     if (block.startsWith("## ")) {
-      return <h2 key={blockIndex}>{renderInline(block.slice(3))}</h2>;
+      return <h2 key={blockIndex}>{renderInline(block.slice(3), articleUrls)}</h2>;
     }
 
     if (block.split("\n").every((line) => line.startsWith("- "))) {
       return (
         <ul key={blockIndex}>
           {block.split("\n").map((line, lineIndex) => (
-            <li key={lineIndex}>{renderInline(line.slice(2))}</li>
+            <li key={lineIndex}>{renderInline(line.slice(2), articleUrls)}</li>
           ))}
         </ul>
       );
     }
 
-    return <p key={blockIndex}>{renderInline(block)}</p>;
+    return <p key={blockIndex}>{renderInline(block, articleUrls)}</p>;
   });
 }

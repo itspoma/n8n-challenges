@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
+import { absoluteUrl, localizedPath } from "@/lib/site-metadata";
+
+// Google treats the instant refresh as a permanent redirect; the canonical agrees with it.
+// Never add noindex here: www.n8n-challenges.app redirects to this page.
 export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: true,
+  alternates: {
+    canonical: absoluteUrl(localizedPath("en")),
   },
 };
 

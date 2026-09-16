@@ -21,6 +21,8 @@ export async function generateMetadata({ params }: Props) {
   const images = [projectPreviewImage(entry.locale)];
   return {
     title,
+    // Tag listings only repeat article cards; keep them out of search results but let crawlers follow them.
+    robots: { index: false, follow: true },
     alternates: { canonical: url, types: blogFeedAlternates(entry.locale) },
     openGraph: { type: "website", title, url, images },
     twitter: { card: "summary_large_image", title, images },

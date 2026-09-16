@@ -12,6 +12,12 @@ Set `urlSlug` in JSON front matter to a short, descriptive lowercase slug with h
 
 Keep `slug`, the Markdown filename, and image paths unchanged for compatibility with the publisher. The public listing, sitemap, canonical URL, and language links use `urlSlug`; the original `slug` remains a working static alias with the same canonical URL. GitHub Pages does not provide server redirects here. If `urlSlug` is omitted, the original `slug` is used. Duplicate public routes fail the build.
 
+Article text may still link to an alias saved before the article got its readable URL. The site renders those links with the readable URL, so the Markdown does not need editing.
+
+## Tag pages
+
+Tag URLs are generated from the tag text: accents are removed and Ukrainian is transliterated the same way the publisher transliterates article URLs, followed by a short hash that keeps different tags apart, for example `/es/blog/tag/preparacion-para-produccion-bd48f2d7`. Tag pages only repeat article cards, so they are marked `noindex, follow` and left out of the sitemap.
+
 ## Preserve publication history across publisher updates
 
 `publication-history.json` stores established public slugs and first-publication timestamps keyed by `locale/id`. Existing timestamps come from the original article's first Git commit, not its latest revision or deployment. This file is separate from generated Markdown so republishing does not remove them. A saved URL takes precedence over `urlSlug` in front matter; a saved timestamp is used when `publishedAt` is missing. Add new articles here if the publisher cannot yet provide these fields. Never invent a publication time from a date-only value.

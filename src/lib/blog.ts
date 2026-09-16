@@ -233,9 +233,24 @@ export function posts(): Post[] {
 
 export const normalizeTag = (tag: string) => tag.trim().normalize("NFC").toLowerCase();
 
+// Same Ukrainian transliteration as the publisher uses for article URLs, so tag and article URLs match.
+const ukrainianLatin: Record<string, string> = {
+  а: "a", б: "b", в: "v", г: "h", ґ: "g", д: "d", е: "e", є: "ye", ж: "zh", з: "z", и: "y",
+  і: "i", ї: "yi", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s",
+  т: "t", у: "u", ф: "f", х: "kh", ц: "ts", ч: "ch", ш: "sh", щ: "shch", ь: "", ю: "yu", я: "ya",
+};
+
 export function tagSlug(tag: string) {
   const normalized = normalizeTag(tag);
-  const readable = normalized.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "tag";
+  // Transliterate before decomposing, which would split й and ї, then drop accents: "producción" → "produccion".
+  const readable = [...normalized]
+    .map((letter) => ukrainianLatin[letter] ?? letter)
+    .join("")
+    .normalize("NFKD")
+    .replace(/\p{M}/gu, "")
+    .replace(/['’ʼ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "") || "tag";
   return `${readable}-${createHash("sha256").update(normalized).digest("hex").slice(0, 8)}`;
 }
 

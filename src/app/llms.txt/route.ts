@@ -55,7 +55,7 @@ export function GET() {
     ...locales.filter((locale) => locale !== "en").flatMap((locale) => articleSection(locale)),
     "## Optional",
     "",
-    `- [Sitemap](${absoluteUrl("/sitemap.xml")}): Complete URL listing for localized pages, individual challenges, articles, and blog tags.`,
+    `- [Sitemap](${absoluteUrl("/sitemap.xml")}): Complete URL listing for localized pages, individual challenges, and articles.`,
   ];
 
   return new Response(`${lines.join("\n")}\n`, {

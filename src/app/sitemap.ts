@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { posts, blogTags, normalizeTag, tagPath, type Post } from "@/lib/blog";
+import { posts, type Post } from "@/lib/blog";
 import { challengeFileName, challenges } from "@/lib/challenges";
 import { lastCommitTime } from "@/lib/content-dates";
 import { locales, type Locale } from "@/lib/home-copy";
@@ -64,14 +64,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
   });
 
+  // Tag pages are noindex, so they stay out of the sitemap.
   return [
     ...pages,
-    ...blogTags().map(({ locale, tag }) => ({
-      url: absoluteUrl(tagPath(locale, tag)),
-      lastModified: newestPublication(
-        allPosts.filter((post) => post.locale === locale && post.tags.some((label) => normalizeTag(label) === tag)),
-      ),
-    })),
     ...allPosts.map((p) => ({
       url: absoluteUrl(`/${p.locale}/blog/${p.slug}`),
       lastModified: p.modifiedAt ?? p.publishedAt ?? p.date,

@@ -70,5 +70,14 @@
   },
   "uk/opp_9ce712f6-663f-4d83-b4cf-a187025bbf23": {
     "urlSlug": "stvorit-v-n8n-robochyy-protses-pidtrymky-z-shi-ta-perevirkoyu-lyudynoyu"
+  },
+  "en/opp_b0999045-95ca-4925-b7e8-40f4bfbe4cdb": {
+    "urlSlug": "transform-nested-json-into-simple-records-in-n8n"
+  },
+  "es/opp_b0999045-95ca-4925-b7e8-40f4bfbe4cdb": {
+    "urlSlug": "transforma-json-anidado-en-registros-simples-en-n8n"
+  },
+  "uk/opp_b0999045-95ca-4925-b7e8-40f4bfbe4cdb": {
+    "urlSlug": "peretvorennya-vkladenoho-json-na-prosti-zapysy-v-n8n"
   }
 }
