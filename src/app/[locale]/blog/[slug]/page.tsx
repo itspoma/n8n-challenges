@@ -170,7 +170,7 @@ export async function generateMetadata({
         ...(english ? { "x-default": articleUrl(english) } : {}),
       },
     },
-    other: { "content-factory-revision": post.revision },
+    other: { "content-revision": post.revision },
   };
 }
 
