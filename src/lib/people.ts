@@ -5,6 +5,7 @@ type Maintainer = {
   name: string;
   linkedInUrl: string;
   gitHubUrl: string;
+  experienceUrl: string;
   bio: Record<Locale, string>;
 };
 
@@ -13,6 +14,8 @@ export const maintainer: Maintainer = {
   name: SITE_AUTHOR.name,
   linkedInUrl: SITE_AUTHOR.url,
   gitHubUrl: "https://github.com/itspoma",
+  experienceUrl:
+    "https://romanrodomansky.notion.site/Hi-I-m-Roman-Rodomansky-Engineering-AI-Entrepreneurship-experience-31147b0744ee808982eddcda542d2e06",
   bio: {
     en: "Creator and maintainer of n8n Balloon Challenges. Organizes hands-on n8n community events and builds n8n automations and community nodes.",
     es: "Crea y mantiene n8n Balloon Challenges. Organiza eventos prácticos de la comunidad n8n y desarrolla automatizaciones y nodos comunitarios para n8n.",

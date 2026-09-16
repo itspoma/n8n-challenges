@@ -10,7 +10,7 @@ type SiteHeaderProps = {
   locale: Locale;
   languagePath?: string;
   languagePaths?: Partial<Record<Locale, string>>;
-  activePage?: "events" | "organizers" | "about";
+  activePage?: "events" | "organizers" | "companies" | "about";
 };
 
 export function BrandLogo({
@@ -77,6 +77,11 @@ export function SiteHeader({
       href: `/${locale}/organizers`,
       label: copy.nav.organizers,
       active: activePage === "organizers",
+    },
+    {
+      href: `/${locale}/companies`,
+      label: copy.nav.companies,
+      active: activePage === "companies",
     },
     {
       href: `/${locale}/about`,

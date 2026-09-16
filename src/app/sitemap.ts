@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/events",
     "/organizers",
+    "/companies",
     "/about",
     "/blog",
     ...challenges.map((challenge) => `/challenges/${challenge.slug}`),

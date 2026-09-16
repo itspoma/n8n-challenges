@@ -6671,3 +6671,305 @@ html[data-theme="light"] .organizers-secondary-button {
     flex-direction: column;
   }
 }
+
+/* For companies */
+.companies-page {
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+
+.companies-page .about-content {
+  gap: 0;
+  padding-block: 80px 0;
+}
+
+.companies-hero-cta {
+  margin-top: 32px;
+}
+
+.companies-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+  gap: 64px;
+  align-items: center;
+  min-height: 0;
+  padding-block: 72px;
+  text-align: left;
+}
+
+.companies-hero h1 {
+  max-width: 620px;
+  font-size: clamp(2.6rem, 3.7vw, 4rem);
+}
+
+.companies-hero-intro {
+  max-width: 560px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.companies-hero-cta {
+  margin-top: 30px;
+}
+
+.companies-speaker-caption {
+  max-width: 560px;
+  margin: 26px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.89rem;
+  line-height: 1.6;
+}
+
+.companies-speaker-caption strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.companies-speaker-caption a {
+  color: var(--pink-soft);
+  font-weight: 700;
+}
+
+.companies-speaker-caption a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Photo puzzle: four columns of equal cells, spans set per tile below. */
+.companies-photo-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: 10px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.companies-photo-mosaic img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.companies-photo-mosaic img:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.companies-photo-mosaic img:nth-child(2),
+.companies-photo-mosaic img:nth-child(6),
+.companies-photo-mosaic img:nth-child(8) {
+  grid-column: span 2;
+}
+
+.companies-photo-mosaic img:nth-child(5),
+.companies-photo-mosaic img:nth-child(7) {
+  grid-row: span 2;
+}
+
+.companies-section {
+  padding-block: 64px 0;
+}
+
+.companies-section-heading {
+  max-width: 880px;
+}
+
+.companies-section-heading h2 {
+  margin: 0;
+  font-size: clamp(2.1rem, 3.6vw, 3.1rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.companies-section-heading > p {
+  margin: 18px 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.67;
+}
+
+.companies-program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 38px;
+}
+
+.companies-program-card {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface-soft);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.companies-program-card:hover {
+  border-color: rgba(234, 75, 113, 0.4);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.26);
+  transform: translateY(-4px);
+}
+
+.companies-program-card h3 {
+  margin: 0;
+  font-size: 1.24rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.companies-program-body {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.companies-program-duration {
+  margin: auto 0 0;
+  padding-top: 22px;
+  color: var(--pink-soft);
+  font-size: 0.67rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.companies-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 38px 0 0;
+}
+
+.companies-detail-grid > div {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface-soft);
+}
+
+.companies-detail-grid dt {
+  color: var(--pink-soft);
+  font-size: 0.67rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.companies-detail-grid dd {
+  margin: 12px 0 0;
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.companies-page .host-event-section {
+  padding-block: 80px 100px;
+}
+
+html[data-theme="light"] .companies-hero-intro {
+  color: var(--ink-soft);
+}
+
+html[data-theme="light"] .companies-photo-mosaic img {
+  border-color: rgba(4, 5, 6, 0.1);
+}
+
+html[data-theme="light"] .companies-speaker-caption {
+  color: var(--ink-soft);
+}
+
+html[data-theme="light"] .companies-speaker-caption strong {
+  color: var(--ink);
+}
+
+html[data-theme="light"] .companies-speaker-caption a {
+  color: var(--pink-deep);
+}
+
+html[data-theme="light"] .companies-program-duration,
+html[data-theme="light"] .companies-detail-grid dt {
+  color: var(--pink-deep);
+}
+
+html[data-theme="light"] .companies-program-card {
+  background: var(--white);
+  box-shadow: 0 14px 36px rgba(69, 21, 36, 0.09);
+}
+
+html[data-theme="light"] .companies-program-card:hover {
+  box-shadow: 0 20px 48px rgba(69, 21, 36, 0.14);
+}
+
+html[data-theme="light"] .companies-detail-grid > div {
+  background: var(--white);
+}
+
+@media (max-width: 1040px) {
+  .companies-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 46px;
+  }
+
+  .companies-photo-mosaic {
+    max-width: 560px;
+  }
+
+  .companies-program-grid,
+  .companies-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .companies-page .about-content {
+    padding-block: 58px 0;
+  }
+
+  .companies-section {
+    padding-block: 48px 0;
+  }
+
+  .companies-hero-inner {
+    gap: 38px;
+    padding-block: 52px;
+  }
+
+  .companies-photo-mosaic {
+    gap: 7px;
+  }
+
+  .companies-photo-mosaic img {
+    border-radius: 11px;
+  }
+
+  .companies-program-grid,
+  .companies-detail-grid {
+    grid-template-columns: 1fr;
+    margin-top: 28px;
+  }
+
+  .companies-program-card {
+    padding: 24px 22px;
+  }
+
+  .companies-program-duration {
+    padding-top: 18px;
+  }
+
+  .companies-page .host-event-section {
+    padding-block: 58px 72px;
+  }
+}

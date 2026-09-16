@@ -30,6 +30,7 @@ export type HomeCopy = {
     menu: string;
     events: string;
     organizers: string;
+    companies: string;
     about: string;
   };
   headerTagline: string;
@@ -106,6 +107,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       menu: "Menu",
       events: "Events",
       organizers: "For organizers",
+      companies: "For companies",
       about: "About",
     },
     headerTagline: "learn by doing",
@@ -236,6 +238,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       menu: "Menú",
       events: "Eventos",
       organizers: "Para organizadores",
+      companies: "Para empresas",
       about: "Acerca de",
     },
     headerTagline: "aprende haciendo",
@@ -364,6 +367,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       menu: "Меню",
       events: "Події",
       organizers: "Організаторам",
+      companies: "Компаніям",
       about: "Про проєкт",
     },
     headerTagline: "вчись на практиці",
