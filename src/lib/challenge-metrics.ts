@@ -20,8 +20,10 @@ export const challengeCountLabel = extraChallengeCount
   : String(mainChallengeCount);
 
 export const challengeMetricValues = [
+  "100%",
   challenges.length,
   nodes.size,
   terms.size,
   locales.length,
+  "∞",
 ].map(String);

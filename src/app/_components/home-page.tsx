@@ -89,12 +89,16 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <section className="stats-band" aria-label={copy.accessibility.formatSummary}>
         <div className="shell stats-grid">
-          {copy.stats.map((stat, index) => (
-            <div className="stat" key={stat.label}>
-              <strong>{challengeMetricValues[index]}</strong>
-              <span>{stat.label}</span>
-            </div>
-          ))}
+          {copy.stats.map((stat, index) => {
+            const value = challengeMetricValues[index];
+
+            return (
+              <div className="stat" key={stat.label}>
+                <strong className={value === "∞" ? "stat-symbol" : undefined}>{value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            );
+          })}
         </div>
       </section>
 

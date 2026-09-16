@@ -118,12 +118,14 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "Real learning comes through practice, and knowledge sticks when you share it with others.",
     primaryCta: "View challenges",
     stats: [
+      { label: "free, every challenge" },
       { label: "hands-on challenges" },
       { label: "n8n nodes covered" },
       {
         label: "technical terms explained simply",
       },
       { label: "available languages" },
+      { label: "automation possibilities" },
     ],
     gallery: {
       kicker: "Moments from previous events",
@@ -249,10 +251,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "El aprendizaje real nace de la práctica, y el conocimiento perdura cuando lo compartes con los demás.",
     primaryCta: "Ver los retos",
     stats: [
+      { label: "gratis, todos los retos" },
       { label: "retos prácticos" },
       { label: "nodos de n8n que aprenderás" },
       { label: "términos técnicos explicados" },
       { label: "idiomas disponibles" },
+      { label: "posibilidades de automatizar" },
     ],
     gallery: {
       kicker: "Momentos de eventos anteriores",
@@ -378,10 +382,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       "Справжнє навчання починається з практики, а знання закріплюються, коли ви ділитеся ними з іншими.",
     primaryCta: "Переглянути завдання",
     stats: [
+      { label: "безкоштовно, усі завдання" },
       { label: "практичних завдань" },
       { label: "нод n8n, які ви опануєте" },
       { label: "технічних термінів простими словами" },
       { label: "доступні мови" },
+      { label: "можливостей автоматизації" },
     ],
     gallery: {
       kicker: "Моменти з попередніх подій",
