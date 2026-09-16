@@ -272,6 +272,7 @@ const challengeDirectory = join(process.cwd(), "content", "challenges");
 export function challengeFileName(number: number, slug: string) {
   return `${String(number).padStart(2, "0")}-${slug}.md`;
 }
+
 const difficultyValues = new Set<ChallengeDifficulty>([
   "beginner",
   "intermediate",
