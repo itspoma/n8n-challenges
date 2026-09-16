@@ -5,11 +5,16 @@ import { notFound } from "next/navigation";
 
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
-import { companiesCopy } from "@/lib/companies";
-import { homeCopy, isLocale, locales } from "@/lib/home-copy";
+import { companiesCopy, type CompaniesCopy } from "@/lib/companies";
+import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
 import { maintainer } from "@/lib/people";
 import { speakerPhotos } from "@/lib/speaker-photos";
-import { createLocalizedMetadata } from "@/lib/site-metadata";
+import {
+  absoluteUrl,
+  createLocalizedMetadata,
+  SITE_AUTHOR,
+  SITE_NAME,
+} from "@/lib/site-metadata";
 
 type CompaniesPageProps = {
   params: Promise<{ locale: string }>;
@@ -17,6 +22,54 @@ type CompaniesPageProps = {
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
+}
+
+/** Schema.org service and breadcrumb data so the programs are indexable as an offer catalog. */
+function companiesJsonLd(locale: Locale, copy: CompaniesCopy) {
+  const url = absoluteUrl(`/${locale}/companies`);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#training`,
+        name: copy.title,
+        serviceType: copy.metadataTitle,
+        description: copy.metadataDescription,
+        url,
+        inLanguage: locale,
+        availableLanguage: locales,
+        audience: { "@type": "BusinessAudience", name: copy.eyebrow },
+        provider: {
+          "@type": "Person",
+          name: SITE_AUTHOR.name,
+          url: SITE_AUTHOR.url,
+          sameAs: [...SITE_AUTHOR.sameAs, maintainer.experienceUrl],
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: copy.programs.title,
+          itemListElement: copy.programs.items.map((program, index) => ({
+            "@type": "Offer",
+            position: index + 1,
+            itemOffered: {
+              "@type": "Service",
+              name: program.title,
+              description: `${program.body} ${copy.programs.durationLabel}: ${program.duration}.`,
+            },
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: SITE_NAME, item: absoluteUrl(`/${locale}`) },
+          { "@type": "ListItem", position: 2, name: copy.metadataTitle, item: url },
+        ],
+      },
+    ],
+  };
 }
 
 export async function generateMetadata(
@@ -34,6 +87,7 @@ export async function generateMetadata(
     suffix: "/companies",
     title: copy.metadataTitle,
     description: copy.metadataDescription,
+    keywords: copy.keywords,
     images: (await parent).openGraph?.images,
   });
 }
@@ -48,6 +102,13 @@ export default async function CompaniesPage({ params }: CompaniesPageProps) {
 
   return (
     <main lang={locale} className="companies-page">
+      {/* Escape "<" so copy text cannot close the JSON-LD script element. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(companiesJsonLd(locale, copy)).replace(/</g, "\\u003c"),
+        }}
+      />
       <SiteHeader locale={locale} languagePath="/companies" activePage="companies" />
 
       <section className="events-hero companies-hero" aria-labelledby="companies-title">

@@ -78,12 +78,14 @@ export function createLocalizedMetadata({
   suffix = "",
   title,
   description,
+  keywords,
   images,
 }: {
   locale: Locale;
   suffix?: string;
   title: string;
   description: string;
+  keywords?: string[];
   images?: NonNullable<Metadata["openGraph"]>["images"];
 }): Metadata {
   const previewImages = images ?? [projectPreviewImage(locale)];
@@ -94,6 +96,7 @@ export function createLocalizedMetadata({
     metadataBase: SITE_URL,
     title: { absolute: brandedTitle },
     description,
+    ...(keywords ? { keywords } : {}),
     alternates: {
       canonical: pathname,
       languages: languageAlternates(suffix),

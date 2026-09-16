@@ -6,9 +6,10 @@ type CompaniesProgram = {
   duration: string;
 };
 
-type CompaniesCopy = {
+export type CompaniesCopy = {
   metadataTitle: string;
   metadataDescription: string;
+  keywords: string[];
   eyebrow: string;
   title: string;
   intro: string;
@@ -46,6 +47,18 @@ export const companiesCopy: Record<Locale, CompaniesCopy> = {
     metadataTitle: "For companies",
     metadataDescription:
       "Custom, hands-on n8n training programs for company teams – built around your own tools, workflows, and use cases.",
+    keywords: [
+      "n8n training",
+      "n8n corporate training",
+      "n8n workshop for companies",
+      "automation training for teams",
+      "workflow automation training",
+      "AI agents with n8n",
+      "n8n developer training",
+      "n8n consulting",
+      "department automation bootcamp",
+      "n8n workflow audit",
+    ],
     eyebrow: "For companies",
     title: "Custom n8n training for your teams.",
     intro:
@@ -138,6 +151,18 @@ export const companiesCopy: Record<Locale, CompaniesCopy> = {
     metadataTitle: "Para empresas",
     metadataDescription:
       "Programas de formación en n8n a medida para equipos de empresa: creados sobre vuestras herramientas, vuestros flujos y vuestros casos de uso.",
+    keywords: [
+      "formación n8n",
+      "formación n8n para empresas",
+      "taller de n8n",
+      "formación en automatización para equipos",
+      "automatización de procesos",
+      "agentes de IA con n8n",
+      "formación n8n para desarrolladores",
+      "consultoría n8n",
+      "bootcamp de automatización",
+      "auditoría de workflows n8n",
+    ],
     eyebrow: "Para empresas",
     title: "Formación en n8n a medida para tus equipos.",
     intro:
@@ -230,6 +255,18 @@ export const companiesCopy: Record<Locale, CompaniesCopy> = {
     metadataTitle: "Компаніям",
     metadataDescription:
       "Індивідуальні програми навчання n8n для команд компаній – на основі ваших інструментів, процесів і сценаріїв.",
+    keywords: [
+      "навчання n8n",
+      "корпоративне навчання n8n",
+      "воркшоп n8n для компаній",
+      "навчання з автоматизації для команд",
+      "автоматизація процесів",
+      "ШІ-агенти в n8n",
+      "навчання n8n для розробників",
+      "консультації з n8n",
+      "буткемп з автоматизації",
+      "аудит воркфлоу n8n",
+    ],
     eyebrow: "Компаніям",
     title: "Навчання n8n під ваші команди.",
     intro:
