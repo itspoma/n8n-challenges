@@ -5,6 +5,7 @@ import path from "node:path";
 import publicationHistory from "../../content/blog/publication-history.json";
 import { execFileSync } from "node:child_process";
 
+import { articleBackfill } from "./blog-backfill";
 import { isShallowRepository } from "./content-dates";
 import { locales, type Locale } from "./home-copy";
 
@@ -77,6 +78,8 @@ export type Post = {
   publishedAt?: string;
   // Latest reader-facing content change after publication, from Git history.
   modifiedAt?: string;
+  // When the publisher retrieved the cited sources; shown as "Checked against … on".
+  sourcesCheckedAt?: string;
   tags: string[];
   revision: string;
   body: string;
@@ -139,6 +142,7 @@ export function posts(): Post[] {
       // and first-publication times independently of the generated article.
       const history = publicationHistoryById[`${locale}/${metadata.id}`];
       metadata.publishedAt ??= history?.publishedAt ?? firstPublicationTime(path.join(directory, fileName));
+      metadata.sourcesCheckedAt ??= articleBackfill[metadata.id]?.sourcesCheckedAt;
 
       // Reject metadata that disagrees with the file path or publisher schema.
       if (
@@ -189,11 +193,13 @@ export function posts(): Post[] {
           `Invalid blog presentation or SEO metadata: ${fileName}`,
         );
       }
-      if (metadata.publishedAt !== undefined &&
-        (typeof metadata.publishedAt !== "string" ||
-          !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(metadata.publishedAt) ||
-          !Number.isFinite(Date.parse(metadata.publishedAt)))) {
-        throw new Error(`Invalid publishedAt timestamp: ${fileName}`);
+      for (const field of ["publishedAt", "sourcesCheckedAt"]) {
+        if (metadata[field] !== undefined &&
+          (typeof metadata[field] !== "string" ||
+            !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(metadata[field]) ||
+            !Number.isFinite(Date.parse(metadata[field])))) {
+          throw new Error(`Invalid ${field} timestamp: ${fileName}`);
+        }
       }
       const urlSlug = history?.urlSlug ?? metadata.urlSlug ?? metadata.slug;
       if (typeof urlSlug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(urlSlug)) {
@@ -284,6 +290,58 @@ export function timestampLabel(timestamp: string) {
   return `${values.year}-${values.month}-${values.day} · ${values.hour}:${values.minute}`;
 }
 
-export function publicationLabel(post: Post) {
-  return post.publishedAt ? timestampLabel(post.publishedAt) : post.date;
+/** Publication instant, or the date alone for articles without a known time. */
+export function publishedTime(post: Post) {
+  return post.publishedAt ?? post.date;
+}
+
+/** Tooltip with the exact time; articles without a known time show only their date. */
+export function exactTimeTitle(timestamp: string) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(timestamp) ? timestamp : `${timestampLabel(timestamp)} Europe/Madrid`;
+}
+
+/** Calendar date in Europe/Madrid for readers: `16 Sep 2026`, `16 sept 2026`, `16 вер. 2026 р.` */
+export function dateLabel(timestamp: string, locale: Locale) {
+  const date = new Date(timestamp);
+  const options = { timeZone: "Europe/Madrid", day: "numeric", month: "short", year: "numeric" } as const;
+  if (locale !== "en") return new Intl.DateTimeFormat(locale, options).format(date);
+  // Current British English data abbreviates September as "Sept"; keep three letters.
+  const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(date);
+  const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${values.day} ${values.month} ${values.year}`;
+}
+
+/** `YYYY-MM-DD` in Europe/Madrid, for machine-readable listings. */
+export function isoDateLabel(timestamp: string) {
+  return timestampLabel(timestamp).slice(0, 10);
+}
+
+/**
+ * Up to `limit` other articles in the same language that share tags with `post`. Tags that
+ * fewer articles carry count for more, so the "n8n" tag nearly every article has adds
+ * almost nothing. Articles whose path is in `linked` come after the others.
+ */
+export function relatedPosts(post: Post, linked: ReadonlySet<string> = new Set(), limit = 3) {
+  const candidates = posts().filter((other) => other.locale === post.locale);
+  const frequency = new Map<string, number>();
+  for (const other of candidates) {
+    for (const tag of new Set(other.tags.map(normalizeTag))) frequency.set(tag, (frequency.get(tag) ?? 0) + 1);
+  }
+  const own = new Set(post.tags.map(normalizeTag));
+  const scored = candidates
+    .filter((other) => other.id !== post.id)
+    .map((other) => ({
+      other,
+      linked: [other.slug, other.legacySlug].some((slug) => linked.has(`/${other.locale}/blog/${slug}`)),
+      score: [...new Set(other.tags.map(normalizeTag))]
+        .filter((tag) => own.has(tag))
+        .reduce((sum, tag) => sum + Math.log(candidates.length / (frequency.get(tag) ?? 1)), 0),
+    }))
+    // A tag on up to three in four articles scores about 0.3.
+    .filter(({ score }) => score >= 0.28);
+  // posts() lists the newest articles first, and sorting keeps that order for equal ranks.
+  return scored
+    .sort((first, second) => Number(first.linked) - Number(second.linked) || second.score - first.score)
+    .slice(0, limit)
+    .map(({ other }) => other);
 }

@@ -1,4 +1,4 @@
-import { posts } from "@/lib/blog";
+import { isoDateLabel, posts, publishedTime, type Post } from "@/lib/blog";
 import { locales, type Locale } from "@/lib/home-copy";
 import { absoluteUrl } from "@/lib/site-metadata";
 
@@ -13,10 +13,23 @@ const articleHeadings = {
 // Keep brackets in article titles from ending the Markdown link text early.
 const linkText = (text: string) => text.replace(/[[\]]/g, "\\$&");
 
+// Dates tell assistants how current each article is; they match the dates on the article page.
+function articleDates(post: Post) {
+  const published = isoDateLabel(publishedTime(post));
+  const updated = post.modifiedAt ? isoDateLabel(post.modifiedAt) : published;
+  return [
+    updated === published ? `Published ${published}.` : `Published ${published}, updated ${updated}.`,
+    ...(post.sourcesCheckedAt ? [`Sources checked ${isoDateLabel(post.sourcesCheckedAt)}.`] : []),
+  ].join(" ");
+}
+
 function articleSection(locale: Locale) {
   const links = posts()
     .filter((post) => post.locale === locale)
-    .map((post) => `- [${linkText(post.title)}](${absoluteUrl(`/${locale}/blog/${post.slug}`)}): ${post.description}`);
+    .map(
+      (post) =>
+        `- [${linkText(post.title)}](${absoluteUrl(`/${locale}/blog/${post.slug}`)}): ${post.description} ${articleDates(post)}`,
+    );
 
   return links.length ? [`## ${articleHeadings[locale]}`, "", ...links, ""] : [];
 }

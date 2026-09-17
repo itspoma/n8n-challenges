@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { Locale } from "@/lib/home-copy";
 import { creditCopy, maintainer } from "@/lib/people";
 
@@ -7,17 +9,32 @@ export function BlogAuthor({ locale }: { locale: Locale }) {
 
   return (
     <aside className="blog-author" aria-label={labels.aboutAuthor}>
-      <p className="section-kicker">{labels.aboutAuthor}</p>
-      <p className="blog-author-name">{maintainer.name}</p>
-      <p className="blog-author-bio">{maintainer.bio[locale]}</p>
-      <a
-        className="blog-author-link"
-        href={maintainer.linkedInUrl}
-        target="_blank"
-        rel="author noopener noreferrer"
-      >
-        LinkedIn <span aria-hidden="true">↗</span>
-      </a>
+      {/* The name is printed next to the photo, so the photo itself needs no alt text. */}
+      <Image
+        className="blog-author-photo"
+        src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${maintainer.photo.src}`}
+        alt=""
+        width={maintainer.photo.width}
+        height={maintainer.photo.height}
+        unoptimized
+      />
+      <div>
+        <p className="section-kicker">{labels.aboutAuthor}</p>
+        <p className="blog-author-name">{maintainer.name}</p>
+        <p className="blog-author-role">{maintainer.jobTitle[locale]}</p>
+        <p className="blog-author-bio">{maintainer.bio[locale]}</p>
+        <p className="blog-author-expertise">
+          {labels.expertise}: {maintainer.expertise[locale].join(" · ")}
+        </p>
+        <a
+          className="blog-author-link"
+          href={maintainer.linkedInUrl}
+          target="_blank"
+          rel="author noopener noreferrer"
+        >
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
     </aside>
   );
 }

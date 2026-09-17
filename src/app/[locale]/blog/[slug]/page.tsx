@@ -6,14 +6,28 @@ import { notFound } from "next/navigation";
 import {
   blogLabels,
   blogMetadata,
+  dateLabel,
+  exactTimeTitle,
   posts,
-  publicationLabel,
+  publishedTime,
+  relatedPosts,
   tagPath,
-  timestampLabel,
   type Post,
 } from "@/lib/blog";
+import { relevantChallenge } from "@/lib/blog-challenges";
+import { currentCtas } from "@/lib/blog-ctas";
 import { displayImage, imageSize, socialImage } from "@/lib/blog-images";
+import {
+  blogCitations,
+  blogImages,
+  blogLinks,
+  inlineText,
+  parseBlogMarkdown,
+  sitePath,
+  type BlogBlock,
+} from "@/lib/blog-markdown";
 import type { Locale } from "@/lib/home-copy";
+import { maintainer } from "@/lib/people";
 import {
   absoluteUrl,
   blogFeedAlternates,
@@ -26,14 +40,55 @@ import { SiteHeader } from "@/app/_components/site-header";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BlogMarkdown } from "@/app/_components/blog-markdown";
 import { BlogAuthor } from "@/app/_components/blog-author";
+import { BlogNextSteps } from "@/app/_components/blog-next-steps";
+import { BlogRelated } from "@/app/_components/blog-related";
 
 export const dynamicParams = false;
 
 const articleLabels = {
-  en: { by: "By", updated: "Updated" },
-  es: { by: "Por", updated: "Actualizado" },
-  uk: { by: "Автор:", updated: "Оновлено" },
-} satisfies Record<Locale, { by: string; updated: string }>;
+  en: {
+    by: "By",
+    published: "Published",
+    updated: "Updated",
+    checkedDocs: "Checked against the n8n documentation on",
+    checkedSources: "Checked against the cited sources on",
+  },
+  es: {
+    by: "Por",
+    published: "Publicado el",
+    updated: "Actualizado el",
+    checkedDocs: "Comprobado con la documentación de n8n el",
+    checkedSources: "Comprobado con las fuentes citadas el",
+  },
+  uk: {
+    by: "Автор:",
+    published: "Опубліковано",
+    updated: "Оновлено",
+    checkedDocs: "Перевірено за документацією n8n",
+    checkedSources: "Перевірено за наведеними джерелами",
+  },
+} satisfies Record<Locale, Record<string, string>>;
+
+// Every article is about n8n; other tools count when the title, tags or keywords name them.
+const otherSoftware = [{ pattern: /\bzapier\b/i, name: "Zapier", url: "https://zapier.com" }];
+
+function softwareApplication(name: string, url: string, sameAs?: string[]) {
+  return {
+    "@type": "SoftwareApplication",
+    name,
+    url,
+    applicationCategory: "BusinessApplication",
+    ...(sameAs ? { sameAs } : {}),
+  };
+}
+
+function articleSubjects(post: Post) {
+  const text = [post.title, ...post.tags, ...post.seo.keywords].join("\n");
+  return [
+    softwareApplication("n8n", "https://n8n.io", ["https://github.com/n8n-io/n8n"]),
+    ...otherSoftware.filter(({ pattern }) => pattern.test(text)).map(({ name, url }) => softwareApplication(name, url)),
+  ];
+}
 
 export function generateStaticParams() {
   const allPosts = posts();
@@ -66,7 +121,7 @@ function modifiedTime(post: Post) {
 }
 
 /** Schema.org article and breadcrumb data for search engines and AI assistants. */
-function articleJsonLd(post: Post) {
+function articleJsonLd(post: Post, blocks: BlogBlock[]) {
   const url = articleUrl(post);
   const images = [socialImage(post.coverImage), { url: post.coverImage, ...imageSize(post.coverImage) }]
     .filter((image, index, all) => all.findIndex((other) => other.url === image.url) === index)
@@ -76,6 +131,15 @@ function articleJsonLd(post: Post) {
       width,
       height,
     }));
+  // Illustrations in the text; the cover above stays the article's representative image.
+  const figures = blogImages(blocks).map((image) => ({
+    "@type": "ImageObject",
+    contentUrl: absoluteUrl(image.src),
+    ...imageSize(image.src),
+    description: image.alt,
+    ...(image.caption ? { caption: inlineText(image.caption) } : {}),
+  }));
+  const citations = blogCitations(blocks).map((href) => ({ "@type": "CreativeWork", url: href }));
 
   return {
     "@context": "https://schema.org",
@@ -83,20 +147,35 @@ function articleJsonLd(post: Post) {
       {
         "@type": "BlogPosting",
         "@id": `${url}#article`,
-        mainEntityOfPage: url,
+        mainEntityOfPage: post.sourcesCheckedAt
+          ? { "@type": "WebPage", "@id": url, lastReviewed: post.sourcesCheckedAt }
+          : url,
         url,
         headline: post.title,
         description: post.seo.description,
         image: images,
-        datePublished: post.publishedAt ?? post.date,
+        ...(figures.length ? { associatedMedia: figures } : {}),
+        datePublished: publishedTime(post),
         dateModified: modifiedTime(post),
         inLanguage: post.locale,
         keywords: post.seo.keywords.join(", "),
+        about: articleSubjects(post),
+        ...(citations.length ? { citation: citations } : {}),
         author: {
           "@type": "Person",
+          "@id": absoluteUrl("/#author"),
           name: SITE_AUTHOR.name,
           url: SITE_AUTHOR.url,
-          sameAs: SITE_AUTHOR.sameAs,
+          jobTitle: maintainer.jobTitle[post.locale],
+          description: maintainer.bio[post.locale],
+          image: {
+            "@type": "ImageObject",
+            url: absoluteUrl(maintainer.photo.src),
+            width: maintainer.photo.width,
+            height: maintainer.photo.height,
+          },
+          knowsAbout: maintainer.expertise[post.locale],
+          sameAs: [...SITE_AUTHOR.sameAs, maintainer.experienceUrl],
         },
         publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL.href },
         isPartOf: {
@@ -191,6 +270,15 @@ export default async function Article({ params }: BlogArticlePageProps) {
     translationsOf(post).map((translation) => [translation.locale, `/blog/${translation.slug}`]),
   );
   const labels = articleLabels[post.locale];
+  const parsed = parseBlogMarkdown(post.body);
+  const challenge = relevantChallenge(post, blogLinks(parsed));
+  const blocks = currentCtas(parsed, post.locale, challenge);
+  const linkedPaths = new Set(blogLinks(blocks).flatMap((href) => sitePath(href) ?? []));
+  const published = dateLabel(publishedTime(post), post.locale);
+  // The byline skips an update made on the publication day, which would repeat the same date.
+  const updated = post.modifiedAt ? dateLabel(post.modifiedAt, post.locale) : undefined;
+  const citations = blogCitations(blocks);
+  const onlyN8nDocs = citations.every((href) => new URL(href).hostname === "docs.n8n.io");
 
   return (
     <main>
@@ -201,7 +289,7 @@ export default async function Article({ params }: BlogArticlePageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(articleJsonLd(post)).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(articleJsonLd(post, blocks)).replace(/</g, "\\u003c"),
           }}
         />
         <Link className="blog-back" href={`/${post.locale}/blog`}>
@@ -221,13 +309,20 @@ export default async function Article({ params }: BlogArticlePageProps) {
             </a>
           </span>
           <span aria-hidden="true">·</span>
-          <time dateTime={post.publishedAt ?? post.date} title="Europe/Madrid">{publicationLabel(post)}</time>
-          {post.modifiedAt ? (
+          <span>
+            {labels.published}{" "}
+            <time dateTime={publishedTime(post)} title={exactTimeTitle(publishedTime(post))}>
+              {published}
+            </time>
+          </span>
+          {post.modifiedAt && updated !== published ? (
             <>
               <span aria-hidden="true">·</span>
               <span>
                 {labels.updated}{" "}
-                <time dateTime={post.modifiedAt} title="Europe/Madrid">{timestampLabel(post.modifiedAt)}</time>
+                <time dateTime={post.modifiedAt} title={exactTimeTitle(post.modifiedAt)}>
+                  {updated}
+                </time>
               </span>
             </>
           ) : null}
@@ -247,7 +342,18 @@ export default async function Article({ params }: BlogArticlePageProps) {
           unoptimized
           preload
         />
-        <BlogMarkdown body={post.body} />
+        {post.sourcesCheckedAt && citations.length ? (
+          <p className="blog-checked">
+            {onlyN8nDocs ? labels.checkedDocs : labels.checkedSources}{" "}
+            <time dateTime={post.sourcesCheckedAt} title={exactTimeTitle(post.sourcesCheckedAt)}>
+              {dateLabel(post.sourcesCheckedAt, post.locale)}
+            </time>
+            .
+          </p>
+        ) : null}
+        <BlogMarkdown blocks={blocks} />
+        <BlogNextSteps locale={post.locale} challenge={challenge} />
+        <BlogRelated locale={post.locale} items={relatedPosts(post, linkedPaths)} />
         <BlogAuthor locale={post.locale} />
       </article>
 

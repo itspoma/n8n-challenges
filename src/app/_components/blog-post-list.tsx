@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { tagPath, publicationLabel, type Post } from "@/lib/blog";
+import { dateLabel, exactTimeTitle, publishedTime, tagPath, type Post } from "@/lib/blog";
 import { displayImage } from "@/lib/blog-images";
 
 export function BlogPostList({ items }: { items: Post[] }) {
@@ -23,7 +23,9 @@ export function BlogPostList({ items }: { items: Post[] }) {
               <h2>
                 <Link href={`/${post.locale}/blog/${post.slug}`}>{post.title}</Link>
               </h2>
-              <time dateTime={post.publishedAt ?? post.date} title="Europe/Madrid">{publicationLabel(post)}</time>
+              <time dateTime={publishedTime(post)} title={exactTimeTitle(publishedTime(post))}>
+                {dateLabel(publishedTime(post), post.locale)}
+              </time>
               <p>{post.subtitle}</p>
               <ul className="blog-tags">
                 {post.tags.map((tag) => (
