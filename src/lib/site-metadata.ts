@@ -7,6 +7,7 @@ export const SITE_NAME = "n8n Balloon Challenges";
 export const SITE_DESCRIPTION =
   "Choose an n8n challenge, build a working automation, and collect a balloon with your team.";
 export const SITE_URL = new URL("https://n8n-challenges.app");
+export const GA_MEASUREMENT_ID = "G-JVPX079WGB";
 // Blog articles are written by the site's author; the profile matches the consulting CTA.
 export const SITE_AUTHOR = {
   name: "Roman Rodomansky",

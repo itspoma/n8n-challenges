@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
+import { GoogleAnalytics } from "@/app/_components/google-analytics";
 import { geomanist } from "@/app/fonts";
 import { isLocale, locales } from "@/lib/home-copy";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-metadata";
@@ -57,6 +58,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body>{children}</body>
+      <GoogleAnalytics />
     </html>
   );
 }
