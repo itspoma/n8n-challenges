@@ -1,4 +1,5 @@
 import packageJson from "../../../package.json";
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { blogFeedPath } from "@/lib/blog";
 import type { Locale } from "@/lib/home-copy";
 import { creditCopy, maintainer } from "@/lib/people";
@@ -14,9 +15,15 @@ export function FooterMeta({ locale = "en" }: { locale?: Locale }) {
       <span aria-hidden="true">·</span>
       <span>
         {creditCopy[locale].maintainedBy}{" "}
-        <a href={maintainer.linkedInUrl} target="_blank" rel="noopener noreferrer">
+        <TrackedLink
+          href={maintainer.linkedInUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          event="linkedin_click"
+          eventParams={{ location: "footer" }}
+        >
           {maintainer.name}
-        </a>
+        </TrackedLink>
       </span>
       <span aria-hidden="true">·</span>
       <a href={withBasePath("/llms.txt")}>llms.txt</a>

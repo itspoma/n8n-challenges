@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { aboutCopy } from "@/lib/about";
 import { homeCopy, isLocale, locales } from "@/lib/home-copy";
 import { maintainer } from "@/lib/people";
@@ -128,14 +129,16 @@ export default async function AboutPage({ params }: AboutPageProps) {
             </p>
             <p>{copy.maintainer.services}</p>
             <div className="organizers-finish-actions">
-              <a
+              <TrackedLink
                 className="contribute-button"
                 href={maintainer.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                event="linkedin_click"
+                eventParams={{ location: "about_page" }}
               >
                 LinkedIn <span aria-hidden="true">↗</span>
-              </a>
+              </TrackedLink>
               <a
                 className="organizers-secondary-button"
                 href={maintainer.gitHubUrl}

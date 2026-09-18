@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { TrackedLink } from "@/app/_components/tracked-link";
 import type { Locale } from "@/lib/home-copy";
 import { creditCopy, maintainer } from "@/lib/people";
 
@@ -26,14 +27,16 @@ export function BlogAuthor({ locale }: { locale: Locale }) {
         <p className="blog-author-expertise">
           {labels.expertise}: {maintainer.expertise[locale].join(" · ")}
         </p>
-        <a
+        <TrackedLink
           className="blog-author-link"
           href={maintainer.linkedInUrl}
           target="_blank"
           rel="author noopener noreferrer"
+          event="linkedin_click"
+          eventParams={{ location: "blog_author" }}
         >
           LinkedIn <span aria-hidden="true">↗</span>
-        </a>
+        </TrackedLink>
       </div>
     </aside>
   );

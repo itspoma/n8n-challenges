@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
+import { trackEvent } from "@/lib/analytics";
 import type { ChallengePageLabels, ChallengeSolutions } from "@/lib/challenges";
 import type { Locale } from "@/lib/home-copy";
 
@@ -275,7 +276,9 @@ export function ChallengeActions({
   const solutionPanelId = `challenge-solution-${challengeSlug}`;
 
   function revealTip() {
-    writeTipProgress(storageKey, Math.min(visibleTips + 1, tips.length));
+    const tipNumber = Math.min(visibleTips + 1, tips.length);
+    writeTipProgress(storageKey, tipNumber);
+    trackEvent("challenge_tip_reveal", { challenge_slug: challengeSlug, tip_number: tipNumber });
   }
 
   function requestSolutionReveal() {
@@ -293,6 +296,7 @@ export function ChallengeActions({
   function revealSolution() {
     writeSolutionReveal(solutionStorageKey);
     solutionDialogRef.current?.close();
+    trackEvent("challenge_solution_reveal", { challenge_slug: challengeSlug });
   }
 
   return (
@@ -436,7 +440,13 @@ export function ChallengeActions({
         <p className="section-kicker">{labels.submit}</p>
         <h2>{labels.reviewTitle}</h2>
         <p>{labels.reviewBody}</p>
-        <button type="button" onClick={() => dialogRef.current?.showModal()}>
+        <button
+          type="button"
+          onClick={() => {
+            trackEvent("challenge_submit", { challenge_slug: challengeSlug });
+            dialogRef.current?.showModal();
+          }}
+        >
           {labels.submit}
           <span aria-hidden="true">→</span>
         </button>

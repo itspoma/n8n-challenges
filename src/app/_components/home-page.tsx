@@ -8,6 +8,7 @@ import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
 import { EventPhotoStrip } from "@/app/_components/event-photo-strip";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { mainChallenges, moreChallenges, difficultyLabels } from "@/lib/challenges";
 import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
 import { homeCopy, type Locale } from "@/lib/home-copy";
@@ -126,15 +127,17 @@ export function HomePage({ locale }: { locale: Locale }) {
               </div>
               <h3>
                 {step.href ? (
-                  <a
+                  <TrackedLink
                     className="step-action-link"
                     href={withBasePath(step.href)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    event="n8n_signup_click"
+                    eventParams={{ location: "home_how_it_works" }}
                   >
                     {step.title}
                     <span aria-hidden="true">↗</span>
-                  </a>
+                  </TrackedLink>
                 ) : step.title}
               </h3>
               {step.description && <p className="step-description">{step.description}</p>}

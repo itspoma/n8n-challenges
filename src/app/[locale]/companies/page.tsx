@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { companiesCopy, type CompaniesCopy } from "@/lib/companies";
 import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
 import { maintainer } from "@/lib/people";
@@ -120,14 +121,16 @@ export default async function CompaniesPage({ params }: CompaniesPageProps) {
             </p>
             <h1 id="companies-title">{copy.title}</h1>
             <p className="companies-hero-intro">{copy.intro}</p>
-            <a
+            <TrackedLink
               className="contribute-button companies-hero-cta"
               href={maintainer.linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
+              event="linkedin_click"
+              eventParams={{ location: "companies_hero" }}
             >
               {copy.cta.button} <span aria-hidden="true">↗</span>
-            </a>
+            </TrackedLink>
             <p className="companies-speaker-caption">
               {copy.speaker.lead} <strong>{maintainer.name}</strong> – {copy.speaker.role}{" "}
               <a href={maintainer.experienceUrl} target="_blank" rel="noopener noreferrer">
@@ -207,14 +210,16 @@ export default async function CompaniesPage({ params }: CompaniesPageProps) {
           </div>
           <div className="host-event-copy">
             <p>{copy.cta.body}</p>
-            <a
+            <TrackedLink
               className="contribute-button create-event-entry"
               href={maintainer.linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
+              event="linkedin_click"
+              eventParams={{ location: "companies_cta" }}
             >
               {copy.cta.button} <span aria-hidden="true">↗</span>
-            </a>
+            </TrackedLink>
           </div>
         </div>
       </section>
