@@ -5937,6 +5937,8 @@ html[data-theme="light"] .collection-balloon-string {
 }
 .blog-cover { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .blog-content .blog-tags { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; list-style: none; margin-block: 1rem 1.5rem; }
+/* Flex margins don't collapse, so `.blog-content li + li` would push every tag but the first down. */
+.blog-content .blog-tags li { margin-top: 0; }
 .blog-tags li { font-size: .85rem; }
 .blog-tags a { display: inline-block; border-radius: 999px; padding: .2rem .8rem; background: #321c27; color: #f3a5c0; border: 1px solid #694054; text-decoration: none; }
 .blog-tags a:hover { background: #482637; border-color: #db749d; }
