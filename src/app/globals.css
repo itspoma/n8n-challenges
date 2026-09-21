@@ -455,6 +455,7 @@ html[data-theme="light"] .theme-toggle-thumb {
 }
 
 html[data-theme="light"] .theme-icon-sun {
+  color: var(--white);
   opacity: 1;
 }
 
