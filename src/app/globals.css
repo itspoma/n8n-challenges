@@ -5947,6 +5947,24 @@ html[data-theme="light"] .collection-balloon-string {
 html[data-theme="light"] .blog-tags a { background: #fff1f6; color: #953254; border-color: #f1cbd9; }
 html[data-theme="light"] .blog-tags a:hover { background: #fce0eb; border-color: #c47693; }
 .blog-back { display: inline-block; margin-bottom: 1.5rem; }
+/* Pagination under a blog or tag listing. */
+.blog-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem 1.25rem; margin-block: 3rem 1rem; }
+.blog-content .blog-page-numbers { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+/* Flex margins don't collapse, so `.blog-content li + li` would push every page but the first down. */
+.blog-content .blog-page-numbers li { margin-top: 0; }
+.blog-content .blog-page-link { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-width: 2.75rem; min-height: 2.75rem; padding: 0 1rem; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); font-weight: 600; line-height: 1; text-decoration: none; }
+/* Hover stays neutral: pink is reserved for the current page, so the two never look alike. */
+.blog-content a.blog-page-link:hover { border-color: var(--ink-soft); background: var(--line); }
+.blog-content a.blog-page-link:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+.blog-content a.blog-page-link[aria-current="page"] { border-color: var(--pink); background: rgba(234, 75, 113, .18); }
+/* An unavailable Previous or Next keeps its place, so the page numbers don't shift from page to page. */
+.blog-content .blog-page-link-off { visibility: hidden; }
+.blog-content .blog-page-gap { color: var(--ink-soft); }
+@media (max-width: 640px) {
+  .blog-pagination { justify-content: space-between; }
+  /* The page numbers get a row of their own above Previous and Next. */
+  .blog-content .blog-page-numbers { order: -1; flex-basis: 100%; }
+}
 .blog-subtitle { font-size: 1.2rem; color: var(--ink-soft); }
 .blog-content .blog-byline { display: flex; flex-wrap: wrap; gap: .25rem .5rem; margin-block: .5rem 1rem; color: var(--ink-soft); font-size: .9rem; }
 

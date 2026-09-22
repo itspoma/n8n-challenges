@@ -22,6 +22,12 @@ Article text may still link to an alias saved before the article got its readabl
 
 Tag URLs are generated from the tag text: accents are removed and Ukrainian is transliterated the same way the publisher transliterates article URLs, followed by a short hash that keeps different tags apart, for example `/es/blog/tag/preparacion-para-produccion-bd48f2d7`. Tag pages only repeat article cards, so they are marked `noindex, follow` and left out of the sitemap.
 
+## Pagination
+
+The blog and each tag page list 12 articles per page, newest first (`POSTS_PER_PAGE` in `src/lib/blog.ts`). The first page keeps the plain listing URL, `/en/blog` or `/en/blog/tag/<slug>`, so a listing has one first-page address. Later pages live at `/en/blog/page/2` and `/en/blog/tag/<slug>/page/2`; a page that does not exist is a 404. A listing that fits on one page shows no page links.
+
+Pages after the first only repeat article cards, so like tag pages they are marked `noindex, follow` and left out of the sitemap. Publishing an article moves every older one down a place, so listing them would give every page a new `<lastmod>` and an IndexNow submission with each publication. Each page keeps its own canonical URL and links to its neighbours with `rel="prev"` and `rel="next"`. The language switcher opens the first page of the other language, because the languages can have different numbers of pages.
+
 ## Preserve publication history across publisher updates
 
 `publication-history.json` stores established public slugs and first-publication timestamps keyed by `locale/id`. Existing timestamps come from the original article's first Git commit, not its latest revision or deployment. This file is separate from generated Markdown so republishing does not remove them. A saved URL takes precedence over `urlSlug` in front matter; a saved timestamp is used when `publishedAt` is missing. Add new articles here if the publisher cannot yet provide these fields. Never invent a publication time from a date-only value.

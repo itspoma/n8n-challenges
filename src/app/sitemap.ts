@@ -64,7 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
   });
 
-  // Tag pages are noindex, so they stay out of the sitemap.
+  // Tag pages and the blog pages after the first are noindex, so they stay out of the sitemap.
   return [
     ...pages,
     ...allPosts.map((p) => ({

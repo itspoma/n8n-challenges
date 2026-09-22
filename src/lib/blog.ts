@@ -112,6 +112,12 @@ export const emptyLabels = {
   uk: "Статті незабаром з’являться.",
 };
 
+export const paginationLabels = {
+  en: { nav: "Blog pages", previous: "Previous", next: "Next", page: "Page" },
+  es: { nav: "Páginas del blog", previous: "Anterior", next: "Siguiente", page: "Página" },
+  uk: { nav: "Сторінки блогу", previous: "Попередня", next: "Наступна", page: "Сторінка" },
+} satisfies Record<Locale, { nav: string; previous: string; next: string; page: string }>;
+
 export function posts(): Post[] {
   const result: Post[] = [];
 
@@ -278,6 +284,34 @@ export function blogTags() {
     }
   }
   return [...tags.values()];
+}
+
+/** The tag whose URL slug is `slug` in `locale`, if any article carries it. */
+export function findBlogTag(locale: string, slug: string) {
+  return blogTags().find((item) => item.locale === locale && tagSlug(item.tag) === slug);
+}
+
+/** Articles in `locale` that carry `tag`, newest first. Pass `all` when the caller has read the articles already. */
+export function tagPosts(locale: Locale, tag: string, all = posts()) {
+  return all.filter((post) => post.locale === locale && post.tags.some((value) => normalizeTag(value) === tag));
+}
+
+/** Articles per page of a listing. Twelve fill the three-, two- and one-column card grids without a short row. */
+export const POSTS_PER_PAGE = 12;
+
+/** Pages needed for `total` articles. An empty listing still has its first page. */
+export const pageCount = (total: number) => Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+
+/** The articles on the 1-based `page` of a listing. */
+export const postsOnPage = (items: Post[], page: number) => items.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+
+/** Path of a listing's `page`. The first page keeps the plain listing path, so a listing has one first-page URL. */
+export const pagePath = (listingPath: string, page: number) => (page > 1 ? `${listingPath}/page/${page}` : listingPath);
+
+/** The page a `/page/<n>` URL segment names, or undefined unless it is a plain positive number. */
+export function pageNumber(segment: string) {
+  const page = Number(segment);
+  return Number.isInteger(page) && page > 0 && String(page) === segment ? page : undefined;
 }
 
 /** Format an ISO timestamp as `YYYY-MM-DD · HH:mm` in Europe/Madrid. */

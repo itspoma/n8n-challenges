@@ -1,11 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SiteHeader } from "@/app/_components/site-header";
-import { FooterMeta } from "@/app/_components/footer-meta";
-import { BlogPostList } from "@/app/_components/blog-post-list";
-import { blogTags, normalizeTag, posts, tagPath, tagSlug } from "@/lib/blog";
+import { BlogTagPage } from "@/app/_components/blog-tag-page";
+import { blogTags, findBlogTag, pageCount, tagPath, tagPosts, tagSlug } from "@/lib/blog";
 import { isLocale } from "@/lib/home-copy";
-import { absoluteUrl, blogFeedAlternates, projectPreviewImage } from "@/lib/site-metadata";
+import { listingPageMetadata } from "@/lib/site-metadata";
 
 export const dynamicParams = false;
 type Props = { params: Promise<{ locale: string; tag: string }> };
@@ -14,35 +11,20 @@ export function generateStaticParams() {
 }
 export async function generateMetadata({ params }: Props) {
   const { locale, tag } = await params;
-  const entry = blogTags().find((item) => item.locale === locale && tagSlug(item.tag) === tag);
+  const entry = findBlogTag(locale, tag);
   if (!entry) return {};
-  const title = `${entry.label} · Blog`;
-  const url = absoluteUrl(tagPath(entry.locale, entry.tag));
-  const images = [projectPreviewImage(entry.locale)];
-  return {
-    title,
-    // Tag listings only repeat article cards; keep them out of search results but let crawlers follow them.
-    robots: { index: false, follow: true },
-    alternates: { canonical: url, types: blogFeedAlternates(entry.locale) },
-    openGraph: { type: "website", title, url, images },
-    twitter: { card: "summary_large_image", title, images },
-  };
+  return listingPageMetadata({
+    locale: entry.locale,
+    title: `${entry.label} · Blog`,
+    path: tagPath(entry.locale, entry.tag),
+    page: 1,
+    pageCount: pageCount(tagPosts(entry.locale, entry.tag).length),
+  });
 }
 export default async function TagPage({ params }: Props) {
   const { locale, tag } = await params;
   if (!isLocale(locale)) notFound();
-  const entry = blogTags().find((item) => item.locale === locale && tagSlug(item.tag) === tag);
+  const entry = findBlogTag(locale, tag);
   if (!entry) notFound();
-  const items = posts().filter((post) => post.locale === locale && post.tags.some((value) => normalizeTag(value) === entry.tag));
-  const labels = { en: ["All articles", "Articles tagged"], es: ["Todos los artículos", "Artículos con la etiqueta"], uk: ["Усі статті", "Статті з тегом"] }[locale];
-  return <main>
-    <SiteHeader locale={locale} languagePath="/blog" />
-    <section className="shell blog-content">
-      <Link className="blog-back" href={`/${locale}/blog`}>← {labels[0]}</Link>
-      <p className="section-kicker">{labels[1]}</p>
-      <h1>{entry.label}</h1>
-      <BlogPostList items={items} />
-    </section>
-    <footer className="shell"><FooterMeta locale={locale} /></footer>
-  </main>;
+  return <BlogTagPage locale={locale} entry={entry} page={1} />;
 }

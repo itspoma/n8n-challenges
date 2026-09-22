@@ -1,11 +1,9 @@
-import { BlogPostList } from "@/app/_components/blog-post-list";
 import { notFound } from "next/navigation";
 
-import { SiteHeader } from "@/app/_components/site-header";
-import { FooterMeta } from "@/app/_components/footer-meta";
-import { posts, blogLabels, blogMetadata, emptyLabels } from "@/lib/blog";
+import { BlogIndexPage } from "@/app/_components/blog-index-page";
+import { blogMetadata, pageCount, posts } from "@/lib/blog";
 import { locales, isLocale } from "@/lib/home-copy";
-import { createLocalizedMetadata } from "@/lib/site-metadata";
+import { createLocalizedMetadata, localizedPath, paginationLinks } from "@/lib/site-metadata";
 
 type BlogPageProps = {
   params: Promise<{
@@ -24,12 +22,19 @@ export async function generateMetadata({ params }: BlogPageProps) {
     return {};
   }
 
-  return createLocalizedMetadata({
-    locale,
-    suffix: "/blog",
-    title: blogMetadata[locale].title,
-    description: blogMetadata[locale].description,
-  });
+  return {
+    ...createLocalizedMetadata({
+      locale,
+      suffix: "/blog",
+      title: blogMetadata[locale].title,
+      description: blogMetadata[locale].description,
+    }),
+    pagination: paginationLinks(
+      localizedPath(locale, "/blog"),
+      1,
+      pageCount(posts().filter((post) => post.locale === locale).length),
+    ),
+  };
 }
 
 export default async function Blog({ params }: BlogPageProps) {
@@ -39,24 +44,5 @@ export default async function Blog({ params }: BlogPageProps) {
     notFound();
   }
 
-  const items = posts().filter((post) => post.locale === locale);
-
-  return (
-    <main>
-      <SiteHeader locale={locale} languagePath="/blog" />
-
-      <section className="shell blog-content">
-        <h1>{blogLabels[locale]}</h1>
-        {items.length ? (
-          <BlogPostList items={items} />
-        ) : (
-          <p>{emptyLabels[locale]}</p>
-        )}
-      </section>
-
-      <footer className="shell">
-        <FooterMeta locale={locale} />
-      </footer>
-    </main>
-  );
+  return <BlogIndexPage locale={locale} page={1} />;
 }

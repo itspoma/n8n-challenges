@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { blogFeedPath, blogMetadata } from "@/lib/blog";
+import { blogFeedPath, blogMetadata, pagePath } from "@/lib/blog";
 import { locales, type Locale } from "@/lib/home-copy";
 
 export const SITE_NAME = "n8n Balloon Challenges";
@@ -62,6 +62,46 @@ export function blogFeedAlternates(locale: Locale) {
     "application/rss+xml": [
       { url: absoluteUrl(blogFeedPath(locale)), title: blogMetadata[locale].title },
     ],
+  };
+}
+
+/** `rel="prev"` and `rel="next"` links for `page` of a listing with `pageCount` pages. */
+export function paginationLinks(listingPath: string, page: number, pageCount: number) {
+  return {
+    ...(page > 1 ? { previous: absoluteUrl(pagePath(listingPath, page - 1)) } : {}),
+    ...(page < pageCount ? { next: absoluteUrl(pagePath(listingPath, page + 1)) } : {}),
+  };
+}
+
+/**
+ * Metadata for a listing that only repeats article cards: a tag page, or a blog page after the first.
+ * The page keeps its own canonical URL and stays out of search results, but crawlers follow its
+ * links to the articles and to the neighbouring pages. Other languages get no alternates, because
+ * their listings may have fewer pages.
+ */
+export function listingPageMetadata({
+  locale,
+  title,
+  path,
+  page,
+  pageCount,
+}: {
+  locale: Locale;
+  title: string;
+  path: string;
+  page: number;
+  pageCount: number;
+}): Metadata {
+  const url = absoluteUrl(pagePath(path, page));
+  const images = [projectPreviewImage(locale)];
+
+  return {
+    title,
+    robots: { index: false, follow: true },
+    alternates: { canonical: url, types: blogFeedAlternates(locale) },
+    pagination: paginationLinks(path, page, pageCount),
+    openGraph: { type: "website", title, url, images },
+    twitter: { card: "summary_large_image", title, images },
   };
 }
 
