@@ -33,26 +33,26 @@ export const aboutCopy: Record<Locale, AboutCopy> = {
   en: {
     metadataTitle: "About",
     metadataDescription:
-      "Why n8n Balloon Challenges exists, how mentors and community events use it, how to contribute, and who maintains it.",
+      "Why n8n Balloon Challenges exists, how to use it on your own or at a community event, how to contribute, and who maintains it.",
     eyebrow: "About the project",
     title: "A community project for learning n8n by doing.",
     intro:
-      "Hands-on challenges, in-person mentors, and balloons that make progress visible.",
+      "Hands-on challenges to learn at your own pace, and community events where balloons make progress visible.",
     why: {
       kicker: "Why it exists",
       title: "Knowledge sticks when you build it and share it.",
       body: [
-        "The site supports a hands-on community workshop format. Participants choose a practical challenge, build a working workflow in their own n8n environment, and show it to a mentor. Every approved workflow earns a balloon, so progress is visible across the room.",
+        "The site is a free collection of practical n8n challenges. You choose one, build a working workflow in your own n8n environment, and use the tips and the solution whenever you get stuck. The same challenges power in-person community workshops, where every workflow a mentor approves earns a balloon, so progress is visible across the room.",
         "The website is deliberately simple: it is free to use, needs no account, and stores no participant data. Challenges, tips, and events are public Markdown files, available in English, Spanish, and Ukrainian.",
       ],
     },
     use: {
       kicker: "How it is used",
-      title: "Made for mentors, organizers, and learners.",
+      title: "Made for learners, organizers, and mentors.",
       body: [
+        "Anyone can practice on their own, at any time, with the challenges and the blog – no event needed.",
         "At an event, mentors review each working workflow in person and hand out the matching balloon. The website itself never approves or records anything.",
         "Community organizers can run the format anywhere with the organizer guide and list their public events in the events directory, where every event credits its organizers.",
-        "Between events, anyone can practice on their own with the challenges and the blog.",
       ],
       organizersLink: "Organizer guide",
       eventsLink: "Events",
@@ -78,26 +78,26 @@ export const aboutCopy: Record<Locale, AboutCopy> = {
   es: {
     metadataTitle: "Acerca de",
     metadataDescription:
-      "Por qué existe n8n Balloon Challenges, cómo lo usan mentores y eventos de la comunidad, cómo contribuir y quién lo mantiene.",
+      "Por qué existe n8n Balloon Challenges, cómo usarlo por tu cuenta o en un evento de la comunidad, cómo contribuir y quién lo mantiene.",
     eyebrow: "Sobre el proyecto",
     title: "Un proyecto comunitario para aprender n8n practicando.",
     intro:
-      "Retos prácticos, mentores en persona y globos que hacen visible el progreso.",
+      "Retos prácticos para aprender a tu ritmo y eventos de la comunidad donde los globos hacen visible el progreso.",
     why: {
       kicker: "Por qué existe",
       title: "El conocimiento perdura cuando lo construyes y lo compartes.",
       body: [
-        "El sitio acompaña un formato de taller comunitario práctico. Cada participante elige un reto, crea un workflow funcional en su propio entorno de n8n y se lo muestra a un mentor. Cada workflow aprobado gana un globo, así el progreso se ve en toda la sala.",
+        "El sitio es una colección gratuita de retos prácticos de n8n. Eliges uno, creas un workflow funcional en tu propio entorno de n8n y recurres a las pistas y a la solución cuando te atascas. Los mismos retos se usan en talleres presenciales de la comunidad, donde cada workflow que aprueba un mentor gana un globo, así el progreso se ve en toda la sala.",
         "La web es sencilla a propósito: es gratuita, no necesita cuenta y no guarda datos de participantes. Los retos, las pistas y los eventos son archivos Markdown públicos, disponibles en inglés, español y ucraniano.",
       ],
     },
     use: {
       kicker: "Cómo se usa",
-      title: "Pensado para mentores, organizadores y quienes aprenden.",
+      title: "Pensado para quienes aprenden, organizadores y mentores.",
       body: [
+        "Cualquiera puede practicar por su cuenta, en cualquier momento, con los retos y el blog – sin necesidad de un evento.",
         "En un evento, los mentores revisan en persona cada workflow funcional y entregan el globo correspondiente. La web nunca aprueba ni registra nada.",
         "Quienes organizan comunidades pueden llevar el formato a cualquier lugar con la guía para organizadores y publicar sus eventos en el directorio, donde cada evento menciona a quienes lo organizan.",
-        "Entre eventos, cualquiera puede practicar por su cuenta con los retos y el blog.",
       ],
       organizersLink: "Guía para organizadores",
       eventsLink: "Eventos",
@@ -123,26 +123,26 @@ export const aboutCopy: Record<Locale, AboutCopy> = {
   uk: {
     metadataTitle: "Про проєкт",
     metadataDescription:
-      "Навіщо існує n8n Balloon Challenges, як ним користуються ментори та події спільноти, як долучитися і хто підтримує проєкт.",
+      "Навіщо існує n8n Balloon Challenges, як ним користуватися самостійно чи на події спільноти, як долучитися і хто підтримує проєкт.",
     eyebrow: "Про проєкт",
     title: "Спільнотний проєкт, щоб вивчати n8n на практиці.",
     intro:
-      "Практичні завдання, ментори наживо та кульки, які роблять прогрес помітним.",
+      "Практичні завдання, щоб навчатися у власному темпі, і події спільноти, де кульки роблять прогрес помітним.",
     why: {
       kicker: "Навіщо він існує",
       title: "Знання закріплюються, коли ти створюєш і ділишся.",
       body: [
-        "Сайт підтримує формат практичного воркшопу для спільноти. Учасники обирають завдання, створюють робочий воркфлоу у власному середовищі n8n і показують його ментору. Кожен схвалений воркфлоу приносить кульку, тож прогрес видно всій залі.",
+        "Сайт – це безкоштовна добірка практичних завдань з n8n. Ви обираєте завдання, створюєте робочий воркфлоу у власному середовищі n8n і користуєтеся підказками та рішенням, коли застрягаєте. Ці ж завдання лежать в основі практичних воркшопів спільноти, де кожен воркфлоу, схвалений ментором, приносить кульку, тож прогрес видно всій залі.",
         "Сайт навмисно простий: він безкоштовний, не потребує облікового запису й не зберігає даних учасників. Завдання, підказки та події – це публічні Markdown-файли англійською, іспанською та українською.",
       ],
     },
     use: {
       kicker: "Як ним користуються",
-      title: "Для менторів, організаторів і тих, хто вчиться.",
+      title: "Для тих, хто вчиться, організаторів і менторів.",
       body: [
+        "Кожен може практикуватися самостійно в будь-який час із завданнями та блогом – подія для цього не потрібна.",
         "На події ментори особисто перевіряють кожен робочий воркфлоу й вручають відповідну кульку. Сам сайт нічого не схвалює і не записує.",
         "Організатори спільнот можуть провести формат будь-де за посібником для організаторів і додати свої публічні події до каталогу, де кожна подія вказує своїх організаторів.",
-        "Між подіями кожен може практикуватися самостійно із завданнями та блогом.",
       ],
       organizersLink: "Посібник для організаторів",
       eventsLink: "Події",

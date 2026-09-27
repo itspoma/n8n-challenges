@@ -49,7 +49,7 @@ export function GET() {
     `- [Blog](${absoluteUrl("/en/blog")}): Articles about n8n and automation.`,
     `- [Events](${absoluteUrl("/en/events")}): Community events and hackathons.`,
     `- [For companies](${absoluteUrl("/en/companies")}): Custom, hands-on n8n training programs for company teams, built around their own tools and use cases.`,
-    `- [About](${absoluteUrl("/en/about")}): Why the project exists, how mentors and community events use it, how to contribute, and who maintains it.`,
+    `- [About](${absoluteUrl("/en/about")}): Why the project exists, how to use it on your own or at a community event, how to contribute, and who maintains it.`,
     "",
     ...articleSection("en"),
     "## Other languages",

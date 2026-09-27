@@ -79,6 +79,11 @@ export default async function AboutPage({ params }: AboutPageProps) {
           ))}
           <ul className="about-links">
             <li>
+              <Link href={`/${locale}#challenge-map`}>
+                {copy.use.challengesLink} <span aria-hidden="true">→</span>
+              </Link>
+            </li>
+            <li>
               <Link href={`/${locale}/organizers`}>
                 {copy.use.organizersLink} <span aria-hidden="true">→</span>
               </Link>
@@ -86,11 +91,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <li>
               <Link href={`/${locale}/events`}>
                 {copy.use.eventsLink} <span aria-hidden="true">→</span>
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}#challenge-map`}>
-                {copy.use.challengesLink} <span aria-hidden="true">→</span>
               </Link>
             </li>
           </ul>
