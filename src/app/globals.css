@@ -2855,7 +2855,8 @@ html[data-theme="light"] .theme-icon-moon {
   line-height: 1.5;
 }
 
-.challenge-preparation-list a {
+.challenge-preparation-list a,
+.challenge-forum-link a {
   color: var(--pink-soft);
   font-weight: inherit;
   text-decoration: underline;
@@ -2863,7 +2864,8 @@ html[data-theme="light"] .theme-icon-moon {
   text-underline-offset: 3px;
 }
 
-.challenge-preparation-list a:hover {
+.challenge-preparation-list a:hover,
+.challenge-forum-link a:hover {
   color: var(--pink);
 }
 
@@ -4868,7 +4870,8 @@ html[data-theme="light"] .challenge-preparation-list li {
   background: #fff7fa;
 }
 
-html[data-theme="light"] .challenge-preparation-list a {
+html[data-theme="light"] .challenge-preparation-list a,
+html[data-theme="light"] .challenge-forum-link a {
   color: var(--pink-deep);
 }
 

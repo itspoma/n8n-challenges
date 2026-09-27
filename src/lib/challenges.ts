@@ -91,6 +91,8 @@ export type ChallengePageLabels = {
   allTips: string;
   showWorkflowAnswer: string;
   tip: string;
+  forumPrompt: string;
+  forumLink: string;
   reviewTitle: string;
   reviewBody: string;
   submit: string;
@@ -141,6 +143,8 @@ export const challengePageCopy = {
     allTips: "All tips revealed",
     showWorkflowAnswer: "Show workflow answer",
     tip: "Tip",
+    forumPrompt: "Still stuck?",
+    forumLink: "Ask on the n8n community forum",
     reviewTitle: "Ready to submit?",
     reviewBody: "Submit when your team has a working workflow to demonstrate.",
     submit: "Submit as solved",
@@ -190,6 +194,8 @@ export const challengePageCopy = {
     allTips: "Todas las pistas mostradas",
     showWorkflowAnswer: "Mostrar respuesta del workflow",
     tip: "Pista",
+    forumPrompt: "¿Sigues sin avanzar?",
+    forumLink: "Pregunta en el foro de la comunidad de n8n",
     reviewTitle: "¿Listo para enviar?",
     reviewBody: "Envía el reto cuando el equipo tenga un workflow funcional que mostrar.",
     submit: "Enviar como resuelto",
@@ -239,6 +245,8 @@ export const challengePageCopy = {
     allTips: "Усі підказки відкрито",
     showWorkflowAnswer: "Показати відповідь воркфлоу",
     tip: "Підказка",
+    forumPrompt: "Досі не виходить?",
+    forumLink: "Запитайте на форумі спільноти n8n",
     reviewTitle: "Готові показати результат?",
     reviewBody: "Надсилайте завдання, коли ваша команда матиме робочий воркфлоу для демонстрації.",
     submit: "Позначити як виконане",

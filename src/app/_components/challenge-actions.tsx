@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { trackEvent } from "@/lib/analytics";
 import type { ChallengePageLabels, ChallengeSolutions } from "@/lib/challenges";
 import type { Locale } from "@/lib/home-copy";
@@ -21,6 +22,7 @@ type ChallengeActionsProps = {
 };
 
 const TIP_PROGRESS_STORAGE_PREFIX = "n8n-balloon-challenges:revealed-tips:v1:";
+const COMMUNITY_FORUM_URL = "https://community.n8n.io/";
 
 function TipPrompt({ prompt, locale }: { prompt: string; locale: Locale }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -349,6 +351,18 @@ export function ChallengeActions({
               </button>
             ) : null}
           </div>
+          <p className="challenge-forum-link">
+            {labels.forumPrompt}{" "}
+            <TrackedLink
+              href={COMMUNITY_FORUM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              event="community_forum_click"
+              eventParams={{ challenge_slug: challengeSlug }}
+            >
+              {labels.forumLink} <span aria-hidden="true">↗</span>
+            </TrackedLink>
+          </p>
         </article>
 
         {hasSolution ? (
