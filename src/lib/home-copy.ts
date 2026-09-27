@@ -155,12 +155,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       kicker: "The format",
       title: "How it works",
       body:
-        "Choose any challenge that fits your team. You do not need to complete them in order or finish all ten.",
+        "Choose any challenge that fits you or your team. You do not need to complete them in order or finish all ten.",
       steps: [
         { number: "01", title: "Sign up for n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Choose challenge" },
         { number: "03", title: "Build a workflow" },
-        { number: "04", title: "Show your workflow to a mentor" },
+        { number: "04", title: "Submit for review" },
         {
           number: "05",
           title: "Collect a balloon",
@@ -205,7 +205,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     collection: {
       eyebrow: "Choose a challenge",
       title: "Choose your next challenge.",
-      body: "Pick a balloon, build the workflow, and collect it after mentor approval.",
+      body: "Pick a balloon, build the workflow, and check it against the requirements.",
       openLabel: "Open challenge",
       moreTitle: "Need more challenges?",
       moreBody: "More ideas to try, including a little extraterrestrial fun. Open a challenge and build something new.",
@@ -286,12 +286,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       kicker: "El formato",
       title: "Cómo funciona",
       body:
-        "Elige cualquier reto que encaje con tu equipo. No hace falta completarlos en orden ni terminar los diez.",
+        "Elige cualquier reto que encaje contigo o con tu equipo. No hace falta completarlos en orden ni terminar los diez.",
       steps: [
         { number: "01", title: "Regístrate en n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Elige un reto" },
         { number: "03", title: "Crea un workflow" },
-        { number: "04", title: "Muéstraselo a un mentor" },
+        { number: "04", title: "Envíalo a revisión" },
         {
           number: "05",
           title: "Recoge un globo",
@@ -336,7 +336,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     collection: {
       eyebrow: "Elige un reto",
       title: "Elige tu próximo reto.",
-      body: "Elige un globo, crea el workflow y recógelo cuando lo apruebe un mentor.",
+      body: "Elige un globo, crea el workflow y comprueba que cumple los requisitos.",
       openLabel: "Abrir reto",
       moreTitle: "¿Quieres más retos?",
       moreBody: "Más ideas para probar, con un poco de diversión extraterrestre. Abre un reto y crea algo nuevo.",
@@ -417,12 +417,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       kicker: "Формат",
       title: "Як це працює",
       body:
-        "Оберіть будь-яке завдання, що підходить вашій команді. Не обов’язково виконувати їх по черзі чи завершувати всі десять.",
+        "Оберіть будь-яке завдання, що підходить вам або вашій команді. Не обов’язково виконувати їх по черзі чи завершувати всі десять.",
       steps: [
         { number: "01", title: "Зареєструйтеся в n8n Cloud", href: "/n8n-sign-up" },
         { number: "02", title: "Оберіть завдання" },
         { number: "03", title: "Створіть воркфлоу" },
-        { number: "04", title: "Покажіть його ментору" },
+        { number: "04", title: "Надішліть на перевірку" },
         {
           number: "05",
           title: "Отримайте кульку",
@@ -467,7 +467,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     collection: {
       eyebrow: "Оберіть завдання",
       title: "Оберіть наступне завдання.",
-      body: "Оберіть кульку, створіть воркфлоу та отримайте її після схвалення ментора.",
+      body: "Оберіть кульку, створіть воркфлоу та перевірте, чи він відповідає вимогам.",
       openLabel: "Відкрити завдання",
       moreTitle: "Хочеш більше завдань?",
       moreBody: "Ще більше ідей, зокрема трохи інопланетних розваг. Відкрийте завдання та створіть щось нове.",
