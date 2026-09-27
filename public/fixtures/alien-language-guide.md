@@ -1,6 +1,6 @@
 # Alien language guide
 
-Use this exact guide for Challenge 7. The guide is deliberately small and deterministic so mentors can verify every result.
+Use this exact guide for the Alien Translator challenge. The guide is deliberately small and deterministic so every result can be verified.
 
 ## Dictionary
 

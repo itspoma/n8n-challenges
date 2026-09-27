@@ -1407,9 +1407,9 @@ Process valid orders one by one and calculate their combined total price. Exclud
 
 ## Preparation
 - Sign up for [n8n Cloud](/n8n-sign-up) or open an existing n8n workspace, then create a new workflow.
-- Use the event’s [Unstable Restaurant Orders API](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5). This normal URL randomly returns a successful page, a 429 rate-limit response, or a retryable 500 server error; do not add a scenario parameter while building.
+- Use the [Unstable Restaurant Orders API](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5) built for this challenge. This normal URL randomly returns a successful page, a 429 rate-limit response, or a retryable 500 server error; do not add a scenario parameter while building.
 - Create a Data Table named rescued_orders for valid orders, another named rejected_orders for rejected data together with its rejection reason, and – for the bonus – api_failure_diagnostics for exhausted-retry details.
-- No external account, API key, or other credential is required. During review, the mentor may use the provider’s deterministic test controls to reproduce success, rate-limit, and server-error responses.
+- No external account, API key, or other credential is required. When your workflow is finished, add `&scenario=success`, `&scenario=rate_limit`, or `&scenario=server_error` to the URL to force each response, then remove it again. A forced failure repeats on every attempt, so it also shows what happens when all retries run out.
 
 ## Requirements
 - Follow the API’s pagination information and retrieve all 25 orders without manually creating a separate request for each page.
@@ -1467,9 +1467,9 @@ Procesa los pedidos válidos uno por uno y calcula su importe total conjunto. Ex
 
 ## Preparation
 - Regístrate en [n8n Cloud](/n8n-sign-up) o abre un espacio de trabajo de n8n existente y crea un workflow nuevo.
-- Usa la [API de pedidos inestable](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5) del evento. Esta URL normal devuelve al azar una página correcta, una respuesta 429 por límite de frecuencia o un error 500 de servidor que admite reintento; no añadas un parámetro scenario mientras construyes.
+- Usa la [API de pedidos inestable](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5) preparada para este reto. Esta URL normal devuelve al azar una página correcta, una respuesta 429 por límite de frecuencia o un error 500 de servidor que admite reintento; no añadas un parámetro scenario mientras construyes.
 - Crea una Data Table llamada rescued_orders para los pedidos válidos, otra llamada rejected_orders para los datos rechazados junto con el motivo del rechazo y – para la tarea extra – api_failure_diagnostics para los detalles de reintentos agotados.
-- No se necesita ninguna cuenta externa, clave API ni otra credencial. Durante la revisión, el mentor puede usar los controles de prueba deterministas del proveedor para reproducir respuestas correctas, límites de frecuencia y errores de servidor.
+- No se necesita ninguna cuenta externa, clave API ni otra credencial. Cuando el workflow esté terminado, añade `&scenario=success`, `&scenario=rate_limit` o `&scenario=server_error` a la URL para forzar cada respuesta y después quítalo. Un fallo forzado se repite en cada intento, así que también muestra qué ocurre cuando se agotan todos los reintentos.
 
 ## Requirements
 - Sigue la información de paginación de la API y recupera los 25 pedidos sin crear manualmente una petición separada para cada página.
@@ -1527,9 +1527,9 @@ Procesa los pedidos válidos uno por uno y calcula su importe total conjunto. Ex
 
 ## Preparation
 - Зареєструйтеся в [n8n Cloud](/n8n-sign-up) або відкрийте наявний робочий простір n8n і створіть новий воркфлоу.
-- Використовуйте наданий для події [нестабільний API замовлень](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5). Ця звичайна URL-адреса випадково повертає успішну сторінку, відповідь 429 про обмеження частоти або серверну помилку 500, яку можна повторити; не додавайте параметр scenario під час побудови.
+- Використовуйте [нестабільний API замовлень](https://ralabs.app.n8n.cloud/webhook/flaky-orders?page=1&pageSize=5), створений для цього завдання. Ця звичайна URL-адреса випадково повертає успішну сторінку, відповідь 429 про обмеження частоти або серверну помилку 500, яку можна повторити; не додавайте параметр scenario під час побудови.
 - Створіть Data Table з назвою rescued_orders для коректних замовлень, ще одну з назвою rejected_orders для відхилених даних разом із причиною відхилення та – для додаткового завдання – api_failure_diagnostics для даних про вичерпані повторні спроби.
-- Зовнішній обліковий запис, API-ключ або інші облікові дані не потрібні. Під час перевірки ментор може скористатися детермінованими тестовими параметрами провайдера, щоб відтворити успішні відповіді, обмеження частоти й серверні помилки.
+- Зовнішній обліковий запис, API-ключ або інші облікові дані не потрібні. Коли воркфлоу буде готовий, додайте до URL-адреси `&scenario=success`, `&scenario=rate_limit` або `&scenario=server_error`, щоб навмисно викликати кожну відповідь, а потім приберіть цей параметр. Примусова помилка повторюється під час кожної спроби, тож так ви також побачите, що стається, коли всі повторні спроби вичерпано.
 
 ## Requirements
 - Дотримуйтеся інформації про пагінацію API та отримайте всі 25 замовлень, не створюючи вручну окремий запит для кожної сторінки.
