@@ -103,12 +103,6 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <EventPhotoStrip
-        ariaLabel={copy.gallery.ariaLabel}
-        kicker={copy.gallery.kicker}
-        photoAlts={copy.gallery.photoAlts}
-      />
-
       <section className="format-section shell" id="how-it-works" aria-labelledby="format-title">
         <div className="section-heading format-heading">
           <div>
@@ -306,6 +300,12 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </ul>
       </section>
+
+      <EventPhotoStrip
+        ariaLabel={copy.gallery.ariaLabel}
+        kicker={copy.gallery.kicker}
+        photoAlts={copy.gallery.photoAlts}
+      />
 
       <section className="contribute-section shell" aria-labelledby="contribute-title">
         <div className="contribute-card">
