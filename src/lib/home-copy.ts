@@ -111,11 +111,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       about: "About",
     },
     headerTagline: "learn by doing",
-    eyebrow: "Learn n8n through practice",
-    titleTop: "Welcome to the",
-    titleBottom: "n8n Balloon Challenges",
+    eyebrow: "Free hands-on challenges",
+    titleTop: "Learn n8n by building",
+    titleBottom: "real workflows",
     intro:
-      "Real learning comes through practice, and knowledge sticks when you share it with others.",
+      "Each challenge gives you a real scenario, clear requirements, and five tips for when you get stuck. Work through them on your own, any time, or with others at a community event.",
     primaryCta: "View challenges",
     stats: [
       { label: "free, every challenge" },
@@ -244,11 +244,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       about: "Acerca de",
     },
     headerTagline: "aprende haciendo",
-    eyebrow: "Aprende n8n practicando",
-    titleTop: "Bienvenidos al",
-    titleBottom: "n8n Balloon Challenges",
+    eyebrow: "Retos prácticos gratuitos",
+    titleTop: "Aprende n8n creando",
+    titleBottom: "workflows reales",
     intro:
-      "El aprendizaje real nace de la práctica, y el conocimiento perdura cuando lo compartes con los demás.",
+      "Cada reto trae un caso real, requisitos claros y cinco pistas para cuando te atasques. Resuélvelos por tu cuenta, cuando quieras, o con otras personas en un evento de la comunidad.",
     primaryCta: "Ver los retos",
     stats: [
       { label: "gratis, todos los retos" },
@@ -375,11 +375,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       about: "Про проєкт",
     },
     headerTagline: "вчись на практиці",
-    eyebrow: "Вивчай n8n на практиці",
-    titleTop: "Ласкаво просимо до",
-    titleBottom: "n8n Balloon Challenges",
+    eyebrow: "Безкоштовні практичні завдання",
+    titleTop: "Вивчайте n8n, створюючи",
+    titleBottom: "справжні воркфлоу",
     intro:
-      "Справжнє навчання починається з практики, а знання закріплюються, коли ви ділитеся ними з іншими.",
+      "Кожне завдання має реальний сценарій, чіткі вимоги та п’ять підказок на випадок, якщо застрягнете. Виконуйте їх самостійно будь-коли або разом з іншими на події спільноти.",
     primaryCta: "Переглянути завдання",
     stats: [
       { label: "безкоштовно, усі завдання" },
