@@ -30,11 +30,13 @@ import type { Locale } from "@/lib/home-copy";
 import { maintainer } from "@/lib/people";
 import {
   absoluteUrl,
+  BLOG_SEARCH_LOCALE,
   blogFeedAlternates,
   openGraphLocaleFields,
   SITE_AUTHOR,
   SITE_NAME,
   SITE_URL,
+  translatedBlogRobots,
 } from "@/lib/site-metadata";
 import { SiteHeader } from "@/app/_components/site-header";
 import { FooterMeta } from "@/app/_components/footer-meta";
@@ -210,7 +212,6 @@ export async function generateMetadata({
 
   const url = articleUrl(post);
   const translations = translationsOf(post);
-  const english = translations.find((translation) => translation.locale === "en");
   const preview = socialImage(post.coverImage);
   const images = [{ ...preview, url: absoluteUrl(preview.url), alt: post.coverAlt }];
 
@@ -240,15 +241,12 @@ export async function generateMetadata({
       description: post.seo.description,
       images,
     },
+    // Only the English original is offered to search engines (BLOG_SEARCH_LOCALE): a translation is
+    // noindex, and no version names the others as hreflang alternates. The language switcher still
+    // links every version for readers.
+    ...(post.locale === BLOG_SEARCH_LOCALE ? {} : { robots: translatedBlogRobots }),
     alternates: {
       canonical: url,
-      languages: {
-        ...Object.fromEntries(
-          translations.map((translation) => [translation.locale, articleUrl(translation)]),
-        ),
-        // Readers whose language has no version get the English original.
-        ...(english ? { "x-default": articleUrl(english) } : {}),
-      },
       types: blogFeedAlternates(post.locale),
     },
     other: { "content-revision": post.revision },

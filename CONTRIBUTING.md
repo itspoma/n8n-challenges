@@ -49,6 +49,10 @@ Run `npm run build` followed by `npm run indexnow -- changes` to print the URLs 
 
 Each language has an RSS 2.0 feed of its 50 newest articles at `/en/blog/feed.xml`, `/es/blog/feed.xml` and `/uk/blog/feed.xml`. Feed readers discover it from any page, and the footer links to it. Items carry the title, summary, tags and cover image, and link to the article for the full text.
 
+## Translated articles and search engines
+
+Blog articles are written in English; the Spanish and Ukrainian versions are machine translations. Readers get every language through the language switcher, but only the English blog is offered to search engines (`BLOG_SEARCH_LOCALE` in `src/lib/site-metadata.ts`): Spanish and Ukrainian articles and blog listings are `noindex, follow`, stay out of the sitemap and are named by no hreflang alternates. The home, challenge, event and other pages keep all three languages in search. This started on 7 October 2026, after Google dropped many of the translated articles during its September 2026 spam update.
+
 ## Pull-request checklist
 
 - The content is public and contains no personal or secret information.

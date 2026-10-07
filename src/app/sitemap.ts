@@ -3,9 +3,10 @@ import type { MetadataRoute } from "next";
 import { posts, type Post } from "@/lib/blog";
 import { challengeFileName, challenges } from "@/lib/challenges";
 import { lastCommitTime } from "@/lib/content-dates";
-import { locales, type Locale } from "@/lib/home-copy";
+import { locales } from "@/lib/home-copy";
 import {
   absoluteUrl,
+  BLOG_SEARCH_LOCALE,
   languageAlternates,
   localizedPath,
 } from "@/lib/site-metadata";
@@ -38,16 +39,13 @@ function newestPublication(items: Post[]) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const allPosts = posts();
-  const sections: Array<{ suffix: string; lastModified: (locale: Locale) => string | undefined }> = [
+  // Only the English blog is offered to search engines (BLOG_SEARCH_LOCALE).
+  const blogPosts = posts().filter((post) => post.locale === BLOG_SEARCH_LOCALE);
+  const sections: Array<{ suffix: string; lastModified: () => string | undefined }> = [
     ...Object.entries(pageSources).map(([suffix, files]) => ({
       suffix,
       lastModified: () => lastCommitTime(files),
     })),
-    {
-      suffix: "/blog",
-      lastModified: (locale) => newestPublication(allPosts.filter((post) => post.locale === locale)),
-    },
     ...challenges.map((challenge) => ({
       suffix: `/challenges/${challenge.slug}`,
       lastModified: () => lastCommitTime([`content/challenges/${challengeFileName(challenge.number, challenge.slug)}`]),
@@ -59,15 +57,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return locales.map((locale) => ({
       url: absoluteUrl(localizedPath(locale, suffix)),
-      lastModified: lastModified(locale),
+      lastModified: lastModified(),
       alternates: { languages },
     }));
   });
 
-  // Tag pages and the blog pages after the first are noindex, so they stay out of the sitemap.
+  // Tag pages, the blog pages after the first and the translated blog are noindex, so they stay out
+  // of the sitemap.
   return [
     ...pages,
-    ...allPosts.map((p) => ({
+    {
+      url: absoluteUrl(localizedPath(BLOG_SEARCH_LOCALE, "/blog")),
+      lastModified: newestPublication(blogPosts),
+    },
+    ...blogPosts.map((p) => ({
       url: absoluteUrl(`/${p.locale}/blog/${p.slug}`),
       lastModified: p.modifiedAt ?? p.publishedAt ?? p.date,
     })),

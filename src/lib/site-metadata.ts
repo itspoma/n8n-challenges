@@ -56,6 +56,15 @@ export function languageAlternates(suffix = "") {
   };
 }
 
+/**
+ * Blog articles are written in English; the Spanish and Ukrainian versions are machine translations.
+ * Readers get every language, but only the English blog is offered to search engines: the other
+ * languages' articles and listings are noindex, out of the sitemap and named by no hreflang
+ * alternates, so search engines judge the blog by its originals.
+ */
+export const BLOG_SEARCH_LOCALE: Locale = "en";
+export const translatedBlogRobots = { index: false, follow: true };
+
 /** Advertises the locale's blog RSS feed to feed readers from any page. */
 export function blogFeedAlternates(locale: Locale) {
   return {
@@ -131,6 +140,7 @@ export function createLocalizedMetadata({
   description,
   keywords,
   images,
+  alternateLanguages = true,
 }: {
   locale: Locale;
   suffix?: string;
@@ -138,6 +148,8 @@ export function createLocalizedMetadata({
   description: string;
   keywords?: string[];
   images?: NonNullable<Metadata["openGraph"]>["images"];
+  // False for a page whose other-language versions are kept out of search results.
+  alternateLanguages?: boolean;
 }): Metadata {
   const previewImages = images ?? [projectPreviewImage(locale)];
   const pathname = localizedPath(locale, suffix);
@@ -150,7 +162,7 @@ export function createLocalizedMetadata({
     ...(keywords ? { keywords } : {}),
     alternates: {
       canonical: pathname,
-      languages: languageAlternates(suffix),
+      ...(alternateLanguages ? { languages: languageAlternates(suffix) } : {}),
       types: blogFeedAlternates(locale),
     },
     openGraph: {
