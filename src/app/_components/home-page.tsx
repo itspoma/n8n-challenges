@@ -8,6 +8,7 @@ import { ChallengeLevelGrid } from "@/app/_components/challenge-level-grid";
 import { EventPhotoStrip } from "@/app/_components/event-photo-strip";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { SkillsAssessmentCallout } from "@/app/_components/skills-assessment-callout";
 import { TrackedLink } from "@/app/_components/tracked-link";
 import { mainChallenges, moreChallenges, difficultyLabels } from "@/lib/challenges";
 import { eventsPageCopy, formatEventDate, getEventsNearDate } from "@/lib/events";
@@ -257,6 +258,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             })}
             openLabel={copy.collection.openLabel}
           />
+          <SkillsAssessmentCallout locale={locale} placement="home_levels" />
         </div>
       </section>
 

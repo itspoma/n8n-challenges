@@ -1,7 +1,9 @@
 import Link from "next/link";
 
+import { TrackedLink } from "@/app/_components/tracked-link";
 import { difficultyLabels, type Challenge } from "@/lib/challenges";
 import type { Locale } from "@/lib/home-copy";
+import { skillsAssessmentCopy, skillsAssessmentUrl } from "@/lib/skills-assessment";
 
 const nextStepsCopy = {
   en: {
@@ -45,10 +47,11 @@ type BlogNextStepsProps = {
   challenge?: Challenge;
 };
 
-/** Closing card after every article: practise with a challenge, or train a team. */
+/** Closing card after every article: practise with a challenge, train a team, or check your level. */
 export function BlogNextSteps({ locale, challenge }: BlogNextStepsProps) {
   const copy = nextStepsCopy[locale];
   const challengeCopy = challenge?.copy[locale];
+  const assessmentCopy = skillsAssessmentCopy[locale];
 
   return (
     <section className="blog-next-steps" aria-labelledby="blog-next-steps-title">
@@ -73,6 +76,22 @@ export function BlogNextSteps({ locale, challenge }: BlogNextStepsProps) {
           <Link className="button button-dark blog-cta-button" href={`/${locale}/companies`}>
             {copy.teamButton}
           </Link>
+        </div>
+        <div className="blog-next-step blog-next-step-wide">
+          <h3>{assessmentCopy.blog.title}</h3>
+          <p>
+            {assessmentCopy.blog.body} {assessmentCopy.source}
+          </p>
+          <TrackedLink
+            className="button button-dark blog-cta-button"
+            href={skillsAssessmentUrl("blog_next_steps")}
+            target="_blank"
+            rel="noopener noreferrer"
+            event="skills_assessment_click"
+            eventParams={{ location: "blog_next_steps" }}
+          >
+            {assessmentCopy.button} <span aria-hidden="true">↗</span>
+          </TrackedLink>
         </div>
       </div>
     </section>

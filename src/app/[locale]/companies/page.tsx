@@ -9,6 +9,7 @@ import { TrackedLink } from "@/app/_components/tracked-link";
 import { companiesCopy, type CompaniesCopy } from "@/lib/companies";
 import { homeCopy, isLocale, locales, type Locale } from "@/lib/home-copy";
 import { maintainer } from "@/lib/people";
+import { skillsAssessmentCopy, skillsAssessmentUrl } from "@/lib/skills-assessment";
 import { speakerPhotos } from "@/lib/speaker-photos";
 import {
   absoluteUrl,
@@ -99,6 +100,7 @@ export default async function CompaniesPage({ params }: CompaniesPageProps) {
   if (!isLocale(locale)) notFound();
 
   const copy = companiesCopy[locale];
+  const assessmentCopy = skillsAssessmentCopy[locale].companies;
   const photos = speakerPhotos();
 
   return (
@@ -184,6 +186,23 @@ export default async function CompaniesPage({ params }: CompaniesPageProps) {
               </p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="companies-section shell" aria-labelledby="companies-assessment-title">
+        <div className="companies-section-heading">
+          <h2 id="companies-assessment-title">{assessmentCopy.title}</h2>
+          <p>{assessmentCopy.body}</p>
+          <TrackedLink
+            className="organizers-secondary-button companies-assessment-link"
+            href={skillsAssessmentUrl("companies")}
+            target="_blank"
+            rel="noopener noreferrer"
+            event="skills_assessment_click"
+            eventParams={{ location: "companies" }}
+          >
+            {assessmentCopy.button} <span aria-hidden="true">↗</span>
+          </TrackedLink>
         </div>
       </section>
 

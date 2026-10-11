@@ -9,6 +9,7 @@ import { BalloonString } from "@/app/_components/balloon-string";
 import { ChallengeActions } from "@/app/_components/challenge-actions";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { BrandLogo, SiteHeader } from "@/app/_components/site-header";
+import { SkillsAssessmentCallout } from "@/app/_components/skills-assessment-callout";
 import { WorkflowNodeTile } from "@/app/_components/workflow-node-tile";
 import {
   challengePageCopy,
@@ -475,6 +476,8 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
             <i aria-hidden="true">→</i>
           </Link>
         </nav>
+
+        <SkillsAssessmentCallout locale={locale} placement="challenge_page" challengeSlug={challenge.slug} />
       </section>
 
       <footer className="site-footer challenge-footer shell">

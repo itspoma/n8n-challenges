@@ -5,6 +5,7 @@ import Link from "next/link";
 import { NavMenu } from "@/app/_components/nav-menu";
 import { ThemeToggle } from "@/app/_components/theme-toggle";
 import { homeCopy, localeLabels, locales, type Locale } from "@/lib/home-copy";
+import { skillsAssessmentCopy, skillsAssessmentUrl } from "@/lib/skills-assessment";
 
 type SiteHeaderProps = {
   locale: Locale;
@@ -87,6 +88,12 @@ export function SiteHeader({
       href: `/${locale}/about`,
       label: copy.nav.about,
       active: activePage === "about",
+    },
+    {
+      href: skillsAssessmentUrl("header_menu"),
+      label: skillsAssessmentCopy[locale].menuLabel,
+      badge: skillsAssessmentCopy[locale].menuBadge,
+      external: { event: "skills_assessment_click", eventParams: { location: "header_menu" } },
     },
   ];
 

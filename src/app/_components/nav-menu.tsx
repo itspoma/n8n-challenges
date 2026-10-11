@@ -3,11 +3,15 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { TrackedLink } from "@/app/_components/tracked-link";
+
 type NavMenuItem = {
   href: string;
   label: string;
   active?: boolean;
   badge?: string;
+  // Links to another site open in a new tab and report this GA event.
+  external?: { event: string; eventParams?: Record<string, string> };
 };
 
 type NavMenuProps = {
@@ -93,15 +97,32 @@ export function NavMenu({ className, label, items, icon, active = false }: NavMe
       <ul className="nav-menu-list" id={menuId} hidden={!open}>
         {items.map((item) => (
           <li key={item.href}>
-            <Link
-              className={item.active ? "active" : undefined}
-              href={item.href}
-              aria-current={item.active ? "page" : undefined}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-              {item.badge ? <span className="nav-count">{item.badge}</span> : null}
-            </Link>
+            {item.external ? (
+              <TrackedLink
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                event={item.external.event}
+                eventParams={item.external.eventParams}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+                <span className="nav-menu-trailing">
+                  {item.badge ? <span className="nav-count">{item.badge}</span> : null}
+                  <span aria-hidden="true">↗</span>
+                </span>
+              </TrackedLink>
+            ) : (
+              <Link
+                className={item.active ? "active" : undefined}
+                href={item.href}
+                aria-current={item.active ? "page" : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+                {item.badge ? <span className="nav-count">{item.badge}</span> : null}
+              </Link>
+            )}
           </li>
         ))}
       </ul>

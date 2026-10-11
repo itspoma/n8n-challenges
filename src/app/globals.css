@@ -284,6 +284,13 @@ input {
   background: rgba(255, 255, 255, 0.07);
 }
 
+/* Keeps a menu item's badge next to its external-link arrow, not spread apart by space-between. */
+.nav-menu-trailing {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .nav-menu-list a.active {
   color: var(--pink-soft);
 }
@@ -1862,6 +1869,229 @@ html[data-theme="light"] .theme-icon-moon {
 .level-balloon-link:focus-visible {
   outline: 2px solid var(--pink);
   outline-offset: 3px;
+}
+
+/* Link to the n8n Skills Assessment, under the level cards and at the end of challenge pages. */
+.skills-assessment-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-top: 18px;
+  padding: 28px 32px;
+  border: 1px solid rgba(234, 75, 113, 0.28);
+  border-radius: 22px;
+  background: rgba(234, 75, 113, 0.06);
+}
+
+.challenge-detail-content > .skills-assessment-callout {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+.skills-assessment-callout-copy {
+  max-width: 680px;
+}
+
+.skills-assessment-callout-copy p {
+  margin: 10px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.skills-assessment-callout-copy .skills-assessment-callout-title {
+  margin: 0;
+  color: inherit;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.skills-assessment-callout-copy .skills-assessment-callout-source {
+  font-size: 0.8rem;
+}
+
+.skills-assessment-callout-button {
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+/* Sample result card stacked over the button, on the strip's trailing edge. */
+.skills-assessment-callout-aside {
+  display: grid;
+  flex-shrink: 0;
+  gap: 14px;
+  width: 232px;
+}
+
+/* Shows what the assessment gives back: a score out of 30 and a level. The four
+   sample results step past every three seconds, so the strip is not one flat block. */
+.assessment-preview {
+  --assessment-preview-row: 36px;
+  --assessment-preview-band: calc((100% - 16px) / 5);
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px 16px;
+  border: 1px solid rgba(234, 75, 113, 0.3);
+  border-radius: 16px;
+  background: linear-gradient(155deg, rgba(234, 75, 113, 0.18), rgba(234, 75, 113, 0.04));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+}
+
+.assessment-preview p {
+  margin: 0;
+}
+
+.assessment-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.assessment-preview-label {
+  color: var(--pink-soft);
+  font-size: 0.6rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.assessment-preview-sample {
+  padding: 2px 7px 1px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ink-soft);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* A one-row window over the reels: they must sit at its top edge, not be centred in it. */
+.assessment-preview-result {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  height: var(--assessment-preview-row);
+  overflow: hidden;
+}
+
+.assessment-preview-reel {
+  display: grid;
+  animation: assessment-preview-reel 12s step-end infinite;
+}
+
+.assessment-preview-reel > span {
+  display: flex;
+  align-items: center;
+  height: var(--assessment-preview-row);
+  white-space: nowrap;
+}
+
+.assessment-preview-score {
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.assessment-preview-score small {
+  margin-left: 2px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  opacity: 0.55;
+}
+
+.assessment-preview-level {
+  color: var(--pink-soft);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.assessment-preview-bands {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.assessment-preview-bands > span {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.assessment-preview-bands > .assessment-preview-marker {
+  position: absolute;
+  top: 0;
+  left: calc(var(--assessment-preview-band) + 4px);
+  width: var(--assessment-preview-band);
+  background: var(--pink);
+  animation: assessment-preview-marker 12s step-end infinite;
+}
+
+.assessment-preview-caption {
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  line-height: 1.4;
+}
+
+@keyframes assessment-preview-reel {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(calc(var(--assessment-preview-row) * -1));
+  }
+  50% {
+    transform: translateY(calc(var(--assessment-preview-row) * -2));
+  }
+  75% {
+    transform: translateY(calc(var(--assessment-preview-row) * -3));
+  }
+}
+
+@keyframes assessment-preview-marker {
+  0% {
+    left: calc(var(--assessment-preview-band) + 4px);
+  }
+  25% {
+    left: calc((var(--assessment-preview-band) + 4px) * 2);
+  }
+  50% {
+    left: calc((var(--assessment-preview-band) + 4px) * 3);
+  }
+  75% {
+    left: calc((var(--assessment-preview-band) + 4px) * 4);
+  }
+}
+
+/* Hold the card on one result – Advanced – when motion is unwelcome. */
+@media (prefers-reduced-motion: reduce) {
+  .assessment-preview-reel {
+    animation: none;
+    transform: translateY(calc(var(--assessment-preview-row) * -2));
+  }
+
+  .assessment-preview-bands > .assessment-preview-marker {
+    animation: none;
+    left: calc((var(--assessment-preview-band) + 4px) * 3);
+  }
+}
+
+@media (max-width: 720px) {
+  .skills-assessment-callout {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .skills-assessment-callout-aside {
+    width: 100%;
+    max-width: 320px;
+  }
 }
 
 .reading-section {
@@ -4634,6 +4864,25 @@ html[data-theme="light"] .site-header .theme-toggle:hover {
   background: var(--pink-fog);
 }
 
+html[data-theme="light"] .assessment-preview {
+  border-color: rgba(216, 59, 97, 0.22);
+  background: linear-gradient(155deg, var(--pink-pale), rgba(255, 255, 255, 0.65));
+  box-shadow: 0 12px 26px rgba(16, 16, 20, 0.08);
+}
+
+html[data-theme="light"] .assessment-preview-sample {
+  background: rgba(16, 16, 20, 0.07);
+}
+
+html[data-theme="light"] .assessment-preview-bands > span {
+  background: rgba(16, 16, 20, 0.12);
+}
+
+html[data-theme="light"] .assessment-preview-label,
+html[data-theme="light"] .assessment-preview-level {
+  color: var(--pink-deep);
+}
+
 html[data-theme="light"] .nav-count {
   border-color: rgba(216, 59, 97, 0.3);
   background: var(--pink-pale);
@@ -6175,6 +6424,10 @@ html[data-theme="light"] .blog-content .blog-next-step .blog-next-step-meta {
   margin-top: auto;
 }
 
+.blog-next-step-wide {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 640px) {
   .blog-next-steps-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -7146,6 +7399,10 @@ html[data-theme="light"] .organizers-secondary-button {
   color: var(--ink-soft);
   font-size: 1rem;
   line-height: 1.67;
+}
+
+.companies-assessment-link {
+  margin-top: 26px;
 }
 
 .companies-program-grid {
