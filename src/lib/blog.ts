@@ -9,25 +9,61 @@ import { articleBackfill } from "./blog-backfill";
 import { isShallowRepository } from "./content-dates";
 import { locales, type Locale } from "./home-copy";
 
-const gitPublicationTimes = new Map<string, string>();
 const gitContentUpdateTimes = new Map<string, string | undefined>();
 const publicationHistoryById: Record<
   string,
   { publishedAt?: string; urlSlug?: string } | undefined
 > = publicationHistory;
 
+type BlogCommit = { sha: string; time: string; path: string; added: boolean };
+let blogCommits: Map<string, BlogCommit[]> | undefined;
+
+/**
+ * Every commit that changed each blog file, newest first, following renames as `git log --follow`
+ * does. One `git log` reads the whole blog: a `git log --follow` per article took each build worker
+ * about 34 seconds.
+ */
+function readBlogCommits() {
+  const commits = new Map<string, BlogCommit[]>();
+  // A name in older commits mapped to the file's current name, or to null once a rename means
+  // that name belonged to something else.
+  const currentNames = new Map<string, string | null>();
+  const log = execFileSync("git", ["log", "-M", "--name-status", "--format=%x00%H %cI", "--", "content/blog"], {
+    encoding: "utf8",
+    maxBuffer: 256 * 1024 * 1024,
+  });
+  for (const entry of log.split("\0").slice(1)) {
+    const [header = "", ...changes] = entry.trim().split("\n");
+    const [sha, time] = header.split(" ");
+    for (const change of changes.filter(Boolean)) {
+      // "M\tpath", or "R100\told path\tnew path" for a rename.
+      const [status, ...paths] = change.split("\t");
+      const name = paths.at(-1)!;
+      const current = currentNames.has(name) ? currentNames.get(name) : name;
+      if (current === null || current === undefined) continue;
+      if (!commits.has(current)) commits.set(current, []);
+      commits.get(current)!.push({ sha, time, path: name, added: status === "A" });
+      if (status.startsWith("R")) {
+        currentNames.set(paths[0], current);
+        currentNames.set(name, null);
+      }
+    }
+  }
+  return commits;
+}
+
+function commitsOf(file: string) {
+  blogCommits ??= readBlogCommits();
+  return blogCommits.get(path.relative(process.cwd(), file).split(path.sep).join("/")) ?? [];
+}
+
 function firstPublicationTime(file: string): string | undefined {
-  const cached = gitPublicationTimes.get(file);
-  if (cached) return cached;
   // A shallow clone cannot reliably distinguish creation from a later edit.
   if (isShallowRepository()) {
     throw new Error(`Cannot determine publication time for ${file}: fetch full Git history or provide publishedAt.`);
   }
-  const timestamps = execFileSync("git", ["log", "--follow", "--diff-filter=A", "--format=%cI", "--", file], { encoding: "utf8" }).trim().split("\n").filter(Boolean);
-  const timestamp = timestamps.at(-1);
-  if (timestamp) gitPublicationTimes.set(file, timestamp);
-  // Uncommitted drafts have no publication timestamp yet.
-  return timestamp;
+  // The oldest commit that added the file; uncommitted drafts have no publication timestamp yet.
+  return commitsOf(file).filter((commit) => commit.added).at(-1)?.time;
 }
 
 // Reader-facing article content; front-matter-only publisher changes are not updates.
@@ -44,15 +80,7 @@ function lastContentUpdateTime(file: string): string | undefined {
   let timestamp: string | undefined;
   // A shallow clone lacks earlier versions; omit the update time rather than guess.
   if (!isShallowRepository()) {
-    const commits = execFileSync("git", ["log", "--follow", "--name-only", "--format=%x00%H %cI", "--", file], { encoding: "utf8" })
-      .split("\0")
-      .map((entry) => {
-        const [header = "", ...paths] = entry.trim().split("\n");
-        const [sha, time] = header.split(" ");
-        return { sha, time, path: paths.filter(Boolean).at(-1) };
-      })
-      // Merge commits list no changed paths.
-      .filter((commit) => commit.sha && commit.path);
+    const commits = commitsOf(file);
     const versions = commits.length > 1
       ? commits.map((commit) => visibleContent(execFileSync("git", ["show", `${commit.sha}:${commit.path}`], { encoding: "utf8" })))
       : [];
@@ -118,7 +146,17 @@ export const paginationLabels = {
   uk: { nav: "Сторінки блогу", previous: "Попередня", next: "Наступна", page: "Сторінка" },
 } satisfies Record<Locale, { nav: string; previous: string; next: string; page: string }>;
 
+// `next build` renders every page from the same files and calls posts() thousands of times, about
+// 20 ms a read; `next dev` reads them again on each call, so edits show up.
+let builtPosts: Post[] | undefined;
+
 export function posts(): Post[] {
+  if (process.env.NODE_ENV !== "production") return readPosts();
+  builtPosts ??= readPosts();
+  return [...builtPosts];
+}
+
+function readPosts(): Post[] {
   const result: Post[] = [];
 
   for (const locale of locales) {
