@@ -96,8 +96,14 @@ jobs:
     # The job log lists the URLs; resubmit them with `npm run indexnow -- submit <url> ...`.
     continue-on-error: true
     steps:
+      # The script needs only itself and the key file, not the blog's images.
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            /scripts/indexnow.mjs
+            /public/indexnow-key.txt
+          sparse-checkout-cone-mode: false
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
