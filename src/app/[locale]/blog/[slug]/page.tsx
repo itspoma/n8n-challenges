@@ -125,7 +125,9 @@ function modifiedTime(post: Post) {
 /** Schema.org article and breadcrumb data for search engines and AI assistants. */
 function articleJsonLd(post: Post, blocks: BlogBlock[]) {
   const url = articleUrl(post);
-  const images = [socialImage(post.coverImage), { url: post.coverImage, ...imageSize(post.coverImage) }]
+  // The .webp copies keep the PNGs' full size; the deployed site leaves the PNG originals out
+  // (scripts/prune-blog-originals.mjs).
+  const images = [socialImage(post.coverImage), { url: displayImage(post.coverImage), ...imageSize(post.coverImage) }]
     .filter((image, index, all) => all.findIndex((other) => other.url === image.url) === index)
     .map(({ url: imageUrl, width, height }) => ({
       "@type": "ImageObject",
@@ -136,7 +138,7 @@ function articleJsonLd(post: Post, blocks: BlogBlock[]) {
   // Illustrations in the text; the cover above stays the article's representative image.
   const figures = blogImages(blocks).map((image) => ({
     "@type": "ImageObject",
-    contentUrl: absoluteUrl(image.src),
+    contentUrl: absoluteUrl(displayImage(image.src)),
     ...imageSize(image.src),
     description: image.alt,
     ...(image.caption ? { caption: inlineText(image.caption) } : {}),
