@@ -35,5 +35,13 @@ jobs:
       - name: Validate solution workflows
         run: npm run solutions:check
 
+      # Brings back the blog image variants and Next.js's build cache, as in deploy-pages.yml.
+      - name: Restore the build cache
+        uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-cache-${{ github.run_id }}
+          restore-keys: next-cache-
+
       - name: Build and validate Markdown content
         run: npm run build

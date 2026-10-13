@@ -46,6 +46,15 @@ jobs:
       - name: Validate committed Pixtex solution images
         run: npm run solutions:check
 
+      # Brings back the blog image variants (scripts/blog-images.mjs) and Next.js's build cache, so
+      # a build renders only new images. Each run saves its own copy; the newest one is restored.
+      - name: Restore the build cache
+        uses: actions/cache@v6
+        with:
+          path: .next/cache
+          key: next-cache-${{ github.run_id }}
+          restore-keys: next-cache-
+
       - name: Build static site
         run: npm run build
         env:

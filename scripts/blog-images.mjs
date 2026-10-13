@@ -1,14 +1,19 @@
 /** Create lighter blog image variants before `next dev` and `next build`.
  * Publisher PNGs stay the committed originals. Git-ignored variants are written next to them:
  * `<name>.webp` for pages and, for covers, `<name>.og.jpg` cropped to 1200×630 for social previews.
+ * Every variant is also kept in .next/cache/blog-images, so a fresh checkout renders only new images.
  */
-import { readdir, readFile, stat, unlink, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { copyFile, mkdir, readdir, readFile, rename, stat, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
 const root = path.resolve(import.meta.dirname, "..");
 const publicDirectory = path.join(root, "public");
 const blogDirectory = path.join(publicDirectory, "blog");
+// The workflows restore .next/cache before each build, while public/ comes from a fresh checkout
+// without variants, so without this cache every deploy rendered all of them again.
+const cacheDirectory = path.join(root, ".next", "cache", "blog-images");
 const variants = [
   { suffix: ".webp", render: (image) => image.webp({ quality: 80 }) },
   {
@@ -48,21 +53,42 @@ async function isFresh(source, target) {
   }
 }
 
+// Publisher filenames are content hashes, so they need no reading; other files are hashed.
+async function contentHash(source) {
+  const name = path.basename(source, ".png");
+  return /^[a-f0-9]{64}$/.test(name) ? name : createHash("sha256").update(await readFile(source)).digest("hex");
+}
+
 const covers = await coverImages();
 const sources = new Set(await files(blogDirectory, ".png"));
-// Publisher filenames are content hashes, so translations can share one encoding.
-const encoded = new Map();
+await mkdir(cacheDirectory, { recursive: true });
+const cached = new Set(await readdir(cacheDirectory));
+const used = new Set();
 let created = 0;
+let restored = 0;
 let removed = 0;
 
 for (const source of sources) {
+  const hash = await contentHash(source);
   for (const variant of variants) {
+    if (variant.coversOnly && !covers.has(source)) continue;
     const target = source.replace(/\.png$/, variant.suffix);
-    if ((variant.coversOnly && !covers.has(source)) || (await isFresh(source, target))) continue;
-    const name = path.basename(source);
-    const key = /^[a-f0-9]{64}\.png$/.test(name) ? `${name}${variant.suffix}` : target;
-    if (!encoded.has(key)) encoded.set(key, await variant.render(sharp(source)).toBuffer());
-    await writeFile(target, encoded.get(key));
+    // Named by the image's content and the render code, so translations sharing an image encode it
+    // once, and a changed image or setting renders again.
+    const name = `${createHash("sha256").update(`${hash}\n${variant.render}`).digest("hex")}${variant.suffix}`;
+    used.add(name);
+    if (await isFresh(source, target)) continue;
+    if (cached.has(name)) {
+      await copyFile(path.join(cacheDirectory, name), target);
+      restored += 1;
+      continue;
+    }
+    const image = await variant.render(sharp(source)).toBuffer();
+    await writeFile(target, image);
+    // Written in full before it gets its name, so an interrupted run never leaves a cut-off variant to reuse.
+    await writeFile(path.join(cacheDirectory, `${name}.tmp`), image);
+    await rename(path.join(cacheDirectory, `${name}.tmp`), path.join(cacheDirectory, name));
+    cached.add(name);
     created += 1;
   }
 }
@@ -78,4 +104,11 @@ for (const variant of variants) {
   }
 }
 
-console.log(`Blog image variants: ${created} created, ${removed} removed, ${sources.size} PNG originals.`);
+// Drop cached variants that no current image uses, so the cache doesn't keep replaced ones forever.
+for (const name of cached) {
+  if (!used.has(name)) await unlink(path.join(cacheDirectory, name));
+}
+
+console.log(
+  `Blog image variants: ${created} created, ${restored} from the cache, ${removed} removed, ${sources.size} PNG originals.`,
+);
