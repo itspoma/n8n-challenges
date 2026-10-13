@@ -71,6 +71,12 @@ jobs:
           echo "urls=$urls" >> "$GITHUB_OUTPUT"
           echo "count=$(jq length <<< "$urls")" >> "$GITHUB_OUTPUT"
 
+      # The site links only the .webp and .og.jpg variants, so the publisher's PNG originals made the
+      # artifact 1.7 GB, past Pages' 1 GB limit. A failure only keeps them in, as before.
+      - name: Leave the blog's PNG originals out of the artifact
+        continue-on-error: true
+        run: node scripts/prune-blog-originals.mjs
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
