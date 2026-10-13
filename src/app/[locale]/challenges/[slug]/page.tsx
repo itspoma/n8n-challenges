@@ -29,6 +29,76 @@ type ChallengePageProps = {
 
 const inlineLinkPattern = /\[([^\]]+)\]\(((?:https?:\/\/|\/(?!\/))[^)\s]+)\)/g;
 const inlineGlossaryTerms: Partial<Record<string, Record<Locale, string[]>>> = {
+  "who-is-in-space": {
+    en: ["API", "JSON", "pin", "ISO 8601 duration", "ntfy.sh"],
+    es: ["API", "JSON", "pin", "duración ISO 8601", "ntfy.sh"],
+    uk: ["API", "JSON", "pin", "тривалість ISO 8601", "ntfy.sh"],
+  },
+  "league-table": {
+    en: ["goal difference", "tie-breakers", "Append mode", "data file"],
+    es: ["diferencia de goles", "criterios de desempate", "modo Append", "archivo de datos"],
+    uk: ["різниця м’ячів", "додаткові критерії", "режим Append", "файл даних"],
+  },
+  "forgotten-subscriptions": {
+    en: ["CSV", "binary data", "distinct count", "subscription", "expression"],
+    es: ["CSV", "datos binarios", "recuento distinto", "suscripción", "expresión"],
+    uk: ["CSV", "бінарні дані", "підрахунок різних значень", "передплата", "вираз"],
+  },
+  "trip-settle-up": {
+    en: ["fair share", "balance", "settle up", "the Code node", "ECB rate"],
+    es: ["parte justa", "saldo", "saldar cuentas", "el nodo Code", "tipo del BCE"],
+    uk: ["справедлива частка", "баланс", "розрахуватися", "нода Code", "курс ЄЦБ"],
+  },
+  "chess-win-rates": {
+    en: ["opening", "win rate", "sample size", "group by", "Summarize"],
+    es: ["apertura", "porcentaje de victorias", "tamaño de muestra", "agrupar", "Summarize"],
+    uk: ["дебют", "відсоток перемог", "розмір вибірки", "групування", "Summarize"],
+  },
+  "url-shortener": {
+    en: ["route parameter", "redirect", "302", "Data Table", "Always Output Data"],
+    es: ["parámetro de ruta", "redirección", "302", "Data Table", "Always Output Data"],
+    uk: ["параметр маршруту", "перенаправлення", "302", "Data Table", "Always Output Data"],
+  },
+  "uptime-alerts": {
+    en: ["status code", "Never Error", "Full Response", "state", "alert fatigue"],
+    es: ["código de estado", "Never Error", "Full Response", "estado", "fatiga de alertas"],
+    uk: ["код стану", "Never Error", "Full Response", "стан", "втома від сповіщень"],
+  },
+  "hackathon-mystery": {
+    en: ["badge log", "time window", "Merge", "hash", "SHA-256"],
+    es: ["registro de accesos", "ventana temporal", "Merge", "hash", "SHA-256"],
+    uk: ["журнал перепусток", "часове вікно", "Merge", "хеш", "SHA-256"],
+  },
+  "aurora-alert": {
+    en: ["API", "Kp index", "geomagnetic storm", "cloud cover", "forecast row", "ntfy.sh"],
+    es: ["API", "índice Kp", "tormenta geomagnética", "nubosidad", "fila de previsión", "ntfy.sh"],
+    uk: ["API", "індекс Kp", "геомагнітна буря", "хмарність", "рядок прогнозу", "ntfy.sh"],
+  },
+  "new-episode-today": {
+    en: ["API", "UTC", "time zone", "embed", "ICS file", "ntfy.sh"],
+    es: ["API", "UTC", "zona horaria", "embed", "archivo ICS", "ntfy.sh"],
+    uk: ["API", "UTC", "часовий пояс", "embed", "файл ICS", "ntfy.sh"],
+  },
+  "birthday-reminders": {
+    en: ["Data Table", "leap year", "expression", "row", "ntfy.sh"],
+    es: ["Data Table", "año bisiesto", "expresión", "fila", "ntfy.sh"],
+    uk: ["Data Table", "високосний рік", "вираз", "рядок", "ntfy.sh"],
+  },
+  "long-weekend-planner": {
+    en: ["API", "long weekend", "bridge day", "ICS file", "n8n Form"],
+    es: ["API", "puente", "día puente", "archivo ICS", "n8n Form"],
+    uk: ["API", "довгі вихідні", "місток", "файл ICS", "n8n Form"],
+  },
+  "recall-check": {
+    en: ["VIN", "safety recall", "API", "campaign number", "n8n Form"],
+    es: ["VIN", "revisión de seguridad", "API", "número de campaña", "n8n Form"],
+    uk: ["VIN", "відкликання з міркувань безпеки", "API", "номер кампанії", "n8n Form"],
+  },
+  "password-leak-check": {
+    en: ["data breach", "hash", "SHA-1", "k-anonymity", "SHA-256", "Data Table"],
+    es: ["filtración de datos", "hash", "SHA-1", "k-anonimato", "SHA-256", "Data Table"],
+    uk: ["витік даних", "хеш", "SHA-1", "k-анонімність", "SHA-256", "Data Table"],
+  },
   "ai-workflow-builder": {
     en: ["ChatGPT", "Claude", "MCP"],
     es: ["ChatGPT", "Claude", "MCP"],

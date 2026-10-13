@@ -192,6 +192,230 @@
     "telegram-photo-summary-bonus-light.png": {
       "hash": "efde693c06f226797c2049809058ee9e6461fc0f1d6358591d64bee68adc9981",
       "source": "content/challenges/13-telegram-photo-summary.md"
+    },
+    "who-is-in-space-core-dark.png": {
+      "hash": "e8190505e3b8c3d198bbeac8980e9b2dc50f590ec74ff697f864982c7d1cb3b7",
+      "source": "content/challenges/14-who-is-in-space.md"
+    },
+    "who-is-in-space-core-light.png": {
+      "hash": "bf8bc32202479b3ff9697c432a32c5bf535dd18a6abe403bb930b510b777b5ca",
+      "source": "content/challenges/14-who-is-in-space.md"
+    },
+    "who-is-in-space-bonus-dark.png": {
+      "hash": "50bb60e5db6eedb4bfa553e5d6194ef268cec9df9f96b7634df49369879bf86f",
+      "source": "content/challenges/14-who-is-in-space.md"
+    },
+    "who-is-in-space-bonus-light.png": {
+      "hash": "63908787cbe8e9dec364b9fee4119360b7b2cddafcc97f31b0d74df3d2e71af6",
+      "source": "content/challenges/14-who-is-in-space.md"
+    },
+    "league-table-core-dark.png": {
+      "hash": "ffbe247fd8ad907077ab877d485ad2bb1db86f73870bca3532786653bf72243f",
+      "source": "content/challenges/15-league-table.md"
+    },
+    "league-table-core-light.png": {
+      "hash": "39fba2cd95af0a6ddffd8804b177e704d3430d5278747d0f938f868e181c3a49",
+      "source": "content/challenges/15-league-table.md"
+    },
+    "league-table-bonus-dark.png": {
+      "hash": "baadac4efae04246424e51ce19738f613ae107899346bbb21c14bcf5bd6883d3",
+      "source": "content/challenges/15-league-table.md"
+    },
+    "league-table-bonus-light.png": {
+      "hash": "31f2ed777bc886f93c5ce875cee3098e321d90d8718a9110771307d79591afbf",
+      "source": "content/challenges/15-league-table.md"
+    },
+    "password-leak-check-core-dark.png": {
+      "hash": "94bafd1d772ee4c8302d7598eec4f0f20281079d0c7b7c670d54ff8354a303a8",
+      "source": "content/challenges/16-password-leak-check.md"
+    },
+    "password-leak-check-core-light.png": {
+      "hash": "f985abb301f9cad5fd2a4d0d598713c43bf3465e67e6b64f493cb436b1eab044",
+      "source": "content/challenges/16-password-leak-check.md"
+    },
+    "password-leak-check-bonus-dark.png": {
+      "hash": "9327ce131f13d3b04c4ff559da7da554ea88831964e65df46de57df2f4daef85",
+      "source": "content/challenges/16-password-leak-check.md"
+    },
+    "password-leak-check-bonus-light.png": {
+      "hash": "1c43aea583c28c2aec3c876e9a8caa1f6d15008da9efab995d244daa7a6a644a",
+      "source": "content/challenges/16-password-leak-check.md"
+    },
+    "aurora-alert-core-dark.png": {
+      "hash": "5dcb0e307e3e1c9dce3c63d617a36119a242bc31b43241627902fb34c4b628a2",
+      "source": "content/challenges/17-aurora-alert.md"
+    },
+    "aurora-alert-core-light.png": {
+      "hash": "0c254bdd90945358d628e4ad3cd079e19be59e4ef01642b42d9412319e34c895",
+      "source": "content/challenges/17-aurora-alert.md"
+    },
+    "aurora-alert-bonus-dark.png": {
+      "hash": "14d5f137a53c1010c69f11b27de48c5d917b26320929efd3d596840708955ee6",
+      "source": "content/challenges/17-aurora-alert.md"
+    },
+    "aurora-alert-bonus-light.png": {
+      "hash": "08721d2204e80716de7a54ef6d69ecc03b18e7645b51d7d53bfc94205a34e295",
+      "source": "content/challenges/17-aurora-alert.md"
+    },
+    "new-episode-today-core-dark.png": {
+      "hash": "7af0041feedee7a977df3f58b202635959f182d629ee9e6e4c4a4e076cced798",
+      "source": "content/challenges/18-new-episode-today.md"
+    },
+    "new-episode-today-core-light.png": {
+      "hash": "90ac75dd36aa31701ca3118b76fbaa3f5e125bf003179f1e39614f3ba6c6c5d1",
+      "source": "content/challenges/18-new-episode-today.md"
+    },
+    "new-episode-today-bonus-dark.png": {
+      "hash": "c09d734c39e6ffd5f3fdb602087192108cf007164d6081ed4619efa054bcd828",
+      "source": "content/challenges/18-new-episode-today.md"
+    },
+    "new-episode-today-bonus-light.png": {
+      "hash": "f94225a18275bf2d4ab40e635839113b64f94c7c3f5e49cab5e48cb09b4a36a5",
+      "source": "content/challenges/18-new-episode-today.md"
+    },
+    "birthday-reminders-core-dark.png": {
+      "hash": "e14d25bedfcf0f997ffd0ea422fa094a3f77fbc717b1d71cc7a9020b39abafbf",
+      "source": "content/challenges/19-birthday-reminders.md"
+    },
+    "birthday-reminders-core-light.png": {
+      "hash": "34f5afada7893d022064dc82584434e193134df268bcfde40803ff32cbfb2ce5",
+      "source": "content/challenges/19-birthday-reminders.md"
+    },
+    "birthday-reminders-bonus-dark.png": {
+      "hash": "ba131b3c1629be6188bb79317f5f3b82d6c34674871afe904e9f40c23b5b37c5",
+      "source": "content/challenges/19-birthday-reminders.md"
+    },
+    "birthday-reminders-bonus-light.png": {
+      "hash": "7c4b5a5bab0e63a25b87f2357800ebf10678b31875702ec476219515e952935b",
+      "source": "content/challenges/19-birthday-reminders.md"
+    },
+    "long-weekend-planner-core-dark.png": {
+      "hash": "f6dc54a1894eb02c0dca83bb5686db55a104b8c082cb27f7a5d68ecb9c5e06c2",
+      "source": "content/challenges/20-long-weekend-planner.md"
+    },
+    "long-weekend-planner-core-light.png": {
+      "hash": "8bb775f81432de7806feb374fea07dfc38895749bb2fa3e91ca0f8293cb7b893",
+      "source": "content/challenges/20-long-weekend-planner.md"
+    },
+    "long-weekend-planner-bonus-dark.png": {
+      "hash": "cfa6bda57b4dc0f6ead597416ee0de8612d9be4889de667e5993b9479904e41b",
+      "source": "content/challenges/20-long-weekend-planner.md"
+    },
+    "long-weekend-planner-bonus-light.png": {
+      "hash": "9edb2aad6e26c91542f919bb0d83c7f67fc7cb7ad4f5d2b179c612d7675bd44f",
+      "source": "content/challenges/20-long-weekend-planner.md"
+    },
+    "recall-check-core-dark.png": {
+      "hash": "6ac1ef1b714cdbc7fb14e0083dc947697e3dff331c883231025a17590c1023a3",
+      "source": "content/challenges/21-recall-check.md"
+    },
+    "recall-check-core-light.png": {
+      "hash": "bfbe72376252c48e2d6be7145989dcc75103a686e30d1de6ca08aa8c6c74faee",
+      "source": "content/challenges/21-recall-check.md"
+    },
+    "recall-check-bonus-dark.png": {
+      "hash": "cfa144ada82f8bb4192be90c52eeb7ea705afe501072bc49580cdbda5ee5b237",
+      "source": "content/challenges/21-recall-check.md"
+    },
+    "recall-check-bonus-light.png": {
+      "hash": "3a20d3aba87c5f5b8f3184ec6d9593522b5374c0143f2bfb48c2c3dec56a01b4",
+      "source": "content/challenges/21-recall-check.md"
+    },
+    "forgotten-subscriptions-core-dark.png": {
+      "hash": "db6151b48c2d599a7d2f7fa30e4da557cd712039053e078ee7fe0e4a54c9739d",
+      "source": "content/challenges/22-forgotten-subscriptions.md"
+    },
+    "forgotten-subscriptions-core-light.png": {
+      "hash": "9bb12fadf85d770b2d36016c7583f8da029271a4b75252746101eab3e85fdcf6",
+      "source": "content/challenges/22-forgotten-subscriptions.md"
+    },
+    "forgotten-subscriptions-bonus-dark.png": {
+      "hash": "e93f84abe240791b0a2f7bd08e87508a4e8e6b52e020e9f0e1f736d4a8903956",
+      "source": "content/challenges/22-forgotten-subscriptions.md"
+    },
+    "forgotten-subscriptions-bonus-light.png": {
+      "hash": "daf84255ab91aad4e8b98a6dfc0d2ee7f3fca026f88746a9e4f1079d25c75573",
+      "source": "content/challenges/22-forgotten-subscriptions.md"
+    },
+    "trip-settle-up-core-dark.png": {
+      "hash": "01f133cb8cdbd131081755c333d8d1195fadca1fd781bb957ea1b4162a8111dc",
+      "source": "content/challenges/23-trip-settle-up.md"
+    },
+    "trip-settle-up-core-light.png": {
+      "hash": "b66eb7727d7bc0e5d74f448eecaefecc285505e6aa0e919b6fde6a1fc7d37b43",
+      "source": "content/challenges/23-trip-settle-up.md"
+    },
+    "trip-settle-up-bonus-dark.png": {
+      "hash": "d3ba10bc13aa0353500ec933c11226c75cba769b473870cf2f80bef3181d185b",
+      "source": "content/challenges/23-trip-settle-up.md"
+    },
+    "trip-settle-up-bonus-light.png": {
+      "hash": "711ff65a93e2faaf07b3b974353e81120c1721c20abdf3ade5e6ab5e39ad40dc",
+      "source": "content/challenges/23-trip-settle-up.md"
+    },
+    "chess-win-rates-core-dark.png": {
+      "hash": "b905f7975bf26e0831f581a5ee58d07319f759a15e3a604a9d7f2643be41245b",
+      "source": "content/challenges/24-chess-win-rates.md"
+    },
+    "chess-win-rates-core-light.png": {
+      "hash": "e5b718f2d1e038b5d5213675dc35d4ef7b9cc1254ff00d9eed9470770a05ca86",
+      "source": "content/challenges/24-chess-win-rates.md"
+    },
+    "chess-win-rates-bonus-dark.png": {
+      "hash": "af7e56ad5a704f37255ed0cf3a2566db4c2f2f74b21c9b1c161822495db87acd",
+      "source": "content/challenges/24-chess-win-rates.md"
+    },
+    "chess-win-rates-bonus-light.png": {
+      "hash": "e338d239eb1fe0702da7811d081a8f0a0a0239ce16a41e5204a9cadcdf62c026",
+      "source": "content/challenges/24-chess-win-rates.md"
+    },
+    "url-shortener-core-dark.png": {
+      "hash": "db6b38c614506046ae56f0124bc99add8cedfc32c832507bd02756f75f90724b",
+      "source": "content/challenges/25-url-shortener.md"
+    },
+    "url-shortener-core-light.png": {
+      "hash": "0568aba19dbdb14922634c707766cb185981b7cd31cc2bb9975408dfcdef2bba",
+      "source": "content/challenges/25-url-shortener.md"
+    },
+    "url-shortener-bonus-dark.png": {
+      "hash": "71ea1d4d95879908f8405fd923140f8df52f80c4ab3b134bb4a9a2b91f0e783d",
+      "source": "content/challenges/25-url-shortener.md"
+    },
+    "url-shortener-bonus-light.png": {
+      "hash": "3609b072df4633ba5f5a310411a4c35c7e3b891e1bfbd7d65269e03ced2534d6",
+      "source": "content/challenges/25-url-shortener.md"
+    },
+    "uptime-alerts-core-dark.png": {
+      "hash": "d266a6cae7b76e003e69a0f864d544afbb79bd6a68e4b1285f4d80aa9e4c21bd",
+      "source": "content/challenges/26-uptime-alerts.md"
+    },
+    "uptime-alerts-core-light.png": {
+      "hash": "d4a8c8b7174c86f77c6dec60d11354d5d180aaa9976793ccbaa73c5737cb0455",
+      "source": "content/challenges/26-uptime-alerts.md"
+    },
+    "uptime-alerts-bonus-dark.png": {
+      "hash": "7f3be2b3e754badb92bbaac70ea1b9d00ca73b763893690b22e65718b45f091f",
+      "source": "content/challenges/26-uptime-alerts.md"
+    },
+    "uptime-alerts-bonus-light.png": {
+      "hash": "eeb2ccc0501df09c390a503fb991f6807475dd2d0d2bc69e9a9e37064282c783",
+      "source": "content/challenges/26-uptime-alerts.md"
+    },
+    "hackathon-mystery-core-dark.png": {
+      "hash": "729e26ac97f87084a6943836f7d85f05c40bc62dd2d3d656d7960df047893a13",
+      "source": "content/challenges/27-hackathon-mystery.md"
+    },
+    "hackathon-mystery-core-light.png": {
+      "hash": "b777b44cd63a6090216a2e8c7d43f71ad45eb10cc143c66c2e137f0c797bf0a8",
+      "source": "content/challenges/27-hackathon-mystery.md"
+    },
+    "hackathon-mystery-bonus-dark.png": {
+      "hash": "0b3f48f162fa5874ff019095ded65307b2d40383c911e51ab8d70b7825c20307",
+      "source": "content/challenges/27-hackathon-mystery.md"
+    },
+    "hackathon-mystery-bonus-light.png": {
+      "hash": "7e8021f6c5d1d0fcae67be86c36207bcfe58c913f76f062205420265edc4e649",
+      "source": "content/challenges/27-hackathon-mystery.md"
     }
   }
 }

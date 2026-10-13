@@ -1,0 +1,54 @@
+{
+  "case": "The missing balloon rig",
+  "venue": "Lisbon hackathon, 16 May 2026",
+  "people": [
+    {
+      "name": "Mara Velez",
+      "lanyard": "yellow",
+      "plate": "12-AB-34"
+    },
+    {
+      "name": "Tomas Ruiz",
+      "lanyard": "blue",
+      "plate": "55-CD-77"
+    },
+    {
+      "name": "Ines Carvalho",
+      "lanyard": "yellow",
+      "plate": null
+    },
+    {
+      "name": "Hugo Brandt",
+      "lanyard": "green",
+      "plate": "90-EF-21"
+    },
+    {
+      "name": "Sofia Lind",
+      "lanyard": "yellow",
+      "plate": "33-GH-09"
+    },
+    {
+      "name": "Petar Ilic",
+      "lanyard": "blue",
+      "plate": "71-IJ-45"
+    }
+  ],
+  "witnesses": [
+    {
+      "who": "Barista at the venue cafe",
+      "statement": "The rig was still on its stand when I took a tray past the store room at ten past seven. By twenty to eight the stand was empty."
+    },
+    {
+      "who": "Volunteer on the registration desk",
+      "statement": "Whoever came out of the store room corridor carrying something bulky had a yellow lanyard. I did not see a face."
+    },
+    {
+      "who": "Security guard, car park",
+      "statement": "One car pulled out in a hurry just before quarter to eight. Everyone else was still parked when I locked the barrier at ten."
+    },
+    {
+      "who": "Hackathon organiser",
+      "statement": "Three people wear yellow lanyards this year: Mara Velez, Ines Carvalho and Sofia Lind. Mentors wear blue, volunteers green."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+person,door,direction,time
+Tomas Ruiz,Main entrance,in,2026-05-16T18:40:00
+Mara Velez,Main entrance,in,2026-05-16T18:44:00
+Sofia Lind,Main entrance,in,2026-05-16T18:46:00
+Hugo Brandt,Main entrance,in,2026-05-16T18:51:00
+Ines Carvalho,Main entrance,in,2026-05-16T18:58:00
+Sofia Lind,Store room,in,2026-05-16T18:59:00
+Sofia Lind,Store room,out,2026-05-16T19:03:00
+Sofia Lind,Main entrance,out,2026-05-16T19:05:00
+Mara Velez,Store room,in,2026-05-16T19:18:00
+Hugo Brandt,Store room,in,2026-05-16T19:22:00
+Hugo Brandt,Store room,out,2026-05-16T19:24:00
+Mara Velez,Store room,out,2026-05-16T19:36:00
+Mara Velez,Main entrance,out,2026-05-16T19:38:00
+Tomas Ruiz,Main entrance,out,2026-05-16T19:52:00
+Petar Ilic,Main entrance,in,2026-05-16T19:55:00
+Hugo Brandt,Main entrance,out,2026-05-16T21:10:00
+Ines Carvalho,Main entrance,out,2026-05-16T21:14:00

@@ -1,13 +1,13 @@
 # n8n Balloon Challenges
 
-A trilingual static learning website with 10 practical n8n automation challenges and five progressive tips per challenge. Participants build in their own n8n environment, show their work to an in-person mentor, and collect the matching physical balloon.
+A trilingual static learning website with 27 practical n8n automation challenges (10 main ones plus 17 extras) and five progressive tips per challenge. Participants build in their own n8n environment, show their work to an in-person mentor, and collect the matching physical balloon.
 
 ## Current scope
 
 - English, Spanish, and Ukrainian landing pages: `/en`, `/es`, and `/uk`
 - Static English, Spanish, and Ukrainian Events directories generated from Markdown
-- Ten clickable challenge cards
-- Thirty statically generated localized challenge pages
+- Ten main challenge cards plus seventeen extra challenges in the collapsed "Need more challenges?" section
+- Eighty-one statically generated localized challenge pages (27 challenges in three languages)
 - Five tips revealed one at a time on every challenge
 - Dark and light themes
 - Manual, in-person mentor verification

@@ -8,6 +8,9 @@ Challenge node tiles use official n8n assets. The source-tracked files below are
 - `openai-chat-model-light.svg` and `openai-chat-model-dark.svg` map the fills in `packages/@n8n/nodes-langchain/nodes/llms/LMChatOpenAi/openAiLight.svg` and `openAiLight.dark.svg` to the same theme colors.
 - `switch-light.svg` and `switch-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/switch.svg` to the same theme colors.
 - `send-email-light.svg` and `send-email-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/send-mail.svg` to the same theme colors.
+- `convert-to-file.svg` and `convert-to-file-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/convert-to-file.svg` to the same theme colors.
+- `extract-from-file.svg` and `extract-from-file-dark.svg` map `extract-from-file.svg` from the same design-system folder.
+- `code.svg` and `code-dark.svg` map `code.svg` from the same design-system folder.
 - `trello.svg` is copied from `packages/nodes-base/nodes/Trello/trello.svg`.
 - `wordpress.svg` is copied from `packages/nodes-base/nodes/Wordpress/wordpress.svg`.
 
@@ -29,6 +32,12 @@ Challenge 5 uses these upstream assets:
 - Manual Trigger, Loop Over Items, and Chat Trigger reuse the design-system assets identified above.
 
 Other icons in this directory are repository-local copies of their matching integration assets.
+
+Challenges 14–16 use these n8n design-system assets:
+
+- `summarize.svg` and `summarize-dark.svg` map `currentColor` in `packages/frontend/@n8n/design-system/src/components/N8nIcon/nodes/summarize.svg` to the same theme colors.
+- `merge.svg` and `merge-dark.svg` map `merge.svg` from the same directory.
+- `crypto.svg` and `crypto-dark.svg` map `crypto.svg` from the same directory.
 
 Challenge 3 uses these upstream assets:
 

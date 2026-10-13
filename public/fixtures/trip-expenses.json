@@ -1,0 +1,84 @@
+{
+  "trip": "Mallorca, July 2024",
+  "people": [
+    "Ana",
+    "Bruno",
+    "Chiara",
+    "Dmytro",
+    "Elif",
+    "Finn"
+  ],
+  "currency": "EUR",
+  "expenses": [
+    {
+      "date": "2024-07-08",
+      "paidBy": "Ana",
+      "what": "Flights deposit",
+      "amount": 540,
+      "currency": "EUR"
+    },
+    {
+      "date": "2024-07-08",
+      "paidBy": "Bruno",
+      "what": "Apartment",
+      "amount": 960,
+      "currency": "EUR"
+    },
+    {
+      "date": "2024-07-09",
+      "paidBy": "Chiara",
+      "what": "Car hire",
+      "amount": 310,
+      "currency": "GBP"
+    },
+    {
+      "date": "2024-07-10",
+      "paidBy": "Dmytro",
+      "what": "Supermarket run",
+      "amount": 184.4,
+      "currency": "EUR"
+    },
+    {
+      "date": "2024-07-10",
+      "paidBy": "Elif",
+      "what": "Boat trip",
+      "amount": 420,
+      "currency": "USD"
+    },
+    {
+      "date": "2024-07-11",
+      "paidBy": "Finn",
+      "what": "Dinner at the port",
+      "amount": 268.5,
+      "currency": "EUR"
+    },
+    {
+      "date": "2024-07-11",
+      "paidBy": "Ana",
+      "what": "Museum tickets",
+      "amount": 96,
+      "currency": "EUR"
+    },
+    {
+      "date": "2024-07-12",
+      "paidBy": "Chiara",
+      "what": "Fuel and tolls",
+      "amount": 88.2,
+      "currency": "GBP"
+    },
+    {
+      "date": "2024-07-12",
+      "paidBy": "Bruno",
+      "what": "Beach gear",
+      "amount": 115,
+      "currency": "USD"
+    },
+    {
+      "date": "2024-07-13",
+      "paidBy": "Elif",
+      "what": "Farewell lunch",
+      "amount": 212.6,
+      "currency": "EUR"
+    }
+  ]
+}

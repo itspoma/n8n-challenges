@@ -1,0 +1,151 @@
+date,merchant,amount
+2026-01-01,FitPass Gym,29.90
+2026-01-02,Cafe Mistral,40.07
+2026-01-03,Streamly Music,9.99
+2026-01-08,CloudBox Storage,4.99
+2026-01-08,Farmacia 24h,25.31
+2026-01-17,NewsDaily,12.00
+2026-01-17,Bicicletas Ruiz,35.52
+2026-01-19,Mercado Central,41.63
+2026-01-23,Cafe Mistral,64.35
+2026-01-24,Nimbus Hosting,7.50
+2026-01-25,Taxi Valencia,40.87
+2026-02-01,FitPass Gym,29.90
+2026-02-03,Streamly Music,9.99
+2026-02-05,Panaderia Luz,50.61
+2026-02-08,CloudBox Storage,4.99
+2026-02-09,Cafe Mistral,27.04
+2026-02-12,Vinyl Club,18.00
+2026-02-14,Taxi Valencia,44.54
+2026-02-15,Cafe Mistral,39.13
+2026-02-17,NewsDaily,12.00
+2026-02-20,Panaderia Luz,48.90
+2026-02-22,Ferreteria Sol,38.13
+2026-02-23,Libreria Nou,48.10
+2026-02-24,Nimbus Hosting,7.50
+2026-03-01,FitPass Gym,29.90
+2026-03-03,Streamly Music,9.99
+2026-03-05,Mercadona,10.24
+2026-03-08,CloudBox Storage,4.99
+2026-03-17,NewsDaily,12.00
+2026-03-20,Mercadona,39.70
+2026-03-21,Pizzeria Napoli,26.27
+2026-03-24,Nimbus Hosting,7.50
+2026-03-25,Cafe Mistral,29.22
+2026-03-26,Panaderia Luz,44.87
+2026-03-27,Mercadona,67.18
+2026-04-01,FitPass Gym,29.90
+2026-04-03,Streamly Music,9.99
+2026-04-07,Cafe Mistral,5.34
+2026-04-08,CloudBox Storage,4.99
+2026-04-09,Pizzeria Napoli,5.42
+2026-04-10,Pizzeria Napoli,47.77
+2026-04-12,Mercado Central,22.43
+2026-04-14,Farmacia 24h,66.16
+2026-04-17,NewsDaily,12.00
+2026-04-24,Nimbus Hosting,7.50
+2026-04-24,Mercado Central,26.26
+2026-05-01,FitPass Gym,29.90
+2026-05-03,Streamly Music,9.99
+2026-05-06,Pizzeria Napoli,28.29
+2026-05-07,Pizzeria Napoli,40.02
+2026-05-08,CloudBox Storage,4.99
+2026-05-12,Vinyl Club,18.00
+2026-05-14,Ferreteria Sol,6.98
+2026-05-16,Taxi Valencia,56.69
+2026-05-17,NewsDaily,12.00
+2026-05-21,Panaderia Luz,16.99
+2026-05-21,Taxi Valencia,64.55
+2026-05-24,Nimbus Hosting,7.50
+2026-05-26,Taxi Valencia,34.37
+2026-06-01,FitPass Gym,29.90
+2026-06-02,Ferreteria Sol,16.83
+2026-06-03,Streamly Music,9.99
+2026-06-04,Bicicletas Ruiz,38.94
+2026-06-07,Pizzeria Napoli,28.49
+2026-06-08,CloudBox Storage,4.99
+2026-06-09,Mercadona,26.31
+2026-06-09,Pizzeria Napoli,64.10
+2026-06-10,Ferreteria Sol,51.31
+2026-06-14,Taxi Valencia,39.77
+2026-06-17,NewsDaily,12.00
+2026-06-20,Cafe Mistral,28.03
+2026-06-22,Pizzeria Napoli,33.40
+2026-06-24,Nimbus Hosting,7.50
+2026-07-01,FitPass Gym,34.90
+2026-07-03,Streamly Music,9.99
+2026-07-08,CloudBox Storage,4.99
+2026-07-13,Cafe Mistral,22.82
+2026-07-13,Taxi Valencia,69.50
+2026-07-15,Pizzeria Napoli,45.87
+2026-07-15,Bicicletas Ruiz,32.56
+2026-07-15,Mercado Central,57.77
+2026-07-17,NewsDaily,12.00
+2026-07-22,Pizzeria Napoli,15.25
+2026-07-22,Mercado Central,20.96
+2026-07-23,Farmacia 24h,40.56
+2026-07-24,Nimbus Hosting,7.50
+2026-07-24,Farmacia 24h,50.27
+2026-08-01,FitPass Gym,34.90
+2026-08-03,Streamly Music,9.99
+2026-08-08,CloudBox Storage,4.99
+2026-08-08,Mercado Central,67.43
+2026-08-09,Taxi Valencia,69.33
+2026-08-11,Mercadona,18.63
+2026-08-11,Panaderia Luz,48.73
+2026-08-12,Vinyl Club,18.00
+2026-08-14,Panaderia Luz,22.38
+2026-08-17,NewsDaily,12.00
+2026-08-24,Nimbus Hosting,7.50
+2026-08-25,Pizzeria Napoli,14.27
+2026-09-01,FitPass Gym,34.90
+2026-09-03,Streamly Music,9.99
+2026-09-03,Mercado Central,29.55
+2026-09-05,Panaderia Luz,11.02
+2026-09-06,Libreria Nou,61.52
+2026-09-08,CloudBox Storage,4.99
+2026-09-09,Panaderia Luz,22.97
+2026-09-17,NewsDaily,12.00
+2026-09-19,Mercado Central,26.01
+2026-09-21,Mercado Central,26.13
+2026-09-22,Farmacia 24h,42.53
+2026-09-24,Nimbus Hosting,7.50
+2026-09-24,Panaderia Luz,33.81
+2026-09-27,Farmacia 24h,10.14
+2026-10-01,FitPass Gym,34.90
+2026-10-03,Streamly Music,9.99
+2026-10-06,Mercadona,44.36
+2026-10-07,Mercado Central,5.40
+2026-10-08,CloudBox Storage,4.99
+2026-10-09,Panaderia Luz,40.27
+2026-10-17,NewsDaily,12.00
+2026-10-19,Farmacia 24h,51.61
+2026-10-24,Nimbus Hosting,7.50
+2026-10-24,Panaderia Luz,53.06
+2026-10-25,Ferreteria Sol,20.59
+2026-11-01,FitPass Gym,34.90
+2026-11-03,Streamly Music,9.99
+2026-11-06,Cafe Mistral,10.46
+2026-11-07,Pizzeria Napoli,22.33
+2026-11-08,CloudBox Storage,4.99
+2026-11-11,Taxi Valencia,31.22
+2026-11-12,Vinyl Club,18.00
+2026-11-17,NewsDaily,12.00
+2026-11-17,Libreria Nou,22.56
+2026-11-18,Panaderia Luz,30.72
+2026-11-24,Nimbus Hosting,7.50
+2026-11-26,Taxi Valencia,58.58
+2026-11-27,Libreria Nou,9.85
+2026-12-01,FitPass Gym,34.90
+2026-12-03,Streamly Music,9.99
+2026-12-04,Mercado Central,13.93
+2026-12-06,Libreria Nou,39.04
+2026-12-07,Ferreteria Sol,58.44
+2026-12-08,CloudBox Storage,4.99
+2026-12-13,Pizzeria Napoli,15.74
+2026-12-17,NewsDaily,12.00
+2026-12-19,Pizzeria Napoli,29.64
+2026-12-20,Libreria Nou,58.37
+2026-12-24,Nimbus Hosting,7.50
+2026-12-26,Mercado Central,56.26
+2026-12-27,Pizzeria Napoli,40.28

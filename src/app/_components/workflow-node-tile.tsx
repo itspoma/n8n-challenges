@@ -79,6 +79,15 @@ const NODE_DOCUMENTATION_URLS = {
   tally: "https://tally.so/help/n8n-integration",
   wordpress:
     "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.wordpress",
+  summarize:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.summarize",
+  merge: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge",
+  crypto: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.crypto",
+  convertToFile:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.converttofile",
+  extractFromFile:
+    "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.extractfromfile",
+  code: "https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code",
 } as const;
 
 function getNodeDocumentationUrl(name: string): string | undefined {
@@ -241,6 +250,30 @@ function getNodeDocumentationUrl(name: string): string | undefined {
 
   if (normalizedName === "wordpress") {
     return NODE_DOCUMENTATION_URLS.wordpress;
+  }
+
+  if (normalizedName === "summarize") {
+    return NODE_DOCUMENTATION_URLS.summarize;
+  }
+
+  if (normalizedName === "merge") {
+    return NODE_DOCUMENTATION_URLS.merge;
+  }
+
+  if (normalizedName === "crypto") {
+    return NODE_DOCUMENTATION_URLS.crypto;
+  }
+
+  if (normalizedName.includes("convert to file")) {
+    return NODE_DOCUMENTATION_URLS.convertToFile;
+  }
+
+  if (normalizedName.includes("extract from file")) {
+    return NODE_DOCUMENTATION_URLS.extractFromFile;
+  }
+
+  if (normalizedName === "code") {
+    return NODE_DOCUMENTATION_URLS.code;
   }
 
   if (
@@ -553,6 +586,48 @@ function getNodeIcon(name: string) {
     return {
       light: "/nodes/send-email-light.svg",
       dark: "/nodes/send-email-dark.svg",
+    };
+  }
+
+  if (normalizedName === "summarize") {
+    return {
+      light: "/nodes/summarize.svg",
+      dark: "/nodes/summarize-dark.svg",
+    };
+  }
+
+  if (normalizedName === "merge") {
+    return {
+      light: "/nodes/merge.svg",
+      dark: "/nodes/merge-dark.svg",
+    };
+  }
+
+  if (normalizedName === "crypto") {
+    return {
+      light: "/nodes/crypto.svg",
+      dark: "/nodes/crypto-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("convert to file")) {
+    return {
+      light: "/nodes/convert-to-file.svg",
+      dark: "/nodes/convert-to-file-dark.svg",
+    };
+  }
+
+  if (normalizedName.includes("extract from file")) {
+    return {
+      light: "/nodes/extract-from-file.svg",
+      dark: "/nodes/extract-from-file-dark.svg",
+    };
+  }
+
+  if (normalizedName === "code") {
+    return {
+      light: "/nodes/code.svg",
+      dark: "/nodes/code-dark.svg",
     };
   }
 
