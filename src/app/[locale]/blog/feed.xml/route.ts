@@ -14,6 +14,7 @@ const maxItems = 50;
 const imageTypes: Record<string, string> = {
   ".jpg": "image/jpeg",
   ".png": "image/png",
+  ".webp": "image/webp",
 };
 
 const xmlEntities: Record<string, string> = {

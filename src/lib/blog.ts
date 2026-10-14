@@ -66,12 +66,14 @@ function firstPublicationTime(file: string): string | undefined {
   return commitsOf(file).filter((commit) => commit.added).at(-1)?.time;
 }
 
-// Reader-facing article content; front-matter-only publisher changes are not updates.
+// Reader-facing article content; front-matter-only publisher changes are not updates, and neither
+// is an image changing format, as when the publisher moved from PNG to WebP.
 function visibleContent(fileContents: string) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(fileContents);
   if (!match) return fileContents;
   const metadata = JSON.parse(match[1]);
-  return JSON.stringify([metadata.title, metadata.subtitle ?? metadata.description, metadata.coverImage, match[2].trim()]);
+  return JSON.stringify([metadata.title, metadata.subtitle ?? metadata.description, metadata.coverImage, match[2].trim()])
+    .replace(/(\/blog\/[^"\s)]+)\.(?:png|webp)\b/g, "$1");
 }
 
 /** Time of the latest commit that changed the visible article after its first version. */

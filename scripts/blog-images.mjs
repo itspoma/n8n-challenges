@@ -1,6 +1,7 @@
 /** Create lighter blog image variants before `next dev` and `next build`.
- * Publisher PNGs stay the committed originals. Git-ignored variants are written next to them:
- * `<name>.webp` for pages and, for covers, `<name>.og.jpg` cropped to 1200×630 for social previews.
+ * The publisher commits WebP originals, which pages show as they are; older articles have PNG
+ * originals. Git-ignored variants are written next to an original: `<name>.webp` for a PNG's pages
+ * and, for covers, `<name>.og.jpg` cropped to 1200×630 for social previews.
  * Every variant is also kept in .next/cache/blog-images, so a fresh checkout renders only new images.
  */
 import { createHash } from "node:crypto";
@@ -38,7 +39,7 @@ async function coverImages() {
     // content/blog/README.md documents the format and has no front matter.
     if (!frontMatter) continue;
     const { coverImage } = JSON.parse(frontMatter[1]);
-    if (typeof coverImage === "string" && /^\/blog\/[a-zA-Z0-9_./-]+\.png$/.test(coverImage) && !coverImage.includes("..")) {
+    if (typeof coverImage === "string" && /^\/blog\/[a-zA-Z0-9_./-]+\.(png|webp)$/.test(coverImage) && !coverImage.includes("..")) {
       covers.add(path.join(publicDirectory, coverImage));
     }
   }
@@ -53,14 +54,17 @@ async function isFresh(source, target) {
   }
 }
 
-// Publisher filenames are content hashes, so they need no reading; other files are hashed.
+// Publisher PNGs are named by their own SHA-256, so they need no reading; other files are hashed.
 async function contentHash(source) {
-  const name = path.basename(source, ".png");
-  return /^[a-f0-9]{64}$/.test(name) ? name : createHash("sha256").update(await readFile(source)).digest("hex");
+  const name = path.basename(source);
+  return /^[a-f0-9]{64}\.png$/.test(name) ? name.slice(0, -".png".length) : createHash("sha256").update(await readFile(source)).digest("hex");
 }
 
 const covers = await coverImages();
-const sources = new Set(await files(blogDirectory, ".png"));
+const pngs = await files(blogDirectory, ".png");
+// A .webp beside a PNG is that PNG's generated copy; any other .webp is a committed original.
+const generated = new Set(pngs.map((png) => png.replace(/\.png$/, ".webp")));
+const sources = new Set([...pngs, ...(await files(blogDirectory, ".webp")).filter((file) => !generated.has(file))]);
 await mkdir(cacheDirectory, { recursive: true });
 const cached = new Set(await readdir(cacheDirectory));
 const used = new Set();
@@ -71,8 +75,9 @@ let removed = 0;
 for (const source of sources) {
   const hash = await contentHash(source);
   for (const variant of variants) {
-    if (variant.coversOnly && !covers.has(source)) continue;
-    const target = source.replace(/\.png$/, variant.suffix);
+    const target = source.replace(/\.(png|webp)$/, variant.suffix);
+    // A WebP original is its own page copy.
+    if (target === source || (variant.coversOnly && !covers.has(source))) continue;
     // Named by the image's content and the render code, so translations sharing an image encode it
     // once, and a changed image or setting renders again.
     const name = `${createHash("sha256").update(`${hash}\n${variant.render}`).digest("hex")}${variant.suffix}`;
@@ -93,14 +98,14 @@ for (const source of sources) {
   }
 }
 
-// Remove variants whose original PNG or cover reference no longer exists.
-for (const variant of variants) {
-  for (const file of await files(blogDirectory, variant.suffix)) {
-    const source = `${file.slice(0, -variant.suffix.length)}.png`;
-    if (!sources.has(source) || (variant.coversOnly && !covers.has(source))) {
-      await unlink(file);
-      removed += 1;
-    }
+// Remove previews whose original or cover reference no longer exists. A .webp is never removed:
+// without its PNG it may be a committed original.
+for (const file of await files(blogDirectory, ".og.jpg")) {
+  const base = file.slice(0, -".og.jpg".length);
+  const source = [`${base}.png`, `${base}.webp`].find((candidate) => sources.has(candidate));
+  if (!source || !covers.has(source)) {
+    await unlink(file);
+    removed += 1;
   }
 }
 
@@ -110,5 +115,5 @@ for (const name of cached) {
 }
 
 console.log(
-  `Blog image variants: ${created} created, ${restored} from the cache, ${removed} removed, ${sources.size} PNG originals.`,
+  `Blog image variants: ${created} created, ${restored} from the cache, ${removed} removed, ${pngs.length} PNG and ${sources.size - pngs.length} WebP originals.`,
 );

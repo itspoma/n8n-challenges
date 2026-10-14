@@ -22,6 +22,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# generated blog image variants (scripts/blog-images.mjs)
+# generated blog image variants (scripts/blog-images.mjs). The publisher's WebP originals match
+# the .webp rule but are committed; Git keeps tracking them, and adding one by hand needs `git add -f`.
 /public/blog/**/*.webp
 /public/blog/**/*.og.jpg
