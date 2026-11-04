@@ -8,10 +8,12 @@ import {
   blogMetadata,
   dateLabel,
   exactTimeTitle,
+  findBlogTag,
   posts,
   publishedTime,
   relatedPosts,
   tagPath,
+  tagSlug,
   type Post,
 } from "@/lib/blog";
 import { relevantChallenge } from "@/lib/blog-challenges";
@@ -245,8 +247,9 @@ export async function generateMetadata({
     },
     // Only the English original is offered to search engines (BLOG_SEARCH_LOCALE): a translation is
     // noindex, and no version names the others as hreflang alternates. The language switcher still
-    // links every version for readers.
-    ...(post.locale === BLOG_SEARCH_LOCALE ? {} : { robots: translatedBlogRobots }),
+    // links every version for readers. A hidden article (content/blog-cleanup.json) is noindex in
+    // every language.
+    ...(post.locale === BLOG_SEARCH_LOCALE && !post.hidden ? {} : { robots: translatedBlogRobots }),
     alternates: {
       canonical: url,
       types: blogFeedAlternates(post.locale),
@@ -329,8 +332,15 @@ export default async function Article({ params }: BlogArticlePageProps) {
         </p>
         <p className="blog-subtitle">{post.subtitle}</p>
         <ul className="blog-tags">
+          {/* A tag that only hidden articles carry has no page, so it shows without a link. */}
           {post.tags.map((tag) => (
-            <li key={tag}><Link href={tagPath(post.locale, tag)}>{tag}</Link></li>
+            <li key={tag}>
+              {findBlogTag(post.locale, tagSlug(tag)) ? (
+                <Link href={tagPath(post.locale, tag)}>{tag}</Link>
+              ) : (
+                tag
+              )}
+            </li>
           ))}
         </ul>
         <Image

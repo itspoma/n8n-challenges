@@ -1,0 +1,613 @@
+{
+  "about": "Blog articles taken out of search on 5 Nov 2026, read by src/lib/blog-cleanup.ts. A hidden article still opens at its address in every language for anyone with the link, but says noindex and leaves every list, tag page, feed, the sitemap and llms.txt. GitHub Pages cannot redirect, so this site only hides. Titles are reminders only; ids decide. Take an entry out to bring the article back.",
+  "hidden": [
+    {
+      "id": "opp_079e1c10-36b0-4b31-8b6d-02264aa2e2e3",
+      "title": "Preventing duplicate API actions in n8n webhooks"
+    },
+    {
+      "id": "opp_765f97bd-c657-412a-b3ee-cb28eedaa881",
+      "title": "Retrying Failed n8n HTTP Requests Safely"
+    },
+    {
+      "id": "opp_c346bc11-4089-4bed-8b60-47885ae5f754",
+      "title": "n8n Webhook Not Working: A Step-by-Step Debugging Checklist"
+    },
+    {
+      "id": "opp_1678c5c1-885f-495d-b6fe-34533c78efdc",
+      "title": "n8n Workflow Testing Checklist: What to Verify Before Real Use"
+    },
+    {
+      "id": "opp_1bcc50d4-01fe-44dd-a5c0-9325c275c2ec",
+      "title": "Build an idempotent n8n webhook that skips retried requests"
+    },
+    {
+      "id": "opp_744fb391-b0a2-45c1-b99e-87be228422bd",
+      "title": "n8n vs Zapier: A Practical Webhook-to-API Comparison"
+    },
+    {
+      "id": "opp_7e68a71c-def0-4943-8e91-44f8983a1e9e",
+      "title": "Checklist: Is This a Good First n8n Automation Project?"
+    },
+    {
+      "id": "opp_aac84c5f-d1f1-41fd-81b7-7c32644bc047",
+      "title": "n8n pricing: estimate one workflow’s real production cost"
+    },
+    {
+      "id": "opp_cb527fc7-630b-410e-b822-3b9766008be1",
+      "title": "Build and debug your first trigger-to-action workflow in n8n"
+    },
+    {
+      "id": "opp_9a5f41ce-863d-4201-abea-34289d4de43b",
+      "title": "n8n pricing plans for teams: cloud vs self-hosted"
+    },
+    {
+      "id": "opp_00dd01b3-c3fc-4c84-aa98-5b5776b2ba9f",
+      "title": "n8n io pricing: What a Team Actually Pays in Production"
+    },
+    {
+      "id": "opp_0d20e606-5618-435d-a260-c6c571520e5d",
+      "title": "n8n MCP client setup: connect Claude or ChatGPT safely"
+    },
+    {
+      "id": "opp_164e9451-3add-4658-8abe-cc9a83c78c07",
+      "title": "n8n MCP server GitHub project vs n8n's built-in MCP options"
+    },
+    {
+      "id": "opp_559a70c5-d054-4c38-9bd7-56db97cce6ab",
+      "title": "n8n Environment Variables and Credentials: Shared Instance Checklist"
+    },
+    {
+      "id": "opp_c556405b-af16-4045-ad31-ac2a34ddc1f3",
+      "title": "Migrate Zapier Workflow to n8n: What Maps and What Changes"
+    },
+    {
+      "id": "opp_8e800c6d-e90f-47fb-9975-3379bc45eaa5",
+      "title": "n8n vs Power Automate for Microsoft 365 Teams"
+    },
+    {
+      "id": "opp_1bd61916-5372-4311-b57b-b28eca7b983c",
+      "title": "n8n training for teams: one shared error-handling standard"
+    },
+    {
+      "id": "opp_083ab9f3-8bf2-429f-b26d-77af5285c435",
+      "title": "How Does SSO Work With SAML in n8n? What to Verify Before Rollout"
+    },
+    {
+      "id": "opp_1aacee72-c4aa-4547-8754-16f3898c4061",
+      "title": "n8n MCP Integration: A Hands-On Tutorial"
+    },
+    {
+      "id": "opp_2f435a71-fd05-4fe5-ac56-bbe65cdaa0a8",
+      "title": "n8n Loop Over Items Pagination: Debugging Paginated API Pulls"
+    },
+    {
+      "id": "opp_8770fbbd-55ce-4cab-a7a5-7097bbfb453b",
+      "title": "The n8n Wait Node: Handling Retries and Rate-Limited APIs"
+    },
+    {
+      "id": "opp_f9b2fb88-b5f3-46d0-9441-2027222d0598",
+      "title": "n8n Security News: A Recurring Patch Checklist"
+    },
+    {
+      "id": "opp_ac9d26c4-8b42-4332-9b67-ffed8e320b2d",
+      "title": "n8n Merge Node: Combine Two Branches Without Duplicates"
+    },
+    {
+      "id": "opp_c9a257a9-6dc5-4f6d-b7ac-714b3f9e127d",
+      "title": "n8n Agents Announcement: What Changed"
+    },
+    {
+      "id": "opp_3939323e-aecd-4a8d-8903-7f0b7f01f2fc",
+      "title": "AI Agent Testing Framework for n8n: A Practical Guide"
+    },
+    {
+      "id": "opp_64397a2a-fbbd-48c4-8229-2e74e5d10977",
+      "title": "Exercise: Build a Transactional Outbox Pattern in n8n"
+    },
+    {
+      "id": "opp_70d7516e-1335-4cb5-b42c-82b2211c1cee",
+      "title": "Build Startup Logic With n8n: GovGuard vs. YC Rivals"
+    },
+    {
+      "id": "opp_7e9bd439-3d55-4404-bfdf-336a8c90bdfa",
+      "title": "n8n Webflow Trigger Vulnerability: What the Advisory Says"
+    },
+    {
+      "id": "opp_0516f086-a4f4-4594-af48-96bc26958662",
+      "title": "n8n Code Review Agent: From PR Webhook to Posted Comment"
+    },
+    {
+      "id": "opp_5a2685dc-cf20-4df8-a080-a8372e015ba8",
+      "title": "n8n Human in the Loop: Adding an Approval Step to an AI Agent"
+    },
+    {
+      "id": "opp_8ab3094d-f740-4fae-811c-bcd7858d04d0",
+      "title": "Hetzner vs DigitalOcean for Self-Hosting n8n"
+    },
+    {
+      "id": "opp_8e9e88be-5d7d-4cfa-944e-85c2ea5c5063",
+      "title": "How to Install n8n: A Team Pre-Commitment Checklist"
+    },
+    {
+      "id": "opp_b1c6b614-0742-42b2-8f0f-dbd0d408e6c9",
+      "title": "HR Workflow Examples: A Practical Form-to-Record n8n Tutorial"
+    },
+    {
+      "id": "opp_bf476413-272e-476e-a31e-621d353cf0f0",
+      "title": "Hire n8n Developer Checklist: What to Vet Before Launch"
+    },
+    {
+      "id": "opp_e2f3fd41-e7c8-4273-b880-b45105ad25ee",
+      "title": "n8n SQL Injection Microsoft SQL Node: What GHSA-5qpp-pqww-h7fp Means"
+    },
+    {
+      "id": "opp_432db63e-eaa7-4d34-8d99-3ed4831f9109",
+      "title": "n8n MCP vs API: Choosing How an AI Agent Calls a Tool"
+    },
+    {
+      "id": "opp_6136ac8c-a74a-4b26-908c-e269bce28a9d",
+      "title": "n8n User Management Reset: A Troubleshooting Checklist"
+    },
+    {
+      "id": "opp_84919dbd-740f-4771-8004-f6e3cf8cfaa9",
+      "title": "n8n vs Zapier vs LangChain: Choosing a Tool for AI Agents"
+    },
+    {
+      "id": "opp_d4333b57-cc1f-4406-85a5-65c95551e365",
+      "title": "n8n AI Workflow Builder Beta: What It Built and Why n8n Says It's Been Replaced"
+    },
+    {
+      "id": "opp_46f83ed0-13a1-4e0e-ad80-98fdf9fdc683",
+      "title": "Is n8n a Process Orchestration Tool? What the Label Actually Requires"
+    },
+    {
+      "id": "opp_5e7c8e29-4dcf-45c8-b789-8306cfcd15e8",
+      "title": "Reliability Checklist for n8n Employee Onboarding Workflows"
+    },
+    {
+      "id": "opp_62946fbe-1fe4-49ca-8065-069bb114e018",
+      "title": "n8n Alternatives, Self-Hosted: Activepieces vs Huginn"
+    },
+    {
+      "id": "opp_8f925793-d4f2-46d9-8af1-dd66e913b29c",
+      "title": "MCP Workflow Validation Interpreter Vulnerability: The Real Advisory"
+    },
+    {
+      "id": "opp_49768a92-7a4a-492b-a88b-d78f56571e55",
+      "title": "n8n Security Breach Checklist: What to Check and Lock Down First"
+    },
+    {
+      "id": "opp_d35f15c4-bbd7-4b2e-99db-a0463dff09ea",
+      "title": "Cross-User Agent Chat Resume: What the September 2026 Advisory Says"
+    },
+    {
+      "id": "opp_66d5d6d7-53d2-42df-aeca-01e58369ed76",
+      "title": "Is n8n an iPaaS? A Criteria-Based Review for Technical and IT Leads"
+    },
+    {
+      "id": "opp_8ddef94a-4824-47ff-a611-e8ad55fc57de",
+      "title": "n8n vs. the OpenAI Agents SDK: Comparing AI Agent Builds"
+    },
+    {
+      "id": "opp_bf8d7e82-5f00-4080-8f84-5b547274152c",
+      "title": "An n8n SAP Exercise: Pull Sales Order Data and Notify"
+    },
+    {
+      "id": "opp_059fb806-0a0c-4a8b-bcda-f94c39cf9f93",
+      "title": "n8n Code Review Exercise: A Peer Review Drill Before Merge"
+    },
+    {
+      "id": "opp_1ffefd33-660c-4ceb-819e-eda285cdedfd",
+      "title": "n8n Event Logs: An Exercise to Trace a Workflow Failure"
+    },
+    {
+      "id": "opp_79f36f0f-b51f-440b-9963-60952dd526fd",
+      "title": "n8n Release Notes 2.40: New Microsoft Dataverse Node Explained"
+    },
+    {
+      "id": "opp_c139af03-1667-40e4-8c55-5ba96fb455d0",
+      "title": "Tray.ai vs n8n for Enterprise Automation"
+    },
+    {
+      "id": "opp_0d30a5a8-9105-4dfb-b12a-5a9af9f0b86a",
+      "title": "n8n RAG tutorial: build a Google Drive assistant"
+    },
+    {
+      "id": "opp_1ea4488a-8954-46dc-8e67-100da44f9ccf",
+      "title": "n8n Limitations for Self-Hosted Teams: What Still Lands on Your Plate"
+    },
+    {
+      "id": "opp_22e16f23-8b5e-4bd8-982d-7039466aaeaf",
+      "title": "AI Agent Authorization in n8n: What to Check First"
+    },
+    {
+      "id": "opp_3ab5fd30-97d6-42bb-b99f-6cd730ce42a4",
+      "title": "n8n Community RBAC: A Manual Access-Control Checklist"
+    },
+    {
+      "id": "opp_5554729a-0e06-4cb4-b1f0-6883723c795e",
+      "title": "n8n Queue Mode for Hostinger VPS: An Exercise in Budget Deployment"
+    },
+    {
+      "id": "opp_55be9183-c53b-4033-9e7c-5e5d27d4c787",
+      "title": "Setting Up n8n User Management Before Your Team Outgrows Shared Logins"
+    },
+    {
+      "id": "opp_5cdd12d7-e637-4b6f-bf3d-c6347c47ca77",
+      "title": "n8n HIPAA Compliance: What a Self-Hosted Setup Actually Requires"
+    },
+    {
+      "id": "opp_5f13585f-5c55-46de-a25d-90841a76f099",
+      "title": "Exercise: Cloud Run vs Kubernetes (GKE) for a Practice n8n Instance"
+    },
+    {
+      "id": "opp_60be50b2-bcb3-47f1-ac44-79a01d30cd2a",
+      "title": "n8n Google Calendar: Check Availability Before You Book a Meeting"
+    },
+    {
+      "id": "opp_71af203f-f347-41ab-9201-e3a6230cc547",
+      "title": "n8n 2.42 Release Notes: Anthropic Node Prompt Caching"
+    },
+    {
+      "id": "opp_9a0a3f96-49d2-4460-adc1-53f9b94e824d",
+      "title": "The n8n Send-and-Wait Vulnerability: What the Advisory Says"
+    },
+    {
+      "id": "opp_9df92bd9-209d-4692-addd-0bd64a2a4e48",
+      "title": "n8n Examples That Teach You to Trace a Failure, Not Just List Nodes"
+    },
+    {
+      "id": "opp_cba91750-d2ea-4cd1-85ca-827a21805d87",
+      "title": "n8n Login Failures: What to Check Before SSO or LDAP"
+    },
+    {
+      "id": "opp_47b031ec-729f-4368-9ee2-3838b5e4daaf",
+      "title": "n8n Queue Mode Docker Compose Exercise: Prove a Worker Ran the Job"
+    },
+    {
+      "id": "opp_4f5bef90-7ae0-48ed-8153-34531fd6a0b0",
+      "title": "n8n Version Control for GitHub: A Hands-On Exercise"
+    },
+    {
+      "id": "opp_62b8daa8-b11c-46ab-8f9c-c66dea132dec",
+      "title": "Setting Up an n8n Staging Environment"
+    },
+    {
+      "id": "opp_696f947b-8d4e-4f30-b012-39bd7f21863b",
+      "title": "n8n Error Handling Best Practices: A Step-by-Step Tutorial"
+    },
+    {
+      "id": "opp_7b784ac2-871f-4f3c-bfda-15277a97bc4d",
+      "title": "n8n Current Version: When and How Should a Self-Hosted Team Upgrade?"
+    },
+    {
+      "id": "opp_86321a04-860b-4bf7-b3cf-8b318289ee3d",
+      "title": "n8n Vector Store for RAG Production: pgvector vs. Qdrant vs. Pinecone"
+    },
+    {
+      "id": "opp_b49abfe5-3a5d-4061-91ad-217e293a8ec0",
+      "title": "n8n Chat Trigger XSS: What the Advisory Says to Do Now"
+    },
+    {
+      "id": "opp_11205305-84fa-4710-9e4b-162283737995",
+      "title": "n8n 2.42 Release Features: Prompt Caching Leads the List"
+    },
+    {
+      "id": "opp_18de42c2-df6b-41c1-b4a1-36f421e8b44d",
+      "title": "n8n SSO Self-Hosted: Licensing and Setup Checklist"
+    },
+    {
+      "id": "opp_61a7314f-0fd1-4400-8890-7302e16d6ce8",
+      "title": "n8n Limitations on Reddit: What's True, Outdated or Misunderstood"
+    },
+    {
+      "id": "opp_8045e58f-f31e-48f0-9461-4ebe1a82eeb1",
+      "title": "n8n Queue Mode vs Normal Mode: When to Switch"
+    },
+    {
+      "id": "opp_80a42071-3e70-4314-8225-fd1e4ddf2c5f",
+      "title": "n8n SSO Login: Diagnose a Failing Setup Step by Step"
+    },
+    {
+      "id": "opp_a0e65bdf-e54b-439f-bff7-5243ac994918",
+      "title": "n8n Audit Trail Checklist: Verifying Your Audit Log Coverage"
+    },
+    {
+      "id": "opp_a22bb32d-ebd2-4f07-9321-55c105d2ba79",
+      "title": "n8n Security Vulnerabilities: Disclosure and Patch Track Record"
+    },
+    {
+      "id": "opp_e978ae7d-f763-4c78-b257-0a4fc28b2ca0",
+      "title": "n8n 2.43 Release Notes: Browser Use Now On for Everyone"
+    },
+    {
+      "id": "opp_506435aa-c57d-4d8a-843c-4d1d270739c6",
+      "title": "n8n AI Agents and Workflow Automation Training: A Checklist"
+    },
+    {
+      "id": "opp_78098b59-41f3-41c6-a938-9cdea17ff579",
+      "title": "n8n Queue Mode Not Working: A Troubleshooting Checklist"
+    },
+    {
+      "id": "opp_a811fe12-9563-4a5c-9aa7-12f1fb965d7c",
+      "title": "n8n vs Zapier vs Workato: Self-Hosting and Pricing Compared"
+    },
+    {
+      "id": "opp_9809c066-ffb9-4835-a9eb-09cf563e44ce",
+      "title": "The n8n OAuth Authorize Endpoint Vulnerability, Explained"
+    },
+    {
+      "id": "opp_9ed5c3ba-40e0-4563-a65e-0852948b4e1e",
+      "title": "n8n workflow best practices for teams: practice to production"
+    },
+    {
+      "id": "opp_fa0c9278-1a96-48fe-98ae-bd5f961acccd",
+      "title": "n8n version control workflows: Git vs exported JSON vs manual backups"
+    },
+    {
+      "id": "opp_4aac2783-4b09-479e-a053-0c7877899aa5",
+      "title": "n8n vs SAP Integration Suite: A Checklist for Orders and Invoices"
+    },
+    {
+      "id": "opp_6270b8b1-ad04-4a43-8033-605390e73e84",
+      "title": "n8n Webhook Authentication: Header, Basic or JWT"
+    },
+    {
+      "id": "opp_73bd3514-1284-48e9-a346-ad6a8fd98baf",
+      "title": "n8n vs Zapier pricing: cost of one migrated workflow"
+    },
+    {
+      "id": "opp_82e02b26-bd2e-4911-bd5f-7d6d07d6c6e8",
+      "title": "n8n Shared Workflow Credential Check Gap: Advisory GHSA-r6g9-5cpp-ppwr"
+    },
+    {
+      "id": "opp_a26bff6d-5355-4190-bf76-3682c4d58ed4",
+      "title": "n8n Pricing for India: Budgeting Cloud Plans vs Self-Hosting"
+    },
+    {
+      "id": "opp_3ec2c96d-05d2-489c-8eec-c078fd6386ca",
+      "title": "Searching n8n Use Cases on Reddit? A Review of Documented Patterns"
+    },
+    {
+      "id": "opp_edc851bb-5a42-4064-83e3-c2f858798449",
+      "title": "n8n workflow examples on GitHub: a team import review"
+    },
+    {
+      "id": "opp_1f0cea8d-ef76-4846-9d40-98d633521388",
+      "title": "n8n Execute Sub-workflow: Practise a Contact Contract"
+    },
+    {
+      "id": "opp_2a67dfad-d284-4dff-9b3b-6bce3adb6c9f",
+      "title": "n8n Backup and Restore: An Isolated Recovery Exercise"
+    },
+    {
+      "id": "opp_7aa694ea-1bee-4bc2-afac-10dd1a56e749",
+      "title": "n8n execution data retention: a self-hosted ops checklist"
+    },
+    {
+      "id": "opp_87bd8c80-96f7-49ac-aed4-a3e00882f2f5",
+      "title": "n8n RBAC: A Recurring Access Review Checklist"
+    },
+    {
+      "id": "opp_960aebb7-4eb9-49d0-9610-74abb0996424",
+      "title": "n8n binary data: download, preserve, upload and verify a file"
+    },
+    {
+      "id": "opp_ad810230-3bf5-4160-b42a-2b7220441891",
+      "title": "n8n Date Formatting: A Pre-Write Exercise"
+    },
+    {
+      "id": "opp_df1658ad-6deb-432a-ad1d-e2dbea4685dc",
+      "title": "n8n Load Testing: An Editorial Exercise to Find Provisional Capacity"
+    },
+    {
+      "id": "opp_f49eff47-0ebd-48fa-928d-c611e6fdcfdc",
+      "title": "n8n credential permission check: October 14 advisory and next steps"
+    },
+    {
+      "id": "opp_42b73df4-e99a-4736-ba20-5ac7258fb568",
+      "title": "n8n per-user credential theft: October 14 advisory and action"
+    },
+    {
+      "id": "opp_84143e9e-00b3-48fd-a846-79fc3288d3dd",
+      "title": "n8n pinned data: an exercise to reproduce and fix a mapping bug"
+    },
+    {
+      "id": "opp_94b9add9-3341-4e88-9a76-595a339b944c",
+      "title": "n8n API: Build a Workflow Inventory and Compare Local Snapshots"
+    },
+    {
+      "id": "opp_9daf3966-8f54-4a64-81f0-1678ad7ed381",
+      "title": "Flowise vs n8n: compare a document assistant before choosing"
+    },
+    {
+      "id": "opp_a9cb0c29-de5e-4cc2-95c0-a8aee2ad966b",
+      "title": "Zapier to n8n Migration: Validate Before Cutover"
+    },
+    {
+      "id": "opp_df5d06b2-714d-451a-8916-fbf655745d28",
+      "title": "n8n HTTP Request Node Exercise: Route Responses and Bound Polling"
+    },
+    {
+      "id": "opp_e6f97419-45b2-4076-99ab-31b22f41ceaa",
+      "title": "n8n CSV import: an exercise in validation and reconciliation"
+    },
+    {
+      "id": "opp_ef75e235-7339-4704-baf7-04a9861ea84c",
+      "title": "n8n 2.43 announcement: selected changes for teams"
+    },
+    {
+      "id": "opp_1ed33368-4e7c-4f60-b9a0-cb53f5188840",
+      "title": "SAP OData pagination in n8n: bound and reconcile Business One orders"
+    },
+    {
+      "id": "opp_221a733a-5016-483e-85c4-06466c4e49db",
+      "title": "API contract testing: an n8n exercise before a simulated write"
+    },
+    {
+      "id": "opp_282a2b09-dda8-4c83-ab7a-f140d7df533a",
+      "title": "n8n vs Dify: Compare One Internal AI Workflow Before Choosing"
+    },
+    {
+      "id": "opp_28a6770b-809d-449c-96da-eaad74aee15b",
+      "title": "n8n SAP Service Layer: classify order failures before another POST"
+    },
+    {
+      "id": "opp_64538453-c656-4696-a7af-618e80f3d3db",
+      "title": "n8n Expressions Exercise: Prepare Updates Without Losing Valid Values"
+    },
+    {
+      "id": "opp_c1acb763-0b94-4fd7-bbf8-518903fc2860",
+      "title": "n8n SAP OData Authentication: A Team Checklist"
+    },
+    {
+      "id": "opp_e17e5ca5-0912-4356-a9d3-7c9d8ca0af48",
+      "title": "n8n dead letter queue: an exercise in selective replay"
+    },
+    {
+      "id": "opp_ebfba396-a14b-4ad6-a8c6-ab0252a24439",
+      "title": "Chat Hub chat-only users: n8n’s October 14 security advisory"
+    },
+    {
+      "id": "opp_02e610fc-4657-48d8-97d2-c01c31229d66",
+      "title": "n8n SAP RFC: assess the HTTPS integration boundary"
+    },
+    {
+      "id": "opp_0e8d8264-b0c6-434d-a512-92584356f57f",
+      "title": "n8n Respond to Webhook: Exercise in Predictable JSON Responses"
+    },
+    {
+      "id": "opp_30fc70ff-d411-4b8b-916e-548a26735e06",
+      "title": "n8n RSS Feed Exercise: Build a Digest That Survives Repeat Runs"
+    },
+    {
+      "id": "opp_3623684a-e764-491c-aadf-ce5ea4ed3896",
+      "title": "n8n Worker Concurrency: A Repeatable Tuning and Rollback Guide"
+    },
+    {
+      "id": "opp_3dd23a09-1ea6-484d-bc67-f0e16e119a92",
+      "title": "n8n–Joule Studio: Supplier-Invoice Pilot Approval Checklist"
+    },
+    {
+      "id": "opp_48eb6ada-07eb-44cc-ab59-96b9845e2c8a",
+      "title": "n8n CSRF token handling: prepare a SAP Gateway sandbox write"
+    },
+    {
+      "id": "opp_b6b5e5da-8b68-40c7-9309-60c2e41709c7",
+      "title": "n8n OData filter injection: Outlook and SharePoint advisory"
+    },
+    {
+      "id": "opp_58e372eb-3f63-4a71-93ec-b219c809a09a",
+      "title": "n8n data validation: an exercise before company-record writes"
+    },
+    {
+      "id": "opp_830e5ebe-ed4b-481c-8331-0b301869c383",
+      "title": "SAP OData ETag handling: an editorial n8n exercise before retrying"
+    },
+    {
+      "id": "opp_888d4706-a258-4a12-9d12-cad594ee6f71",
+      "title": "n8n GraphQL exercise: gate a mutation behind complete query results"
+    },
+    {
+      "id": "opp_7a3c11f2-80c4-4cd9-a16f-48b049856df0",
+      "title": "n8n Aggregate node: build and inspect a team-update payload"
+    },
+    {
+      "id": "opp_c130be59-7dda-4bd6-be39-eaf85e05ce03",
+      "title": "n8n dry run: build a preview branch before enabling writes"
+    },
+    {
+      "id": "opp_d716b9ac-1d5f-4090-b264-527ace65062d",
+      "title": "n8n MCP not working? Checklist for discovery and calls"
+    },
+    {
+      "id": "opp_1d9d5707-042b-4269-b327-5a5232a6a338",
+      "title": "n8n network security: checks before restricting access"
+    },
+    {
+      "id": "opp_594988c7-ea06-46d1-b82d-9ba2cee7501a",
+      "title": "n8n PDF extraction: an editorial exercise in OCR and review"
+    },
+    {
+      "id": "opp_af053205-3be7-4ac3-aa96-02c1e3e45893",
+      "title": "n8n email attachments: practise saving and reconciling files"
+    },
+    {
+      "id": "opp_b4432a44-71d5-44c7-88bf-f13f429dac48",
+      "title": "n8n lookup table: an exercise in gating API payloads"
+    },
+    {
+      "id": "opp_d5e2ea15-97c2-44e7-b3ee-98faea875a7c",
+      "title": "n8n Agent Memory: An Editorial Exercise in Isolation and Recall"
+    },
+    {
+      "id": "opp_f6518a92-2e2f-4108-97d1-7cad4275ef07",
+      "title": "MCP integration testing checklist for n8n tools"
+    },
+    {
+      "id": "opp_36155b55-8284-4702-bfa6-d3aaec7384b5",
+      "title": "n8n Google Sheets: Match IDs and Update Designated Columns"
+    },
+    {
+      "id": "opp_6cafdbe6-d1b7-42bb-a77b-644c6da0909b",
+      "title": "n8n Expense Tracker: An Editorial Exercise in Capture and Review"
+    },
+    {
+      "id": "opp_f275ab72-42e3-40eb-8518-baee224cd01d",
+      "title": "n8n 2.45 announcement: changes and limits for teams"
+    },
+    {
+      "id": "opp_44b9c2b2-b1d2-44e5-b0c8-aa373765e936",
+      "title": "n8n OAuth Refresh Token: Google Setup and Troubleshooting"
+    },
+    {
+      "id": "opp_29ad0e7c-fe96-4f6e-9397-de9289af2e42",
+      "title": "SAP IDoc integration: n8n receipt and reconciliation components"
+    },
+    {
+      "id": "opp_334e89c7-c6c4-460f-9e8d-43218e70dc0e",
+      "title": "n8n Data Redaction: A Sensitive-Payload Visibility Checklist"
+    },
+    {
+      "id": "opp_a34b213f-9fe6-48ad-8314-eaf0093584e2",
+      "title": "n8n Monday.com node V2: what the 2.45 announcement changes"
+    },
+    {
+      "id": "opp_c5f56f7a-7d2e-47e3-95f2-2068b049f3ff",
+      "title": "n8n Private Nodes: Internal Distribution and Promotion Checklist"
+    },
+    {
+      "id": "opp_5496baec-8b8f-4901-a74b-1d8b8190a535",
+      "title": "n8n Compare Datasets: an editorial CRM reconciliation exercise"
+    },
+    {
+      "id": "opp_34bbbd28-2034-49ef-a65d-35b1679060f3",
+      "title": "n8n API Retry and Pagination: A Safe Setup Tutorial"
+    },
+    {
+      "id": "opp_e5c1941e-0d54-4dee-9968-2c6be02fd4b4",
+      "title": "API Versioning Best Practices for n8n: Test Upstream Changes"
+    },
+    {
+      "id": "opp_4e6f505a-7ff4-4b2e-a214-096115dbdbbf",
+      "title": "n8n 3.0 upgrade: what the announcement states and what to do now"
+    },
+    {
+      "id": "opp_952f11d9-457d-4324-a2c6-cae420d74877",
+      "title": "n8n 3.0 Announcement: Changes and What to Check Before Upgrading"
+    },
+    {
+      "id": "opp_34edf916-4282-4aba-a2d6-ab5ae32619c3",
+      "title": "HR Offboarding Automation in n8n: Approvals and Audit Trail"
+    },
+    {
+      "id": "opp_cd6b7a7e-e2d6-42e6-b947-292830b5138f",
+      "title": "SAP Approval Workflow in n8n: Design for S/4HANA Cloud Public Edition"
+    },
+    {
+      "id": "opp_cd47b6db-03c7-4431-9c3a-104ef51592f1",
+      "title": "SAP Order Status Sync in n8n: A Business One Mapping Exercise"
+    }
+  ]
+}

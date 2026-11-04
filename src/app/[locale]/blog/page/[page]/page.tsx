@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { BlogIndexPage } from "@/app/_components/blog-index-page";
-import { blogMetadata, pageCount, pageNumber, paginationLabels, posts } from "@/lib/blog";
+import { blogMetadata, pageCount, pageNumber, paginationLabels, listedPosts } from "@/lib/blog";
 import { isLocale, locales } from "@/lib/home-copy";
 import { listingPageMetadata, localizedPath } from "@/lib/site-metadata";
 
@@ -9,7 +9,7 @@ export const dynamicParams = false;
 
 type Props = { params: Promise<{ locale: string; page: string }> };
 
-const blogPageCount = (locale: string) => pageCount(posts().filter((post) => post.locale === locale).length);
+const blogPageCount = (locale: string) => pageCount(listedPosts().filter((post) => post.locale === locale).length);
 
 // The first page lives at /blog, so this generates pages 2 and up. A static export rejects a route that
 // generates nothing, which is what a blog of one page would do, so then it gets page 1 as a stand-in: a copy

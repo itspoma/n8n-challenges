@@ -1,4 +1,4 @@
-import { isoDateLabel, posts, publishedTime, type Post } from "@/lib/blog";
+import { isoDateLabel, listedPosts, publishedTime, type Post } from "@/lib/blog";
 import { locales, type Locale } from "@/lib/home-copy";
 import { absoluteUrl } from "@/lib/site-metadata";
 
@@ -24,7 +24,7 @@ function articleDates(post: Post) {
 }
 
 function articleSection(locale: Locale) {
-  const links = posts()
+  const links = listedPosts()
     .filter((post) => post.locale === locale)
     .map(
       (post) =>

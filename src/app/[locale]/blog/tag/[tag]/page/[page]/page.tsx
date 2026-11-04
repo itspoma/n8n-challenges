@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { BlogTagPage } from "@/app/_components/blog-tag-page";
-import { blogTags, findBlogTag, pageCount, pageNumber, paginationLabels, posts, tagPath, tagPosts, tagSlug } from "@/lib/blog";
+import { blogTags, findBlogTag, pageCount, pageNumber, paginationLabels, listedPosts, tagPath, tagPosts, tagSlug } from "@/lib/blog";
 import { isLocale } from "@/lib/home-copy";
 import { listingPageMetadata } from "@/lib/site-metadata";
 
@@ -9,7 +9,7 @@ type Props = { params: Promise<{ locale: string; tag: string; page: string }> };
 // The first page lives at the tag's own URL, so this generates pages 2 and up. When no tag has a second page,
 // page 1 of the first tag stands in, as the blog's page route explains.
 export function generateStaticParams() {
-  const all = posts();
+  const all = listedPosts();
   const tags = blogTags();
   const params = tags.flatMap(({ locale, tag }) =>
     Array.from({ length: pageCount(tagPosts(locale, tag, all).length) - 1 }, (_, index) => ({

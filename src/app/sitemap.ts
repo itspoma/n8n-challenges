@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { posts, type Post } from "@/lib/blog";
+import { listedPosts, type Post } from "@/lib/blog";
 import { challengeFileName, challenges } from "@/lib/challenges";
 import { lastCommitTime } from "@/lib/content-dates";
 import { locales } from "@/lib/home-copy";
@@ -32,7 +32,7 @@ const pageSources = {
   "/about": ["src/lib/about.ts", "src/lib/people.ts", "src/app/[locale]/about/page.tsx"],
 };
 
-// posts() lists the newest publication first, so a listing's date changes when an article is added.
+// listedPosts() lists the newest publication first, so a listing's date changes when an article is added.
 function newestPublication(items: Post[]) {
   const [newest] = items;
   return newest ? newest.publishedAt ?? newest.date : undefined;
@@ -40,7 +40,7 @@ function newestPublication(items: Post[]) {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Only the English blog is offered to search engines (BLOG_SEARCH_LOCALE).
-  const blogPosts = posts().filter((post) => post.locale === BLOG_SEARCH_LOCALE);
+  const blogPosts = listedPosts().filter((post) => post.locale === BLOG_SEARCH_LOCALE);
   const sections: Array<{ suffix: string; lastModified: () => string | undefined }> = [
     ...Object.entries(pageSources).map(([suffix, files]) => ({
       suffix,

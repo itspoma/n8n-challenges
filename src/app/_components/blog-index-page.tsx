@@ -2,12 +2,12 @@ import { BlogPagination } from "@/app/_components/blog-pagination";
 import { BlogPostList } from "@/app/_components/blog-post-list";
 import { FooterMeta } from "@/app/_components/footer-meta";
 import { SiteHeader } from "@/app/_components/site-header";
-import { blogLabels, emptyLabels, pageCount, posts, postsOnPage } from "@/lib/blog";
+import { blogLabels, emptyLabels, pageCount, listedPosts, postsOnPage } from "@/lib/blog";
 import type { Locale } from "@/lib/home-copy";
 
 /** One page of a language's blog: the first at /blog, later ones at /blog/page/<n>. */
 export function BlogIndexPage({ locale, page }: { locale: Locale; page: number }) {
-  const items = posts().filter((post) => post.locale === locale);
+  const items = listedPosts().filter((post) => post.locale === locale);
 
   return (
     <main>

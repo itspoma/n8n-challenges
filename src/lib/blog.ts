@@ -6,6 +6,7 @@ import publicationHistory from "../../content/blog/publication-history.json";
 import { execFileSync } from "node:child_process";
 
 import { articleBackfill } from "./blog-backfill";
+import { hiddenPostIds } from "./blog-cleanup";
 import { isShallowRepository } from "./content-dates";
 import { locales, type Locale } from "./home-copy";
 
@@ -113,6 +114,9 @@ export type Post = {
   tags: string[];
   revision: string;
   body: string;
+  // Taken out of search (content/blog-cleanup.json): the page stays and says noindex, and the
+  // article leaves every list (listedPosts()).
+  hidden: boolean;
 };
 
 export const blogLabels = {
@@ -152,10 +156,19 @@ export const paginationLabels = {
 // 20 ms a read; `next dev` reads them again on each call, so edits show up.
 let builtPosts: Post[] | undefined;
 
+/** Every article, hidden ones included: each has its own page. */
 export function posts(): Post[] {
   if (process.env.NODE_ENV !== "production") return readPosts();
   builtPosts ??= readPosts();
   return [...builtPosts];
+}
+
+/**
+ * The articles the blog shows, newest first: every list, tag page, feed, the sitemap, llms.txt and
+ * the related-reading cards. Articles that content/blog-cleanup.json hides are left out.
+ */
+export function listedPosts(): Post[] {
+  return posts().filter((post) => !post.hidden);
 }
 
 function readPosts(): Post[] {
@@ -266,8 +279,15 @@ function readPosts(): Post[] {
             ? updatedAt
             : undefined,
         body: frontMatterMatch[2],
+        hidden: hiddenPostIds.has(metadata.id),
       });
     }
+  }
+
+  // A mistyped id would silently hide nothing, so the build stops instead.
+  const unknownHidden = [...hiddenPostIds].filter((id) => !result.some((post) => post.id === id));
+  if (unknownHidden.length) {
+    throw new Error(`content/blog-cleanup.json hides articles that do not exist: ${unknownHidden.join(", ")}`);
   }
 
   const routes = new Set<string>();
@@ -317,7 +337,7 @@ export function blogFeedPath(locale: Locale) {
 
 export function blogTags() {
   const tags = new Map<string, { locale: Locale; tag: string; label: string }>();
-  for (const post of posts()) {
+  for (const post of listedPosts()) {
     for (const label of post.tags) {
       const tag = normalizeTag(label);
       if (tag) tags.set(`${post.locale}:${tag}`, { locale: post.locale, tag, label });
@@ -332,7 +352,7 @@ export function findBlogTag(locale: string, slug: string) {
 }
 
 /** Articles in `locale` that carry `tag`, newest first. Pass `all` when the caller has read the articles already. */
-export function tagPosts(locale: Locale, tag: string, all = posts()) {
+export function tagPosts(locale: Locale, tag: string, all = listedPosts()) {
   return all.filter((post) => post.locale === locale && post.tags.some((value) => normalizeTag(value) === tag));
 }
 
@@ -396,7 +416,7 @@ export function isoDateLabel(timestamp: string) {
  * almost nothing. Articles whose path is in `linked` come after the others.
  */
 export function relatedPosts(post: Post, linked: ReadonlySet<string> = new Set(), limit = 3) {
-  const candidates = posts().filter((other) => other.locale === post.locale);
+  const candidates = listedPosts().filter((other) => other.locale === post.locale);
   const frequency = new Map<string, number>();
   for (const other of candidates) {
     for (const tag of new Set(other.tags.map(normalizeTag))) frequency.set(tag, (frequency.get(tag) ?? 0) + 1);

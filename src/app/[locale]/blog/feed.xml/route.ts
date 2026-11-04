@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { blogFeedPath, blogMetadata, posts, type Post } from "@/lib/blog";
+import { blogFeedPath, blogMetadata, listedPosts, type Post } from "@/lib/blog";
 import { socialImage } from "@/lib/blog-images";
 import { isLocale, locales } from "@/lib/home-copy";
 import { absoluteUrl, SITE_AUTHOR, SITE_NAME } from "@/lib/site-metadata";
@@ -78,7 +78,7 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const items = posts()
+  const items = listedPosts()
     .filter((post) => post.locale === locale)
     .slice(0, maxItems);
   // Date the channel by its newest content change, not the build, so rebuilds produce the same feed.

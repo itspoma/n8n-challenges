@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { BlogIndexPage } from "@/app/_components/blog-index-page";
-import { blogMetadata, pageCount, posts } from "@/lib/blog";
+import { blogMetadata, pageCount, listedPosts } from "@/lib/blog";
 import { locales, isLocale } from "@/lib/home-copy";
 import {
   BLOG_SEARCH_LOCALE,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: BlogPageProps) {
     pagination: paginationLinks(
       localizedPath(locale, "/blog"),
       1,
-      pageCount(posts().filter((post) => post.locale === locale).length),
+      pageCount(listedPosts().filter((post) => post.locale === locale).length),
     ),
   };
 }
